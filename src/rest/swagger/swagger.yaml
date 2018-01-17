@@ -1,0 +1,313 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: SEOgenie Swagger
+  description: >-
+    SEOgenie REST Specification Edit or GenerateBakend at
+    https://editor.swagger.io
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    name: seogenie API Team
+  license:
+    name: Private
+host: locahost
+basePath: /api
+schemes:
+  - https
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /pages:
+    get:
+      description: Returns pages from the system that the user has access to
+      operationId: getPages
+      summary: Get pages for User's Site
+      produces:
+        - application/json
+      parameters:
+        - name: siteId
+          in: query
+          description: Site Id of needed site
+          required: true
+          type: string
+      responses:
+        '200':
+          description: A list of pages.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/page'
+  /account/login:
+    post:
+      description: Login to the System
+      summary: Login to SEOgenie System
+      parameters:
+        - in: body
+          name: body
+          description: Login Data
+          required: true
+          schema:
+            $ref: '#/definitions/loginData'
+      responses:
+        '200':
+          description: Login Successfull
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /users:
+    get:
+      description: Returns all System users
+      operationId: getUsers
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: User info
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/user'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  '/users/userInfo/{id}':
+    get:
+      description: Returns user basic info
+      operationId: getUserInfoById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: User id to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Succesffully retrieved user info
+          schema:
+            $ref: '#/definitions/user'
+        '400':
+          description: Invalid user Id supplied
+        '404':
+          description: No User with provided Id was found.
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /sites:
+    get:
+      description: Returns authenticated user's Sites
+      operationId: getSites
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Succesffully retrieved users sites
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/site'
+        '400':
+          description: No sites found.
+        '404':
+          description: No Sites Found.
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /sites/checkSite:
+    get:
+      description: Verify Site availability
+      operationId: checkSite
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Site or page exist & returns proper response
+          schema:
+            $ref: '#/definitions/apiResponse'
+        '400':
+          description: No sites found.
+        '404':
+          description: No Sites Found.
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  '/sites/{userId}':
+    get:
+      description: Returns users Sites
+      operationId: getUserSites
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          in: path
+          description: User id to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Succesffully retrieved users sites
+          schema:
+            $ref: '#/definitions/site'
+        '400':
+          description: Invalid user Id supplied
+        '404':
+          description: No User with provided Id was found.
+  /sites/addNew:
+    post:
+      description: Add new Site to the System
+      summary: Add Customer's Site to the System
+      parameters:
+        - in: body
+          name: body
+          description: Site sata
+          required: true
+          schema:
+            $ref: '#/definitions/jsonObject'
+      responses:
+        '200':
+          description: Login Successfull
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  '/keywords/{siteId}':
+    get:
+      description: Returns keywords associated with user's Site
+      operationId: getKeywords
+      produces:
+        - application/json
+      parameters:
+        - name: siteId
+          in: path
+          description: Id of site
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Success. Retrieved keywords for Site
+          schema:
+            $ref: '#/definitions/keyword'
+        '400':
+          description: Invalid site Id supplied
+        '404':
+          description: No keywords found for provided site id.
+definitions:
+  page:
+    type: object
+    required:
+      - siteId
+      - pageId
+      - urls
+    properties:
+      siteId:
+        type: string
+      pageId:
+        type: string
+      name:
+        type: string
+      isDeleted:
+        type: boolean
+      isPromoted:
+        type: boolean
+      isAutoKeywords:
+        type: boolean
+      collectionName:
+        type: string
+      urls:
+        type: array
+        items:
+          $ref: '#/definitions/url'
+  url:
+    type: string
+  user:
+    type: object
+    required:
+      - id
+      - email
+      - firstName
+      - lastName
+    properties:
+      id:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+  site:
+    type: object
+    required:
+      - userId
+      - url
+      - name
+    properties:
+      userId:
+        type: string
+      url:
+        type: string
+      name:
+        type: string
+  keyword:
+    type: object
+    required:
+      - id
+      - text
+      - type
+    properties:
+      id:
+        type: string
+      text:
+        type: string
+      type:
+        type: string
+  loginData:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+  error:
+    type: object
+    required:
+      - message
+    properties:
+      code:
+        type: integer
+        format: int64
+      message:
+        type: string
+      fields:
+        type: array
+        items:
+          type: string
+  apiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+  jsonObject:
+    type: string

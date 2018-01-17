@@ -1,0 +1,36 @@
+h3 Chart JS
+
+.container-fluid.container-md(ng-controller='ChartJSController as chart')
+  .row.mb-lg
+    .col-lg-6
+      h3.mb-lg.pv Line Chart
+      div
+        canvas#line.chart.chart-line(chart-data='chart.lineData' chart-labels='chart.lineLabels' chart-series='chart.lineSeries' chart-options='chart.lineOptions' chart-dataset-override='chart.lineDatasetOverride' chart-click='chart.lineOnClick' chart-colors='chart.lineColors')
+
+    .col-lg-6
+      h3.mb-lg.pv Bar Chart
+      div
+        canvas#bar.chart.chart-bar(chart-data='chart.barData' chart-labels='chart.barLabels' chart-series='chart.barSeries' chart-colors='chart.barColors' chart-options='chart.barOptions')
+  .row.mb-lg
+    .col-lg-6
+      h3.mb-lg.pv Polar Area Chart
+      div
+        canvas#polar-area.chart.chart-polar-area(chart-data='chart.polarData' chart-labels='chart.polarLabels' chart-options='chart.polarOptions' chart-colors='chart.polarColors')
+
+    .col-lg-6
+      h3.mb-lg.pv Radar Chart
+      div
+        canvas#radar.chart.chart-radar(chart-data='chart.radarData' chart-options='chart.radarOptions' chart-labels='chart.radarLabels' chart-colors='chart.radarColors')
+
+  .row.mb-lg
+    .col-lg-6
+      h3.mb-lg.pv Pie Chart
+      div
+        canvas#pie.chart.chart-pie(chart-data='chart.pieData' chart-labels='chart.pieLabels' chart-colors='chart.pieColors')
+
+    .col-lg-6
+      h3.mb-lg.pv Doughnut Chart
+      div
+        canvas#doughnut.chart.chart-doughnut(chart-data='chart.douData' chart-labels='chart.douLabels' chart-colors='chart.douColors')
+
+

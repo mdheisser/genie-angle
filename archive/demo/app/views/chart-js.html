@@ -1,0 +1,46 @@
+<h3>Chart JS</h3>
+<div class="container-fluid container-md" ng-controller="ChartJSController as chart">
+   <div class="row mb-lg">
+      <div class="col-lg-6">
+         <h3 class="mb-lg pv">Line Chart</h3>
+         <div>
+            <canvas class="chart chart-line" id="line" chart-data="chart.lineData" chart-labels="chart.lineLabels" chart-series="chart.lineSeries" chart-options="chart.lineOptions" chart-dataset-override="chart.lineDatasetOverride" chart-click="chart.lineOnClick"
+            chart-colors="chart.lineColors"></canvas>
+         </div>
+      </div>
+      <div class="col-lg-6">
+         <h3 class="mb-lg pv">Bar Chart</h3>
+         <div>
+            <canvas class="chart chart-bar" id="bar" chart-data="chart.barData" chart-labels="chart.barLabels" chart-series="chart.barSeries" chart-colors="chart.barColors" chart-options="chart.barOptions"></canvas>
+         </div>
+      </div>
+   </div>
+   <div class="row mb-lg">
+      <div class="col-lg-6">
+         <h3 class="mb-lg pv">Polar Area Chart</h3>
+         <div>
+            <canvas class="chart chart-polar-area" id="polar-area" chart-data="chart.polarData" chart-labels="chart.polarLabels" chart-options="chart.polarOptions" chart-colors="chart.polarColors"></canvas>
+         </div>
+      </div>
+      <div class="col-lg-6">
+         <h3 class="mb-lg pv">Radar Chart</h3>
+         <div>
+            <canvas class="chart chart-radar" id="radar" chart-data="chart.radarData" chart-options="chart.radarOptions" chart-labels="chart.radarLabels" chart-colors="chart.radarColors"></canvas>
+         </div>
+      </div>
+   </div>
+   <div class="row mb-lg">
+      <div class="col-lg-6">
+         <h3 class="mb-lg pv">Pie Chart</h3>
+         <div>
+            <canvas class="chart chart-pie" id="pie" chart-data="chart.pieData" chart-labels="chart.pieLabels" chart-colors="chart.pieColors"></canvas>
+         </div>
+      </div>
+      <div class="col-lg-6">
+         <h3 class="mb-lg pv">Doughnut Chart</h3>
+         <div>
+            <canvas class="chart chart-doughnut" id="doughnut" chart-data="chart.douData" chart-labels="chart.douLabels" chart-colors="chart.douColors"></canvas>
+         </div>
+      </div>
+   </div>
+</div>

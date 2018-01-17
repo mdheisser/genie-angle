@@ -1,0 +1,59 @@
+﻿div(class="modal-header")
+	button(type="button", class="close", data-dismiss="modal", aria-label="Close", ng-click="cancelAddKeywords()")
+		span(aria-hidden="true")
+		| &times;
+	h4(class="modal-title")
+	| Add keywords to:&nbsp;
+	a(href='')| {{currentSite.name}}
+
+	div(layout="row center" layout-xs="column")
+		div(flex='60', class='keywords-column')
+			label(for="add-keywords") Add keywords in separate lines.
+				md-input
+					textarea(class="form-control", id='add-keywords', rows='10' cols='50', ng-model='keywordsInputText', ng-change='getKeywordsFromText()', ng-model-options='{ debounce: 1000 }')
+			md-button(class="md-default pull-right", ng-click='clearInput()')
+				i(class="material-icons clear")
+					| clear
+				div
+					|Clear
+
+			p
+				| Pressing enter create a new line, each keyword/phrase can contain multiple words. You may also add Keywords separated by comma, in the Free Text Mode.
+		div(flex='50', class='keywords-info-column')
+			p(class='text-underline')
+				| Package Utilization Limits:
+			p
+				| Promotion: 
+				span(class='text-bold')
+					| {{promotion}} 
+				|&nbsp;out of 
+				span(class='text-bold')
+					| {{totalPromotion}}
+			p
+				| Monitoring: 
+				span(class='text-bold')
+					| {{monitoring}} 
+				|&nbsp;out of 
+				span(class='text-bold')
+					| {{totalMonitoring}}
+			p
+				a(href='', ng-click='upgradePackage()')
+					| Upgrade Package
+
+			md-radio-group(ng-model="enteringMode")
+				md-radio-button(ng-repeat="mode in enterModes", ng-value="mode.value", aria-label="{{ mode.label }}")
+					| {{ mode.label }}
+
+			md-checkbox(ng-model="isMonitor" aria-label="Monitor")
+				| Monitor
+			md-checkbox(md-no-ink='', ng-model="isPromote" aria-label="Promote")
+				| Promote
+			md-checkbox(ng-model="processImmediately" aria-label="Process Immediately")
+				| Process Immediately
+
+div(class="modal-footer")
+	button(type="button", class="btn btn-primary ok-button btn-dialog", ng-class="{'disabled': isEmptyKeywordsInput() }", ng-disabled="isEmptyKeywordsInput()", ng-click='addKeywords()')
+		| Add
+	button(type="button", class="btn btn-default, cancel-button btn-dialog", ng-click="cancelAddKeywords()")
+		| Close
+

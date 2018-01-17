@@ -1,0 +1,51 @@
+{
+  "name": "angle",
+  "version": "0.0.0",
+  "description": "Angle - Bootstrap Admin App + AngularJS",
+  "author": "@themicon_co",
+  "devDependencies": {
+    "bower-npm-resolver": "0.7.0",
+    "browser-sync": "2.18.8",
+    "del": "2.2.2",
+    "express": "4.15.2",
+    "gulp": "3.9.1",
+    "gulp-angular-htmlify": "2.3.0",
+    "gulp-angular-templatecache": "2.0.0",
+    "gulp-changed": "2.0.0",
+    "gulp-concat": "2.6.1",
+    "gulp-css-flip": "0.4.0",
+    "gulp-cssnano": "2.1.2",
+    "gulp-expect-file": "0.0.7",
+    "gulp-filter": "5.0.0",
+    "gulp-html-prettify": "0.0.1",
+    "gulp-if": "2.0.2",
+    "gulp-ignore": "2.0.2",
+    "gulp-inject": "4.2.0",
+    "gulp-jshint": "2.0.4",
+    "gulp-jsvalidate": "3.0.0",
+    "gulp-less": "3.3.0",
+    "gulp-load-plugins": "1.5.0",
+    "gulp-ng-annotate": "2.0.0",
+    "gulp-protractor": "4.1.0",
+    "gulp-pug": "3.3.0",
+    "gulp-rename": "1.2.2",
+    "gulp-rtlcss": "1.0.0",
+    "gulp-sass": "3.1.0",
+    "gulp-sourcemaps": "2.5.1",
+    "gulp-sync": "0.1.4",
+    "gulp-uglify": "2.1.2",
+    "gulp-util": "3.0.8",
+    "jshint-stylish": "2.2.1",
+    "marked": "0.3.6",
+    "through2": "2.0.3",
+    "yargs": "7.0.2"
+  },
+  "scripts": {
+    "prestart": "bower install",
+    "start": "npm install",
+    "poststart": "gulp"
+  },
+  "dependencies": {
+    "angular-chartist.js": "4.3.1"
+  }
+}

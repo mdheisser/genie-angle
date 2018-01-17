@@ -1,0 +1,77 @@
+﻿
+.form-group.row.row-fluid
+	.col-md-1.col-sm-2(id='primary-lang-label')
+		div(class='text-bold') Primary Language:
+	#lang-select.col-md-4.col-sm-8
+		ui-select.text-left(name='langs', ui-required = 'true', ng-model='vm.languages.selected', theme='bootstrap', on-select='vm.setPrimaryLanguage($item)', reset-search-input='true', append-to-body='true')
+			ui-select-match(placeholder='Select or search a language in the list...')
+				span(ng-bind-html='$select.selected.languageCode', class="text-uppercase text-muted")
+				span.select-text {{ $select.selected.name }}
+			ui-select-choices(repeat='lang in vm.languages | filter: $select.search', refresh-delay='0')
+				span(ng-bind-html='lang.languageCode | highlight: $select.search', class="text-uppercase text-muted")
+				span(ng-bind-html='lang.name | highlight: $select.search')
+		div.text-danger(ng-show="generalStepForm.langs.$dirty && generalStepForm.langs.$error.required", class='invalid') This field is required
+	i(class="material-icons help-icon", uib-popover="Please select the main language of your website. This parameter will be used to improve pour analysis of your website text.", popover-animation="true", popover-placement="right", popover-trigger="'mouseenter'") help_outline
+	
+.form-group.row.row-fluid
+	.col-md-1.col-sm-2(id='country-label')
+		div(class='text-bold') Country: 
+	#country-select.col-md-4.col-sm-8
+		ui-select.text-left(ng-model='vm.country.selected', theme='bootstrap', ng-disabled='vm.country.disabled', on-select='vm.setCountry($item)')
+			ui-select-match(placeholder='No specific country...') 
+				div(class="flag-icon {{vm.getCountryCode($select.selected.Code)}} fm ")
+				div {{ $select.selected.Name }}
+			ui-select-choices(repeat='country in vm.countries | filter: $select.search')
+				div(class="flag-icon {{vm.getCountryCode(country.Code)}} fm ")
+				div(ng-bind-html='country.Name | highlight: $select.search')
+	i(class="material-icons help-icon", uib-popover="Please select the country of your primary organization or residence. Please enter a valid entry since this choice may influence some of our analysis, and billing functions, such as VAT.", popover-animation="true", popover-placement="right", popover-trigger="'mouseenter'") help_outline
+
+
+.form-group.row.row-fluid
+	.col-md-1.col-sm-2(id='country-label')
+		div(class='text-bold') Site type: 
+	#country-select.col-md-4.col-sm-8
+		ui-select.text-left(ng-model='vm.siteType.selected', theme='bootstrap', ng-disabled='vm.siteType.disabled', on-select='vm.setSiteType($item)', append-to-body='true')
+			ui-select-match(placeholder='No Specific') {{ $select.selected.name }}
+			ui-select-choices(repeat='siteType in vm.siteTypes | filter: $select.search')
+				span(ng-bind-html='siteType.name | highlight: $select.search')
+	i(class="material-icons help-icon", uib-popover="Please select the most suitable website category from the dropdown list that best describes your website. If you are unsure, select Other. ", popover-animation="true", popover-placement="right", popover-trigger="'mouseenter'") help_outline
+
+.form-group.row.row-fluid
+	#monitored-se-label.col-md-1.col-sm-4
+		span(class='text-bold') Monitored Search Engines: 
+	.col-md-4.col-sm-6
+		div(ng-repeat='se in vm.seViews track by $index')
+			.row(ng-if='se.viewMode', class='mb-sm')
+				.col-md-8.col-sm-6
+					span(class="text-bold")
+					i(class="{{se.engine.icon}}")
+					span {{se.engine.name}}{{ se.engine.domains.selected.Name }} 
+				.col-md-4.col-sm-6
+					button(class='btn btn-default btn-icon', ng-click="vm.changeSEMode(se)",  uib-tooltip="Change")
+						i(class="material-icons change-icon") mode_edit
+
+			.row(ng-if='se.editMode')
+				.col-md-4.col-sm-4
+					ui-select.text-left(ng-model='se.engines.selected', theme='bootstrap', ng-disabled='se.engines.disabled', append-to-body = true, ng-change="vm.getDomains(se.engines.selected)" )
+						ui-select-match 
+							i(class='{{$select.selected.icon}}')
+							span.text-bold {{ $select.selected.name }}
+						ui-select-choices(repeat='engine in se.engines | filter: $select.search')
+							i(class='{{engine.icon}}')
+							span.text-bold.select-text(ng-bind-html='engine.name | highlight: $select.search')
+				.col-md-5.col-sm-4
+					ui-select.text-left(ng-model='se.engines.selected.domains.selected', theme='bootstrap', append-to-body='true')
+						ui-select-match 
+							span.select-text {{ $select.selected.Name }}
+						ui-select-choices(repeat='domain in se.engines.selected.domains | filter: $select.search')
+							div(ng-bind-html='domain.Name | highlight: $select.search', class='select-text')
+
+				.col-md-3.col-sm-6
+					.row
+						button(class='btn btn-default btn-icon', ng-click="vm.saveSearchEngine(se, se.engines.selected, se.engines.selected.domains.selected)")
+							i(class="material-icons save-icon") save
+						button(class='btn btn-default btn-icon', ng-click="vm.cancelSearchEngine(se)")
+							i(class="material-icons cancel-icon") cancel
+						i(class="material-icons help-icon inline fix", uib-popover="Default search engines locations for generating your SERP Ranking statistics", popover-animation="true", popover-placement="right", popover-trigger="'mouseenter'") help_outline
+	i(class="material-icons help-icon inline", uib-popover="The selected search engines below will be used to measure your SERP ranking positions. Please ensure they correspond with your target markets.", popover-animation="true", popover-placement="right", popover-trigger="'mouseenter'") help_outline

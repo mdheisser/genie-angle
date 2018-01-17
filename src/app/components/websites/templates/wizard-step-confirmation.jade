@@ -1,0 +1,68 @@
+﻿md-step(label="Confirmation", md-complete="vm.stepData[2].data.completed", ng-disabled="vm.stepProgress < 3")
+	md-step-body
+		form(name="confirmationStepForm")
+			md-content(class="md-padding")
+				div(layout="column", flex="grow", layout-align="left left")
+					div(class="alert alert-success", ng-show='vm.showSuccess')
+						| Site was successfully added to the System. 
+						a(class="alert-link", href=" ")
+
+					h4  Selected Keywords/Phrases
+					
+					div.no-data(ng-if='vm.stepData[1].data.keywords.length == 0')
+						div(class='alert alert-info') No Keywords
+
+					div.table.table-responsive.table-condensed(ng-show="vm.stepData[1].data.keywords.length > 0", id="selected-keywords-table")
+						table(class="table table-striped table-bordered table-hover")
+							table(class="table table-striped table-bordered table-hover")
+								colgroup
+									col(class="col-md-1")
+									col(class="col-md-1")
+									col(class="col-md-2")
+								tbody
+									tr(ng-repeat="keywordEntry in vm.stepData[1].data.keywords track by $index")
+										td(class='text-center fit')
+											| {{$index}}
+										td(class='text-center fit')
+											i(class="material-icons check-ok") check_circle
+										td.fit {{keywordEntry}}
+										td(class='center fit')
+											md-button.btn.btn-default.md-default.md-raised(ng-click='vm.removeKeyword(vm.stepData[1].data.keywords, $index)')
+												i(class="fa fa-trash fm mt-sm")
+												div Delete
+
+					div(class="mb")
+						i(class="material-icons check-ok") check_circle
+						span(class='align-sup') Keyword will be added and activated for SEO Promotion or SERP Monitoring
+
+					div(class="mb")
+						i(class="material-icons exclamation-icon") error_outline
+						span(class="align-sup") Keyword will be added but, 
+						span(class="text-bold align-sup") won't 
+						span(class='align-sup') be activated for SEO Promotion nor SERP Monitoring. You may upgrade you package at a later stage and reactive these keywords.
+
+					h5.text-bold Setup Options
+
+					div(class="mb")
+						label(class="mda-checkbox")
+							input(type="checkbox", ng-model='vm.generateReportNow')
+							em.bg-blue-500
+							| Generate SERP Statistics report now.
+						i(class="material-icons help-icon", uib-popover="Generate SERP; Select this option if you want to generate your keywords SERP (Search Engine Ranking Position) report now. You can always run this report at a later date.", popover-animation="true", popover-placement="right", popover-trigger="'mouseenter'") help_outline
+
+					div(class="mb continue-installing")
+						label(class="mda-checkbox")
+							input(type="checkbox", ng-model='vm.installPlugin')
+							em.bg-blue-500
+							| Continue to installing the SEOplug-in on this website.
+						i(class="material-icons help-icon", uib-popover="By marking the tickbox, you will be prompted to continue installing the SEOgenie Plugin immediately after the setup is completed.", popover-animation="true", popover-placement="right", popover-trigger="'mouseenter'") help_outline
+						
+
+					p The Plug-in installation requires you to have your FTP Username and Password available to authorize the installation.  If you do not have these details, we suggest that you leave the tick box unmarked and install the plug-in at a later stage.
+			md-step-actions(layout="row")
+				div(flex='')
+					md-button(ng-click="vm.moveToPreviousStep()")
+						| PREVIOUS
+
+				div(flex='', layout="row", layout-align="end top")
+					md-button(ng-disabled="vm.showBusyText", ng-click="vm.submitCurrentStep(vm.stepData[2].data, false, confirmationStepForm)", class="md-primary md-raised") FINISH 

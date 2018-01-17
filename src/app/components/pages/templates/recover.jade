@@ -1,0 +1,11 @@
+p.text-center.pv Reset password for 
+	img(src="/app/img/logo.png", alt="")
+form(role='form', name="recoverForm")
+	p.text-justify Fill your mail to receive instructions on how to reset your password.
+		.form-group.has-feedback
+			input#Email.mb-lg.form-control(type='email', name="account_email" placeholder='Enter email', autocomplete="on", ng-model="login.account.email", validator="required,email")
+			span.fa.fa-envelope.form-control-feedback.text-muted
+button.btn.btn-danger.btn-block(type='submit',validation-submit="reg.registerForm") RESET
+
+p.pt-xl.text-center Remember your password?
+		a(ui-sref="page.auth.login").mt.mb-sm.btn-block.btn-lg.btn.btn-primary.btn-outline Login

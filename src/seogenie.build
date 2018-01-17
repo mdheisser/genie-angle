@@ -1,0 +1,3 @@
+﻿npm install
+yarn install
+gulp build
