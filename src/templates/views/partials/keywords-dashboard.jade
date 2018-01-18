@@ -1,0 +1,10 @@
+.panel.panel-default.panel-dark(ng-controller='dashboardController as dac')
+    .panel-heading
+        .panel-title Keywords Dashboard for Site:
+            ui-select.text-left(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
+                ui-select-match(placeholder='') {{ $select.selected.name }}
+                ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')
+                    div(ng-bind-html='site.name | highlight: $select.search')
+        paneltool(tool-collapse, tool-dismiss)
+    .panel-body
+    .panel-footer
