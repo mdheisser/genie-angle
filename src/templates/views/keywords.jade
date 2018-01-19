@@ -1,9 +1,10 @@
 h3.content-heading
     | Keywords Dashboard
     small Generic info about keywords of your site.
-.accordion-wrapper(ng-controller='accordionController as acc')
-    .row
-        .accordion-item.shadow-z2(ng-repeat='item in acc.panels', ng-class="{true:'col-md-11 width-up', false:'col-md-1 width-down'}[item.selected]")
-            .collapsed-body.text-center(ng-if='!item.selected', ng-click='acc.leaveCollapse(item.id)')
-                i.fa.fa-plus
-            .item-body(ng-if='item.selected' ng-include="item.view")
+side-accordion
+    side-accordion-item
+        p | one
+    side-accordion-item
+        p | two
+    side-accordion-item
+        p | three

@@ -1,10 +1,35 @@
-.panel.panel-default.panel-dark(ng-controller='dashboardController as dac')
-    .panel-heading
-        .panel-title Keywords Dashboard for Site:
-            ui-select.text-left(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
-                ui-select-match(placeholder='') {{ $select.selected.name }}
+#keyDashboard.panel.panel-default.panel-dark(ng-controller='dashboardController as dac')
+    .panel-heading(ng-class="{'panel-heading-collapsed':keyDashboard}")
+        .panel-title  Keywords Dashboard for Site:
+            ui-select.text-right(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
+                ui-select-match(placeholder='your site url...') {{ $select.selected.name }}
                 ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')
                     div(ng-bind-html='site.name | highlight: $select.search')
-        paneltool(tool-collapse, tool-dismiss)
-    .panel-body
-    .panel-footer
+        paneltool(tool-collapse, tool-dismiss, ng-init="keyDashboard=true")
+    .panel-wrapper(uib-collapse="keyDashboard")
+        .panel-body.row
+            .col-md-5
+                ul.list-group.shadow-z1
+                    li.list-group-item(ng-repeat='item in dac.analyzeKeywords')
+                        span.badge.bg-primary.text-center {{ item.value }}
+                        | {{ item.name }}
+                ul.list-group
+                    li.list-group-item.no-border
+                        | Monitored Search Engines For Website
+                        i.fa.fa-cog.pull-right
+                    li.list-group-item.no-border
+                        | Add Keywords...
+                        button.btn.btn-primary.pull-right
+                            i.fa.fa-plus
+            .col-md-7
+                .panel.panel-default.panel-dark
+                    .panel-heading
+                        i.fa.fa-line-chart
+                        .panel-title Aggregated SERP Keywords Ranking for Site:
+                            ui-select.text-right(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
+                                ui-select-match(placeholder='your site url...') {{ $select.selected.name }}
+                                ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')
+                                    div(ng-bind-html='site.name | highlight: $select.search')
+                        paneltool(tool-collapse, tool-dismiss, ng-init="keyDashboard=true")
+                    .panel-wrapper
+                        .panel-body

@@ -1,29 +1,65 @@
-.accordion-wrapper {
-    .accordion-item {
-        height: 600px;
-        transition: all linear 0.5s;
-        padding: 0;
-        .collapsed-body{
-            width: 100%;
-            height: inherit;
-            background-color: #F2F2F2;
+.side-accordion-wrapper {
+    @accordion-height: 600px;
+    @collapsed-panel-width: 54px;
+    @padding: 2px;
+
+    height: @accordion-height;
+    side-accordion-item {
+        float: left;
+        transition: width .5s;
+        width: @collapsed-panel-width;
+        padding: @padding;
+        height: inherit;
+        overflow: hidden;
+        .accordion-item {
+            float: left;
+            width: @collapsed-panel-width - 2 * @padding;
+            height: @accordion-height - 2* @padding;
             i {
                 margin-top: 20px;
                 font-size: 20px;
             }
         }
         .item-body {
-            width: 100%;
+            background-color: white;
+            margin-left: @collapsed-panel-width - @padding;
             height: inherit;
         }
     }
-    .width-up {
-        width: 95%;
+}
+
+// Keywords Dashbord Style
+#keyDashboard {
+    height: inherit;
+    .panel-heading {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        .panel-title {
+            background-color: white;
+            margin-right: 65px;
+            padding-left: 10px;
+            color: black;
+            .ui-select-container {
+                display: inline-flex;
+                span {
+                    border: none;
+                }
+            }
+        }
     }
-    .width-down {
-        width: 5%;
+    .panel-body {
+        .list-group-item {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            .fa-cog {
+                font-size: 24px;
+                margin-right: 10px;
+            }
+        }
+        .no-border {
+            border: none;
+            font-size: 18px;
+        }
     }
-    .ng-hide {
-        width: 0;
-    } 
 }

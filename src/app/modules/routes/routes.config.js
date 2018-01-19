@@ -51,7 +51,7 @@
                 url: '/keywords',
                 title: 'Keywords',
                 templateUrl: helper.basepath('keywords.html'),
-                resolve: helper.resolveFor('smart-table')
+                resolve: helper.resolveFor('smart-table', 'ui.select')
             })
             .state('app.sentenceParameters', {
                 url: '/sentenceParameters',
