@@ -1,6 +1,6 @@
-#keyDashboard.panel.panel-default.panel-dark(ng-controller='dashboardController as dac')
+#keyDashboard.container-fluid.panel(ng-controller='dashboardController as dac')
     .panel-heading(ng-class="{'panel-heading-collapsed':keyDashboard}")
-        .panel-title  Keywords Dashboard for Site:
+        .panel-title.text-bold  Keywords Dashboard for Site:
             ui-select.text-right(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
                 ui-select-match(placeholder='your site url...') {{ $select.selected.name }}
                 ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')
@@ -23,9 +23,10 @@
                             i.fa.fa-plus
             .col-md-7
                 .panel.panel-default.panel-dark
-                    .panel-heading
-                        i.fa.fa-line-chart
-                        .panel-title Aggregated SERP Keywords Ranking for Site:
+                    .panel-heading                        
+                        .panel-title.text-bold 
+                            i.fa.fa-line-chart 
+                            span Aggregated SERP Keywords Ranking for Site:
                             ui-select.text-right(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
                                 ui-select-match(placeholder='your site url...') {{ $select.selected.name }}
                                 ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')

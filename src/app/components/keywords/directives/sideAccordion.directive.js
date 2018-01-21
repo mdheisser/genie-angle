@@ -31,17 +31,25 @@
 
         function accordionCtrl($scope) {
             this.init = function(e) {
-                caculateContentWidth(e);
+                initialize(e);
             };
         }
 
-        function caculateContentWidth(e) {
+        function initialize(e) {
             var item = angular.element(e);
             var numberOfItem = item.parent().children().length;
             var collapseWidth = item.children().first().prop('offsetWidth') + 4;
             var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 );
             // by default, fist panel is activated.
-            item.parent().children().first().css('width', panelContentWidth + 'px');
+            var collapseHeader = item.parent().children().first();
+            var iconTag = collapseHeader.children().children().children().first();
+            collapseHeader.css('width', panelContentWidth + 'px');
+            changeIcon(iconTag);
+        }
+
+        function changeIcon (tag) {
+            tag.removeClass('fa-plus');
+            tag.addClass('fa-minus');
         }
     }
 

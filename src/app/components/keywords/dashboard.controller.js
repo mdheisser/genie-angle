@@ -51,12 +51,7 @@
         }
 
         function openAddModal () {
-            // ngDialog.open({
-            //     template: 'app/view/modals/addKeywords.html',
-            //     // plain: true,
-            //     className: 'ngdialog-theme-default'
-            //   });
-            conosle.log('aldkjalkdj==============');
+            // 
         }
     }
 

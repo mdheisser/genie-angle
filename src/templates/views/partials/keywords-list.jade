@@ -1,0 +1,29 @@
+#keyList.container-fluid.panel.panel-default.panel-dark(ng-controller='keywordsListController as listc')
+    .panel-heading(ng-class="{'panel-heading-collapsed':keyList}")
+        .panel-title.text-bold  Keyword List for Site:
+            ui-select.text-right(ng-model='listc.site.selected', theme='bootstrap', ng-disabled='listc.disabled')
+                ui-select-match(placeholder='your site url...') {{ $select.selected.name }}
+                ui-select-choices(repeat='site in listc.sites | propsFilter: {name: $select.search}')
+                    div(ng-bind-html='site.name | highlight: $select.search')
+        paneltool(tool-collapse, tool-dismiss, ng-init="keyList=true")
+    .panel-wrapper(uib-collapse="keyList")
+        .panel-body
+            table.table.table-striped(st-table="displayedCollection", st-safe-src="rowCollection")
+                thead
+                    tr
+                        th #
+                        th(st-sort="") Keywords
+                        th(st-sort="") G
+                        th(st-sort="") Y
+                        th(st-sort="") M
+                        th(st-sort="") Active Pages
+                        th(st-sort="") Actions
+                tbody
+                    tr(ng-repeat="row in displayedCollection")
+                        td
+                        td
+                        td
+                        td
+                        td
+                        td
+                        td

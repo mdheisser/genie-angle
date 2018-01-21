@@ -1,5 +1,6 @@
+@accordion-height: 600px;
+@panel-header-bg: #E9E9E9;
 .side-accordion-wrapper {
-    @accordion-height: 600px;
     @collapsed-panel-width: 54px;
     @padding: 2px;
 
@@ -15,26 +16,32 @@
             float: left;
             width: @collapsed-panel-width - 2 * @padding;
             height: @accordion-height - 2* @padding;
+            background-color: @panel-header-bg;
             i {
                 margin-top: 20px;
-                font-size: 20px;
+                font-size: 18px;
             }
         }
         .item-body {
-            background-color: white;
+            background-color: #F5F7FA;
             margin-left: @collapsed-panel-width - @padding;
-            height: inherit;
+            height: @accordion-height - 2 * @padding;
+        }
+        .smoothidden {
+            transition: opacity .4s ease-out;
+            opacity: 0;
         }
     }
 }
 
 // Keywords Dashbord Style
-#keyDashboard {
-    height: inherit;
+#keyDashboard, #keyList {
+    height: @accordion-height - 4px;
     .panel-heading {
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 10px;
+        background-color: @panel-header-bg;
         .panel-title {
             background-color: white;
             margin-right: 65px;
@@ -63,3 +70,39 @@
         }
     }
 }
+
+// Keywords List Style
+// #keyList {
+//     height: @accordion-height - 15px;
+//     .panel-heading {
+//         padding-top: 5px;
+//         padding-bottom: 5px;
+//         padding-left: 10px;
+//         .panel-title {
+//             background-color: white;
+//             margin-right: 65px;
+//             padding-left: 10px;
+//             color: black;
+//             .ui-select-container {
+//                 display: inline-flex;
+//                 span {
+//                     border: none;
+//                 }
+//             }
+//         }
+//     }
+//     .panel-body {
+//         .list-group-item {
+//             padding-top: 20px;
+//             padding-bottom: 20px;
+//             .fa-cog {
+//                 font-size: 24px;
+//                 margin-right: 10px;
+//             }
+//         }
+//         .no-border {
+//             border: none;
+//             font-size: 18px;
+//         }
+//     }
+// }

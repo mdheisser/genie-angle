@@ -30,13 +30,28 @@
         function sideItemCtrl ($scope) {
             $scope.active = function (e) {
                 // active only a panel
-                var accordionItems = angular.element(e.target).parent().parent().children();
-                var collapseWidth = caculateContentWidth(accordionItems).collapse;
-                var panelContentWidth = caculateContentWidth(accordionItems).content;
-                angular.forEach(accordionItems, function(item) {
-                    angular.element(item).css('width', collapseWidth + 'px');
-                });
-                angular.element(e.target).parent().css('width', panelContentWidth + 'px');
+                if(angular.element(e.target).hasClass('accordion-item')) { // prevent from clicking on sub elements
+                    var accordionItem = angular.element(e.target).parent();
+                    var accordionItems = accordionItem.parent().children();
+                    var collapseWidth = caculateContentWidth(accordionItems).collapse;
+                    var panelContentWidth = caculateContentWidth(accordionItems).content;
+
+                    var isActivated = isActive(accordionItem);
+                    var iconTag = accordionItem.children().children().children().first();
+
+                    if(isActivated) { // collapse if the panel is activated already
+                        changeIcon(iconTag);
+                        collapsePane(accordionItem, collapseWidth);
+                    } else {
+                        angular.forEach(accordionItems, function(item) {
+                            var pane = angular.element(item);
+                            collapsePane(pane, collapseWidth);
+                            changeIcon(pane.children().children().children().first());
+                        });
+                        expandPane(accordionItem, panelContentWidth);
+                        accordionItem.children().children().children().first().addClass('fa-minus');
+                    }
+                }
             }
         }
 
@@ -49,6 +64,25 @@
                 collapse : collapseWidth,
                 content: panelContentWidth
             };
+        }
+
+        function changeIcon (tag) {
+            tag.removeClass('fa-minus');
+            tag.addClass('fa-plus');
+        }
+
+        function isActive (e) {
+            return e.children().children().children().first().hasClass('fa-minus');
+        }
+
+        function collapsePane (pane, width) {
+            pane.css('width', width + 'px');
+            pane.children().last().addClass('smoothidden');
+        }
+
+        function expandPane (pane, width) {
+            pane.css('width', width + 'px');
+            pane.children().last().removeClass('smoothidden');
         }
     }
 
