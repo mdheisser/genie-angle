@@ -1,8 +1,9 @@
 h3.content-heading
     | Keywords Dashboard
     small Generic info about keywords of your site.
-side-accordion
-    side-accordion-item
-        div(ng-include="'app/views/partials/keywords-dashboard.html'")
-    side-accordion-item
-        div(ng-include="'app/views/partials/keywords-list.html'")
+div(ng-controller='keywordsController as kc')
+    side-accordion
+        side-accordion-item
+            div(ng-include="'app/views/partials/keywords-dashboard.html'")
+        side-accordion-item
+            div(ng-include="'app/views/partials/keywords-list.html'")

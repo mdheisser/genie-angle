@@ -34,6 +34,12 @@
                      </a>',
 				refresh: '<a href="#" panel-refresh="" data-spinner="{{spinner}}" uib-tooltip="Refresh Panel">\
                        <em class="fa fa-refresh"></em>\
+                     </a>',
+                sideCollapse: '<a href="#" panel-side-collapse="" uib-tooltip="Collapse Panel"> \
+                        <em class="fa fa-minus"></em> \
+                      </a>',
+                close: '<a href="#" panel-close="" uib-tooltip="Remove Panel">\
+                       <em class="fa fa-times"></em>\
                      </a>'
 			};
 
@@ -55,6 +61,10 @@
 					temp += templates.dismiss;
 				if (attrs.toolRefresh)
 					temp += templates.refresh.replace(/{{spinner}}/g, attrs.toolRefresh);
+				if (attrs.toolSideCollapse)
+					temp += templates.sideCollapse;
+				if (attrs.toolClose)
+					temp += templates.close;
 				return temp;
 			}
 		}// link

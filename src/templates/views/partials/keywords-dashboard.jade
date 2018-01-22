@@ -1,12 +1,12 @@
 #keyDashboard.container-fluid.panel(ng-controller='dashboardController as dac')
-    .panel-heading(ng-class="{'panel-heading-collapsed':keyDashboard}")
+    .panel-heading
         .panel-title.text-bold  Keywords Dashboard for Site:
             ui-select.text-right(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
                 ui-select-match(placeholder='your site url...') {{ $select.selected.name }}
                 ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')
                     div(ng-bind-html='site.name | highlight: $select.search')
-        paneltool(tool-collapse, tool-dismiss, ng-init="keyDashboard=true")
-    .panel-wrapper(uib-collapse="keyDashboard")
+        paneltool(tool-side-collapse, tool-close)
+    .panel-wrapper
         .panel-body.row
             .col-md-5
                 ul.list-group.shadow-z1
@@ -23,7 +23,7 @@
                             i.fa.fa-plus
             .col-md-7
                 .panel.panel-default.panel-dark
-                    .panel-heading                        
+                    .panel-heading
                         .panel-title.text-bold 
                             i.fa.fa-line-chart 
                             span Aggregated SERP Keywords Ranking for Site:
@@ -34,3 +34,4 @@
                         paneltool(tool-collapse, tool-dismiss, ng-init="keyDashboard=true")
                     .panel-wrapper
                         .panel-body
+                //- button(ng-click="onCollapse($event)") Call directive function

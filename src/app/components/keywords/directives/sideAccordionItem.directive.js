@@ -17,7 +17,9 @@
             link: link,
             templateUrl: '/app/components/keywords/templates/sideAccordionItem.html',
             restrict: 'EA',
-            scope: {},
+            scope: {
+                controls: '='
+            },
             transclude: true,
             controller: ['$scope', sideItemCtrl]
         };
@@ -28,30 +30,51 @@
         }
 
         function sideItemCtrl ($scope) {
+
             $scope.active = function (e) {
-                // active only a panel
-                if(angular.element(e.target).hasClass('accordion-item')) { // prevent from clicking on sub elements
-                    var accordionItem = angular.element(e.target).parent();
-                    var accordionItems = accordionItem.parent().children();
-                    var collapseWidth = caculateContentWidth(accordionItems).collapse;
-                    var panelContentWidth = caculateContentWidth(accordionItems).content;
+                var eventElement = angular.element(e.target);
+                onSideCollapse(eventElement);
+            }
 
-                    var isActivated = isActive(accordionItem);
-                    var iconTag = accordionItem.children().children().children().first();
+            this.close = function (e) {
+                e.remove();
+            }
 
-                    if(isActivated) { // collapse if the panel is activated already
-                        changeIcon(iconTag);
-                        collapsePane(accordionItem, collapseWidth);
-                    } else {
-                        angular.forEach(accordionItems, function(item) {
-                            var pane = angular.element(item);
-                            collapsePane(pane, collapseWidth);
-                            changeIcon(pane.children().children().children().first());
-                        });
-                        expandPane(accordionItem, panelContentWidth);
-                        accordionItem.children().children().children().first().addClass('fa-minus');
-                    }
-                }
+            this.onCollapse = function (e) {
+                var eventElement = e.children().first();
+                onSideCollapse(eventElement);
+            }
+        }
+
+        function onSideCollapse (eventElement) {
+            if(eventElement.hasClass('accordion-item')) { // prevent from clicking on sub elements
+                var accordionItem = eventElement.parent();
+                onClick(accordionItem);
+            } else if(eventElement.find('a')) {
+                var accordionItem = eventElement.closest('side-accordion-item').children().first().parent();
+                onClick(accordionItem);
+            }
+        }
+
+        function onClick(accordionItem) {
+            var accordionItems = accordionItem.parent().children();
+            var collapseWidth = caculateContentWidth(accordionItems).collapse;
+            var panelContentWidth = caculateContentWidth(accordionItems).content;
+
+            var isActivated = isActive(accordionItem);
+            var iconTag = accordionItem.children().children().children().first();
+
+            if(isActivated) { // collapse if the panel is activated already
+                changeIcon(iconTag);
+                collapsePane(accordionItem, collapseWidth);
+            } else {
+                angular.forEach(accordionItems, function(item) {
+                    var pane = angular.element(item);
+                    collapsePane(pane, collapseWidth);
+                    changeIcon(pane.children().children().children().first());
+                });
+                expandPane(accordionItem, panelContentWidth);
+                accordionItem.children().children().children().first().addClass('fa-minus');
             }
         }
 
