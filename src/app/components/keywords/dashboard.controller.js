@@ -19,7 +19,9 @@
         vm.site.selected = undefined;
         vm.sites = [];
         vm.analyzeKeywords = [];
-        vm.openAddModal = openAddModal;
+        vm.chartOptions = undefined;
+        vm.reportDate = '1. 22.2018';
+        vm.filterDays = [];
 
         activate();
 
@@ -28,6 +30,8 @@
         function activate () {
             getOwnSites();
             getKeywordStatistics();
+            drawCharts();
+            getFilerDays();
         }
 
         function getOwnSites () {
@@ -36,6 +40,16 @@
                 { id: 2, name: 'www.uee.com' }
             ];
             vm.sites = data;
+        }
+
+        function getFilerDays () {
+            var data = [
+                { id: 1, name: '360' },
+                { id: 2, name: '180' },
+                { id: 3, name: '90' },
+                { id: 4, name: '30' }
+            ];
+            vm.filterDays = data;
         }
 
         function getKeywordStatistics () {
@@ -50,8 +64,45 @@
             vm.analyzeKeywords = data;
         }
 
-        function openAddModal () {
-            // 
+        function drawCharts () {
+
+            var chartOptions = {
+                title: { text: '' },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: { text: '' }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+                series: [{
+                    name: 'Google',
+                    data: [29, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54]
+                },{
+                    name: 'Yahoo',
+                    data: [39, 75, 16, 19, 174, 16, 235, 178, 276, 294, 195, 154]
+                }],
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 400
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+            };
+
+            vm.chartOptions = chartOptions;
         }
     }
 

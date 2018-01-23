@@ -36,10 +36,10 @@
                        <em class="fa fa-refresh"></em>\
                      </a>',
                 sideCollapse: '<a href="#" panel-side-collapse="" uib-tooltip="Collapse Panel"> \
-                        <em class="fa fa-minus"></em> \
+                        <em class="text-bold fa fa-chevron-left"></em> \
                       </a>',
                 close: '<a href="#" panel-close="" uib-tooltip="Remove Panel">\
-                       <em class="fa fa-times"></em>\
+                       <em class="fa fa-close"></em>\
                      </a>'
 			};
 

@@ -48,8 +48,10 @@
         }
 
         function changeIcon (tag) {
-            tag.removeClass('fa-plus');
-            tag.addClass('fa-minus');
+            if(tag.hasClass('icon-arrow-right')) {
+                tag.removeClass('icon-arrow-right');
+                tag.addClass('icon-arrow-left');
+            }
         }
     }
 

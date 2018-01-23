@@ -1,5 +1,5 @@
 @accordion-height: 600px;
-@panel-header-bg: #E9E9E9;
+@panel-header-bg: #607D8B;
 .side-accordion-wrapper {
     @collapsed-panel-width: 54px;
     @padding: 2px;
@@ -17,9 +17,10 @@
             width: @collapsed-panel-width - 2 * @padding;
             height: @accordion-height - 2* @padding;
             background-color: @panel-header-bg;
-            i {
+            .collapsed-body {
                 margin-top: 20px;
                 font-size: 18px;
+                color: white;
             }
         }
         .item-body {
@@ -28,8 +29,11 @@
             height: @accordion-height - 2 * @padding;
         }
         .smoothidden {
-            transition: opacity .4s ease-out;
             opacity: 0;
+            visibility: hidden;
+            transition-property: opacity, visibility;
+            transition-duration: .5s, 0s;
+            transition-delay: 0s, .5s;
         }
     }
 }
@@ -41,7 +45,7 @@
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 10px;
-        background-color: @panel-header-bg;
+        // background-color: @panel-header-bg;
         .panel-title {
             background-color: white;
             margin-right: 65px;
@@ -67,42 +71,36 @@
         .no-border {
             border: none;
             font-size: 18px;
+        }       
+    }
+    .charts-panel {
+        .fa-line-chart {
+            margin-top: 11px;
+        }
+        .panel-title {
+            padding-left: 5px;
+            margin-left: 5px;
+            float: left;
+        }
+        .ui-select-container {
+            display: inline-flex;
+            span {
+                border: none;
+            }
+        }
+        .date-filter .ui-select-container {
+             width: 65px;
+             .dropdown-menu {
+                min-width: 65px !important;
+            }
+        }
+        .highcharts-container {
+            .highcharts-credits {
+                display: none;
+            }
+        }
+        .report-date {
+            font-size: 15px;
         }
     }
 }
-
-// Keywords List Style
-// #keyList {
-//     height: @accordion-height - 15px;
-//     .panel-heading {
-//         padding-top: 5px;
-//         padding-bottom: 5px;
-//         padding-left: 10px;
-//         .panel-title {
-//             background-color: white;
-//             margin-right: 65px;
-//             padding-left: 10px;
-//             color: black;
-//             .ui-select-container {
-//                 display: inline-flex;
-//                 span {
-//                     border: none;
-//                 }
-//             }
-//         }
-//     }
-//     .panel-body {
-//         .list-group-item {
-//             padding-top: 20px;
-//             padding-bottom: 20px;
-//             .fa-cog {
-//                 font-size: 24px;
-//                 margin-right: 10px;
-//             }
-//         }
-//         .no-border {
-//             border: none;
-//             font-size: 18px;
-//         }
-//     }
-// }

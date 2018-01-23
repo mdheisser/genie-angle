@@ -65,16 +65,16 @@
             var iconTag = accordionItem.children().children().children().first();
 
             if(isActivated) { // collapse if the panel is activated already
-                changeIcon(iconTag);
+                changeIconToRight(iconTag);
                 collapsePane(accordionItem, collapseWidth);
             } else {
                 angular.forEach(accordionItems, function(item) {
                     var pane = angular.element(item);
                     collapsePane(pane, collapseWidth);
-                    changeIcon(pane.children().children().children().first());
+                    changeIconToRight(pane.children().children().children().first());
                 });
                 expandPane(accordionItem, panelContentWidth);
-                accordionItem.children().children().children().first().addClass('fa-minus');
+                changeIconToLeft(accordionItem.children().children().children().first());
             }
         }
 
@@ -89,13 +89,18 @@
             };
         }
 
-        function changeIcon (tag) {
-            tag.removeClass('fa-minus');
-            tag.addClass('fa-plus');
+        function changeIconToRight (tag) {
+            tag.removeClass('icon-arrow-left');
+            tag.addClass('icon-arrow-right');
+        }
+
+        function changeIconToLeft (tag) {
+            tag.removeClass('icon-arrow-right');
+            tag.addClass('icon-arrow-left');
         }
 
         function isActive (e) {
-            return e.children().children().children().first().hasClass('fa-minus');
+            return e.children().children().children().first().hasClass('icon-arrow-left');
         }
 
         function collapsePane (pane, width) {

@@ -19,11 +19,6 @@
             name: "SEOgenie"
         };
 
-        $scope.dirControls = {};
-        $scope.onCollapse = function (e) {
-            $scope.dirControls.onCollapse(e);
-        };
-
         //var generatePageRow = function () {
         //  var pages = [];
         //};

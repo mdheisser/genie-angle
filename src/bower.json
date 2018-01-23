@@ -129,7 +129,9 @@
     "angular-selectize.js": "^1.4.3",
     "select2": "select2-ng#^4.0.5",
     "angular-language-picker": "azachar/angular-language-picker#^0.4.3",
-    "angular-xeditable": "^0.8.1"
+    "angular-xeditable": "^0.8.1",
+    "highcharts-ng": "^1.2.0",
+    "highcharts": "^6.0.4"
   },
   "resolutions": {
     "angular-bootstrap": "2.5.0",
