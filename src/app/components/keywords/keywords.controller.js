@@ -7,10 +7,29 @@
     'use strict';
 
     keywordsApp.controller("keywordsController", keywordsController);
-    keywordsController.$inject = ['$scope', '$timeout', '$resource', '$q', '$location', 'keywordsService', '$uibModal', 'toastr'];    
+    keywordsController.$inject = ['$scope', '$timeout', '$resource', '$q', '$location', 'keywordsService', '$uibModal', 'toastr', 'ngDialog'];    
 
-    function keywordsController ($scope, $timeout, $resource, $q, $location, keywordsService, $uibModal, toastr) {
+    function keywordsController ($scope, $timeout, $resource, $q, $location, keywordsService, $uibModal, toastr, ngDialog) {
         var vm = this;
+        vm.addKeywordsOpenDialog = addKeywordsOpenDialog;
+
+        activate();
+
+        ///////////////////////
+
+        function activate () {
+            // 
+        }
+
+        function addKeywordsOpenDialog () {
+            $scope.ngDialog = ngDialog;
+            ngDialog.open({
+                template: 'app/views/modals/addKeywords.html',
+                className: 'ngdialog-theme-default',
+                showClose: false
+            });
+        }
+
         $scope.loading = true;
 
 

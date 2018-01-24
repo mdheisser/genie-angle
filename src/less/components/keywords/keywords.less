@@ -1,84 +1,71 @@
-﻿paneltool {
-	margin-top: -25px;
+﻿.ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 1000px;
+    padding: 0;
 }
-
-#keywords-select-all {
-	margin-bottom:5px!important;
-}
-/*
-#keywords-select-all > .md-container {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	position: relative;
-}*/
-.table.table-striped.table-bordered{ border: 1px solid #eee!important;}
-.table > thead > tr > th {
-	padding: 0 8px;
-}
-
-.modal {
-	text-align: center;
-	padding: 0 !important;
-}
-
-.modal::before {
-	content: '';
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
-	margin-right: -4px;
-}
-
-.modal-dialog {
-	display: inline-block;
-	text-align: left;
-	vertical-align: middle;
-}
-
-textarea {
-	resize: vertical!important;
-}
-
-.keywords-column {
-	padding: 0 10px 0 5px;
-}
-.keywords-info-column {
-	padding: 0 5px 0 0px;
-}
-
-.text-underline {
-	text-decoration: underline;
-}
-
-.material-icons.clear {
-	float: left;
-	margin-top: 5px;
-	color: orangered!important;
-}
-
-.pagination-control {
-	margin-left: 10px;
-	margin-right: 10px;
-}
-
-.pagination-control .pagination {
-	margin-right: 5px;
-}
-
-.socicon-google {
-	color:#db3236;
-	font-size:18px;
-}
-.socicon-yahoo {
-	color: #410093;
-	font-size: 18px;
-}
-.socicon-yandex {
-	color: #ffcc00;
-	font-size: 18px;
-}
-.socicon-bing {
-	color: #a3a3a3;
-	font-size: 18px;
+.ngdialog-content {
+    .side-dropdown {
+        background-color: white;
+    }
+    .ui-select-container {
+        display: inline-flex;
+        span {
+            border: none;
+        }
+    }
+    .modal-tools {
+        padding-top: 8px;
+        button {
+            font-size: 24px;
+        }
+    }
+    .modal-header {
+        padding: 5px 10px;
+        background-color: #607D8B;
+    }
+    .modal-body {
+        .title {
+            font-size: 16px;
+            color: black;
+            text-decoration: underline;
+        }
+        .radio-inline {
+            font-size: 13px;
+            padding-top: 8px;
+        }
+        .clear {
+            padding-top: 8px;
+        }
+        .add-package {
+            padding-top: 32px;
+        }
+        .progress {
+            background-color: #F1BABA;
+            height: 25px;
+            margin-bottom: 10px;
+            .progress-bar {
+                color: black;
+                font-size: 13px;
+                span {
+                    white-space: nowrap;
+                }
+            }
+        }
+        .promoted-bar {
+            margin-top: 20px;
+            .progress {
+                background-color: #F1BABA;
+            }
+        }
+        .monitored-bar {
+            .progress {
+                background-color: #F9E4A3;
+            }
+        }
+        .martop {
+            margin-top: 100px;
+        }
+        .checkbox em {
+            margin-left: 15px;
+        }
+    }
 }

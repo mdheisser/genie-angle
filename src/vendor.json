@@ -45,5 +45,9 @@
 	"bower_components/selectize/dist/css/selectize.default.css",
 	"bower_components/selectize/dist/css/selectize.bootstrap3.css",
 	"bower_components/angular-xeditable/dist/js/xeditable.min.js",
-	"bower_components/angular-xeditable/dist/css/xeditable.min.css"
+	"bower_components/angular-xeditable/dist/css/xeditable.min.css",
+	"bower_components/highcharts/highcharts.js",
+	"bower_components/ngDialog/js/ngDialog.min.js",
+	"bower_components/ngDialog/css/ngDialog.min.css",
+	"bower_components/ngDialog/css/ngDialog-theme-default.min.css"
 ]

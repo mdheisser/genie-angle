@@ -10,9 +10,9 @@
         .module('app.keywords')
         .controller('dashboardController', dashboardController)
 
-    dashboardController.$inject = ['$scope', '$timeout', '$resource', '$q', '$location', '$uibModal'];
+    dashboardController.$inject = ['$scope', '$timeout', '$resource', '$q', '$location'];
 
-    function dashboardController($scope, $timeout, $resource, $q, $location, $uibModal) {
+    function dashboardController($scope, $timeout, $resource, $q, $location) {
         /* jshint validthis:true */
         var vm = this;
         vm.site = {};
