@@ -30,7 +30,7 @@
                                 ui-select-match(placeholder='Aggregated SERP Keywords Ranking for Site:') Aggregated SERP Keywords Ranking for Site: {{ $select.selected.name }}
                                 ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')
                                     div(ng-bind-html='site.name | highlight: $select.search')
-                        .date-filter.col-md-2
+                        .date-filter.col-md-3
                             ui-select.text-right(ng-model='dac.filterDays.selected', theme='bootstrap', ng-disabled='dac.disabled')
                                 ui-select-match(placeholder='Days:') Days: {{ $select.selected.name }}
                                 ui-select-choices(repeat='filterDay in dac.filterDays | propsFilter: {name: $select.search}')

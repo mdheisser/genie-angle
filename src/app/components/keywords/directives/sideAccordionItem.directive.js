@@ -11,7 +11,9 @@
         .module('app.keywords')
         .directive('sideAccordionItem', sideAccordionItem);
 
-    function sideAccordionItem() {
+    sideAccordionItem.$inject = ['$window'];
+
+    function sideAccordionItem($window) {
         var directive = {
             require: '^^sideAccordion',
             link: link,
@@ -27,6 +29,9 @@
 
         function link(scope, element, attrs, accordionCtrl) {
             accordionCtrl.init(element);
+            angular.element($window).bind('resize', function () {
+                accordionCtrl.init(element);
+            });
         }
 
         function sideItemCtrl ($scope) {
@@ -50,9 +55,6 @@
             if(eventElement.hasClass('accordion-item')) { // prevent from clicking on sub elements
                 var accordionItem = eventElement.parent();
                 onClick(accordionItem);
-            } else if(eventElement.find('a')) {
-                var accordionItem = eventElement.closest('side-accordion-item').children().first().parent();
-                onClick(accordionItem);
             }
         }
 
@@ -65,8 +67,7 @@
             var iconTag = accordionItem.children().children().children().first();
 
             if(isActivated) { // collapse if the panel is activated already
-                changeIconToRight(iconTag);
-                collapsePane(accordionItem, collapseWidth);
+                onClick(getFriend(accordionItem));
             } else {
                 angular.forEach(accordionItems, function(item) {
                     var pane = angular.element(item);
@@ -111,6 +112,16 @@
         function expandPane (pane, width) {
             pane.css('width', width + 'px');
             pane.children().last().removeClass('smoothidden');
+        }
+
+        // get friend element
+        function getFriend (e) {
+            var friendElement = e.next();
+            if (typeof friendElement[0] !== 'undefined' && friendElement[0].tagName === 'SIDE-ACCORDION-ITEM') {
+                return friendElement;
+            } else {
+                return e.prev();
+            }
         }
     }
 

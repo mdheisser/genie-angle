@@ -1,8 +1,8 @@
 #keyList.container-fluid.panel.panel-default.panel-dark(ng-controller='keywordsListController as listc')
-    .panel-heading(ng-class="{'panel-heading-collapsed':keyList}")
-        .panel-title.text-bold  Keyword List for Site:
+    .panel-heading
+        .panel-title.text-bold
             ui-select.text-right(ng-model='listc.site.selected', theme='bootstrap', ng-disabled='listc.disabled')
-                ui-select-match(placeholder='your site url...') {{ $select.selected.name }}
+                ui-select-match(placeholder='Keywords Dashboard for Site:') Keywords Dashboard for Site: {{ $select.selected.name }}
                 ui-select-choices(repeat='site in listc.sites | propsFilter: {name: $select.search}')
                     div(ng-bind-html='site.name | highlight: $select.search')
         paneltool(tool-side-collapse, tool-close)

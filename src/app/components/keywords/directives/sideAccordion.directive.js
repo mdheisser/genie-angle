@@ -11,7 +11,9 @@
         .module('app.keywords')
         .directive('sideAccordion', sideAccordion);
 
-    function sideAccordion() {
+    sideAccordion.$inject = ['$window'];
+
+    function sideAccordion($window) {
         var directive = {
             link: link,
             templateUrl: '/app/components/keywords/templates/sideAccordion.html',
@@ -23,14 +25,16 @@
         return directive;
 
         var wrapperWidth;
+        var wrapperElement;
 
         function link(scope, element, attrs) {
-            var wrapper = angular.element(element).children().first();
-            wrapperWidth = wrapper.prop('offsetWidth');
+            wrapperElement = element;
+            getWrapperWidth();
         }
 
-        function accordionCtrl($scope) {
+        function accordionCtrl() {
             this.init = function(e) {
+                getWrapperWidth();
                 initialize(e);
             };
         }
@@ -52,6 +56,11 @@
                 tag.removeClass('icon-arrow-right');
                 tag.addClass('icon-arrow-left');
             }
+        }
+
+        function getWrapperWidth () {
+            var wrapper = angular.element(wrapperElement).children().first();
+            wrapperWidth = wrapper.prop('offsetWidth');
         }
     }
 

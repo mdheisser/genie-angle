@@ -11,7 +11,9 @@
         .module('app.keywords')
         .directive('hcCharts', hcCharts);
 
-    function hcCharts() {
+    hcCharts.$inject = ['$window'];
+
+    function hcCharts($window) {
         var directive = {
             restrict: 'EA',
             template: '<div></div>',
@@ -19,12 +21,19 @@
                 options: '='
             },
             link: function (scope, element) {
-                setTimeout(function(){
-                    Highcharts.chart(element[0], scope.options);
-                },500);
+                drawChart(scope, element);
+                angular.element($window).bind('resize', function () {
+                    drawChart(scope, element);
+                });
             }
         };
         return directive;
+
+        function drawChart (scope, element) {
+            setTimeout(function(){
+                Highcharts.chart(element[0], scope.options);
+            },500);
+        }
     }
 
 })();

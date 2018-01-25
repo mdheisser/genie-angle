@@ -29,8 +29,7 @@
     function Controller($scope, $element) {
 
         // Prepare the panel to be collapsible
-        var $elem = $($element),
-            parent = $elem.closest('side-accordion-item'); // find the first parent panel
+        var $elem = $($element);
 
         // bind events to switch icons
         $element.bind('click', function (e) {
@@ -41,7 +40,17 @@
 
         // Controller helpers
         function onClick() {
-            parentCtrl.onCollapse(parent);
+            parentCtrl.onCollapse(getFriend());
+        }
+
+        // get friend element
+        function getFriend () {
+            var friendElement = $elem.closest('side-accordion-item').next();
+            if (typeof friendElement[0] !== 'undefined' && friendElement[0].tagName === 'SIDE-ACCORDION-ITEM') {
+                return friendElement;
+            } else {
+                return $elem.closest('side-accordion-item').prev();
+            }
         }
     }
 
