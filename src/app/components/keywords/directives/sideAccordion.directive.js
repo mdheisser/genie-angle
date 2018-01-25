@@ -37,6 +37,10 @@
                 getWrapperWidth();
                 initialize(e);
             };
+            this.response = function(e, isActive) {
+                getWrapperWidth();
+                reRender(e, isActive);
+            };
         }
 
         function initialize(e) {
@@ -49,6 +53,21 @@
             var iconTag = collapseHeader.children().children().children().first();
             collapseHeader.css('width', panelContentWidth + 'px');
             changeIcon(iconTag);
+        }
+
+        function reRender(e, isActive) {
+            var item = angular.element(e);
+            var numberOfItem = item.parent().children().length;
+            var collapseWidth = item.children().first().prop('offsetWidth') + 4;
+            var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 );
+
+            var iconTag = item.children().children().children().first();
+            if(isActive === true) {
+                item.css('width', panelContentWidth + 'px');
+                changeIcon(iconTag);
+            } else {
+                item.css('width', collapseWidth + 'px');
+            }
         }
 
         function changeIcon (tag) {

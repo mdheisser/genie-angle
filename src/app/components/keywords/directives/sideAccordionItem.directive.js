@@ -30,7 +30,7 @@
         function link(scope, element, attrs, accordionCtrl) {
             accordionCtrl.init(element);
             angular.element($window).bind('resize', function () {
-                accordionCtrl.init(element);
+                accordionCtrl.response(element, isActive(element));
             });
         }
 
@@ -67,7 +67,7 @@
             var iconTag = accordionItem.children().children().children().first();
 
             if(isActivated) { // collapse if the panel is activated already
-                onClick(getFriend(accordionItem));
+                // onClick(getFriend(accordionItem));
             } else {
                 angular.forEach(accordionItems, function(item) {
                     var pane = angular.element(item);
@@ -80,9 +80,9 @@
         }
 
         function caculateContentWidth (e) {
-            var wrapperWidth = e.parent().prop('clientWidth');
+            var wrapperWidth = e.parent().prop('offsetWidth');
             var numberOfItem = e.length;
-            var collapseWidth = e.children().first().prop('clientWidth') + 4;
+            var collapseWidth = e.children().first().prop('offsetWidth') + 4;
             var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 );
             return {
                 collapse : collapseWidth,
