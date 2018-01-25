@@ -1,0 +1,39 @@
+#searchEngineModal.container-fluid(ng-controller='searchEngineModalCtrl as semc')
+    .modal-header.row
+        .col-md-10
+            ui-select.text-right(ng-model='semc.site.selected', theme='bootstrap', ng-disabled='semc.disabled')
+                ui-select-match.text-bold(placeholder='Search Engines SERP Monitoring for Site:') Search Engines SERP Monitoring for Site: {{ $select.selected.name }}
+                ui-select-choices(repeat='site in semc.sites | propsFilter: {name: $select.search}')
+                    div(ng-bind-html='site.name | highlight: $select.search')
+        .col-md-2.modal-tools
+            button(type="button", class="close", ng-click='closeThisDialog(0)')
+                span(aria-hidden="true")
+                | &times;
+    .modal-body
+        .row.serp-title
+            .col-md-3
+                a.se-title Monitored Search Engine
+            .col-md-1
+                em.icon-question
+        .row.serp-item(ng-repeat='item in semc.seViews')
+            .col-md-3
+                ui-select.text-left(ng-model='item.engines.selected', theme='bootstrap', ng-disabled='semc.engine.disabled', append-to-body = true, ng-change="semc.getDomains(item.engines.selected)")
+                    ui-select-match 
+                        i(class='{{$select.selected.icon}}')
+                        span.text-bold {{ $select.selected.name }}
+                    ui-select-choices(repeat='engine in item.engines | filter: $select.search')
+                        i(class='{{engine.icon}}')
+                        span.text-bold.select-text(ng-bind-html='engine.name | highlight: $select.search')
+            .col-md-6
+                ui-select.text-left(ng-model='item.engines.selected.domains.selected', theme='bootstrap')
+                    ui-select-match 
+                        i(class='{{item.engines.selected.icon}}')
+                        span.text-bold.select-text(ng-bind-html='item.engines.selected.name')
+                        span {{ $select.selected.Name }}
+                    ui-select-choices(repeat='domain in item.engines.selected.domains | filter: $select.search')
+                        i(class='{{item.engines.selected.icon}}')
+                        span.text-bold.select-text(ng-bind-html='item.engines.selected.name')
+                        span.text-bold.select-text(ng-bind-html='domain.Name | highlight: $select.search')
+        .row.col-md-12.serp-comment
+            p
+                em Please select up to 3 search engines to monitor your Keywords SERP ranking positions

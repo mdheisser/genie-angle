@@ -12,6 +12,7 @@
     function keywordsController ($scope, $timeout, $resource, $q, $location, keywordsService, $uibModal, toastr, ngDialog) {
         var vm = this;
         vm.addKeywordsOpenDialog = addKeywordsOpenDialog;
+        vm.searchEngineOpenDialog = searchEngineOpenDialog;
 
         activate();
 
@@ -22,9 +23,15 @@
         }
 
         function addKeywordsOpenDialog () {
-            $scope.ngDialog = ngDialog;
             ngDialog.open({
                 template: 'app/views/modals/addKeywords.html',
+                className: 'ngdialog-theme-default',
+                showClose: false
+            });
+        }
+        function searchEngineOpenDialog () {
+            ngDialog.open({
+                template: 'app/views/modals/searchEngine.html',
                 className: 'ngdialog-theme-default',
                 showClose: false
             });

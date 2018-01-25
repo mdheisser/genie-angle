@@ -1,8 +1,8 @@
-﻿.container-fluid(ng-controller='keywordModalCtrl as kmc')
+﻿#keywordModal.container-fluid(ng-controller='keywordModalCtrl as kmc')
     .modal-header.row
-        .col-md-10.text-bold.side-dropdown Add Keywords to Site:
+        .col-md-10
             ui-select.text-right(ng-model='kmc.site.selected', theme='bootstrap', ng-disabled='kmc.disabled')
-                ui-select-match(placeholder='your site url...') {{ $select.selected.name }}
+                ui-select-match.text-bold(placeholder='Add Keywords to Site:') Add Keywords to Site: {{ $select.selected.name }}
                 ui-select-choices(repeat='site in kmc.sites | propsFilter: {name: $select.search}')
                     div(ng-bind-html='site.name | highlight: $select.search')
         .col-md-2.modal-tools
@@ -41,14 +41,14 @@
                 .col-md-1.text-left.p0
                     p 250
                 .col-md-1.p0
-                    em.icon-info
+                    em.icon-question
             .row.monitored-bar
                 .col-md-10
                     uib-progressbar.progress-striped(type='warning', value='71') Monitored Keywords 71%
                 .col-md-1.text-left.p0
                     p 350
                 .col-md-1.p0
-                    em.icon-info
+                    em.icon-question
             a(href='', ng-click='upgradePackage()')
                 | Upgrade Package
             .checkbox.c-checkbox.needsclick.martop
@@ -56,19 +56,19 @@
                 input(type='checkbox', value='').needsclick
                 span.fa.fa-check
                 |  Mark Added Keywords for Monitoring SERP Ranking 
-                em.icon-info
+                em.icon-question
             .checkbox.c-checkbox
               label
                 input(type='checkbox', checked='', value='')
                 span.fa.fa-check
                 |   Mark Added Keywords for Promotion
-                em.icon-info
+                em.icon-question
             .checkbox.c-checkbox
               label
                 input(type='checkbox', checked='', value='')
                 span.fa.fa-check
                 |   Process all Added Keywords Immediatly
-                em.icon-info
+                em.icon-question
             .row.text-right
                 .col-md-12
                     button(type="button", class="btn btn-primary ok-button btn-dialog", ng-class="{'disabled': isEmptyKeywordsInput() }", ng-disabled="isEmptyKeywordsInput()", ng-click='addKeywords()')

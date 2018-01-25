@@ -45,16 +45,16 @@
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 10px;
-        // background-color: @panel-header-bg;
         .panel-title {
-            background-color: white;
             margin-right: 65px;
-            padding-left: 10px;
             color: black;
             .ui-select-container {
-                display: inline-flex;
-                span {
-                    border: none;
+                input {
+                    max-width: 2000px;
+                }
+                .ui-select-match span {
+                    font-weight: bold;
+                    font-size: 17px;
                 }
             }
         }
@@ -81,18 +81,6 @@
             padding-left: 5px;
             margin-left: 5px;
             float: left;
-        }
-        .ui-select-container {
-            display: inline-flex;
-            span {
-                border: none;
-            }
-        }
-        .date-filter .ui-select-container {
-             width: 65px;
-             .dropdown-menu {
-                min-width: 65px !important;
-            }
         }
         .highcharts-container {
             .highcharts-credits {

@@ -1,8 +1,8 @@
 #keyDashboard.container-fluid.panel.panel-dark(ng-controller='dashboardController as dac')
     .panel-heading
-        .panel-title.text-bold  Keywords Dashboard for Site:
+        .panel-title.text-bold
             ui-select.text-right(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
-                ui-select-match(placeholder='your site url...') {{ $select.selected.name }}
+                ui-select-match(placeholder='Keywords Dashboard for Site:') Keywords Dashboard for Site: {{ $select.selected.name }}
                 ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')
                     div(ng-bind-html='site.name | highlight: $select.search')
         paneltool(tool-side-collapse, tool-close)
@@ -16,25 +16,23 @@
                 ul.list-group
                     li.list-group-item.no-border
                         | Monitored Search Engines For Website
-                        i.fa.fa-cog.pull-right
+                        i.fa.fa-cog.pull-right(ng-click='kc.searchEngineOpenDialog()')
                     li.list-group-item.no-border
                         | Add Keywords...
                         button.btn.btn-primary.pull-right(ng-click='kc.addKeywordsOpenDialog()')
                             i.fa.fa-plus
             .col-md-7
                 .panel.panel-default.panel-dark.charts-panel
-                    .panel-heading
+                    .panel-heading.container-fluid
                         i.fa.fa-line-chart.pull-left
-                        .panel-title.text-bold
-                            span Aggregated SERP Keywords Ranking for Site:
+                        .panel-title.text-bold.col-md-8
                             ui-select.text-right(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
-                                ui-select-match(placeholder='your site url...') {{ $select.selected.name }}
+                                ui-select-match(placeholder='Aggregated SERP Keywords Ranking for Site:') Aggregated SERP Keywords Ranking for Site: {{ $select.selected.name }}
                                 ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')
                                     div(ng-bind-html='site.name | highlight: $select.search')
-                        .date-filter
-                            span Days:
+                        .date-filter.col-md-2
                             ui-select.text-right(ng-model='dac.filterDays.selected', theme='bootstrap', ng-disabled='dac.disabled')
-                                ui-select-match(placeholder='') {{ $select.selected.name }}
+                                ui-select-match(placeholder='Days:') Days: {{ $select.selected.name }}
                                 ui-select-choices(repeat='filterDay in dac.filterDays | propsFilter: {name: $select.search}')
                                     div(ng-bind-html='filterDay.name | highlight: $select.search')
                         //- paneltool(tool-collapse, tool-dismiss, ng-init="keyDashboard=true")
