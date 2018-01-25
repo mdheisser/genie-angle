@@ -24,8 +24,8 @@
         };
         return directive;
 
-        var wrapperWidth;
-        var wrapperElement;
+        var wrapperWidth = 0;
+        var wrapperElement = null;
 
         function link(scope, element, attrs) {
             wrapperElement = element;
@@ -58,7 +58,7 @@
         function reRender(e, isActive) {
             var item = angular.element(e);
             var numberOfItem = item.parent().children().length;
-            var collapseWidth = item.children().first().prop('offsetWidth') + 4;
+            var collapseWidth = item.children().first().prop('clientWidth') + 4;
             var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 );
 
             var iconTag = item.children().children().children().first();
@@ -79,7 +79,15 @@
 
         function getWrapperWidth () {
             var wrapper = angular.element(wrapperElement).children().first();
-            wrapperWidth = wrapper.prop('offsetWidth');
+            wrapperWidth = wrapper.prop('clientWidth');
+            if(hasScroll()) {
+                wrapperWidth -= 20;
+            }
+        }
+
+        function hasScroll () {
+            var body = document.body;
+            return body.scrollHeight > body.clientHeight;
         }
     }
 
