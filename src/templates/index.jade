@@ -28,6 +28,8 @@ html(lang="en", data-ng-app="seogenie")
     // ngDialog styles
     link(rel='stylesheet', href=ver('vendor/ngDialog/css/ngDialog.min.css'))
     link(rel='stylesheet', href=ver('vendor/ngDialog/css/ngDialog-theme-default.min.css'))
+    // bootstrap-select
+    link(rel='stylesheet', href=ver('vendor/bootstrap-select/dist/css/bootstrap-select.min.css'))
     // Application styles
     link(rel='stylesheet', href=ver('app/css/app.css'), data-ng-if="!app.layout.isRTL")
     link(rel='stylesheet', href=ver('app/css/app-rtl.css'), data-ng-if="app.layout.isRTL")
@@ -48,5 +50,9 @@ html(lang="en", data-ng-app="seogenie")
     script(src=ver('vendor/highcharts/highcharts.js'))
     //- ngDialog
     script(src=ver('vendor/ngDialog/js/ngDialog.min.js'))
+    //- bootstrap-select
+    script(src=ver('vendor/bootstrap/dist/js/bootstrap.min.js'))
+    script(src=ver('vendor/bootstrap-select/dist/js/bootstrap-select.min.js'))
+    script(src=ver('vendor/ng-bootstrap-select/build/ng-bootstrap-select.min.js'))
     //- templates:js
     //- endinject

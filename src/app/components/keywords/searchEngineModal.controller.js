@@ -7,15 +7,16 @@
     'use strict';
 
     keywordsApp.controller("searchEngineModalCtrl", searchEngineModalCtrl);
-    searchEngineModalCtrl.$inject = ['$scope', 'websitesService'];    
+    searchEngineModalCtrl.$inject = ['$scope', 'websitesService', 'REST'];    
 
-    function searchEngineModalCtrl ($scope, websitesService) {
+    function searchEngineModalCtrl ($scope, websitesService, REST) {
         var vm = this;
         vm.sites = [];
         vm.site = {};
         vm.seViews = [];
         vm.searchEngines = [];
         vm.getDomains = getDomains;
+        vm.selectDomain = selectDomain;
 
         activate();
 
@@ -41,48 +42,61 @@
             vm.seViews = [
                 {
                     index: 0,
-                    engine: vm.searchEngines[0],
-                    engines: angular.copy(vm.searchEngines)
+                    engines: angular.copy(vm.searchEngines),
+                    domains: [{}],
+                    domainSelected: false,
+                    domainChecking: false
                 }, {
                     index: 1,
-                    engine: vm.searchEngines[1],
-                    engines: angular.copy(vm.searchEngines)
+                    engines: angular.copy(vm.searchEngines),
+                    domains: [{}],
+                    domainSelected: false,
+                    domainChecking: false
                 },
                 {
                     index: 2,
-                    engine: vm.searchEngines[2],
-                    engines: angular.copy(vm.searchEngines)
+                    engines: angular.copy(vm.searchEngines),
+                    domains: [{}],
+                    domainSelected: false,
+                    domainChecking: false
                 }
             ];
         }
 
-        function getDomains ($item, $model) {
-            switch ($item.name) {
+        function getDomains ($item) {
+            switch ($item.engines.selected) {
                 case 'Google':
                     websitesService.getGoogleDomains().then(function (response) {
                         $item.domains = response.data;
-                        $item.domains.selected = vm.searchEngines[0].domains[0];
                     });
                     break;
                 case 'Yahoo':
                     websitesService.getYahooDomains().then(function (response) {
                         $item.domains = response.data;
-                        $item.domains.selected = vm.searchEngines[1].domains[0];
                     });
                     break;
                 case 'Bing':
                     websitesService.getBingDomains().then(function (response) {
                         $item.domains = response.data;
-                        $item.domains.selected = vm.searchEngines[2].domains[0];
                     });
                     break;
                 case 'Yandex':
                     websitesService.getYandexDomains().then(function (response) {
                         $item.domains = response.data;
-                        $item.domains.selected = vm.searchEngines[3].domains[0];
                     });
                     break;
             };
+        }
+
+        function selectDomain (item) {
+            item.domainChecking = true;
+            item.domainSelected = false;
+            REST.checkSite('test.com').then(function (response) {
+                if (response.data) {
+                    item.domainChecking = false;
+                    item.domainSelected = true;
+                }
+            });
         }
     }
 

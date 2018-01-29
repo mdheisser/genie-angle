@@ -1,7 +1,10 @@
 ﻿.ngdialog.ngdialog-theme-default .ngdialog-content {
     width: 1000px;
     padding: 0;
-} 
+}
+.search-engine .ngdialog-content {
+    width: 750px !important;
+}
 .ngdialog-content {
     .ui-select-container {
         input {
@@ -26,7 +29,6 @@
         .title {
             font-size: 16px;
             color: black;
-            text-decoration: underline;
         }
         .radio-inline {
             font-size: 13px;
@@ -70,22 +72,32 @@
     }
     #searchEngineModal {
         .serp-title {
-            margin-top: 20px;
-            margin-bottom: 40px;
+            margin-top: 10px;
             .se-title {
-                font-size: 16px;
-                text-decoration: underline;
-            }
-            .icon-question {
-                color: blue;
+                font-size: 18px;
+                margin-bottom: 0;
             }
         }
         .serp-item {
-            margin-top: 20px;
+            margin-top: 10px;
+            .dropdown-menu {
+                top: 32px;
+            }
+            .form-control {
+                border-radius: 5px !important;
+            }
+            em {
+                color: green;
+                font-size: 20px;
+                margin-top: 5px;
+            }
         }
         .serp-comment {
             margin-top: 30px;
             margin-bottom: 20px;
+        }
+        .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+            width: 100% !important;
         }
     }
 }

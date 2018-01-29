@@ -25,14 +25,14 @@
         function addKeywordsOpenDialog () {
             ngDialog.open({
                 template: 'app/views/modals/addKeywords.html',
-                className: 'ngdialog-theme-default',
+                className: 'ngdialog-theme-default add-keywords',
                 showClose: false
             });
         }
         function searchEngineOpenDialog () {
             ngDialog.open({
                 template: 'app/views/modals/searchEngine.html',
-                className: 'ngdialog-theme-default',
+                className: 'ngdialog-theme-default search-engine',
                 showClose: false
             });
         }

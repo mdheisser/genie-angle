@@ -11,29 +11,22 @@
                 | &times;
     .modal-body
         .row.serp-title
-            .col-md-3
-                a.se-title Monitored Search Engine
+            .col-md-4
+                p.se-title Monitored Search Engine
             .col-md-1
                 em.icon-question
         .row.serp-item(ng-repeat='item in semc.seViews')
-            .col-md-3
-                ui-select.text-left(ng-model='item.engines.selected', theme='bootstrap', ng-disabled='semc.engine.disabled', append-to-body = true, ng-change="semc.getDomains(item.engines.selected)")
-                    ui-select-match 
-                        i(class='{{$select.selected.icon}}')
-                        span.text-bold {{ $select.selected.name }}
-                    ui-select-choices(repeat='engine in item.engines | filter: $select.search')
-                        i(class='{{engine.icon}}')
-                        span.text-bold.select-text(ng-bind-html='engine.name | highlight: $select.search')
+            .col-md-4
+                select(selectpicker='', data-live-search='true', ng-model='item.engines.selected', ng-change="semc.getDomains(item)")
+                    option.text-bold(ng-repeat='engine in item.engines', data-icon='{{engine.icon}}') {{ engine.name }}
             .col-md-6
-                ui-select.text-left(ng-model='item.engines.selected.domains.selected', theme='bootstrap')
-                    ui-select-match 
-                        i(class='{{item.engines.selected.icon}}')
-                        span.text-bold.select-text(ng-bind-html='item.engines.selected.name')
-                        span {{ $select.selected.Name }}
-                    ui-select-choices(repeat='domain in item.engines.selected.domains | filter: $select.search')
-                        i(class='{{item.engines.selected.icon}}')
-                        span.text-bold.select-text(ng-bind-html='item.engines.selected.name')
-                        span.text-bold.select-text(ng-bind-html='domain.Name | highlight: $select.search')
+                select(selectpicker='', data-live-search='true', ng-model='item.domains.selected', ng-options='(item.engines.selected + domain.Name) for domain in item.domains', ng-change="semc.selectDomain(item)")
+            .col-md-1
+                em.fa.fa-check(ng-if='item.domainSelected')
+                .spinner(ng-show='item.domainChecking')
+                    .bounce1
+                    .bounce2
+                    .bounce3
         .row.col-md-12.serp-comment
             p
                 em Please select up to 3 search engines to monitor your Keywords SERP ranking positions
