@@ -131,7 +131,8 @@
     "angular-language-picker": "azachar/angular-language-picker#^0.4.3",
     "angular-xeditable": "^0.8.1",
     "highcharts-ng": "^1.2.0",
-    "highcharts": "^6.0.4"
+    "highcharts": "^6.0.4",
+    "ng-bootstrap-select": "^0.5.0"
   },
   "resolutions": {
     "angular-bootstrap": "2.5.0",

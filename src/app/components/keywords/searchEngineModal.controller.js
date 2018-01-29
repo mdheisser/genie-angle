@@ -7,9 +7,9 @@
     'use strict';
 
     keywordsApp.controller("searchEngineModalCtrl", searchEngineModalCtrl);
-    searchEngineModalCtrl.$inject = ['$scope', 'websitesService', 'REST'];    
+    searchEngineModalCtrl.$inject = ['$scope', 'websitesService', '$timeout'];    
 
-    function searchEngineModalCtrl ($scope, websitesService, REST) {
+    function searchEngineModalCtrl ($scope, websitesService, $timeout) {
         var vm = this;
         vm.sites = [];
         vm.site = {};
@@ -23,7 +23,7 @@
         //////////////////////
 
         function activate () {
-            init(); 
+            init();
         }
 
         // initialize the controller
@@ -91,12 +91,10 @@
         function selectDomain (item) {
             item.domainChecking = true;
             item.domainSelected = false;
-            REST.checkSite('test.com').then(function (response) {
-                if (response.data) {
-                    item.domainChecking = false;
-                    item.domainSelected = true;
-                }
-            });
+            $timeout(function () {
+                item.domainChecking = false;
+                item.domainSelected = true;
+            }, 1000);
         }
     }
 
