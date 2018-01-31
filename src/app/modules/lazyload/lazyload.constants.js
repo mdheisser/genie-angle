@@ -74,6 +74,21 @@
 			name: 'xeditable',
 			files: ['vendor/angular-xeditable/dist/js/xeditable.min.js',
 				'vendor/angular-xeditable/dist/css/xeditable.min.css']
+		},
+		{
+			name: 'ng-dialog',
+			files: ['vendor/ngDialog/css/ngDialog.min.css',
+				'vendor/ngDialog/css/ngDialog-theme-default.min.css',
+				'vendor/ngDialog/js/ngDialog.min.js'
+			]
+		},
+		{
+			name: 'ng-bootstrap-select',
+			files: ['vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
+				'vendor/bootstrap/dist/js/bootstrap.min.js',
+				'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
+				'vendor/ng-bootstrap-select/build/ng-bootstrap-select.min.js'
+			]
 		}
 	  ]
 	});

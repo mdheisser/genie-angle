@@ -51,7 +51,7 @@
                 url: '/keywords',
                 title: 'Keywords',
                 templateUrl: helper.basepath('keywords.html'),
-                resolve: helper.resolveFor('smart-table', 'ui.select')
+                resolve: helper.resolveFor('smart-table', 'ui.select', 'ng-dialog', 'ng-bootstrap-select')
             })
             .state('app.sentenceParameters', {
                 url: '/sentenceParameters',

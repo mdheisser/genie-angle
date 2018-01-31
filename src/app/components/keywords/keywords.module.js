@@ -1,4 +1,4 @@
-var keywordsApp = angular.module('app.keywords', ["ui.bootstrap", "ngDialog", "ng-bootstrap-select"]);
+var keywordsApp = angular.module('app.keywords', ["ui.bootstrap"]);
 keywordsApp.config(function ($provide) {
 	//Exception handling
 	$provide.decorator('$exceptionHandler', ['$delegate', function ($delegate) {

@@ -1,14 +1,16 @@
 ﻿.ngdialog.ngdialog-theme-default {
     .ngdialog-content {
-        width: 1000px;
-        padding: 0;
-        @media only screen and (max-width: @pad-width) {
-            width: 750px;
-        }
+        padding: 0 !important;
     }
 }
 .search-engine .ngdialog-content {
     width: 650px !important;
+}
+.add-keywords .ngdialog-content {
+    width: 1000px !important;
+    @media only screen and (max-width: @pad-width) {
+        width: 750px !important;
+    }
 }
 .ngdialog-content {    
     .modal-tools {
