@@ -86,7 +86,7 @@
             var wrapperWidth = e.parent().prop('offsetWidth');
             var numberOfItem = e.length;
             var collapseWidth = e.children().first().prop('offsetWidth') + 4;
-            var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 );
+            var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 ) - 20;
             return {
                 collapse : collapseWidth,
                 content: panelContentWidth
