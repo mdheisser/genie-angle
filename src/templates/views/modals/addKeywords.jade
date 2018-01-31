@@ -1,20 +1,18 @@
 ﻿#keywordModal.container-fluid(ng-controller='keywordModalCtrl as kmc')
     .modal-header.row
-        .col-md-10
-            ui-select.text-right(ng-model='kmc.site.selected', theme='bootstrap', ng-disabled='kmc.disabled')
-                ui-select-match.text-bold(placeholder='Add Keywords to Site:') Add Keywords to Site: {{ $select.selected.name }}
-                ui-select-choices(repeat='site in kmc.sites | propsFilter: {name: $select.search}')
-                    div(ng-bind-html='site.name | highlight: $select.search')
-        .col-md-2.modal-tools
+        .col-xs-10.p0
+            select(selectpicker='', data-live-search='true', ng-model='kmc.site.selected', title='Add Keywords to Site:')
+                option.text-bold(ng-repeat='site in kmc.sites') Add Keywords to Site: {{ site.name }}
+        .col-xs-2.modal-tools
             button(type="button", class="close", ng-click='closeThisDialog(0)')
                 span(aria-hidden="true")
                 | &times;
     .modal-body.row
-        .col-md-7
+        .col-xs-7
             .row
-                .col-md-4.pr0
+                .col-md-4.pr0.col-xs-12
                     h5.title Add Keywords/Phrases.
-                .col-md-6
+                .col-md-6.col-xs-10text-mode
                     label.radio-inline.c-radio
                         input#inlineradio1(type='radio', name="i-radio", value='option1', checked)
                         span.fa.fa-circle
@@ -23,31 +21,31 @@
                         input#inlineradio2(type='radio', name="i-radio", value='option2')
                         span.fa.fa-circle
                         |  Tabular Mode
-                .col-md-2.clear.text-right
+                .col-md-2.col-xs-2clear.text-right
                     a(ng-click='') clear
             .row
-                md-input.col-md-12
+                md-input.col-xs-12
                     textarea(class="form-control", id='add-keywords', rows='15' cols='50', ng-model='keywordsInputText', ng-change='getKeywordsFromText()', ng-model-options='{ debounce: 1000 }')
             .row
-                .col-md-12
-                    p 
+                .col-xs-12
+                    p.text-comment
                         em Pressing enter create a new line, each keyword/phrase can contain multiple words. You may also add Keywords separated by comma, in the Free Text Mode.
-        .col-md-5.add-package.pr0
+        .col-xs-5.add-package.pr0
             a.title Subscription Package Utilization Limits
             .row.promoted-bar
-                .col-md-10
+                .col-xs-10
                     uib-progressbar.progress-striped(type='danger', value='50')
                         span Promoted Keywords 50%
-                .col-md-1.text-left.p0
+                .col-xs-1.text-left.p0
                     p 250
-                .col-md-1.p0
+                .col-xs-1.p0
                     em.icon-question
             .row.monitored-bar
-                .col-md-10
+                .col-xs-10
                     uib-progressbar.progress-striped(type='warning', value='71') Monitored Keywords 71%
-                .col-md-1.text-left.p0
+                .col-xs-1.text-left.p0
                     p 350
-                .col-md-1.p0
+                .col-xs-1.p0
                     em.icon-question
             a(href='', ng-click='upgradePackage()')
                 | Upgrade Package
@@ -70,6 +68,6 @@
                 |   Process all Added Keywords Immediatly
                 em.icon-question
             .row.text-right
-                .col-md-12
+                .col-xs-12
                     button(type="button", class="btn btn-primary ok-button btn-dialog", ng-class="{'disabled': isEmptyKeywordsInput() }", ng-disabled="isEmptyKeywordsInput()", ng-click='addKeywords()')
                         | Add

@@ -1,32 +1,30 @@
 #searchEngineModal.container-fluid(ng-controller='searchEngineModalCtrl as semc')
     .modal-header.row
-        .col-md-10
-            ui-select.text-right(ng-model='semc.site.selected', theme='bootstrap', ng-disabled='semc.disabled')
-                ui-select-match.text-bold(placeholder='Search Engines SERP Monitoring for Site:') Search Engines SERP Monitoring for Site: {{ $select.selected.name }}
-                ui-select-choices(repeat='site in semc.sites | propsFilter: {name: $select.search}')
-                    div(ng-bind-html='site.name | highlight: $select.search')
-        .col-md-2.modal-tools
+        .col-xs-10.p0
+            select(selectpicker='', data-live-search='true', ng-model='semc.site.selected', title='Search Engines SERP Monitoring for Site:')
+                option.text-bold(ng-repeat='site in semc.sites') Search Engines SERP Monitoring for Site: {{ site.name }}
+        .col-xs-2.modal-tools
             button(type="button", class="close", ng-click='closeThisDialog(0)')
                 span(aria-hidden="true")
                 | &times;
     .modal-body
         .row.serp-title
-            .col-md-4
+            .col-xs-5
                 p.se-title Monitored Search Engine
-            .col-md-1
+            .col-xs-1
                 em.icon-question
         .row.serp-item(ng-repeat='item in semc.seViews')
-            .col-md-4
+            .col-sm-4.col-xs-4
                 select(selectpicker='', data-live-search='true', ng-model='item.engines.selected', ng-change="semc.getDomains(item)")
                     option.text-bold(ng-repeat='engine in item.engines', data-icon='{{engine.icon}}') {{ engine.name }}
-            .col-md-6
+            .col-sm-7.col-xs-6.p0
                 select(selectpicker='', data-live-search='true', ng-model='item.domains.selected', ng-options='(item.engines.selected + domain.Name) for domain in item.domains', ng-change="semc.selectDomain(item)")
-            .col-md-1
+            .col-sm-1.col-xs-2
                 em.fa.fa-check(ng-if='item.domainSelected')
                 .spinner(ng-show='item.domainChecking')
                     .bounce1
                     .bounce2
                     .bounce3
-        .row.col-md-12.serp-comment
+        .row.col-xs-12.serp-comment
             p
                 em Please select up to 3 search engines to monitor your Keywords SERP ranking positions

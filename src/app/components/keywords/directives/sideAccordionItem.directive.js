@@ -55,6 +55,9 @@
             if(eventElement.hasClass('accordion-item')) { // prevent from clicking on sub elements
                 var accordionItem = eventElement.parent();
                 onClick(accordionItem);
+            } else if(eventElement[0].tagName === 'EM') {
+                var accordionItem = eventElement.closest('.accordion-item').parent();
+                onClick(accordionItem);
             }
         }
 
@@ -67,7 +70,7 @@
             var iconTag = accordionItem.children().children().children().first();
 
             if(isActivated) { // collapse if the panel is activated already
-                // onClick(getFriend(accordionItem));
+                onClick(getFriend(accordionItem));
             } else {
                 angular.forEach(accordionItems, function(item) {
                     var pane = angular.element(item);

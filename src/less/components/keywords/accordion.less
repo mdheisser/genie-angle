@@ -1,15 +1,29 @@
 @accordion-height: 600px;
-@panel-header-bg: #607D8B;
+@panel-header-bg: #5188a2;
+@pad-width: 768px;
+@mobile-width: 414px;
 .side-accordion-wrapper {
-    @collapsed-panel-width: 54px;
+    @collapsed-panel-width: 44px;
     @padding: 2px;
+    @collapsed-panel-width-pad: 32px;
+    @padding-pad: 1px;
 
     height: @accordion-height;
+    @media only screen and (max-width: @pad-width) {
+        font-size: 11px;
+    }
+    @media only screen and (max-width: @mobile-width) {
+        font-size: 10px;
+    }
     side-accordion-item {
         float: left;
         transition: width .5s;
         width: @collapsed-panel-width;
         padding: @padding;
+        @media only screen and (max-width: @pad-width) {
+            width: @collapsed-panel-width-pad;
+            padding: @padding-pad;
+        }
         height: inherit;
         overflow: hidden;
         .accordion-item {
@@ -17,6 +31,9 @@
             width: @collapsed-panel-width - 2 * @padding;
             height: @accordion-height - 2* @padding;
             background-color: @panel-header-bg;
+            @media only screen and (max-width: @pad-width) {
+                width: @collapsed-panel-width-pad - 2 * @padding-pad;
+            }
             .collapsed-body {
                 margin-top: 20px;
                 font-size: 18px;
@@ -27,6 +44,11 @@
             background-color: #F5F7FA;
             margin-left: @collapsed-panel-width - @padding;
             height: @accordion-height - 2 * @padding;
+            @media only screen and (max-width: @pad-width) {
+                max-width: 600px;
+                overflow-y: auto;
+                margin-left: @collapsed-panel-width-pad - @padding-pad;
+            }
         }
         .smoothidden {
             opacity: 0;
@@ -37,49 +59,96 @@
         }
     }
 }
-
+// bootstrap-select custom style
+.bootstrap-select {
+    .dropdown-menu {
+        top: 32px;
+    }
+    .form-control {
+        border-radius: 5px !important;
+    }
+    &:not([class*=col-]) {
+        &:not([class*=form-control]) {
+            &:not(.input-group-btn) {
+                width: 100% !important;
+            }
+        }
+    }
+    .btn:hover {
+        box-shadow: none !important;
+        transform: none !important;
+        background-color: #e6e6e6 !important;
+        border-color: #adadad !important;
+    }
+    .btn:focus {
+        box-shadow: none !important;
+        transform: none !important;
+    }
+    .dropdown-toggle {
+        @media only screen and (max-width: @pad-width) {
+            padding-left: 5px;
+        }
+        .filter-option {
+            font-weight: bold;
+            font-size: 15px;
+            @media only screen and (max-width: @pad-width) {
+                font-size: 12px;
+            }
+        }
+        &:focus {
+            outline: none !important;
+        }
+    }
+}
 // Keywords Dashbord Style
 #keyDashboard, #keyList {
     height: @accordion-height - 4px;
     .panel-heading {
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 10px;
+        padding: 5px 10px;
+        background-color: @panel-header-bg;
         .panel-title {
-            margin-right: 65px;
-            color: black;
-            .ui-select-container {
-                input {
-                    max-width: 2000px;
-                }
-                .ui-select-match span {
-                    font-weight: bold;
-                    font-size: 17px;
-                }
-            }
+            margin-right: 50px;
         }
     }
     .panel-body {
         .list-group-item {
-            padding-top: 20px;
-            padding-bottom: 20px;
+            padding: 10px auto;
             .fa-cog {
                 font-size: 24px;
                 margin-right: 10px;
+                @media only screen and (max-width: @mobile-width) {
+                    font-size: 20px;
+                }
+            }
+            button {
+                @media only screen and (max-width: @mobile-width) {
+                    padding: 0;
+                    margin-right: 10px;
+                    width: 20px;
+                    height: 20px;
+                }
             }
         }
         .no-border {
             border: none;
-            font-size: 18px;
+            font-size: 16px;
+            @media only screen and (max-width: @pad-width) {
+                font-size: 12px;
+            }
+            @media only screen and (max-width: @mobile-width) {
+                font-size: 10px;
+            }
         }       
     }
     .charts-panel {
         .fa-line-chart {
             margin-top: 11px;
+            @media only screen and (max-width: @pad-width) {
+                display: none;
+            }
         }
         .panel-title {
             padding-left: 5px;
-            margin-left: 5px;
             margin-right: 0;
             float: left;
         }

@@ -1,11 +1,9 @@
-#keyDashboard.container-fluid.panel.panel-dark(ng-controller='dashboardController as dac')
+#keyDashboard.container-fluid.panel(ng-controller='dashboardController as dac')
     .panel-heading
-        .panel-title.text-bold
-            ui-select.text-right(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
-                ui-select-match(placeholder='Keywords Dashboard for Site:') Keywords Dashboard for Site: {{ $select.selected.name }}
-                ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')
-                    div(ng-bind-html='site.name | highlight: $select.search')
-        paneltool(tool-side-collapse, tool-close)
+        .panel-title
+            select(selectpicker='', data-live-search='true', ng-model='dac.site.selected', title='Keywords Dashboard for Site:')
+                option.text-bold(ng-repeat='site in dac.sites') Keywords Dashboard for Site: {{ site.name }}
+        paneltool(tool-close)
     .panel-wrapper
         .panel-body.row
             .col-md-5
@@ -25,17 +23,12 @@
                 .panel.panel-default.panel-dark.charts-panel
                     .panel-heading.container-fluid
                         i.fa.fa-line-chart.pull-left
-                        .panel-title.text-bold.col-md-8
-                            ui-select.text-right(ng-model='dac.site.selected', theme='bootstrap', ng-disabled='dac.disabled')
-                                ui-select-match(placeholder='Aggregated SERP Keywords Ranking for Site:') Aggregated SERP Keywords Ranking for Site: {{ $select.selected.name }}
-                                ui-select-choices(repeat='site in dac.sites | propsFilter: {name: $select.search}')
-                                    div(ng-bind-html='site.name | highlight: $select.search')
-                        .date-filter.col-md-3
-                            ui-select.text-right(ng-model='dac.filterDays.selected', theme='bootstrap', ng-disabled='dac.disabled')
-                                ui-select-match(placeholder='Days:') Days: {{ $select.selected.name }}
-                                ui-select-choices(repeat='filterDay in dac.filterDays | propsFilter: {name: $select.search}')
-                                    div(ng-bind-html='filterDay.name | highlight: $select.search')
-                        //- paneltool(tool-collapse, tool-dismiss, ng-init="keyDashboard=true")
+                        .panel-title.text-bold.col-md-8.col-xs-8
+                            select(selectpicker='', data-live-search='true', ng-model='dac.site.selected', title='Aggregated SERP Keywords Ranking for Site:')
+                                option.text-bold(ng-repeat='site in dac.sites') Aggregated SERP Keywords Ranking for Site: {{ site.name }}
+                        .date-filter.col-md-3.col-xs-3
+                            select(selectpicker='', data-live-search='true', ng-model='dac.filterDays.selected', title='Days:')
+                                option.text-bold(ng-repeat='filterDay in dac.filterDays') Days: {{ filterDay.name }}
                     .panel-wrapper
                         .panel-body
                             div(hc-charts='', options='dac.chartOptions')

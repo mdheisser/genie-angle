@@ -1,20 +1,16 @@
-﻿.ngdialog.ngdialog-theme-default .ngdialog-content {
-    width: 1000px;
-    padding: 0;
-}
-.search-engine .ngdialog-content {
-    width: 750px !important;
-}
-.ngdialog-content {
-    .ui-select-container {
-        input {
-            max-width: 1000px;
-        }
-        .ui-select-match span {
-            font-weight: bold;
-            font-size: 17px;
+﻿.ngdialog.ngdialog-theme-default {
+    .ngdialog-content {
+        width: 1000px;
+        padding: 0;
+        @media only screen and (max-width: @pad-width) {
+            width: 750px;
         }
     }
+}
+.search-engine .ngdialog-content {
+    width: 650px !important;
+}
+.ngdialog-content {    
     .modal-tools {
         padding-top: 8px;
         button {
@@ -29,10 +25,21 @@
         .title {
             font-size: 16px;
             color: black;
+            @media only screen and (max-width: @pad-width) {
+                font-size: 11px;
+            }
+        }
+        .text-mode {
+            @media only screen and (max-width: @pad-width) {
+                padding: 0;
+            }
         }
         .radio-inline {
             font-size: 13px;
             padding-top: 8px;
+            @media only screen and (max-width: @pad-width) {
+                font-size: 10px;
+            }
         }
         .clear {
             padding-top: 8px;
@@ -66,26 +73,30 @@
         .martop {
             margin-top: 100px;
         }
-        .checkbox em {
-            margin-left: 15px;
+        .checkbox {
+            @media only screen and (max-width: @pad-width) {
+                label {
+                    font-size: 9px;
+                }
+                .text-comment em{
+                    font-size: 10px;
+                }
+            }
+            em {
+                margin-left: 15px;
+            }
         }
     }
     #searchEngineModal {
         .serp-title {
             margin-top: 10px;
             .se-title {
-                font-size: 18px;
+                font-size: 16px;
                 margin-bottom: 0;
             }
         }
         .serp-item {
             margin-top: 10px;
-            .dropdown-menu {
-                top: 32px;
-            }
-            .form-control {
-                border-radius: 5px !important;
-            }
             em {
                 color: green;
                 font-size: 20px;
@@ -95,13 +106,6 @@
         .serp-comment {
             margin-top: 30px;
             margin-bottom: 20px;
-        }
-        .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
-            width: 100% !important;
-        }
-        .bootstrap-select.btn-group .dropdown-toggle .filter-option {
-            font-weight: bold;
-            font-size: 15px;
         }
     }
 }

@@ -5,7 +5,7 @@
                 ui-select-match(placeholder='Keywords Dashboard for Site:') Keywords Dashboard for Site: {{ $select.selected.name }}
                 ui-select-choices(repeat='site in listc.sites | propsFilter: {name: $select.search}')
                     div(ng-bind-html='site.name | highlight: $select.search')
-        paneltool(tool-side-collapse, tool-close)
+        paneltool(tool-close)
     .panel-wrapper(uib-collapse="keyList")
         .panel-body
             table.table.table-striped(st-table="displayedCollection", st-safe-src="rowCollection")

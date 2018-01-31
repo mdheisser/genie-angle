@@ -47,7 +47,7 @@
             var item = angular.element(e);
             var numberOfItem = item.parent().children().length;
             var collapseWidth = item.children().first().prop('offsetWidth') + 4;
-            var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 );
+            var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 ) - 20;
             // by default, fist panel is activated.
             var collapseHeader = item.parent().children().first();
             var iconTag = collapseHeader.children().children().children().first();

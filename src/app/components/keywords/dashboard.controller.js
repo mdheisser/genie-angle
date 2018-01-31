@@ -66,7 +66,17 @@
 
         function drawCharts () {
 
+            var chartHeight = 0;
+            if(window.innerWidth < 768) {
+                chartHeight = 300;
+            } else {
+                chartHeight = 400;
+            }
+
             var chartOptions = {
+                chart: {
+                    height: chartHeight
+                },
                 title: { text: '' },
                 xAxis: {
                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -75,9 +85,9 @@
                     title: { text: '' }
                 },
                 legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
                 },
                 series: [{
                     name: 'Google',
@@ -85,21 +95,7 @@
                 },{
                     name: 'Yahoo',
                     data: [39, 75, 16, 19, 174, 16, 235, 178, 276, 294, 195, 154]
-                }],
-                responsive: {
-                    rules: [{
-                        condition: {
-                            maxWidth: 400
-                        },
-                        chartOptions: {
-                            legend: {
-                                layout: 'horizontal',
-                                align: 'center',
-                                verticalAlign: 'bottom'
-                            }
-                        }
-                    }]
-                }
+                }]
             };
 
             vm.chartOptions = chartOptions;
