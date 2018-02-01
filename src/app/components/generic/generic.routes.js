@@ -26,7 +26,7 @@
         $stateProvider
             .state("page", {
                 url: "/page",
-                templateUrl: helper.componentPath("pages", "page"),
+                templateUrl: helper.componentPath("generic", "page"),
                 resolve: helper.resolveFor("modernizr", "icons"),
                 controller: [
                     "$rootScope",
@@ -37,44 +37,44 @@
             })
             .state("page.auth", {
                 title: "auth",
-                templateUrl: helper.componentPath("pages", "auth")
+                templateUrl: helper.componentPath("generic", "auth")
             })
             .state("page.auth.login", {
                 url: "/login",
                 title: "SEOgenie - Login",
-                templateUrl: helper.componentPath("pages", "login"),
+                templateUrl: helper.componentPath("generic", "login"),
                 controller: "LoginFormController as vm"
             })
             .state("page.auth.register", {
                 url: "/register",
                 title: "SEOgenie - Register",
-                templateUrl: helper.componentPath("pages", "register"),
+                templateUrl: helper.componentPath("generic", "register"),
                 controller: "RegisterFormController as vm"
             })
             .state("page.auth.recover", {
                 url: "/recover",
                 title: "Recover",
-                templateUrl: helper.componentPath("pages", "recover")
+                templateUrl: helper.componentPath("generic", "recover")
             })
             .state("page.lock", {
                 url: "/lock",
                 title: "Lock",
-                templateUrl: helper.componentPath("pages", "lock")
+                templateUrl: helper.componentPath("generic", "lock")
             })
             .state("page.404", {
                 url: "/404",
                 title: "Not Found",
-                templateUrl: helper.componentPath("pages", "404")
+                templateUrl: helper.componentPath("generic", "404")
             })
             .state("page.500", {
                 url: "/500",
                 title: "Server error",
-                templateUrl: helper.componentPath("pages", "500")
+                templateUrl: helper.componentPath("generic", "500")
             })
             .state("page.maintenance", {
                 url: "/maintenance",
                 title: "Maintenance",
-                templateUrl: helper.componentPath("pages", "maintenance")
+                templateUrl: helper.componentPath("generic", "maintenance")
             });
     }
 })();

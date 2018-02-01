@@ -113,13 +113,8 @@
     }
     .panel-body {
         .list-group-item {
-            padding: 10px auto;
-            .fa-cog {
-                font-size: 24px;
-                margin-right: 10px;
-                @media only screen and (max-width: @mobile-width) {
-                    font-size: 20px;
-                }
+            .fa {
+                font-size: 18px;
             }
             button {
                 @media only screen and (max-width: @mobile-width) {
@@ -132,12 +127,24 @@
         }
         .no-border {
             border: none;
-            font-size: 16px;
+            font-size: 15px;
+            padding: 4px 10px 16px 10px !important;
             @media only screen and (max-width: @pad-width) {
                 font-size: 12px;
             }
             @media only screen and (max-width: @mobile-width) {
                 font-size: 10px;
+            }
+            .btn {
+                height: 30px;
+            }
+            .btn-oval {
+                width: 30px;
+                padding: 6px !important;
+                margin-right: 7px;
+            }
+            .btn-outline {
+                padding: 6px 14px !important;
             }
         }       
     }
