@@ -1,14 +1,8 @@
- /**=========================================================
- * Directive: sideAccordionItem.directive.js
- * @desc horizontal accordion item
- * @example <div side-accordion-item></div>
- =========================================================*/
-
-(function () {
+(function (angular) {
     'use strict';
 
     angular
-        .module('app.keywords')
+        .module('components.keywords')
         .directive('sideAccordionItem', sideAccordionItem);
 
     sideAccordionItem.$inject = ['$window'];
@@ -34,7 +28,7 @@
             });
         }
 
-        function sideItemCtrl ($scope) {
+        function sideItemCtrl($scope) {
 
             $scope.active = function (e) {
                 var eventElement = angular.element(e.target);
@@ -51,11 +45,11 @@
             }
         }
 
-        function onSideCollapse (eventElement) {
-            if(eventElement.hasClass('accordion-item')) { // prevent from clicking on sub elements
+        function onSideCollapse(eventElement) {
+            if (eventElement.hasClass('accordion-item')) { // prevent from clicking on sub elements
                 var accordionItem = eventElement.parent();
                 onClick(accordionItem);
-            } else if(eventElement[0].tagName === 'EM') {
+            } else if (eventElement[0].tagName === 'EM') {
                 var accordionItem = eventElement.closest('.accordion-item').parent();
                 onClick(accordionItem);
             }
@@ -69,10 +63,10 @@
             var isActivated = isActive(accordionItem);
             var iconTag = accordionItem.children().children().children().first();
 
-            if(isActivated) { // collapse if the panel is activated already
+            if (isActivated) { // collapse if the panel is activated already
                 onClick(getFriend(accordionItem));
             } else {
-                angular.forEach(accordionItems, function(item) {
+                angular.forEach(accordionItems, function (item) {
                     var pane = angular.element(item);
                     collapsePane(pane, collapseWidth);
                     changeIconToRight(pane.children().children().children().first());
@@ -82,43 +76,43 @@
             }
         }
 
-        function caculateContentWidth (e) {
+        function caculateContentWidth(e) {
             var wrapperWidth = e.parent().prop('offsetWidth');
             var numberOfItem = e.length;
             var collapseWidth = e.children().first().prop('offsetWidth') + 4;
-            var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 ) - 20;
+            var panelContentWidth = wrapperWidth - collapseWidth * (numberOfItem - 1) - 20;
             return {
-                collapse : collapseWidth,
+                collapse: collapseWidth,
                 content: panelContentWidth
             };
         }
 
-        function changeIconToRight (tag) {
+        function changeIconToRight(tag) {
             tag.removeClass('icon-arrow-left');
             tag.addClass('icon-arrow-right');
         }
 
-        function changeIconToLeft (tag) {
+        function changeIconToLeft(tag) {
             tag.removeClass('icon-arrow-right');
             tag.addClass('icon-arrow-left');
         }
 
-        function isActive (e) {
+        function isActive(e) {
             return e.children().children().children().first().hasClass('icon-arrow-left');
         }
 
-        function collapsePane (pane, width) {
+        function collapsePane(pane, width) {
             pane.css('width', width + 'px');
             pane.children().last().addClass('smoothidden');
         }
 
-        function expandPane (pane, width) {
+        function expandPane(pane, width) {
             pane.css('width', width + 'px');
             pane.children().last().removeClass('smoothidden');
         }
 
         // get friend element
-        function getFriend (e) {
+        function getFriend(e) {
             var friendElement = e.next();
             if (typeof friendElement[0] !== 'undefined' && friendElement[0].tagName === 'SIDE-ACCORDION-ITEM') {
                 return friendElement;
@@ -128,4 +122,4 @@
         }
     }
 
-})();
+})(angular);

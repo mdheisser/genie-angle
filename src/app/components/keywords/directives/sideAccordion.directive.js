@@ -1,14 +1,8 @@
- /**=========================================================
- * Directive: sideAccordion.directive.js
- * @desc horizontal accordion
- * @example <div side-accordion></div>
- =========================================================*/
-
-(function () {
+(function (angular) {
     'use strict';
 
     angular
-        .module('app.keywords')
+        .module('components.keywords')
         .directive('sideAccordion', sideAccordion);
 
     sideAccordion.$inject = ['$window'];
@@ -33,11 +27,11 @@
         }
 
         function accordionCtrl() {
-            this.init = function(e) {
+            this.init = function (e) {
                 getWrapperWidth();
                 initialize(e);
             };
-            this.response = function(e, isActive) {
+            this.response = function (e, isActive) {
                 getWrapperWidth();
                 reRender(e, isActive);
             };
@@ -47,7 +41,7 @@
             var item = angular.element(e);
             var numberOfItem = item.parent().children().length;
             var collapseWidth = item.children().first().prop('offsetWidth') + 4;
-            var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 ) - 20;
+            var panelContentWidth = wrapperWidth - collapseWidth * (numberOfItem - 1) - 20;
             // by default, fist panel is activated.
             var collapseHeader = item.parent().children().first();
             var iconTag = collapseHeader.children().children().children().first();
@@ -59,10 +53,10 @@
             var item = angular.element(e);
             var numberOfItem = item.parent().children().length;
             var collapseWidth = item.children().first().prop('clientWidth') + 4;
-            var panelContentWidth = wrapperWidth - collapseWidth * ( numberOfItem - 1 );
+            var panelContentWidth = wrapperWidth - collapseWidth * (numberOfItem - 1);
 
             var iconTag = item.children().children().children().first();
-            if(isActive === true) {
+            if (isActive === true) {
                 item.css('width', panelContentWidth + 'px');
                 changeIcon(iconTag);
             } else {
@@ -70,25 +64,25 @@
             }
         }
 
-        function changeIcon (tag) {
-            if(tag.hasClass('icon-arrow-right')) {
+        function changeIcon(tag) {
+            if (tag.hasClass('icon-arrow-right')) {
                 tag.removeClass('icon-arrow-right');
                 tag.addClass('icon-arrow-left');
             }
         }
 
-        function getWrapperWidth () {
+        function getWrapperWidth() {
             var wrapper = angular.element(wrapperElement).children().first();
             wrapperWidth = wrapper.prop('clientWidth');
-            if(hasScroll()) {
+            if (hasScroll()) {
                 wrapperWidth -= 20;
             }
         }
 
-        function hasScroll () {
+        function hasScroll() {
             var body = document.body;
             return body.scrollHeight > body.clientHeight;
         }
     }
 
-})();
+})(angular);

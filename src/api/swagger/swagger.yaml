@@ -3,8 +3,7 @@ info:
   version: 1.0.0
   title: SEOgenie Swagger
   description: >-
-    SEOgenie REST Specification Edit or GenerateBakend at
-    https://editor.swagger.io
+    SEOgenie REST Specification 
   termsOfService: 'http://swagger.io/terms/'
   contact:
     name: seogenie API Team
@@ -20,6 +19,26 @@ consumes:
 produces:
   - application/json
 paths:
+  /keywords:
+    get:
+      description: Returns keywords from the system that the user has access to
+      operationId: getKeywords
+      summary: Get pages for User's Site
+      produces:
+        - application/json
+      parameters:
+        - name: siteId
+          in: query
+          description: Site Id of needed site
+          required: true
+          type: string
+      responses:
+        '200':
+          description: A list of Keywords.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/keyword'
   /pages:
     get:
       description: Returns pages from the system that the user has access to
@@ -184,27 +203,6 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/error'
-  '/keywords/{siteId}':
-    get:
-      description: Returns keywords associated with user's Site
-      operationId: getKeywords
-      produces:
-        - application/json
-      parameters:
-        - name: siteId
-          in: path
-          description: Id of site
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Success. Retrieved keywords for Site
-          schema:
-            $ref: '#/definitions/keyword'
-        '400':
-          description: Invalid site Id supplied
-        '404':
-          description: No keywords found for provided site id.
 definitions:
   page:
     type: object

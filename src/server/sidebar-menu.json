@@ -1,41 +1,21 @@
-[
-  {
-    "text": "Main Navigation",
-    "heading": "true",
-    "translate": "sidebar.heading.HEADER"
-  },
-	{
-		"text": "Dashboard",
-		"sref": "app.dashboard",
-		"icon": "fa fa-tachometer"
-	},
-  {
-    "text": "Tools",
-    "sref": "#",
-    "icon": "fa fa-shield",
-    "submenu": [
-					{
-						"icon": "fa fa-key",
-						"text": "Keywords",
-						"sref": "app.keywords"
-					},
-					{
-						"icon": "fa fa-globe",
-						"text": "Pages",
-						"sref": "app.pages"
-					},
-					{
-						"icon": "fa fa-key",
-						"text": "Sentence Parameters",
-						"sref": "app.sentenceParameters"
-					},
-					{
-						"icon": "fa fa-globe",
-						"text": "Sentence Generator",
-						"sref": "app.sentenceGenerator"
-					}
-	],
-	"alert": "new",
-	"label": "label label-primary"
-  }
+[{
+        "text": "Main Navigation",
+        "heading": "true",
+        "translate": "sidebar.heading.HEADER"
+    },
+    {
+        "text": "Dashboard",
+        "sref": "app.dashboard",
+        "icon": "fa fa-tachometer"
+    },
+    {
+        "icon": "fa fa-key",
+        "text": "Keywords",
+        "sref": "app.keywords"
+    },
+    {
+        "icon": "fa fa-plus",
+        "text": "Add Website",
+        "sref": "app.websites_new"
+    }
 ]

@@ -5,7 +5,7 @@ angular.module('API', [])
         'use strict';
 
         /**
-         * SEOgenie REST Specification Edit or GenerateBakend at https://editor.swagger.io
+         * SEOgenie REST Specification 
          * @class API
          * @param {(string|object)} [domainOrOptions] - The project domain or options object. If object, see the object's optional properties.
          * @param {string} [domainOrOptions.domain] - The project domain
@@ -110,6 +110,43 @@ angular.module('API', [])
                 return str.join("&");
             };
 
+            /**
+             * Returns keywords from the system that the user has access to
+             * @method
+             * @name API#getKeywords
+             * @param {object} parameters - method options and parameters
+             * @param {string} parameters.siteId - Site Id of needed site
+             */
+            API.prototype.getKeywords = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/keywords';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['siteId'] !== undefined) {
+                    queryParameters['siteId'] = parameters['siteId'];
+                }
+
+                if (parameters['siteId'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: siteId'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
             /**
              * Returns pages from the system that the user has access to
              * @method
@@ -369,41 +406,6 @@ angular.module('API', [])
                 queryParameters = mergeQueryParams(parameters, queryParameters);
 
                 this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Returns keywords associated with user's Site
-             * @method
-             * @name API#getKeywords
-             * @param {object} parameters - method options and parameters
-             * @param {string} parameters.siteId - Id of site
-             */
-            API.prototype.getKeywords = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/keywords/{siteId}';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                path = path.replace('{siteId}', parameters['siteId']);
-
-                if (parameters['siteId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: siteId'));
-                    return deferred.promise;
-                }
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
 
                 return deferred.promise;
             };

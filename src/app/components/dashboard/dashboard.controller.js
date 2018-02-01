@@ -2,7 +2,7 @@
     "use strict";
 
     angular
-        .module("app.dashboard")
+        .module("components.dashboard")
         .controller("DashboardController", DashboardController);
 
     DashboardController.$inject = ["$scope", "$timeout"];

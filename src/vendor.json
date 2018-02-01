@@ -1,4 +1,5 @@
 [
+    "bower_components/highcharts/highcharts.js",
     "bower_components/weather-icons/css/weather-icons.min.css",
     "bower_components/weather-icons/css/weather-icons-wind.min.css",
     "bower_components/weather-icons/font/*",

@@ -1,7 +1,7 @@
 (function() {
     "use strict";
 
-    angular.module("app.dashboard").config(routesConfig);
+    angular.module("components.dashboard").config(routesConfig);
 
     routesConfig.$inject = [
         "$stateProvider",

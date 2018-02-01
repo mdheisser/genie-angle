@@ -1,39 +1,33 @@
- /**=========================================================
- * Directive: hcCharts.directive.js
- * @desc Chart based on Highcharts
- * @example <div hc-charts></div>
- =========================================================*/
+ (function (angular) {
+     'use strict';
 
-(function () {
-    'use strict';
+     angular
+         .module('components.keywords')
+         .directive('hcCharts', hcCharts);
 
-    angular
-        .module('app.keywords')
-        .directive('hcCharts', hcCharts);
+     hcCharts.$inject = ['$window'];
 
-    hcCharts.$inject = ['$window'];
+     function hcCharts($window) {
+         var directive = {
+             restrict: 'EA',
+             template: '<div></div>',
+             scope: {
+                 options: '='
+             },
+             link: function (scope, element) {
+                 drawChart(scope, element);
+                 angular.element($window).bind('resize', function () {
+                     drawChart(scope, element);
+                 });
+             }
+         };
+         return directive;
 
-    function hcCharts($window) {
-        var directive = {
-            restrict: 'EA',
-            template: '<div></div>',
-            scope: {
-                options: '='
-            },
-            link: function (scope, element) {
-                drawChart(scope, element);
-                angular.element($window).bind('resize', function () {
-                    drawChart(scope, element);
-                });
-            }
-        };
-        return directive;
+         function drawChart(scope, element) {
+             setTimeout(function () {
+                 Highcharts.chart(element[0], scope.options);
+             }, 500);
+         }
+     }
 
-        function drawChart (scope, element) {
-            setTimeout(function(){
-                Highcharts.chart(element[0], scope.options);
-            },500);
-        }
-    }
-
-})();
+ })(angular);
