@@ -1,34 +1,31 @@
- (function (angular) {
-     'use strict';
+(function (angular) {
+    'use strict';
 
-     angular
-         .module('components.keywords')
-         .controller("keywordModalCtrl", keywordModalCtrl);
-     keywordModalCtrl.$inject = ['$scope'];
+    angular
+        .module('components.keywords')
+        .controller("keywordModalCtrl", keywordModalCtrl);
+    keywordModalCtrl.$inject = ['$scope'];
 
-     function keywordModalCtrl($scope) {
-         var vm = this;
-         vm.sites = [];
+    function keywordModalCtrl($scope) {
+        var vm = this;
+        vm.sites = [];
+        vm.selectedSite = '';
 
-         activate();
+        activate();
 
-         //////////////////////
+        //////////////////////
 
-         function activate() {
-             init();
-         }
+        function activate() {
+            init();
+        }
 
-         function init() {
-             vm.sites = [{
-                     id: 1,
-                     name: 'www.umm.com'
-                 },
-                 {
-                     id: 2,
-                     name: 'www.uee.com'
-                 }
-             ];
-         }
-     }
+        function init() {
+            vm.sites = [
+                { id: 1, name: 'www.umm.com' },
+                { id: 2, name: 'www.uee.com' }
+            ];
+            vm.selectedSite = vm.sites[0].name;
+        }
+    }
 
- })(angular);
+})(angular);

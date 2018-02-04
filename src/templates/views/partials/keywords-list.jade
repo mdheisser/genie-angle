@@ -1,11 +1,9 @@
 #keyList.container-fluid.panel.panel-default.panel-dark(ng-controller='keywordsListController as listc')
     .panel-heading
-        .panel-title.text-bold
-            ui-select.text-right(ng-model='listc.site.selected', theme='bootstrap', ng-disabled='listc.disabled')
-                ui-select-match(placeholder='Keywords Dashboard for Site:') Keywords Dashboard for Site: {{ $select.selected.name }}
-                ui-select-choices(repeat='site in listc.sites | propsFilter: {name: $select.search}')
-                    div(ng-bind-html='site.name | highlight: $select.search')
-        paneltool(tool-close)
+        .description Keywords Dashboard
+        .panel-title.w-70p
+            select(selectpicker='', data-live-search='true', ng-model='listc.site.selected')
+                option.text-bold(ng-repeat='site in listc.sites') {{ site.name }}
     .panel-wrapper(uib-collapse="keyList")
         .panel-body
             table.table.table-striped(st-table="displayedCollection", st-safe-src="rowCollection")

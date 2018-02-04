@@ -35,6 +35,7 @@
                 { id: 2, name: 'www.uee.com' }
             ];
             vm.sites = data;
+            vm.site.selected = data[0].name;
         }
 
         function getFilerDays() {
@@ -45,6 +46,7 @@
                 { id: 4, name: '30' }
             ];
             vm.filterDays = data;
+            vm.selectedDay = data[0];
         }
 
         function getKeywordStatistics() {

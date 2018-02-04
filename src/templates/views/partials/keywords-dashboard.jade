@@ -1,37 +1,64 @@
 #keyDashboard.container-fluid.panel(ng-controller='dashboardController as dac')
     .panel-heading
-        .panel-title
-            select(selectpicker='', data-live-search='true', ng-model='dac.site.selected', title='Keywords Dashboard for Site:')
-                option.text-bold(ng-repeat='site in dac.sites') Keywords Dashboard for Site: {{ site.name }}
-        paneltool(tool-close)
+        .description Keywords Dashboard
+        .panel-title.dashboard-title
+            select(selectpicker='', data-live-search='true', ng-model='dac.site.selected')
+                option.text-bold(ng-repeat='site in dac.sites') {{ site.name }}
     .panel-wrapper
         .panel-body.row
-            .col-md-5
-                ul.list-group.shadow-z1
-                    li.list-group-item(ng-repeat='item in dac.analyzeKeywords')
-                        span.badge.bg-primary.text-center {{ item.value }}
-                        | {{ item.name }}
-                ul.list-group
-                    li.list-group-item.no-border
-                        | Monitored Search Engines For Website
-                        button.btn.btn-oval.btn-default.pull-right.shadow-z2(ng-click='kc.searchEngineOpenDialog()')
-                            i.fa.fa-cog
-                    li.list-group-item.no-border
-                        | Add Keywords...
-                        button.btn.btn-default.btn-outline.pull-right.shadow-z2(ng-click='kc.addKeywordsOpenDialog()')
-                            i.fa.fa-plus
-            .col-md-7
-                .panel.panel-default.panel-dark.charts-panel
-                    .panel-heading.container-fluid
-                        i.fa.fa-line-chart.pull-left
-                        .panel-title.text-bold.col-md-8.col-xs-8
-                            select(selectpicker='', data-live-search='true', ng-model='dac.site.selected', title='Aggregated SERP Keywords Ranking for Site:')
-                                option.text-bold(ng-repeat='site in dac.sites') Aggregated SERP Keywords Ranking for Site: {{ site.name }}
-                        .date-filter.col-md-3.col-xs-3
-                            select(selectpicker='', data-live-search='true', ng-model='dac.filterDays.selected', title='Days:')
-                                option.text-bold(ng-repeat='filterDay in dac.filterDays') Days: {{ filterDay.name }}
-                    .panel-wrapper
+            .col-lg-5.col-sm-12
+                #statistics.panel
+                    .panel-heading.flex-heading
+                        .panel-title 
+                            | General Keywords Statistics
+                            span.text-bold.text-underline {{ dac.site.selected }}
+                        paneltool(tool-collapse, ng-init="statistics=false")
+                    .panel-body.p0(uib-collapse="statistics")
+                        ul.list-group.m0
+                            li.list-group-item(ng-repeat='item in dac.analyzeKeywords')
+                                span.badge.bg-primary.text-center {{ item.value }}
+                                | {{ item.name }}
+                #searchEngine.panel(ng-controller='searchEngineCtrl as sec')
+                    .panel-heading.flex-heading
+                        .panel-title 
+                            | Search Engines to SERP Monitor
+                            span.text-bold.text-underline {{ dac.site.selected }}
+                        paneltool(tool-collapse, ng-init="searchEngine=false")
+                    .panel-body(uib-collapse="searchEngine")
+                        .row.serp-title
+                            | Monitored Search Engine
+                            em.icon-question
+                        .row.serp-item(ng-repeat='item in sec.seViews')
+                            .col-sm-4.col-xs-6.dropup
+                                select(selectpicker='', data-live-search='true', ng-model='item.selectedEngine', ng-change="sec.changeDomains(item)")
+                                    option.text-bold(ng-repeat='engine in item.engines', data-icon='{{engine.icon}}') {{ engine.name }}
+                            .col-sm-7.col-xs-10.p0
+                                select(selectpicker='', data-live-search='true', ng-model='item.selectedDomain', ng-options='(item.selectedEngine + domain.Name) for domain in item.domains', ng-change="sec.selectDomain(item)", data-size="8")
+                            .col-sm-1.col-xs-2
+                                em.fa.fa-check(ng-if='item.domainSelected')
+                                .spinner(ng-show='item.domainChecking')
+                                    .bounce1
+                                    .bounce2
+                                    .bounce3
+                        .row.col-xs-12
+                            em Please select up to 3 search engines to monitor your Keywords SERP ranking positions
+            .col-lg-7.col-sm-12
+                #chartsPanel.panel
+                    .panel-heading.flex-heading
+                        .panel-title
+                            | Aggregated SERP Keyword Ranking
+                            span.text-bold.text-underline {{ dac.site.selected }}
+                        paneltool(tool-collapse, ng-init="chartsPanel=false")
+                    .panel-wrapper(uib-collapse="chartsPanel")
                         .panel-body
                             div(hc-charts='', options='dac.chartOptions')
-                            p.report-date.text-bold Report Date: {{ dac.reportDate }}
+                            .row.chart-filter
+                                .col-sm-9.col-xs-6.text-left
+                                    p.report-date.text-bold.pull-left Report Date: {{ dac.reportDate }}
+                                .col-sm-3.col-xs-6.text-right
+                                    select(selectpicker='', ng-model='dac.selectedDay', ng-options='(day.name + " Days") for day in dac.filterDays')
+                .row.col-sm-12
+                    | Add Keywords...
+                    button.btn.btn-primary.btn-outline(ng-click='kc.addKeywordsOpenDialog()')
+                        i.fa.fa-plus
 

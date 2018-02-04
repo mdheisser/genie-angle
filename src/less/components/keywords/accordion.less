@@ -1,15 +1,15 @@
-@accordion-height: 600px;
+@accordion-height: 650px;
 @panel-header-bg: #5188a2;
 @pad-width: 768px;
 @mobile-width: 414px;
 .side-accordion-wrapper {
-    @collapsed-panel-width: 44px;
-    @padding: 2px;
+    @collapsed-panel-width: 40px;
+    @padding: 0;
     @collapsed-panel-width-pad: 32px;
     @padding-pad: 1px;
 
     height: @accordion-height;
-    margin-left: 10px;
+    margin-left: 20px;
     @media only screen and (max-width: @pad-width) {
         font-size: 11px;
     }
@@ -20,7 +20,9 @@
         float: left;
         transition: width .5s;
         width: @collapsed-panel-width;
-        padding: @padding;
+        margin-right: 5px;
+        border-radius: 3px;
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.14), 0 4px 5px 0 rgba(0, 0, 0, 0.098), 0 1px 10px 0 rgba(0, 0, 0, 0.084);
         @media only screen and (max-width: @pad-width) {
             width: @collapsed-panel-width-pad;
             padding: @padding-pad;
@@ -30,21 +32,28 @@
         .accordion-item {
             float: left;
             width: @collapsed-panel-width - 2 * @padding;
-            height: @accordion-height - 2* @padding;
+            height: inherit;
             background-color: @panel-header-bg;
             @media only screen and (max-width: @pad-width) {
                 width: @collapsed-panel-width-pad - 2 * @padding-pad;
             }
             .collapsed-body {
-                margin-top: 20px;
+                margin-top: 15px;
                 font-size: 18px;
                 color: white;
+                em {
+                    padding: 0 10px;
+                }
             }
         }
         .item-body {
             background-color: #F5F7FA;
-            margin-left: @collapsed-panel-width - @padding;
-            height: @accordion-height - 2 * @padding;
+            margin-left: @collapsed-panel-width - 2 * @padding;
+            @media only screen and (max-width: @laptop-h-width) {
+                max-height: @accordion-height;
+                overflow-y: scroll;
+                overflow-x: hidden;
+            }
             @media only screen and (max-width: @pad-width) {
                 max-width: 600px;
                 overflow-y: auto;
@@ -59,126 +68,7 @@
             transition-delay: 0s, .5s;
         }
     }
-}
-// bootstrap-select custom style
-.bootstrap-select {
-    .dropdown-menu {
-        top: 32px;
-    }
-    .form-control {
-        border-radius: 5px !important;
-    }
-    &:not([class*=col-]) {
-        &:not([class*=form-control]) {
-            &:not(.input-group-btn) {
-                width: 100% !important;
-            }
-        }
-    }
-    .btn:hover {
-        box-shadow: none !important;
-        transform: none !important;
-        background-color: #e6e6e6 !important;
-        border-color: #adadad !important;
-    }
-    .btn:focus {
-        box-shadow: none !important;
-        transform: none !important;
-    }
-    .dropdown-toggle {
-        @media only screen and (max-width: @pad-width) {
-            padding-left: 5px;
-        }
-        .filter-option {
-            font-weight: bold;
-            font-size: 15px;
-            @media only screen and (max-width: @pad-width) {
-                font-size: 12px;
-            }
-        }
-        &:focus {
-            outline: none !important;
-        }
-    }
-}
-// Keywords Dashbord Style
-#keyDashboard, #keyList {
-    height: @accordion-height - 4px;
-    .panel-heading {
-        padding: 5px 10px;
-        background-color: @panel-header-bg;
-        .panel-title {
-            margin-right: 50px;
-        }
-    }
-    .panel-body {
-        .list-group-item {
-            .fa {
-                font-size: 18px;
-            }
-            button {
-                @media only screen and (max-width: @mobile-width) {
-                    padding: 0;
-                    margin-right: 10px;
-                    width: 20px;
-                    height: 20px;
-                }
-            }
-        }
-        .no-border {
-            border: none;
-            font-size: 15px;
-            padding: 4px 10px 16px 10px !important;
-            @media only screen and (max-width: @pad-width) {
-                font-size: 12px;
-            }
-            @media only screen and (max-width: @mobile-width) {
-                font-size: 10px;
-            }
-            .btn {
-                height: 30px;
-            }
-            .btn-oval {
-                width: 30px;
-                padding: 6px !important;
-                margin-right: 7px;
-            }
-            .btn-outline {
-                padding: 6px 14px !important;
-            }
-        }       
-    }
-    .charts-panel {
-        .fa-line-chart {
-            margin-top: 11px;
-            @media only screen and (max-width: @pad-width) {
-                display: none;
-            }
-        }
-        .panel-title {
-            padding-left: 5px;
-            margin-right: 0;
-            float: left;
-        }
-        .highcharts-container {
-            .highcharts-credits {
-                display: none;
-            }
-        }
-        .report-date {
-            font-size: 15px;
-        }
-        @media only screen and (max-width: 1600px) {
-            .panel-title {
-                margin: 0;
-                padding-right: 0;
-            }
-            .form-control {
-                padding-left: 3px;
-            }
-            .ui-select-match span {
-                font-size: 13px !important;
-            }
-        }
+    @media only screen and (max-width: @laptop-h-width) {
+        font-size: 13px;
     }
 }

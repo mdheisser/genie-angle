@@ -26,8 +26,8 @@
 			var templates = {
 				/* jshint multistr: true */
 				collapse: '<a href="#" panel-collapse="" uib-tooltip="Collapse Panel" ng-click="{{panelId}} = !{{panelId}}"> \
-                        <em ng-show="{{panelId}}" class="fa fa-plus ng-no-animation"></em> \
-                        <em ng-show="!{{panelId}}" class="fa fa-minus ng-no-animation"></em> \
+                        <em ng-show="{{panelId}}" class="icon-arrow-down ng-no-animation"></em> \
+                        <em ng-show="!{{panelId}}" class="icon-arrow-up ng-no-animation"></em> \
                       </a>',
 				dismiss: '<a href="#" panel-dismiss="" uib-tooltip="Close Panel">\
                        <em class="fa fa-times"></em>\

@@ -40,8 +40,8 @@
         function initialize(e) {
             var item = angular.element(e);
             var numberOfItem = item.parent().children().length;
-            var collapseWidth = item.children().first().prop('offsetWidth') + 4;
-            var panelContentWidth = wrapperWidth - collapseWidth * (numberOfItem - 1) - 20;
+            var collapseWidth = item.children().first().prop('offsetWidth');
+            var panelContentWidth = wrapperWidth - collapseWidth * numberOfItem;
             // by default, fist panel is activated.
             var collapseHeader = item.parent().children().first();
             var iconTag = collapseHeader.children().children().children().first();
@@ -52,8 +52,8 @@
         function reRender(e, isActive) {
             var item = angular.element(e);
             var numberOfItem = item.parent().children().length;
-            var collapseWidth = item.children().first().prop('clientWidth') + 4;
-            var panelContentWidth = wrapperWidth - collapseWidth * (numberOfItem - 1);
+            var collapseWidth = item.children().first().prop('clientWidth');
+            var panelContentWidth = wrapperWidth - collapseWidth * numberOfItem;
 
             var iconTag = item.children().children().children().first();
             if (isActive === true) {
@@ -75,7 +75,7 @@
             var wrapper = angular.element(wrapperElement).children().first();
             wrapperWidth = wrapper.prop('clientWidth');
             if (hasScroll()) {
-                wrapperWidth -= 20;
+                wrapperWidth -= 17;
             }
         }
 
