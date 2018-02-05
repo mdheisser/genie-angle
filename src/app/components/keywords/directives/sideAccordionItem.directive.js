@@ -64,7 +64,9 @@
             var iconTag = accordionItem.children().children().children().first();
 
             if (isActivated) { // collapse if the panel is activated already
-                onClick(getFriend(accordionItem));
+                // onClick(getFriend(accordionItem));
+                collapsePane(accordionItem, collapseWidth);
+                changeIconToRight(accordionItem.children().children().children().first());
             } else {
                 angular.forEach(accordionItems, function (item) {
                     var pane = angular.element(item);

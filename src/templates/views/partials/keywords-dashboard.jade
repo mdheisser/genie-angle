@@ -1,12 +1,12 @@
-#keyDashboard.container-fluid.panel(ng-controller='dashboardController as dac')
+#keyDashboard.container-fluid.panel.mb0(ng-controller='dashboardController as dac')
     .panel-heading
         .description Keywords Dashboard
         .panel-title.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='dac.site.selected')
                 option.text-bold(ng-repeat='site in dac.sites') {{ site.name }}
     .panel-wrapper
-        .panel-body.row
-            .col-lg-5.col-sm-12
+        .panel-body.row.pb0.pr0.m0
+            .col-lg-5.col-sm-12.pl0
                 #statistics.panel
                     .panel-heading.flex-heading
                         .panel-title 
@@ -22,19 +22,19 @@
                     .panel-heading.flex-heading
                         .panel-title 
                             | Search Engines to SERP Monitor
-                            span.text-bold.text-underline {{ dac.site.selected }}
+                            span.text-underline {{ dac.site.selected }}
                         paneltool(tool-collapse, ng-init="searchEngine=false")
                     .panel-body(uib-collapse="searchEngine")
                         .row.serp-title
                             | Monitored Search Engine
                             em.icon-question
                         .row.serp-item(ng-repeat='item in sec.seViews')
-                            .col-sm-4.col-xs-6.dropup
+                            .col-xs-4.dropup
                                 select(selectpicker='', data-live-search='true', ng-model='item.selectedEngine', ng-change="sec.changeDomains(item)")
-                                    option.text-bold(ng-repeat='engine in item.engines', data-icon='{{engine.icon}}') {{ engine.name }}
-                            .col-sm-7.col-xs-10.p0
+                                    option(ng-repeat='engine in item.engines', data-icon='{{engine.icon}}') {{ engine.name }}
+                            .col-xs-7.p0.dropup
                                 select(selectpicker='', data-live-search='true', ng-model='item.selectedDomain', ng-options='(item.selectedEngine + domain.Name) for domain in item.domains', ng-change="sec.selectDomain(item)", data-size="8")
-                            .col-sm-1.col-xs-2
+                            .col-xs-1.pl0
                                 em.fa.fa-check(ng-if='item.domainSelected')
                                 .spinner(ng-show='item.domainChecking')
                                     .bounce1
@@ -42,7 +42,7 @@
                                     .bounce3
                         .row.col-xs-12
                             em Please select up to 3 search engines to monitor your Keywords SERP ranking positions
-            .col-lg-7.col-sm-12
+            .col-lg-7.col-sm-12.pl0
                 #chartsPanel.panel
                     .panel-heading.flex-heading
                         .panel-title
@@ -53,12 +53,12 @@
                         .panel-body
                             div(hc-charts='', options='dac.chartOptions')
                             .row.chart-filter
-                                .col-sm-9.col-xs-6.text-left
-                                    p.report-date.text-bold.pull-left Report Date: {{ dac.reportDate }}
-                                .col-sm-3.col-xs-6.text-right
+                                .col-md-9.col-sm-8.col-xs-6.text-left
+                                    p.report-date.pull-left Report Date: {{ dac.reportDate }}
+                                .col-md-3.col-sm-4.col-xs-6.text-right.dropup
                                     select(selectpicker='', ng-model='dac.selectedDay', ng-options='(day.name + " Days") for day in dac.filterDays')
                 .row.col-sm-12
                     | Add Keywords...
-                    button.btn.btn-primary.btn-outline(ng-click='kc.addKeywordsOpenDialog()')
+                    button.btn.btn-primary.btn-outline.add-keyword(ng-click='kc.addKeywordsOpenDialog()')
                         i.fa.fa-plus
 

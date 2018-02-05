@@ -101,15 +101,19 @@
             switch ($item.selectedEngine) {
                 case 'Google':
                     $item.domains = vm.domains.google;
+                    $item.selectedDomain = vm.domains.google[0];
                     break;
                 case 'Yahoo':
                     $item.domains = vm.domains.yahoo;
+                    $item.selectedDomain = vm.domains.yahoo[0];
                     break;
                 case 'Bing':
                     $item.domains = vm.domains.bing;
+                    $item.selectedDomain = vm.domains.bing[0];
                     break;
                 case 'Yandex':
                     $item.domains = vm.domains.yandex;
+                    $item.selectedDomain = vm.domains.yandex[0];
                     break;
             };
         }

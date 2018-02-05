@@ -1,7 +1,7 @@
 #keyList.container-fluid.panel.panel-default.panel-dark(ng-controller='keywordsListController as listc')
     .panel-heading
         .description Keywords Dashboard
-        .panel-title.w-70p
+        .panel-title.w-70p.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='listc.site.selected')
                 option.text-bold(ng-repeat='site in listc.sites') {{ site.name }}
     .panel-wrapper(uib-collapse="keyList")

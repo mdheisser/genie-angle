@@ -63,12 +63,7 @@
 
         function drawCharts() {
 
-            var chartHeight = 0;
-            if (window.innerWidth < 768) {
-                chartHeight = 300;
-            } else {
-                chartHeight = 400;
-            }
+            var chartHeight = 350;
 
             var chartOptions = {
                 chart: {

@@ -2,33 +2,42 @@
 @laptop-h-width: 1440px;
 @laptop-m-width: 1280px;
 #keyDashboard, #keyList {
+    @media only screen and (max-width: @pad-width) {
+        .panel {
+            display: flow-root !important;
+        }
+    }
     paneltool {
-        margin-top: 5px;
+        margin: 6px 5px auto auto;
     }
     .panel-heading {
         display: flex;
         justify-content: flex-start;
-        padding: 5px 10px;
+        padding: 3px 10px;
         background-color: @panel-header-bg;
         border-top-left-radius: 0;
         .description {
             font-size: 17px;
             color: white;
-            padding-top: 5px;
+            padding-top: 3px;
             padding-right: 10px;
+            @media only screen and (max-width: @pad-m-width) {
+                font-size: 15px;
+            }
         }
         .dashboard-title {
             width: 70%;
             @media only screen and (max-width: @laptop-m-width) {
                 width: 50%;
             }
+            .dropdown-menu {
+                top: 25px !important;
+            }
         }
     }
     .panel-body {
         .list-group-item {
-            @media only screen and (max-width: @laptop-h-width) {
-                padding: 6px !important;
-            }
+            padding: 6px !important;
             .fa {
                 font-size: 18px;
             }
@@ -69,6 +78,9 @@
             font-size: 15px;
             padding-left: 15px;
         }
+        .panel-body {
+            padding: 6px !important;
+        }
         .serp-item {
             padding: 5px 0 0 10px;
             em {
@@ -82,7 +94,13 @@
         }
     }
     #chartsPanel {
-        max-height: 460px;
+        max-height: 400px;
+        @media only screen and (max-width: @pad-h-width) {
+            max-height: 420px;
+        }
+        @media only screen and (max-width: @pad-m-width) {
+            max-height: 450px;
+        }
         .highcharts-container {
             .highcharts-credits {
                 display: none;
@@ -90,9 +108,12 @@
         }
         .chart-filter {
             font-size: 14px;
-            @media only screen and (min-width: @laptop-m-width) {
-                transform: translateY(-39px);
+            @media only screen and (min-width: @pad-h-width) {
+                transform: translateY(-40px);
             }
         }
+    }
+    .add-keyword {
+        padding: 0px 10px !important;
     }
 }

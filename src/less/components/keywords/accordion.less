@@ -1,15 +1,30 @@
-@accordion-height: 650px;
+@accordion-height: 500px;
+@accordion-height-md: 920px;
+@accordion-height-pad-h: 950px;
+@accordion-height-pad-m: 1100px;
 @panel-header-bg: #5188a2;
+// bootstrap grid width
+@md-width: 1200px;
+@pad-h-width: 860px;
 @pad-width: 768px;
+@pad-m-width: 510px;
 @mobile-width: 414px;
 .side-accordion-wrapper {
-    @collapsed-panel-width: 40px;
+    @collapsed-panel-width: 30px;
     @padding: 0;
-    @collapsed-panel-width-pad: 32px;
     @padding-pad: 1px;
 
     height: @accordion-height;
-    margin-left: 20px;
+    @media only screen and (max-width: @md-width) {
+        height: @accordion-height-md;
+    }
+    @media only screen and (max-width: @pad-h-width) {
+        height: @accordion-height-pad-h;
+    }
+    @media only screen and (max-width: @pad-m-width) {
+        height: @accordion-height-pad-m;
+    }
+    margin-right: -20px;
     @media only screen and (max-width: @pad-width) {
         font-size: 11px;
     }
@@ -20,13 +35,9 @@
         float: left;
         transition: width .5s;
         width: @collapsed-panel-width;
-        margin-right: 5px;
+        margin-right: 2px;
         border-radius: 3px;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.14), 0 4px 5px 0 rgba(0, 0, 0, 0.098), 0 1px 10px 0 rgba(0, 0, 0, 0.084);
-        @media only screen and (max-width: @pad-width) {
-            width: @collapsed-panel-width-pad;
-            padding: @padding-pad;
-        }
         height: inherit;
         overflow: hidden;
         .accordion-item {
@@ -34,31 +45,15 @@
             width: @collapsed-panel-width - 2 * @padding;
             height: inherit;
             background-color: @panel-header-bg;
-            @media only screen and (max-width: @pad-width) {
-                width: @collapsed-panel-width-pad - 2 * @padding-pad;
-            }
             .collapsed-body {
-                margin-top: 15px;
+                margin-top: 10px;
                 font-size: 18px;
                 color: white;
-                em {
-                    padding: 0 10px;
-                }
             }
         }
         .item-body {
             background-color: #F5F7FA;
             margin-left: @collapsed-panel-width - 2 * @padding;
-            @media only screen and (max-width: @laptop-h-width) {
-                max-height: @accordion-height;
-                overflow-y: scroll;
-                overflow-x: hidden;
-            }
-            @media only screen and (max-width: @pad-width) {
-                max-width: 600px;
-                overflow-y: auto;
-                margin-left: @collapsed-panel-width-pad - @padding-pad;
-            }
         }
         .smoothidden {
             opacity: 0;
