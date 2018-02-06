@@ -42,7 +42,7 @@
                 // Convert the children elements's click event to accordion-item element's one.
                 if (eventElement.hasClass('accordion-item')) {
                     accordionItem = eventElement.parent();
-                } else if (eventElement[0].tagName === 'EM' || eventElement[0].tagName === 'P') {
+                } else if (eventElement[0].tagName === 'EM' || eventElement.hasClass('rotated-text') || eventElement[0].tagName === 'SPAN') {
                     accordionItem = eventElement.closest('.accordion-item').parent();
                 }
                 

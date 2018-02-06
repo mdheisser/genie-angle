@@ -46,14 +46,37 @@
             height: inherit;
             background-color: @panel-header-bg;
             .collapsed-body {
-                padding: 7px 3px;
+                padding: 7px 4px;
                 font-size: 18px;
-                color: white;
-                p {
-                    writing-mode: vertical-rl;
-                    text-orientation: upright;
-                    font-size: 15px;
-                    margin: 0;
+                color: white;                
+                .rotated-text {
+                    display: inline-block;
+                    overflow: hidden;
+                    width: 1.5em;
+                    margin-left: 5px;
+                }
+                .rotated-text__inner {
+                    display: inline-block;
+                    white-space: nowrap;
+                    -webkit-transform: translate(1.1em,0) rotate(90deg);
+                    -moz-transform: translate(1.1em,0) rotate(90deg);
+                    -o-transform: translate(1.1em,0) rotate(90deg);
+                    transform: translate(1.1em,0) rotate(90deg);
+                    -webkit-transform-origin: 0 0;
+                    -moz-transform-origin: 0 0;
+                    -o-transform-origin: 0 0;
+                    transform-origin: 0 0;
+                    -ms-transform: none;
+                    -ms-transform-origin: none;
+                    -ms-writing-mode: tb-rl;
+                    *writing-mode: tb-rl;
+                    font-size: 16px;
+                    font-weight: 200;
+                    &:before {
+                        content: "";
+                        float: left;
+                        margin-top: 100%;
+                    }
                 }
             }
         }
