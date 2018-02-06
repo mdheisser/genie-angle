@@ -14,60 +14,58 @@
             templateUrl: '/app/components/keywords/templates/sideAccordionItem.html',
             restrict: 'EA',
             scope: {
-                controls: '='
+                title: '@'
             },
-            transclude: true,
-            controller: ['$scope', sideItemCtrl]
+            transclude: true
         };
         return directive;
 
         function link(scope, element, attrs, accordionCtrl) {
-            accordionCtrl.init(element);
+            // Load accordion items.
+            accordionCtrl.init(element, scope);
+
+            // Redraw the accordion when the window is resized.
             angular.element($window).bind('resize', function () {
-                accordionCtrl.response(element, isActive(element));
+                accordionCtrl.response(element, scope.isActive());
             });
-        }
 
-        function sideItemCtrl($scope) {
+            // Check if the panel is opened.
+            scope.isActive = function() {
+                return scope.tabNumber === accordionCtrl.activeTab;
+            }
 
-            $scope.active = function (e) {
+            // Collapse the panel.
+            scope.active = function (e) {
                 var eventElement = angular.element(e.target);
-                onSideCollapse(eventElement);
+                var accordionItem = null;
+
+                // Convert the children elements's click event to accordion-item element's one.
+                if (eventElement.hasClass('accordion-item')) {
+                    accordionItem = eventElement.parent();
+                } else if (eventElement[0].tagName === 'EM' || eventElement[0].tagName === 'P') {
+                    accordionItem = eventElement.closest('.accordion-item').parent();
+                }
+                
+                // Activate the friend element if target element was activated already.
+                if (scope.isActive()) {
+                    onClick(getFriend(accordionItem));
+                    if(checkLastElement(accordionItem)) {
+                        accordionCtrl.setAsActive(scope.tabNumber - 1);
+                    } else {
+                        accordionCtrl.setAsActive(scope.tabNumber + 1);
+                    }
+                } else {
+                    onClick(accordionItem);
+                    accordionCtrl.setAsActive(scope.tabNumber);
+                }
             }
 
-            this.close = function (e) {
-                e.remove();
-            }
+            function onClick(accordionItem) {
+                var accordionItems = accordionItem.parent().children();
+                var collapseWidth = caculateContentWidth(accordionItems).collapse;
+                var panelContentWidth = caculateContentWidth(accordionItems).content;
+                var iconTag = accordionItem.children().children().children().first();
 
-            this.onCollapse = function (e) {
-                var eventElement = e.children().first();
-                onSideCollapse(eventElement);
-            }
-        }
-
-        function onSideCollapse(eventElement) {
-            if (eventElement.hasClass('accordion-item')) { // prevent from clicking on sub elements
-                var accordionItem = eventElement.parent();
-                onClick(accordionItem);
-            } else if (eventElement[0].tagName === 'EM') {
-                var accordionItem = eventElement.closest('.accordion-item').parent();
-                onClick(accordionItem);
-            }
-        }
-
-        function onClick(accordionItem) {
-            var accordionItems = accordionItem.parent().children();
-            var collapseWidth = caculateContentWidth(accordionItems).collapse;
-            var panelContentWidth = caculateContentWidth(accordionItems).content;
-
-            var isActivated = isActive(accordionItem);
-            var iconTag = accordionItem.children().children().children().first();
-
-            if (isActivated) { // collapse if the panel is activated already
-                // onClick(getFriend(accordionItem));
-                collapsePane(accordionItem, collapseWidth);
-                changeIconToRight(accordionItem.children().children().children().first());
-            } else {
                 angular.forEach(accordionItems, function (item) {
                     var pane = angular.element(item);
                     collapsePane(pane, collapseWidth);
@@ -76,50 +74,55 @@
                 expandPane(accordionItem, panelContentWidth);
                 changeIconToLeft(accordionItem.children().children().children().first());
             }
-        }
 
-        function caculateContentWidth(e) {
-            var wrapperWidth = e.parent().prop('offsetWidth');
-            var numberOfItem = e.length;
-            var collapseWidth = e.children().first().prop('offsetWidth');
-            var panelContentWidth = wrapperWidth - collapseWidth * numberOfItem;
-            return {
-                collapse: collapseWidth,
-                content: panelContentWidth
-            };
-        }
+            function caculateContentWidth(e) {
+                var wrapperWidth = e.parent().prop('offsetWidth');
+                var numberOfItem = e.length;
+                var collapseWidth = e.children().first().prop('offsetWidth');
+                var panelContentWidth = wrapperWidth - collapseWidth * numberOfItem;
+                return {
+                    collapse: collapseWidth,
+                    content: panelContentWidth
+                };
+            }
 
-        function changeIconToRight(tag) {
-            tag.removeClass('icon-arrow-left');
-            tag.addClass('icon-arrow-right');
-        }
+            function changeIconToRight(tag) {
+                tag.removeClass('icon-arrow-left');
+                tag.addClass('icon-arrow-right');
+            }
 
-        function changeIconToLeft(tag) {
-            tag.removeClass('icon-arrow-right');
-            tag.addClass('icon-arrow-left');
-        }
+            function changeIconToLeft(tag) {
+                tag.removeClass('icon-arrow-right');
+                tag.addClass('icon-arrow-left');
+            }
 
-        function isActive(e) {
-            return e.children().children().children().first().hasClass('icon-arrow-left');
-        }
+            function collapsePane(pane, width) {
+                pane.css('width', width + 'px');
+                pane.children().last().addClass('smoothidden');
+            }
 
-        function collapsePane(pane, width) {
-            pane.css('width', width + 'px');
-            pane.children().last().addClass('smoothidden');
-        }
+            function expandPane(pane, width) {
+                pane.css('width', width + 'px');
+                pane.children().last().removeClass('smoothidden');
+            }
 
-        function expandPane(pane, width) {
-            pane.css('width', width + 'px');
-            pane.children().last().removeClass('smoothidden');
-        }
+            // get friend element
+            function getFriend(e) {
+                if (checkLastElement(e)) {
+                    return e.prev();
+                } else {
+                    return e.next();
+                }
+            }
 
-        // get friend element
-        function getFriend(e) {
-            var friendElement = e.next();
-            if (typeof friendElement[0] !== 'undefined' && friendElement[0].tagName === 'SIDE-ACCORDION-ITEM') {
-                return friendElement;
-            } else {
-                return e.prev();
+            // Check if target element is last one.
+            function checkLastElement (e) {
+                var friendElement = e.next();
+                if (typeof friendElement[0] !== 'undefined' && friendElement[0].tagName === 'SIDE-ACCORDION-ITEM') {
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
     }

@@ -14,6 +14,9 @@
             restrict: 'EA',
             transclude: true,
             scope: {},
+            bindToController: {
+                activeTab: '=?'
+            },
             controller: ['$scope', accordionCtrl]
         };
         return directive;
@@ -27,10 +30,19 @@
         }
 
         function accordionCtrl() {
-            this.init = function (e) {
+            this.totalTabNumber = 1;
+
+            this.init = function (e, childScope) {
                 getWrapperWidth();
                 initialize(e);
+                childScope.tabNumber = this.totalTabNumber;
+                this.totalTabNumber++;
             };
+
+            this.setAsActive = function(value) {
+                this.activeTab = value;
+            };
+
             this.response = function (e, isActive) {
                 getWrapperWidth();
                 reRender(e, isActive);

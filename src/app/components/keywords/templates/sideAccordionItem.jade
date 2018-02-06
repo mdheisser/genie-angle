@@ -1,4 +1,5 @@
 .accordion-item(ng-click='active($event)')
     .collapsed-body.text-center
         em.text-bold.icon-arrow-right(uib-tooltip="Collapse Panel")
+        p(ng-if='!isActive()') {{ title }}
 .item-body.shadow-z2(ng-transclude="")
