@@ -11,7 +11,20 @@
     {
         "icon": "fa fa-key",
         "text": "Keywords",
-        "sref": "app.keywords"
+        "sref": "app.keywords",
+        "submenu": [
+            {
+                "text": "Keywords Dashboard",
+                "sref": "app.keywords.dashboard",
+                "submenu": [
+                    {"text": "Keywords Statistics", "sref": "app.keywords.dashboard.statistics"},
+                    {"text": "Monitored Search Engines", "sref": "app.keywords.dashboard.engines"},
+                    {"text": "SERP Ranking", "sref": "app.keywords.dashboard.ranking"}
+                ]
+            },
+            {"text": "Keywords List", "sref": "app.keywords.list" },
+            {"text": "Add Keywords", "sref": "app.keywords.add-keywords" }
+        ]
     },
     {
         "icon": "fa fa-plus",

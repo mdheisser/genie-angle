@@ -143,74 +143,74 @@ body,
    Component: sidebar
  ========================================================================== */
 
-.sidebar {
-  background-color: @sidebar-bg;
+// .sidebar {
+//   background-color: @sidebar-bg;
 
-  .nav-heading {
-    color: @sidebar-heading-color;
-  }
+//   .nav-heading {
+//     color: @sidebar-heading-color;
+//   }
 
-  // Items
-  .nav {
-    > li {
-      > a,
-      > .nav-item {
-        color: @sidebar-item-color;
-        &:focus, &:hover {
-          color: @sidebar-item-color-active;
-        }
-        // Item icon
-        > em {
-          color: @sidebar-icon-color;
-        }
-      }
+//   // Items
+//   .nav {
+//     > li {
+//       > a,
+//       > .nav-item {
+//         color: @sidebar-item-color;
+//         &:focus, &:hover {
+//           color: @sidebar-item-color-active;
+//         }
+//         // Item icon
+//         > em {
+//           color: @sidebar-icon-color;
+//         }
+//       }
 
-      // Active item state
-      &.active,
-      &.open {
-        &,
-        > a,
-        .nav {
-          background-color: @sidebar-item-bg-active;
-          color: @sidebar-item-color-active;
-        }
-        > a > em {
-          color: @sidebar-icon-color-active;
-        }
-      }
-      &.active {
-        border-left-color: @sidebar-item-color-active;
-      }
-    }
-  }
-}
+//       // Active item state
+//       &.active,
+//       &.open {
+//         &,
+//         > a,
+//         .nav {
+//           background-color: @sidebar-item-bg-active;
+//           color: @sidebar-item-color-active;
+//         }
+//         > a > em {
+//           color: @sidebar-icon-color-active;
+//         }
+//       }
+//       &.active {
+//         border-left-color: @sidebar-item-color-active;
+//       }
+//     }
+//   }
+// }
 
-.sidebar-subnav {
-  background-color: @sidebar-bg;
-  > .sidebar-subnav-header {
-    color: @sidebar-item-color;
-  }
-  > li  {
-    > a,
-    > .nav-item {
-      color: @sidebar-item-color;
-      &:focus, &:hover {
-        color: @sidebar-item-color-active;
-      }
-    }
+// .sidebar-subnav {
+//   background-color: @sidebar-bg;
+//   > .sidebar-subnav-header {
+//     color: @sidebar-item-color;
+//   }
+//   > li  {
+//     > a,
+//     > .nav-item {
+//       color: @sidebar-item-color;
+//       &:focus, &:hover {
+//         color: @sidebar-item-color-active;
+//       }
+//     }
 
-    &.active {
-      > a,
-      > .nav-item {
-        color: @sidebar-icon-color-active;
-        &:after {
-          border-color: @sidebar-bullet-color-active;
-          background-color: @sidebar-bullet-color-active;
-        }
-      }
-    }
-  } // li
-}
+//     &.active {
+//       > a,
+//       > .nav-item {
+//         color: @sidebar-icon-color-active;
+//         &:after {
+//           border-color: @sidebar-bullet-color-active;
+//           background-color: @sidebar-bullet-color-active;
+//         }
+//       }
+//     }
+//   } // li
+// }
 
 /* ========================================================================
    Component: offsidebar

@@ -1,127 +1,84 @@
-﻿ (function (angular) {
-     'use strict';
+﻿(function (angular) {
+    'use strict';
 
-     angular
-         .module('components.keywords')
-         .controller("keywordsController", keywordsController);
-     keywordsController.$inject = ['$scope', '$timeout', '$resource', '$q', '$location', 'keywordsService', '$uibModal', 'toastr', 'ngDialog'];
+    angular
+        .module('components.keywords')
+        .controller("keywordsController", keywordsController);
+    keywordsController.$inject = ['$scope', '$timeout', '$resource', '$q', '$location', 'keywordsService', 'toastr', 'ngDialog'];
 
-     function keywordsController($scope, $timeout, $resource, $q, $location, keywordsService, $uibModal, toastr, ngDialog) {
-         var vm = this;
-         vm.addKeywordsOpenDialog = addKeywordsOpenDialog;
+    function keywordsController($scope, $timeout, $resource, $q, $location, keywordsService, toastr, ngDialog) {
+        var vm = this;
+        vm.activeTab = 1;
+        vm.addKeywordsOpenDialog = addKeywordsOpenDialog;
 
-         activate();
+        activate();
 
-         ///////////////////////
+        ///////////////////////
 
-         function activate() {
-             // 
-         }
+        function activate() {
+            setRoute(); 
+        }
 
-         function addKeywordsOpenDialog() {
-             ngDialog.open({
-                 template: 'app/views/modals/addKeywords.html',
-                 className: 'ngdialog-theme-default add-keywords',
-                 showClose: false
-             });
-         }
+        // Show add keywords modal.
+        function addKeywordsOpenDialog() {
+            ngDialog.open({
+                template: 'app/views/modals/addKeywords.html',
+                className: 'ngdialog-theme-default add-keywords',
+                showClose: false
+            });
+        }
 
-         $scope.loading = true;
+        // Define the behavior for sidebar menu.
+        function setRoute() {
+            switch($location.path()) {
+                case '/app/keywords/dashboard':
+                    vm.activeTab = 1;
+                    break;
+                case '/app/keywords/list':
+                    vm.activeTab = 2;
+                    break;
+                case '/app/keywords/add-keywords':
+                    addKeywordsOpenDialog();
+                    break;
+                case '/app/keywords/dashboard/statistics':
+                    vm.activeTab = 1;
+                    var panel = angular.element(document.querySelector('#statistics .panel-body'));
+                    var arrowDown = angular.element(document.querySelector('#statistics .panel-heading em:nth-child(1)'));
+                    var arrowUp = angular.element(document.querySelector('#statistics .panel-heading em:nth-child(2)'));
+                    panel.addClass('in');
+                    panel.removeAttr('style');
+                    arrowUp.removeClass('ng-hide');
+                    arrowDown.addClass('ng-hide');
+                    break;
+                case '/app/keywords/dashboard/engines':
+                    vm.activeTab = 1;
+                    var panel = angular.element(document.querySelector('#searchEngine .panel-body'));
+                    var arrowDown = angular.element(document.querySelector('#searchEngine .panel-heading em:nth-child(1)'));
+                    var arrowUp = angular.element(document.querySelector('#searchEngine .panel-heading em:nth-child(2)'));
+                    panel.addClass('in');
+                    panel.removeAttr('style');
+                    arrowUp.removeClass('ng-hide');
+                    arrowDown.addClass('ng-hide');
+                    break;
+                case '/app/keywords/dashboard/ranking':
+                    vm.activeTab = 1;
+                    var panel = angular.element(document.querySelector('#chartsPanel .panel-wrapper'));
+                    var arrowDown = angular.element(document.querySelector('#chartsPanel .panel-heading em:nth-child(1)'));
+                    var arrowUp = angular.element(document.querySelector('#chartsPanel .panel-heading em:nth-child(2)'));
+                    panel.addClass('in');
+                    panel.removeAttr('style');
+                    arrowUp.removeClass('ng-hide');
+                    arrowDown.addClass('ng-hide');
+                    break;
+                default:
+                    vm.activeTab = 1;
+            }
+        }
 
+        // Detect the changing of the route.
+        $scope.$on('$locationChangeStart', function(event) {
+            setRoute();
+        })
+    }
 
-         $scope.currentSite = {
-             siteId: "1",
-             name: "SEOgenie"
-         };
-
-
-         $scope.initKnobs = function (pageList) {};
-
-
-         var init = function () {
-             // Ajax
-             vm.keywords = [];
-
-             var postData = {
-                 siteId: "1"
-             }
-
-             keywordsService.getKeywords(postData).then(function (response) {
-                 $scope.loading = false;
-                 console.log(response);
-                 if (response.data) {
-                     vm.keywords = angular.fromJson(response.data);
-                     console.log(vm.keywords);
-                 } else {
-                     // No data
-                 }
-
-
-             }, function (errResponse) {
-                 if (errResponse && errResponse.data && errResponse.data.Message) {
-                     toastr.error('Can\'t retrieve data', 'Error');
-                 }
-             });
-
-
-             $scope.$on('panel-refresh', function (event, id) {
-                 var secs = 3;
-                 console.log('Refreshing during ' + secs + 's #' + id);
-                 $timeout(function () {
-                     // directive listen for to remove the spinner 
-                     // after we end up to perform own operations
-                     $scope.$broadcast('removeSpinner', id);
-
-                     console.log('Refreshed #' + id);
-
-                 }, 3000);
-
-             });
-         };
-
-         init();
-
-
-         $scope.refreshGrid = function () {
-             vm.pages = [];
-             $scope.loading = true;
-             keywordsService.getKeywords(1).then(function (response) {
-                 $scope.loading = false;
-                 vm.pages = response.data;
-             });
-         };
-
-         $scope.addKeywordsOpenDialog = function () {
-             var modalDialog = $uibModal.open({
-                 animation: true,
-                 ariaLabelledBy: 'modal-title',
-                 ariaDescribedBy: 'modal-body',
-                 //appendTo: 'body',
-                 resolve: {
-                     items: function () {
-                         //return $akm.items;
-                     }
-                 },
-                 templateUrl: function (element, attrs) {
-                     return 'app/views/modals/addKeywords.html';
-                 },
-                 scope: $scope,
-                 controller: 'addKeywordModalController',
-                 backdrop: 'static',
-                 keyboard: false,
-                 size: 'lg'
-             });
-
-             $scope.addKeywordsModal = modalDialog;
-
-             modalDialog.result.then(function (result) {
-                 console.log(result);
-             }, function (error) {
-                 if (error && error.data && error.data.Message) {
-                     toastr.error('Can\'t add keywords', 'Error');
-                 }
-             });
-         };
-     }
-
- })(angular);
+})(angular);

@@ -29,6 +29,78 @@
                 "ng-bootstrap-select",
                 "highcharts"
             )
+        })
+        .state("app.keywords.dashboard", {
+            url: "/dashboard",
+            title: "Keywords",
+            templateUrl: helper.basepath("keywords.html"),
+            resolve: helper.resolveFor(
+                "smart-table",
+                "ui.select",
+                "ng-dialog",
+                "ng-bootstrap-select",
+                "highcharts"
+            )
+        })
+        .state("app.keywords.dashboard.statistics", {
+            url: "/statistics",
+            title: "Keywords",
+            templateUrl: helper.basepath("keywords.html"),
+            resolve: helper.resolveFor(
+                "smart-table",
+                "ui.select",
+                "ng-dialog",
+                "ng-bootstrap-select",
+                "highcharts"
+            )
+        })
+        .state("app.keywords.dashboard.engines", {
+            url: "/engines",
+            title: "Keywords",
+            templateUrl: helper.basepath("keywords.html"),
+            resolve: helper.resolveFor(
+                "smart-table",
+                "ui.select",
+                "ng-dialog",
+                "ng-bootstrap-select",
+                "highcharts"
+            )
+        })
+        .state("app.keywords.dashboard.ranking", {
+            url: "/ranking",
+            title: "Keywords",
+            templateUrl: helper.basepath("keywords.html"),
+            resolve: helper.resolveFor(
+                "smart-table",
+                "ui.select",
+                "ng-dialog",
+                "ng-bootstrap-select",
+                "highcharts"
+            )
+        })
+        .state("app.keywords.list", {
+            url: "/list",
+            title: "Keywords",
+            templateUrl: helper.basepath("keywords.html"),
+            resolve: helper.resolveFor(
+                "smart-table",
+                "ui.select",
+                "ng-dialog",
+                "ng-bootstrap-select",
+                "highcharts"
+            )
+        })
+        .state("app.keywords.add-keywords", {
+            url: "/add-keywords",
+            title: "Keywords",
+            templateUrl: helper.basepath("keywords.html"),
+            resolve: helper.resolveFor(
+                "smart-table",
+                "ui.select",
+                "ng-dialog",
+                "ng-bootstrap-select",
+                "highcharts"
+            )
         });
     }
 })(angular);
