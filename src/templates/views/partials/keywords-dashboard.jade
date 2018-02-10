@@ -13,35 +13,37 @@
                             | General Keywords Statistics
                             span.text-bold.text-underline {{ dac.site.selected }}
                         paneltool(tool-collapse, ng-init="statistics=false")
-                    .panel-body.p0(uib-collapse="statistics")
-                        ul.list-group.m0
-                            li.list-group-item(ng-repeat='item in dac.analyzeKeywords')
-                                span.badge.bg-primary.text-center {{ item.value }}
-                                | {{ item.name }}
+                    .panel-wrapper(uib-collapse="statistics")
+                        .panel-body.p0
+                            ul.list-group.m0
+                                li.list-group-item(ng-repeat='item in dac.analyzeKeywords')
+                                    span.badge.bg-primary.text-center {{ item.value }}
+                                    | {{ item.name }}
                 #searchEngine.panel(ng-controller='searchEngineCtrl as sec')
                     .panel-heading.flex-heading.custom-heading
                         .panel-title 
                             | Search Engines to SERP Monitor
                             span.text-underline {{ dac.site.selected }}
                         paneltool(tool-collapse, ng-init="searchEngine=false")
-                    .panel-body(uib-collapse="searchEngine")
-                        .row.serp-title
-                            | Monitored Search Engine
-                            em.icon-question
-                        .row.serp-item(ng-repeat='item in sec.seViews')
-                            .col-xs-4.dropup
-                                select(selectpicker='', data-live-search='true', ng-model='item.selectedEngine', ng-change="sec.changeDomains(item)")
-                                    option(ng-repeat='engine in item.engines', data-icon='{{engine.icon}}') {{ engine.name }}
-                            .col-xs-7.p0.dropup
-                                select(selectpicker='', data-live-search='true', ng-model='item.selectedDomain', ng-options='(item.selectedEngine + domain.Name) for domain in item.domains', ng-change="sec.selectDomain(item)", data-size="8")
-                            .col-xs-1.pl0
-                                em.fa.fa-check(ng-if='item.domainSelected')
-                                .spinner(ng-show='item.domainChecking')
-                                    .bounce1
-                                    .bounce2
-                                    .bounce3
-                        .row.col-xs-12
-                            em Please select up to 3 search engines to monitor your Keywords SERP ranking positions
+                    .panel-wrapper(uib-collapse="searchEngine")
+                        .panel-body
+                            .row.serp-title
+                                | Monitored Search Engine
+                                em.icon-question
+                            .row.serp-item(ng-repeat='item in sec.seViews')
+                                .col-xs-4.dropup
+                                    select(selectpicker='', data-live-search='true', ng-model='item.selectedEngine', ng-change="sec.changeDomains(item)")
+                                        option(ng-repeat='engine in item.engines', data-icon='{{engine.icon}}') {{ engine.name }}
+                                .col-xs-7.p0.dropup
+                                    select(selectpicker='', data-live-search='true', ng-model='item.selectedDomain', ng-options='(item.selectedEngine + domain.Name) for domain in item.domains', ng-change="sec.selectDomain(item)", data-size="8")
+                                .col-xs-1.pl0
+                                    em.fa.fa-check(ng-if='item.domainSelected')
+                                    .spinner(ng-show='item.domainChecking')
+                                        .bounce1
+                                        .bounce2
+                                        .bounce3
+                            .row.col-xs-12
+                                em Please select up to 3 search engines to monitor your Keywords SERP ranking positions
             .col-lg-7.col-sm-12.pl0
                 #chartsPanel.panel
                     .panel-heading.flex-heading.custom-heading

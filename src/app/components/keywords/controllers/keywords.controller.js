@@ -28,6 +28,11 @@
             });
         }
 
+        // Detect the changing of the route.
+        $scope.$on('$locationChangeStart', function(event) {
+            setRoute();
+        })
+
         // Define the behavior for sidebar menu.
         function setRoute() {
             switch($location.path()) {
@@ -42,43 +47,54 @@
                     break;
                 case '/app/keywords/dashboard/statistics':
                     vm.activeTab = 1;
-                    var panel = angular.element(document.querySelector('#statistics .panel-body'));
-                    var arrowDown = angular.element(document.querySelector('#statistics .panel-heading em:nth-child(1)'));
-                    var arrowUp = angular.element(document.querySelector('#statistics .panel-heading em:nth-child(2)'));
-                    panel.addClass('in');
-                    panel.removeAttr('style');
-                    arrowUp.removeClass('ng-hide');
-                    arrowDown.addClass('ng-hide');
+                    expandPanel('statistics');
+                    changeIcon('statistics');
+                    shakePanel('statistics');
                     break;
                 case '/app/keywords/dashboard/engines':
                     vm.activeTab = 1;
-                    var panel = angular.element(document.querySelector('#searchEngine .panel-body'));
-                    var arrowDown = angular.element(document.querySelector('#searchEngine .panel-heading em:nth-child(1)'));
-                    var arrowUp = angular.element(document.querySelector('#searchEngine .panel-heading em:nth-child(2)'));
-                    panel.addClass('in');
-                    panel.removeAttr('style');
-                    arrowUp.removeClass('ng-hide');
-                    arrowDown.addClass('ng-hide');
+                    expandPanel('searchEngine');
+                    changeIcon('searchEngine');
+                    shakePanel('searchEngine');
                     break;
                 case '/app/keywords/dashboard/ranking':
                     vm.activeTab = 1;
-                    var panel = angular.element(document.querySelector('#chartsPanel .panel-wrapper'));
-                    var arrowDown = angular.element(document.querySelector('#chartsPanel .panel-heading em:nth-child(1)'));
-                    var arrowUp = angular.element(document.querySelector('#chartsPanel .panel-heading em:nth-child(2)'));
-                    panel.addClass('in');
-                    panel.removeAttr('style');
-                    arrowUp.removeClass('ng-hide');
-                    arrowDown.addClass('ng-hide');
+                    expandPanel('chartsPanel');
+                    changeIcon('chartsPanel');
+                    shakePanel('chartsPanel');
                     break;
                 default:
                     vm.activeTab = 1;
             }
         }
 
-        // Detect the changing of the route.
-        $scope.$on('$locationChangeStart', function(event) {
-            setRoute();
-        })
+        // Expand panel
+        function expandPanel(id) {
+            var query = '#' + id + ' .panel-wrapper';
+            var panel = angular.element(document.querySelector(query));
+            panel.addClass('in');
+            panel.removeAttr('style');
+        }
+
+        // Change arrow icon
+        function changeIcon(id) {
+            var queryDown = '#' + id + ' .panel-heading em:nth-child(1)';
+            var queryUp = '#' + id + ' .panel-heading em:nth-child(2)';
+            var arrowDown = angular.element(document.querySelector(queryDown));
+            var arrowUp = angular.element(document.querySelector(queryUp));
+            arrowUp.removeClass('ng-hide');
+            arrowDown.addClass('ng-hide');
+        }
+
+        // Shake panel
+        function shakePanel(id) {
+            var query = '#' + id;
+            var panel = angular.element(document.querySelector(query));
+            panel.addClass('shake');
+            $timeout(function() {
+                panel.removeClass('shake');
+            }, 1000);
+        }
     }
 
 })(angular);
