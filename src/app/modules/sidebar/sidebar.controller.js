@@ -10,8 +10,8 @@
         .module('app.sidebar')
         .controller('SidebarController', SidebarController);
 
-    SidebarController.$inject = ['$rootScope', '$scope', '$state', 'SidebarLoader', 'Utils'];
-    function SidebarController($rootScope, $scope, $state, SidebarLoader,  Utils) {
+    SidebarController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'SidebarLoader', 'Utils'];
+    function SidebarController($rootScope, $scope, $state, $timeout, SidebarLoader,  Utils) {
 
         activate();
 
@@ -71,6 +71,8 @@
 
             $scope.lastEventFromChild = isChild($index);
 
+            flashHit($index);
+
             return true;
 
           };
@@ -105,6 +107,26 @@
             function isChild($index) {
               /*jshint -W018*/
               return (typeof $index === 'string') && !($index.indexOf('-') < 0);
+            }
+
+            // Add flash animation to panel.
+            function flashHit(index) {
+              var id = '';
+              switch(index) {
+                case '2-0-0':
+                  id = '#statistics'; break;
+                case '2-0-1':
+                  id = '#searchEngine'; break;
+                case '2-0-2':
+                  id = '#chartsPanel'; break;
+              }
+              if (id != '') {
+                var panel = angular.element(document.querySelector(id));
+                panel.addClass('flashit');
+                $timeout(function() {
+                    panel.removeClass('flashit');
+                }, 1000);
+              }
             }
 
             $scope.$on('$destroy', function() {

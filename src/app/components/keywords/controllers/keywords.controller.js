@@ -16,7 +16,7 @@
         ///////////////////////
 
         function activate() {
-            setRoute(); 
+            setRoute();
         }
 
         // Show add keywords modal.
@@ -49,19 +49,16 @@
                     vm.activeTab = 1;
                     expandPanel('statistics');
                     changeIcon('statistics');
-                    shakePanel('statistics');
                     break;
                 case '/app/keywords/dashboard/engines':
                     vm.activeTab = 1;
                     expandPanel('searchEngine');
                     changeIcon('searchEngine');
-                    shakePanel('searchEngine');
                     break;
                 case '/app/keywords/dashboard/ranking':
                     vm.activeTab = 1;
                     expandPanel('chartsPanel');
                     changeIcon('chartsPanel');
-                    shakePanel('chartsPanel');
                     break;
                 default:
                     vm.activeTab = 1;
@@ -84,16 +81,6 @@
             var arrowUp = angular.element(document.querySelector(queryUp));
             arrowUp.removeClass('ng-hide');
             arrowDown.addClass('ng-hide');
-        }
-
-        // Shake panel
-        function shakePanel(id) {
-            var query = '#' + id;
-            var panel = angular.element(document.querySelector(query));
-            panel.addClass('shake');
-            $timeout(function() {
-                panel.removeClass('shake');
-            }, 1000);
         }
     }
 
