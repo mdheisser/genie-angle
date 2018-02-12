@@ -17,8 +17,8 @@
                 "text": "Keywords Dashboard",
                 "sref": "app.keywords.dashboard",
                 "submenu": [
-                    {"text": "Keywords Statistics", "sref": "app.keywords.dashboard.statistics"},
-                    {"text": "Monitored Search Engines", "sref": "app.keywords.dashboard.engines"},
+                    {"text": "Statistics", "sref": "app.keywords.dashboard.statistics"},
+                    {"text": "Search Engines", "sref": "app.keywords.dashboard.engines"},
                     {"text": "SERP Ranking", "sref": "app.keywords.dashboard.ranking"}
                 ]
             },

@@ -12,7 +12,7 @@
 // LAYOUT
 
 @content-bg:                    #f5f7fa;
-@aside-bg:                      #fff;
+@aside-bg:                      #F8BBD0;
 
 // NAVBAR TOP
 
@@ -50,6 +50,9 @@
 @offsidebar-border-color: greyscale(darken(@offsidebar-bg, 20%));
 @offsidebar-color:        @text-color;
 
+// CONTENT HEADER
+
+@content-header:                  #EC407A;
 
 /* ========================================================================
    Component: layout
@@ -220,4 +223,12 @@ body,
   border-left: 1px solid @offsidebar-border-color;
   background-color: @offsidebar-bg;
   color: @offsidebar-color;
+}
+
+/* ========================================================================
+   Content Header
+ ========================================================================== */
+
+.content-heading {
+  color: @content-header !important;
 }

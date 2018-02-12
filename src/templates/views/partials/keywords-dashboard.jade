@@ -8,21 +8,21 @@
         .panel-body.row.pb0.pr0.m0
             .col-lg-5.col-sm-12.pl0
                 #statistics.panel
-                    .panel-heading.flex-heading.custom-heading
+                    .panel-heading.flex-heading.sub-heading
                         .panel-title 
-                            | General Keywords Statistics
+                            | Statistics
                             span.text-bold.text-underline {{ dac.site.selected }}
                         paneltool(tool-collapse, ng-init="statistics=false")
                     .panel-wrapper(uib-collapse="statistics")
                         .panel-body.p0
                             ul.list-group.m0
                                 li.list-group-item(ng-repeat='item in dac.analyzeKeywords')
-                                    span.badge.bg-primary.text-center {{ item.value }}
+                                    span.badge.bg-info.text-center {{ item.value }}
                                     | {{ item.name }}
                 #searchEngine.panel(ng-controller='searchEngineCtrl as sec')
-                    .panel-heading.flex-heading.custom-heading
+                    .panel-heading.flex-heading.sub-heading
                         .panel-title 
-                            | Search Engines to SERP Monitor
+                            | Search Engines to 
                             span.text-underline {{ dac.site.selected }}
                         paneltool(tool-collapse, ng-init="searchEngine=false")
                     .panel-wrapper(uib-collapse="searchEngine")
@@ -46,9 +46,9 @@
                                 em Please select up to 3 search engines to monitor your Keywords SERP ranking positions
             .col-lg-7.col-sm-12.pl0
                 #chartsPanel.panel
-                    .panel-heading.flex-heading.custom-heading
+                    .panel-heading.flex-heading.sub-heading
                         .panel-title
-                            | Aggregated SERP Keyword Ranking
+                            | SERP Ranking
                             span.text-bold.text-underline {{ dac.site.selected }}
                         paneltool(tool-collapse, ng-init="chartsPanel=false")
                     .panel-wrapper(uib-collapse="chartsPanel")

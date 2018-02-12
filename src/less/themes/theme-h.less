@@ -12,7 +12,7 @@
 // LAYOUT
 
 @content-bg:                    #f5f7fa;
-@aside-bg:                      #fff;
+@aside-bg:                      #607D8B;
 
 // NAVBAR TOP
 
@@ -31,7 +31,7 @@
 
 @sidebar-bg:                      @aside-bg;
 
-@sidebar-item-color:              #515253;
+@sidebar-item-color:              #FFF;
 @sidebar-item-color-active:       @nav-top-bg;
 @sidebar-item-bg-active:          darken(@sidebar-bg, 1%);
 
@@ -41,7 +41,7 @@
 @sidebar-bullet-color:            rgba(0,0,0,.25);
 @sidebar-bullet-color-active:     @sidebar-icon-color-active;
 
-@sidebar-heading-color:           #919DA8;
+@sidebar-heading-color:           #d4dbe2;
 @sidebar-label-color:             @sidebar-item-color;
 
 // OFFSIDEBAR
@@ -50,6 +50,9 @@
 @offsidebar-border-color: greyscale(darken(@offsidebar-bg, 20%));
 @offsidebar-color:        @text-color;
 
+// CONTENT HEADER
+
+@content-header:                  #37474F;
 
 /* ========================================================================
    Component: layout
@@ -220,4 +223,12 @@ body,
   border-left: 1px solid @offsidebar-border-color;
   background-color: @offsidebar-bg;
   color: @offsidebar-color;
+}
+
+/* ========================================================================
+   Content Header
+ ========================================================================== */
+
+.content-heading {
+  color: @content-header !important;
 }
