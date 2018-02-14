@@ -27,7 +27,8 @@
                 "ui.select",
                 "ng-dialog",
                 "ng-bootstrap-select",
-                "highcharts"
+                "highcharts",
+                "highcharts-export"
             )
         })
         .state("app.keywords.dashboard", {
@@ -39,7 +40,8 @@
                 "ui.select",
                 "ng-dialog",
                 "ng-bootstrap-select",
-                "highcharts"
+                "highcharts",
+                "highcharts-export"
             )
         })
         .state("app.keywords.dashboard.statistics", {
@@ -51,7 +53,8 @@
                 "ui.select",
                 "ng-dialog",
                 "ng-bootstrap-select",
-                "highcharts"
+                "highcharts",
+                "highcharts-export"
             )
         })
         .state("app.keywords.dashboard.engines", {
@@ -63,7 +66,8 @@
                 "ui.select",
                 "ng-dialog",
                 "ng-bootstrap-select",
-                "highcharts"
+                "highcharts",
+                "highcharts-export"
             )
         })
         .state("app.keywords.dashboard.ranking", {
@@ -75,7 +79,8 @@
                 "ui.select",
                 "ng-dialog",
                 "ng-bootstrap-select",
-                "highcharts"
+                "highcharts",
+                "highcharts-export"
             )
         })
         .state("app.keywords.list", {
@@ -87,7 +92,8 @@
                 "ui.select",
                 "ng-dialog",
                 "ng-bootstrap-select",
-                "highcharts"
+                "highcharts",
+                "highcharts-export"
             )
         })
         .state("app.keywords.add-keywords", {
@@ -99,7 +105,8 @@
                 "ui.select",
                 "ng-dialog",
                 "ng-bootstrap-select",
-                "highcharts"
+                "highcharts",
+                "highcharts-export"
             )
         });
     }

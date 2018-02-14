@@ -88,6 +88,10 @@
 					files: ['vendor/highcharts/highcharts.js']
 				},
 				{
+					name: 'highcharts-export',
+					files: ['vendor/highcharts/modules/exporting.js']
+				},
+				{
 					name: 'ng-bootstrap-select',
 					files: ['vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
 						'vendor/bootstrap/dist/js/bootstrap.min.js',

@@ -5,7 +5,7 @@
             select(selectpicker='', data-live-search='true', ng-model='listc.site.selected')
                 option.text-bold(ng-repeat='site in listc.sites') {{ site.name }}
     .panel-wrapper(uib-collapse="keyList")
-        .panel-body
+        .panel-body.p0
             table.table.table-striped(st-table="displayedCollection", st-safe-src="rowCollection")
                 thead
                     tr

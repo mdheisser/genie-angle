@@ -69,7 +69,12 @@
                 chart: {
                     height: chartHeight
                 },
-                title: { text: '' },
+                title: { 
+                    text: 'Agreegated SERP Ranking for all keywords',
+                    style: {
+                        fontSize: '15px'
+                    }
+                },
                 xAxis: {
                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 },
@@ -91,10 +96,29 @@
                     data: [39, 75, 16, 19, 174, 16, 235, 178, 276, 294, 195, 154],
                     zones: [{color: '#410093'}],
                     color: '#410093'
-                }]
+                }],
+                navigation: {
+                    buttonOptions: {
+                        height: 30,
+                        width: 28,
+                        symbolX: 20,
+                        symbolY: 22
+                    }
+                },
+                exporting: {
+                    buttons: {
+                        contextButton: {
+                            symbol: 'url(' + getHostUrl() + 'app/img/export-chart.png)'
+                        }
+                    }
+                }
             };
 
             vm.chartOptions = chartOptions;
+        }
+
+        function getHostUrl () {
+            return $location.$$protocol + '://' + $location.$$host + ':8080/';
         }
     }
 

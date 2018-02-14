@@ -43,22 +43,24 @@
                     vm.activeTab = 2;
                     break;
                 case '/app/keywords/add-keywords':
-                    addKeywordsOpenDialog();
                     break;
                 case '/app/keywords/dashboard/statistics':
                     vm.activeTab = 1;
                     expandPanel('statistics');
                     changeIcon('statistics');
+                    flashHit('#statistics');
                     break;
                 case '/app/keywords/dashboard/engines':
                     vm.activeTab = 1;
                     expandPanel('searchEngine');
                     changeIcon('searchEngine');
+                    flashHit('#searchEngine');
                     break;
                 case '/app/keywords/dashboard/ranking':
                     vm.activeTab = 1;
                     expandPanel('chartsPanel');
                     changeIcon('chartsPanel');
+                    flashHit('#chartsPanel');
                     break;
                 default:
                     vm.activeTab = 1;
@@ -81,6 +83,17 @@
             var arrowUp = angular.element(document.querySelector(queryUp));
             arrowUp.removeClass('ng-hide');
             arrowDown.addClass('ng-hide');
+        }
+
+        // Add flash animation to panel.
+        function flashHit(id) {
+          if (id != '') {
+            var panel = angular.element(document.querySelector(id));
+            panel.addClass('flashit');
+            $timeout(function() {
+                panel.removeClass('flashit');
+            }, 1000);
+          }
         }
     }
 

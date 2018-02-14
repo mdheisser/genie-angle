@@ -52,15 +52,76 @@
                             span.text-underline {{ dac.site.selected }}
                         paneltool(tool-collapse, ng-init="chartsPanel=false")
                     .panel-wrapper(uib-collapse="chartsPanel")
-                        .panel-body
+                        .panel-body.pt0
                             div(hc-charts='', options='dac.chartOptions')
                             .row.chart-filter
                                 .col-md-9.col-sm-8.col-xs-6.text-left
                                     p.report-date.pull-left Report Date: {{ dac.reportDate }}
                                 .col-md-3.col-sm-4.col-xs-6.text-right.dropup
                                     select(selectpicker='', ng-model='dac.selectedDay', ng-options='(day.name + " Days") for day in dac.filterDays')
-                .row.col-sm-12
-                    | Add Keywords...
-                    button.btn.btn-primary.btn-outline.add-keyword(ng-click='kc.addKeywordsOpenDialog()')
-                        i.fa.fa-plus
+                #addKeywords.panel
+                    .panel-heading.flex-heading.sub-heading
+                        .panel-title
+                            | Add Keywords
+                            span.text-underline {{ dac.site.selected }}
+                        paneltool(tool-collapse, ng-init="addKeywords=false")
+                    .panel-wrapper(uib-collapse="addKeywords")
+                        .panel-body
+                            .col-sm-7.col-xs-12
+                                label.title Add Keywords/Phrases
+                                label
+                                    input#inlineradio1(type='radio', name="i-radio", value='option1', checked)
+                                    |  Free Text Mode
+                                label
+                                    input#inlineradio2(type='radio', name="i-radio", value='option2')
+                                    |  Tabular Mode
+                                a.pull-right(ng-click='') clear
+                                .row
+                                    md-input.col-xs-12
+                                        textarea(class="form-control", id='add-keywords', rows='15' cols='50', ng-model='keywordsInputText', ng-change='getKeywordsFromText()', ng-model-options='{ debounce: 1000 }')
+                                .row
+                                    .col-xs-12
+                                        p.text-comment
+                                            em Pressing enter create a new line, each keyword/phrase can contain multiple words. You may also add Keywords separated by comma, in the Free Text Mode.
+                            .col-sm-5.col-xs-12.add-package.pr0
+                                a.title Subscription Package Utilization Limits
+                                .row.promoted-bar
+                                    .col-xs-10
+                                        uib-progressbar.progress-striped(type='danger', value='50')
+                                            span Promoted Keywords 50%
+                                    .col-xs-1.text-left.p0
+                                        p 250
+                                    .col-xs-1.p0
+                                        em.icon-question
+                                .row.monitored-bar
+                                    .col-xs-10
+                                        uib-progressbar.progress-striped(type='warning', value='71') Monitored Keywords 71%
+                                    .col-xs-1.text-left.p0
+                                        p 350
+                                    .col-xs-1.p0
+                                        em.icon-question
+                                a(href='', ng-click='upgradePackage()')
+                                    | Upgrade Package
+                                .checkbox.c-checkbox
+                                  label
+                                    input(type='checkbox', value='')
+                                    span.fa.fa-check
+                                    |  Mark Added Keywords for Monitoring SERP Ranking 
+                                    em.icon-question
+                                .checkbox.c-checkbox
+                                  label
+                                    input(type='checkbox', checked='', value='')
+                                    span.fa.fa-check
+                                    |   Mark Added Keywords for Promotion
+                                    em.icon-question
+                                .checkbox.c-checkbox
+                                  label
+                                    input(type='checkbox', checked='', value='')
+                                    span.fa.fa-check
+                                    |   Process all Added Keywords Immediatly
+                                    em.icon-question
+                                .row.text-right
+                                    .col-xs-12
+                                        button(type="button", class="btn btn-xs btn-primary ok-button btn-dialog", ng-class="{'disabled': isEmptyKeywordsInput() }", ng-disabled="isEmptyKeywordsInput()", ng-click='addKeywords()')
+                                            | Add
 
