@@ -43,6 +43,7 @@
                     vm.activeTab = 2;
                     break;
                 case '/app/keywords/add-keywords':
+                    vm.activeTab = 3;
                     break;
                 case '/app/keywords/dashboard/statistics':
                     vm.activeTab = 1;

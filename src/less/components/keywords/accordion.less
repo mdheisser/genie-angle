@@ -1,29 +1,9 @@
-@accordion-height: 500px;
-@accordion-height-md: 920px;
-@accordion-height-pad-h: 950px;
-@accordion-height-pad-m: 1100px;
-@panel-header-bg: #5188a2;
-// bootstrap grid width
-@md-width: 1200px;
-@pad-h-width: 860px;
-@pad-width: 768px;
-@pad-m-width: 510px;
-@mobile-width: 414px;
+@panel-header-bg: #607D8B;
 .side-accordion-wrapper {
     @collapsed-panel-width: 30px;
     @padding: 0;
     @padding-pad: 1px;
 
-    height: @accordion-height;
-    @media only screen and (max-width: @md-width) {
-        height: @accordion-height-md;
-    }
-    @media only screen and (max-width: @pad-h-width) {
-        height: @accordion-height-pad-h;
-    }
-    @media only screen and (max-width: @pad-m-width) {
-        height: @accordion-height-pad-m;
-    }
     margin-right: -20px;
     @media only screen and (max-width: @pad-width) {
         font-size: 11px;
@@ -38,50 +18,20 @@
         margin-right: 2px;
         border-radius: 3px;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.14), 0 4px 5px 0 rgba(0, 0, 0, 0.098), 0 1px 10px 0 rgba(0, 0, 0, 0.084);
-        height: inherit;
-        // overflow: hidden;
+        overflow: hidden;
         .accordion-item {
             float: left;
             width: @collapsed-panel-width - 2 * @padding;
             height: inherit;
-            background-color: @panel-header-bg;
             .collapsed-body {
                 padding: 7px 4px;
                 font-size: 18px;
                 color: white;
-                .rotated-text {
-                    display: inline-block;
-                    overflow: hidden;
-                    width: 1.5em;
-                    margin-left: 5px;
-                }
-                .rotated-text__inner {
-                    display: inline-block;
-                    white-space: nowrap;
-                    -webkit-transform: translate(1.1em,0) rotate(90deg);
-                    -moz-transform: translate(1.1em,0) rotate(90deg);
-                    -o-transform: translate(1.1em,0) rotate(90deg);
-                    transform: translate(1.1em,0) rotate(90deg);
-                    -webkit-transform-origin: 0 0;
-                    -moz-transform-origin: 0 0;
-                    -o-transform-origin: 0 0;
-                    transform-origin: 0 0;
-                    -ms-transform: none;
-                    -ms-transform-origin: none;
-                    -ms-writing-mode: tb-rl;
-                    *writing-mode: tb-rl;
-                    font-size: 16px;
-                    font-weight: 200;
-                    &:before {
-                        content: "";
-                        float: left;
-                        margin-top: 100%;
-                    }
-                }
             }
         }
         .item-body {
-            background-color: #F5F7FA;
+            background-color: white;
+            min-height: 400px;
             margin-left: @collapsed-panel-width - 2 * @padding;
         }
         .smoothidden {
@@ -90,6 +40,7 @@
             transition-property: opacity, visibility;
             transition-duration: .5s, 0s;
             transition-delay: 0s, .5s;
+            height: 0;
         }
     }
     @media only screen and (max-width: @laptop-h-width) {

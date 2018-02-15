@@ -1,3 +1,12 @@
+// bootstrap grid width
+@md-width: 1200px;
+@pad-h-width: 860px;
+@pad-width: 768px;
+@pad-m-width: 510px;
+@mobile-width: 414px;
+@laptop-h-width: 1440px;
+@laptop-m-width: 1280px;
+
 // common
 .text-underline {
     text-decoration: underline;
@@ -82,4 +91,35 @@
     0% { opacity: 1; }
     50% { opacity: .1; }
     100% { opacity: 1; }
+}
+
+// vertical text for cross browser
+.rotated-text {
+    display: inline-block;
+    overflow: hidden;
+    width: 1.5em;
+    margin-left: 5px;
+}
+.rotated-text__inner {
+    display: inline-block;
+    white-space: nowrap;
+    -webkit-transform: translate(1.1em,0) rotate(90deg);
+    -moz-transform: translate(1.1em,0) rotate(90deg);
+    -o-transform: translate(1.1em,0) rotate(90deg);
+    transform: translate(1.1em,0) rotate(90deg);
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -ms-transform: none;
+    -ms-transform-origin: none;
+    -ms-writing-mode: tb-rl;
+    *writing-mode: tb-rl;
+    font-size: 16px;
+    font-weight: 200;
+    &:before {
+        content: "";
+        float: left;
+        margin-top: 100%;
+    }
 }

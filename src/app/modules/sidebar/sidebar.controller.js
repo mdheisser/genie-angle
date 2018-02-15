@@ -119,11 +119,6 @@
                   id = '#searchEngine'; break;
                 case '2-0-2':
                   id = '#chartsPanel'; break;
-                case '2-2':
-                  id = '#addKeywords';
-                  var wrapper = id + ' .panel-wrapper';
-                  angular.element(document.querySelector(wrapper)).addClass('in');
-                  break;
               }
               if (id != '') {
                 var panel = angular.element(document.querySelector(id));

@@ -2,7 +2,9 @@ h3.content-heading.text-bold
     | Keywords
 div(ng-controller='keywordsController as kc')
     side-accordion(active-tab='kc.activeTab')
-        side-accordion-item(title='Keywords Dashboard')
+        side-accordion-item.custom-heading(title='Keywords Dashboard')
             div(ng-include="'app/views/partials/keywords-dashboard.html'")
-        side-accordion-item(title='Keywords List')
+        side-accordion-item.custom-heading(title='Keywords List')
             div(ng-include="'app/views/partials/keywords-list.html'")
+        side-accordion-item.custom-heading(title='Add Keywords')
+            div(ng-include="'app/views/partials/add-keywords.html'")

@@ -5,9 +5,9 @@
         .module('components.keywords')
         .directive('sideAccordionItem', sideAccordionItem);
 
-    sideAccordionItem.$inject = ['$window'];
+    sideAccordionItem.$inject = ['$window', '$timeout'];
 
-    function sideAccordionItem($window) {
+    function sideAccordionItem($window, $timeout) {
         var directive = {
             require: '^^sideAccordion',
             link: link,
@@ -58,6 +58,11 @@
                     onClick(accordionItem);
                     accordionCtrl.setAsActive(scope.tabNumber);
                 }
+                $timeout(function() {
+                    var height = accordionItem[0].querySelector('.panel').clientHeight;
+                    accordionItem.parent().css('height', height + 'px');
+                    console.log(accordionItem[0].querySelector('.panel').clientHeight);
+                }, 1000);
             }
 
             function onClick(accordionItem) {

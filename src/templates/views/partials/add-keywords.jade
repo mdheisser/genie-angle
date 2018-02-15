@@ -1,0 +1,61 @@
+#addKeywords.panel.m0(ng-controller='addKeywordsCtrl as akc')
+    .panel-heading.custom-heading
+        .description Add Keywords
+        .panel-title.dashboard-title
+            select(selectpicker='', data-live-search='true', ng-model='akc.site.selected')
+                option.text-bold(ng-repeat='site in akc.sites') {{ site.name }}
+    .panel-wrapper(uib-collapse="addKeywords")
+        .panel-body.pb0
+            .col-lg-7
+                label.title Add Keywords/Phrases
+                label
+                    input#inlineradio1(type='radio', name="i-radio", value='option1', checked)
+                    |  Free Text Mode
+                label
+                    input#inlineradio2(type='radio', name="i-radio", value='option2')
+                    |  Tabular Mode
+                a.pull-right(ng-click='') clear
+                md-input
+                    textarea(class="form-control", id='add-keywords', rows='15' cols='50', ng-model='keywordsInputText', ng-change='getKeywordsFromText()', ng-model-options='{ debounce: 1000 }')                
+                em Pressing enter create a new line, each keyword/phrase can contain multiple words. You may also add Keywords separated by comma, in the Free Text Mode.
+            .col-lg-5.add-package.pr0
+                a.title Subscription Package Utilization Limits
+                .row.promoted-bar
+                    .col-xs-10
+                        uib-progressbar.progress-striped(type='danger', value='50')
+                            span Promoted Keywords 50%
+                    .col-xs-1.text-left.p0
+                        p 250
+                    .col-xs-1.p0
+                        em.icon-question
+                .row.monitored-bar
+                    .col-xs-10
+                        uib-progressbar.progress-striped(type='warning', value='71') Monitored Keywords 71%
+                    .col-xs-1.text-left.p0
+                        p 350
+                    .col-xs-1.p0
+                        em.icon-question
+                a(href='', ng-click='upgradePackage()')
+                    | Upgrade Package
+                .checkbox.c-checkbox
+                  label
+                    input(type='checkbox', value='')
+                    span.fa.fa-check
+                    |  Mark Added Keywords for Monitoring SERP Ranking 
+                    em.icon-question
+                .checkbox.c-checkbox
+                  label
+                    input(type='checkbox', checked='', value='')
+                    span.fa.fa-check
+                    |   Mark Added Keywords for Promotion
+                    em.icon-question
+                .checkbox.c-checkbox
+                  label
+                    input(type='checkbox', checked='', value='')
+                    span.fa.fa-check
+                    |   Process all Added Keywords Immediatly
+                    em.icon-question
+                .row.text-right
+                    .col-xs-12
+                        button(type="button", class="btn btn-xs btn-primary ok-button btn-dialog", ng-class="{'disabled': isEmptyKeywordsInput() }", ng-disabled="isEmptyKeywordsInput()", ng-click='addKeywords()')
+                            | Add

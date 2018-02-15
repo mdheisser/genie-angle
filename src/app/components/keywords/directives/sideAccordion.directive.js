@@ -5,9 +5,9 @@
         .module('components.keywords')
         .directive('sideAccordion', sideAccordion);
 
-    sideAccordion.$inject = ['$window'];
+    sideAccordion.$inject = ['$window', '$timeout'];
 
-    function sideAccordion($window) {
+    function sideAccordion($window, $timeout) {
         var directive = {
             link: link,
             templateUrl: '/app/components/keywords/templates/sideAccordion.html',
@@ -60,6 +60,12 @@
                 collapseHeader.css('width', panelContentWidth + 'px');
                 collapseHeader.children().last().removeClass('smoothidden');
                 changeIcon(iconTag);
+                $timeout(function() {
+                    var height = collapseHeader.children().last().prop('offsetHeight');
+                    angular.forEach(item.parent().children(), function(value, key){
+                        angular.element(value).children().first().css('height', height + 'px');
+                    });
+                }, 1000);
             }
 
             function reRender(e, isActive) {
@@ -77,6 +83,14 @@
                     item.css('width', collapseWidth + 'px');
                     item.children().last().addClass('smoothidden');
                 }
+                $timeout(function() {
+                    if(isActive) {
+                        var height = item.children().last().prop('offsetHeight');
+                        angular.forEach(item.parent().children(), function(value, key){
+                            angular.element(value).css('height', height + 'px');
+                        });
+                    }
+                }, 500);
             }
 
             function changeIcon(tag) {
