@@ -3,137 +3,139 @@
  * Handle sidebar collapsible elements
  =========================================================*/
 
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    angular
-        .module('app.sidebar')
-        .controller('SidebarController', SidebarController);
+  angular
+    .module('app.sidebar')
+    .controller('SidebarController', SidebarController);
 
-    SidebarController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'SidebarLoader', 'Utils'];
-    function SidebarController($rootScope, $scope, $state, $timeout, SidebarLoader,  Utils) {
+  SidebarController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'SidebarLoader', 'Utils'];
 
-        activate();
+  function SidebarController($rootScope, $scope, $state, $timeout, SidebarLoader, Utils) {
 
-        ////////////////
+    activate();
 
-        function activate() {
-          var collapseList = [];
+    ////////////////
 
-          // demo: when switch from collapse to hover, close all items
-          var watchOff1 = $rootScope.$watch('app.layout.asideHover', function(oldVal, newVal){
-            if ( newVal === false && oldVal === true) {
-              closeAllBut(-1);
-            }
-          });
+    function activate() {
+      var collapseList = [];
+
+      // demo: when switch from collapse to hover, close all items
+      var watchOff1 = $rootScope.$watch('app.layout.asideHover', function (oldVal, newVal) {
+        if (newVal === false && oldVal === true) {
+          closeAllBut(-1);
+        }
+      });
 
 
-          // Load menu from json file
-          // -----------------------------------
+      // Load menu from json file
+      // -----------------------------------
 
-          SidebarLoader.getMenu(sidebarReady);
+      SidebarLoader.getMenu(sidebarReady);
 
-          function sidebarReady(items) {
-            $scope.menuItems = items.data;
+      function sidebarReady(items) {
+        $scope.menuItems = items.data;
+      }
+
+      // Handle sidebar and collapse items
+      // ----------------------------------
+
+      $scope.getMenuItemPropClasses = function (item) {
+        return (item.heading ? 'nav-heading' : '') +
+          (isActive(item) ? ' active' : '');
+      };
+
+      $scope.addCollapse = function ($index, item) {
+        collapseList[$index] = $rootScope.app.layout.asideHover ? true : !isActive(item);
+      };
+
+      $scope.isCollapse = function ($index) {
+        return (collapseList[$index]);
+      };
+
+      $scope.toggleCollapse = function ($index, isParentItem) {
+
+        // collapsed sidebar doesn't toggle drodopwn
+        if (Utils.isSidebarCollapsed() || $rootScope.app.layout.asideHover) return true;
+
+        // make sure the item index exists
+        if (angular.isDefined(collapseList[$index])) {
+          if (!$scope.lastEventFromChild) {
+            collapseList[$index] = !collapseList[$index];
+            closeAllBut($index);
           }
+        } else if (isParentItem) {
+          closeAllBut(-1);
+        }
 
-          // Handle sidebar and collapse items
-          // ----------------------------------
+        $scope.lastEventFromChild = isChild($index);
 
-          $scope.getMenuItemPropClasses = function(item) {
-            return (item.heading ? 'nav-heading' : '') +
-                   (isActive(item) ? ' active' : '') ;
-          };
+        flashHit($index);
 
-          $scope.addCollapse = function($index, item) {
-            collapseList[$index] = $rootScope.app.layout.asideHover ? true : !isActive(item);
-          };
+        return true;
 
-          $scope.isCollapse = function($index) {
-            return (collapseList[$index]);
-          };
+      };
 
-          $scope.toggleCollapse = function($index, isParentItem) {
+      // Controller helpers
+      // -----------------------------------
 
-            // collapsed sidebar doesn't toggle drodopwn
-            if( Utils.isSidebarCollapsed() || $rootScope.app.layout.asideHover ) return true;
+      // Check item and children active state
+      function isActive(item) {
 
-            // make sure the item index exists
-            if( angular.isDefined( collapseList[$index] ) ) {
-              if ( ! $scope.lastEventFromChild ) {
-                collapseList[$index] = !collapseList[$index];
-                closeAllBut($index);
-              }
-            }
-            else if ( isParentItem ) {
-              closeAllBut(-1);
-            }
+        if (!item) return;
 
-            $scope.lastEventFromChild = isChild($index);
+        if (!item.sref || item.sref === '#') {
+          var foundActive = false;
+          angular.forEach(item.submenu, function (value) {
+            if (isActive(value)) foundActive = true;
+          });
+          return foundActive;
+        } else
+          return $state.is(item.sref) || $state.includes(item.sref);
+      }
 
-            flashHit($index);
+      function closeAllBut(index) {
+        index += '';
+        for (var i in collapseList) {
+          if (index < 0 || index.indexOf(i) < 0)
+            collapseList[i] = true;
+        }
+      }
 
-            return true;
+      function isChild($index) {
+        /*jshint -W018*/
+        return (typeof $index === 'string') && !($index.indexOf('-') < 0);
+      }
 
-          };
+      // Add flash animation to panel.
+      function flashHit(index) {
+        var id = '';
+        switch (index) {
+          case '2-0-0':
+            id = '#statistics';
+            break;
+          case '2-0-1':
+            id = '#searchEngine';
+            break;
+          case '2-0-2':
+            id = '#chartsPanel';
+            break;
+        }
+        if (id != '') {
+          var panel = angular.element(document.querySelector(id));
+          panel.addClass('flashit');
+          $timeout(function () {
+            panel.removeClass('flashit');
+          }, 500);
+        }
+      }
 
-          // Controller helpers
-          // -----------------------------------
+      $scope.$on('$destroy', function () {
+        watchOff1();
+      });
 
-            // Check item and children active state
-            function isActive(item) {
-
-              if(!item) return;
-
-              if( !item.sref || item.sref === '#') {
-                var foundActive = false;
-                angular.forEach(item.submenu, function(value) {
-                  if(isActive(value)) foundActive = true;
-                });
-                return foundActive;
-              }
-              else
-                return $state.is(item.sref) || $state.includes(item.sref);
-            }
-
-            function closeAllBut(index) {
-              index += '';
-              for(var i in collapseList) {
-                if(index < 0 || index.indexOf(i) < 0)
-                  collapseList[i] = true;
-              }
-            }
-
-            function isChild($index) {
-              /*jshint -W018*/
-              return (typeof $index === 'string') && !($index.indexOf('-') < 0);
-            }
-
-            // Add flash animation to panel.
-            function flashHit(index) {
-              var id = '';
-              switch(index) {
-                case '2-0-0':
-                  id = '#statistics'; break;
-                case '2-0-1':
-                  id = '#searchEngine'; break;
-                case '2-0-2':
-                  id = '#chartsPanel'; break;
-              }
-              if (id != '') {
-                var panel = angular.element(document.querySelector(id));
-                panel.addClass('flashit');
-                $timeout(function() {
-                    panel.removeClass('flashit');
-                }, 500);
-              }
-            }
-
-            $scope.$on('$destroy', function() {
-                watchOff1();
-            });
-
-        } // activate
-    }
+    } // activate
+  }
 
 })();

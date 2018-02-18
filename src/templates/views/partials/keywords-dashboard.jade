@@ -4,7 +4,7 @@
         .panel-title.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='dac.site.selected')
                 option.text-bold(ng-repeat='site in dac.sites') {{ site.name }}
-    .panel-wrapper
+    .panel-wrapper.fill
         .panel-body.row.pb0.pr0.m0
             .col-lg-5.col-sm-12.pl0
                 #statistics.panel

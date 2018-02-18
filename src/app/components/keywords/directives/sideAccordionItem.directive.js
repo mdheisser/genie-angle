@@ -30,9 +30,12 @@
             });
 
             // Check if the panel is opened.
-            scope.isActive = function() {
+            scope.isActive = function () {
                 return scope.tabNumber === accordionCtrl.activeTab;
             }
+
+            if (scope.isActive())
+                expandIcon($(element).find('em.fa'));
 
             // Collapse the panel.
             scope.active = function (e) {
@@ -45,11 +48,11 @@
                 } else if (eventElement[0].tagName === 'EM' || eventElement.hasClass('rotated-text') || eventElement[0].tagName === 'SPAN') {
                     accordionItem = eventElement.closest('.accordion-item').parent();
                 }
-                
+
                 // Activate the friend element if target element was activated already.
                 if (scope.isActive()) {
                     onClick(getFriend(accordionItem));
-                    if(checkLastElement(accordionItem)) {
+                    if (checkLastElement(accordionItem)) {
                         accordionCtrl.setAsActive(scope.tabNumber - 1);
                     } else {
                         accordionCtrl.setAsActive(scope.tabNumber + 1);
@@ -58,10 +61,9 @@
                     onClick(accordionItem);
                     accordionCtrl.setAsActive(scope.tabNumber);
                 }
-                $timeout(function() {
+                $timeout(function () {
                     var height = accordionItem[0].querySelector('.panel').clientHeight;
                     accordionItem.parent().css('height', height + 'px');
-                    console.log(accordionItem[0].querySelector('.panel').clientHeight);
                 }, 1000);
             }
 
@@ -74,10 +76,10 @@
                 angular.forEach(accordionItems, function (item) {
                     var pane = angular.element(item);
                     collapsePane(pane, collapseWidth);
-                    changeIconToRight(pane.children().children().children().first());
+                    colapseIcon(pane.children().children().children().first());
                 });
                 expandPane(accordionItem, panelContentWidth);
-                changeIconToLeft(accordionItem.children().children().children().first());
+                expandIcon(accordionItem.children().children().children().first());
             }
 
             function caculateContentWidth(e) {
@@ -91,14 +93,14 @@
                 };
             }
 
-            function changeIconToRight(tag) {
-                tag.removeClass('icon-arrow-left');
-                tag.addClass('icon-arrow-right');
+            function colapseIcon(iconTag) {
+                iconTag.addClass('fa-grip');
+                iconTag.removeClass('fa-grip-small');
             }
 
-            function changeIconToLeft(tag) {
-                tag.removeClass('icon-arrow-right');
-                tag.addClass('icon-arrow-left');
+            function expandIcon(iconTag) {
+                iconTag.addClass('fa-grip-small');
+                iconTag.removeClass('fa-grip');
             }
 
             function collapsePane(pane, width) {
@@ -121,7 +123,9 @@
             }
 
             // Check if target element is last one.
-            function checkLastElement (e) {
+            function checkLastElement(e) {
+                if (e == null)
+                    return false;
                 var friendElement = e.next();
                 if (typeof friendElement[0] !== 'undefined' && friendElement[0].tagName === 'SIDE-ACCORDION-ITEM') {
                     return false;

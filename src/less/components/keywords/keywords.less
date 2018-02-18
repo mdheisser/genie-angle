@@ -1,5 +1,7 @@
 ﻿// Keywords Dashbord Style
-#keyDashboard, #keyList, #addKeywords {
+#keyDashboard,
+#keyList,
+#addKeywords {
     @media only screen and (max-width: @pad-width) {
         .panel {
             display: flow-root !important;
@@ -12,6 +14,9 @@
         display: flex;
         justify-content: flex-start;
         padding: 3px 10px;
+        padding-left: 0px !important;
+        position: relative;
+        left: -1px;        
         border-top-left-radius: 0;
         .description {
             font-size: 17px;
@@ -68,7 +73,7 @@
             .btn-outline {
                 padding: 6px 14px !important;
             }
-        }       
+        }
     }
     #searchEngine {
         .serp-title {
@@ -165,7 +170,7 @@
                 label {
                     font-size: 9px;
                 }
-                .text-comment em{
+                .text-comment em {
                     font-size: 10px;
                 }
             }

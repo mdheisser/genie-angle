@@ -41,7 +41,7 @@
                 this.totalTabNumber++;
             };
 
-            this.setAsActive = function(value) {
+            this.setAsActive = function (value) {
                 this.activeTab = value;
             };
 
@@ -59,10 +59,9 @@
                 var iconTag = collapseHeader.children().children().children().first();
                 collapseHeader.css('width', panelContentWidth + 'px');
                 collapseHeader.children().last().removeClass('smoothidden');
-                changeIcon(iconTag);
-                $timeout(function() {
+                $timeout(function () {
                     var height = collapseHeader.children().last().prop('offsetHeight');
-                    angular.forEach(item.parent().children(), function(value, key){
+                    angular.forEach(item.parent().children(), function (value, key) {
                         angular.element(value).children().first().css('height', height + 'px');
                     });
                 }, 1000);
@@ -78,38 +77,30 @@
                 if (isActive === true) {
                     item.css('width', panelContentWidth + 'px');
                     item.children().last().removeClass('smoothidden');
-                    changeIcon(iconTag);
                 } else {
                     item.css('width', collapseWidth + 'px');
                     item.children().last().addClass('smoothidden');
                 }
-                $timeout(function() {
-                    if(isActive) {
+                $timeout(function () {
+                    if (isActive) {
                         var height = item.children().last().prop('offsetHeight');
-                        angular.forEach(item.parent().children(), function(value, key){
+                        angular.forEach(item.parent().children(), function (value, key) {
                             angular.element(value).css('height', height + 'px');
                         });
                     }
                 }, 500);
             }
 
-            function changeIcon(tag) {
-                if (tag.hasClass('icon-arrow-right')) {
-                    tag.removeClass('icon-arrow-right');
-                    tag.addClass('icon-arrow-left');
-                }
-            }
-
             // Rerender element when scope value is changed.
-            scope.$watch('vm.activeTab', function(newval, oldval) {
+            scope.$watch('vm.activeTab', function (newval, oldval) {
                 var items = angular.element(wrapperElement).children().children()
-                angular.forEach(items, function(value, key){
-                     var e = angular.element(value);
-                     var active = false;
-                     if(key == (newval - 1)) {
+                angular.forEach(items, function (value, key) {
+                    var e = angular.element(value);
+                    var active = false;
+                    if (key == (newval - 1)) {
                         active = true;
-                     }
-                     reRender(e, active);
+                    }
+                    reRender(e, active);
                 });
             })
         }

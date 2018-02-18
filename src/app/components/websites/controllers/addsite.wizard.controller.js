@@ -269,7 +269,6 @@
 		};
 
 		vm.changeEnterMode = function () {
-			debugger;
 			if (vm.enteringMode === vm.enterModes[1].value && vm.isEmptyKeywordsInput()) {
 				vm.keywordsInput = [];
 				_.times(vm.totalMonitoring,

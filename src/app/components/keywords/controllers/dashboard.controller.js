@@ -118,7 +118,7 @@
         }
 
         function getHostUrl () {
-            return $location.$$protocol + '://' + $location.$$host + ':8080/';
+            return $location.$$protocol + '://' + $location.$$host + '/';
         }
     }
 
