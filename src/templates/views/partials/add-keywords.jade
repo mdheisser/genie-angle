@@ -6,7 +6,7 @@
                 option.text-bold(ng-repeat='site in akc.sites') {{ site.name }}
     .panel-wrapper(uib-collapse="addKeywords")
         .panel-body.pb0
-            .col-lg-7
+            .col-lg-7.text-mode
                 label.title Add Keywords/Phrases
                 label
                     input#inlineradio1(type='radio', name="i-radio", value='option1', checked)
@@ -18,22 +18,23 @@
                 md-input
                     textarea(class="form-control", id='add-keywords', rows='15' cols='50', ng-model='keywordsInputText', ng-change='getKeywordsFromText()', ng-model-options='{ debounce: 1000 }')                
                 em Pressing enter create a new line, each keyword/phrase can contain multiple words. You may also add Keywords separated by comma, in the Free Text Mode.
-            .col-lg-5.add-package.pr0
-                a.title Subscription Package Utilization Limits
-                .row.promoted-bar
-                    .col-xs-10
+            .col-lg-5.add-package
+                p.title Subscription Package Utilization Limits
+                .row.promoted-bar.m0
+                    .col-sm-10.col-xs-9.pl0
                         uib-progressbar.progress-striped(type='danger', value='50')
                             span Promoted Keywords 50%
-                    .col-xs-1.text-left.p0
+                    .col-sm-1.col-xs-2.text-left.p0
                         p 250
-                    .col-xs-1.p0
+                    .col-sm-1.col-xs-1.p0
                         em.icon-question
-                .row.monitored-bar
-                    .col-xs-10
-                        uib-progressbar.progress-striped(type='warning', value='71') Monitored Keywords 71%
-                    .col-xs-1.text-left.p0
+                .row.monitored-bar.m0
+                    .col-sm-10.col-xs-9.pl0
+                        uib-progressbar.progress-striped(type='warning', value='71')
+                            span Monitored Keywords 71%
+                    .col-sm-1.col-xs-2.text-left.p0
                         p 350
-                    .col-xs-1.p0
+                    .col-sm-1.col-xs-1.p0
                         em.icon-question
                 a(href='', ng-click='upgradePackage()')
                     | Upgrade Package
@@ -55,7 +56,5 @@
                     span.fa.fa-check
                     |   Process all Added Keywords Immediatly
                     em.icon-question
-                .row.text-right
-                    .col-xs-12
-                        button(type="button", class="btn btn-xs btn-primary ok-button btn-dialog", ng-class="{'disabled': isEmptyKeywordsInput() }", ng-disabled="isEmptyKeywordsInput()", ng-click='addKeywords()')
-                            | Add
+                button.pull-right(type="button", class="btn btn-xs btn-primary ok-button btn-dialog", ng-class="{'disabled': isEmptyKeywordsInput() }", ng-disabled="isEmptyKeywordsInput()", ng-click='addKeywords()')
+                    | Add

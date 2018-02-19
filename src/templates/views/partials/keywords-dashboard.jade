@@ -54,8 +54,7 @@
                     .panel-wrapper(uib-collapse="chartsPanel")
                         .panel-body.pt0
                             div(hc-charts='', options='dac.chartOptions')
-                            .row.chart-filter
-                                .col-md-9.col-sm-8.col-xs-6.text-left
-                                    p.report-date.pull-left Report Date: {{ dac.reportDate }}
-                                .col-md-3.col-sm-4.col-xs-6.text-right.dropup
+                            .chart-filter
+                                label.report-date.pull-left Report Date: {{ dac.reportDate }}
+                                label.pull-right
                                     select(selectpicker='', ng-model='dac.selectedDay', ng-options='(day.name + " Days") for day in dac.filterDays')

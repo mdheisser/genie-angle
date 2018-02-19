@@ -16,7 +16,7 @@
         padding: 3px 10px;
         padding-left: 0px !important;
         position: relative;
-        left: -1px;        
+        left: -1px;
         border-top-left-radius: 0;
         .description {
             font-size: 17px;
@@ -121,62 +121,80 @@
             }
         }
     }
-    #addKeywords {
-        margin-right: 15px;
-        .title {
-            font-size: 13px;
-            color: black;
-            @media only screen and (max-width: @pad-width) {
-                font-size: 11px;
-            }
+}
+
+// Add Keywords Panel
+#addKeywords {
+    margin-right: 15px;
+    .text-mode, .add-package{
+        @media only screen and (max-width: @mobile-width) {
+            padding-left: 0;
+            padding-right: 0;
         }
-        label {
-            font-weight: 500 !important;
+    }
+    .title {
+        font-size: 13px;
+        color: black;
+        @media only screen and (max-width: @pad-width) {
+            font-size: 11px;
         }
-        textarea {
+    }
+    label {
+        font-weight: 500 !important;
+    }
+    textarea {
+        @media only screen and (max-width: @md-width) {
             height: 200px !important;
         }
-        .clear {
-            padding-top: 8px;
+    }
+    .clear {
+        padding-top: 8px;
+    }
+    .add-package {
+        padding-top: 20px;
+    }
+    .progress {
+        background-color: #F1BABA;
+        height: 25px;
+        margin-bottom: 0 !important;
+        .progress-bar {
+            color: black;
+            font-size: 13px;
+            @media only screen and (max-width: @mobile-width) {
+                font-size: 11px;
+            }
+            span {
+                white-space: nowrap;
+            }
         }
-        .add-package {
-            padding-top: 32px;
-        }
+    }
+    .promoted-bar {
+        margin-top: 20px;
+        height: 30px;
         .progress {
             background-color: #F1BABA;
-            height: 25px;
-            margin-bottom: 10px;
-            .progress-bar {
-                color: black;
-                font-size: 13px;
-                span {
-                    white-space: nowrap;
-                }
+        }
+    }
+    .monitored-bar {
+        height: 30px;
+        .progress {
+            background-color: #F9E4A3;
+        }
+    }
+    .checkbox {
+        @media only screen and (max-width: @pad-width) {
+            label {
+                font-size: 10px;
+            }
+            .text-comment em {
+                font-size: 10px;
             }
         }
-        .promoted-bar {
-            margin-top: 20px;
-            .progress {
-                background-color: #F1BABA;
-            }
+        em {
+            margin-left: 15px;
         }
-        .monitored-bar {
-            .progress {
-                background-color: #F9E4A3;
-            }
-        }
-        .checkbox {
-            @media only screen and (max-width: @pad-width) {
-                label {
-                    font-size: 9px;
-                }
-                .text-comment em {
-                    font-size: 10px;
-                }
-            }
-            em {
-                margin-left: 15px;
-            }
-        }
+    }
+    button.pull-right {
+        margin-bottom: 10px;
     }
 }
