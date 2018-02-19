@@ -1,6 +1,6 @@
 #keyDashboard.container-fluid.panel.mb0(ng-controller='dashboardController as dac')
     .panel-heading.custom-heading
-        .description Keywords Dashboard
+        .description Keywords&nbsp;Dashboard
         .panel-title.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='dac.site.selected')
                 option.text-bold(ng-repeat='site in dac.sites') {{ site.name }}
