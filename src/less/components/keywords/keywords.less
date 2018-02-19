@@ -100,14 +100,17 @@
                 }
             }
         }
+        .comment {
+            @media only screen and (min-width: 1800px) {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
     }
     #chartsPanel {
-        max-height: 400px;
+        max-height: 440px;
         @media only screen and (max-width: @pad-h-width) {
-            max-height: 420px;
-        }
-        @media only screen and (max-width: @pad-m-width) {
-            max-height: 450px;
+            max-height: 460px;
         }
         .highcharts-container {
             .highcharts-credits {
@@ -118,6 +121,9 @@
             font-size: 14px;
             @media only screen and (min-width: @pad-h-width) {
                 transform: translateY(-40px);
+            }
+            .report-date {
+                font-weight: normal;
             }
         }
     }

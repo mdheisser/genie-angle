@@ -63,14 +63,14 @@
 
         function drawCharts() {
 
-            var chartHeight = 350;
+            var chartHeight = 400;
 
             var chartOptions = {
                 chart: {
                     height: chartHeight
                 },
                 title: { 
-                    text: 'Agreegated SERP Ranking for all keywords',
+                    text: 'Agreegated SERP Ranking For All Keywords',
                     style: {
                         fontSize: '15px'
                     }
