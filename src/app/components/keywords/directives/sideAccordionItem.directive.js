@@ -14,7 +14,7 @@
             templateUrl: '/app/components/keywords/templates/sideAccordionItem.html',
             restrict: 'EA',
             scope: {
-                title: '@'
+                name: '@'
             },
             transclude: true
         };
