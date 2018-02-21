@@ -29,6 +29,13 @@
                 accordionCtrl.response(element, scope.isActive());
             });
 
+            // Rerender accordion when element's content is changed.
+            scope.$watch(function() {
+                return element.html();
+            },function() {
+                accordionCtrl.response(element, scope.isActive());
+            });
+
             // Check if the panel is opened.
             scope.isActive = function () {
                 return scope.tabNumber === accordionCtrl.activeTab;

@@ -1,27 +1,91 @@
 #keyList.container-fluid.panel.panel-default.panel-dark.m0(ng-controller='keywordsListController as listc')
     .panel-heading.custom-heading
-        .description Keywords&nbsp;Dashboard
+        .description Keywords&nbsp;List
         .panel-title.w-70p.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='listc.site.selected')
                 option.text-bold(ng-repeat='site in listc.sites') {{ site.name }}
     .panel-wrapper(uib-collapse="keyList")
         .panel-body.p0
-            table.table.table-striped(st-table="displayedCollection", st-safe-src="rowCollection")
-                thead
-                    tr
-                        th #
-                        th(st-sort="") Keywords
-                        th(st-sort="") G
-                        th(st-sort="") Y
-                        th(st-sort="") M
-                        th(st-sort="") Active Pages
-                        th(st-sort="") Actions
-                tbody
-                    tr(ng-repeat="row in displayedCollection")
-                        td
-                        td
-                        td
-                        td
-                        td
-                        td
-                        td
+            .container-fluid
+                table.table.table-bordered.table-condensed(st-table="listc.rowCollection")
+                    thead.table-control
+                        tr
+                            td.text-right(colspan="7")
+                                button.left.btn.btn-primary.btn-outline
+                                    i.fa.fa-plus
+                                .float-label.ml.mda-input-group.left
+                                    input.mda-form-control(type='text', ng-model="username", placeholder='Filter/Search', ng-click="listc.advancedFilter=true")
+                                    span.mda-input-group-addon
+                                        em.fa.fa-search.fa-lg
+                                    span.mda-input-group-addon-suffix
+                                        em.fa.fa-microphone.fa-lg
+                                    overlay-popup(active='listc.advancedFilter', width='600')
+                                        div(ng-include="'app/components/keywords/templates/additionalFilter.html'")
+                                .left.sort-by
+                                    label Sort By
+                                    i.fa.fa-sort
+                                .left.sort-by
+                                    label Export CSV
+                                    i.fa.fa-list
+                                .right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/keywords/templates/pagination.custom.html")
+                                .right.display-rows
+                                    label Display
+                                    label
+                                        select.form-control(ng-model="listc.numberOfRows")
+                                            option 5
+                                            option 10
+                                            option 15
+                                            option 20
+                    thead
+                        tr
+                            th.text-center #
+                            th(st-sort="keyword") Keywords
+                            th.text-center(st-sort="g") G
+                            th.text-center(st-sort="y") Y
+                            th.text-center(st-sort="m") M
+                            th.text-center(st-sort="") Active Pages
+                            //- th.text-center Actions
+                            //-     i.fa.fa-caret-down.pull-right.fa-lg
+                            th.text-center.actions-col
+                                //- md-select.m0(placeholder='Actions', ng-model='listc.actions')
+                                | Actions
+                                i.fa.fa-caret-down.pull-right.fa-lg(ng-click="listc.openBulkAcions=true")
+                                overlay-popup.bulk-action(active='listc.openBulkAcions')
+                                    .mda-list
+                                        .mda-list-item
+                                            label.pull-left Bulk Actions
+                                            label.mda-checkbox.pull-right
+                                                input(type='checkbox', ng-model='listc.allBulkActions')
+                                                em.bg-indigo-500
+                                        .mda-list-item(ng-repeat='item in listc.bulkActions')
+                                            em.fa.pull-left(ng-class='item.icon')
+                                            label.pull-left {{ item.label }}&nbsp;
+                                            label.mda-checkbox.pull-right
+                                                input(type='checkbox', ng-model='listc.bulkActionModel[$index]')
+                                                em.bg-indigo-500
+                    tbody
+                        tr(ng-repeat="row in listc.rowCollection")
+                            td.text-center {{ $index + 1 }}
+                            td.keyword-col
+                                label {{ row.keyword }}
+                                em.fa.fa-line-chart.right.text-info
+                                label.m0.right
+                                    md-switch AUTO
+                                em.fa.fa-cog.right.text-grey
+                            td.text-center.text-warning
+                                i.fa.fa-angle-double-down &nbsp; {{ row.g }}
+                            td.text-center.text-danger
+                                i.fa.fa-angle-double-up &nbsp; {{ row.y }}
+                            td.text-center.text-success {{ row.m }}
+                            td.progress-col
+                                .number.pull-left.text-center
+                                    span 5 &nbsp;
+                                        i.fa.fa-caret-down
+                                .stacked-progress.pull-left
+                                    uib-progressbar.progress-striped(type='danger', value='50')
+                                .pregress-caret.pull-left
+                                    i.fa.fa-caret-down.text-grey
+                            td.text-center
+                                label.mda-checkbox
+                                    input(type='checkbox')
+                                    em.bg-indigo-500

@@ -1,0 +1,8 @@
+nav(ng-if="numPages && pages.length >= 2")
+    ul.pagination
+        li
+            a(ng-click="selectPage(currentPage - 1)") Previous
+        li(ng-repeat="page in pages", ng-class="{active: page==currentPage}")
+            a(href="#", ng-click="selectPage(page); $event.preventDefault(); $event.stopPropagation();") {{page}}
+        li
+            a(ng-click="selectPage(currentPage + 1)") Next
