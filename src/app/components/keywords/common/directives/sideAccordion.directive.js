@@ -10,7 +10,7 @@
     function sideAccordion($window, $timeout) {
         var directive = {
             link: link,
-            templateUrl: '/app/components/keywords/templates/sideAccordion.html',
+            templateUrl: '/app/components/keywords/common/templates/sideAccordion.html',
             restrict: 'EA',
             transclude: true,
             scope: {},

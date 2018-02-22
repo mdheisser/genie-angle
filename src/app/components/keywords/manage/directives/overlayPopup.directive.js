@@ -10,7 +10,7 @@
     function overlayPopup($window, $timeout) {
         var directive = {
             restrict: 'EA',
-            templateUrl: '/app/components/keywords/templates/overlayPopup.html',
+            templateUrl: '/app/components/keywords/manage/templates/overlayPopup.html',
             scope: {
                 active: '=',
                 width: '@'

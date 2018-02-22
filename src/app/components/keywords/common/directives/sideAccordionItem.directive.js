@@ -11,7 +11,7 @@
         var directive = {
             require: '^^sideAccordion',
             link: link,
-            templateUrl: '/app/components/keywords/templates/sideAccordionItem.html',
+            templateUrl: '/app/components/keywords/common/templates/sideAccordionItem.html',
             restrict: 'EA',
             scope: {
                 name: '@'

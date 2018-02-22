@@ -20,14 +20,14 @@
                                     span.mda-input-group-addon-suffix
                                         em.fa.fa-microphone.fa-lg
                                     overlay-popup(active='listc.advancedFilter', width='600')
-                                        div(ng-include="'app/components/keywords/templates/additionalFilter.html'")
+                                        div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .left.sort-by
                                     label Sort By
                                     i.fa.fa-sort
                                 .left.sort-by
                                     label Export CSV
                                     i.fa.fa-list
-                                .right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/keywords/templates/pagination.custom.html")
+                                .right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/keywords/manage/templates/pagination.custom.html")
                                 .right.display-rows
                                     label Display
                                     label
