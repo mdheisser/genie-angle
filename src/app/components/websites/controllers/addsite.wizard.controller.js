@@ -1,7 +1,28 @@
 ﻿(function (angular) {
 	"use strict";
 
-	var addSiteWizardController = function (
+	angular
+		.module("components.websites")
+		.controller("addSiteWizardController", addSiteWizardController);
+
+	addSiteWizardController.$inject = [
+		"$scope",
+		"$timeout",
+		"$resource",
+		"$q",
+		"$location",
+		"websitesService",
+		"usersService",
+		"keywordsService",
+		"$uibModal",
+		"toastr",
+		"API",
+		"$injector",
+		"editableOptions",
+		"editableThemes"
+	];
+
+	function addSiteWizardController(
 		$scope,
 		$timeout,
 		$resource,
@@ -12,7 +33,7 @@
 		keywordsService,
 		$uibModal,
 		toastr,
-		REST,
+		API,
 		$injector,
 		editableOptions,
 		editableThemes
@@ -37,11 +58,26 @@
 			editableThemes.bs3.buttonsClass = 'btn-sm';
 			editableOptions.theme = 'bs3';
 
-			vm.searchEngines = [
-				{ name: 'Google', domains: [], icon: 'socicon-google' },
-				{ name: 'Yahoo', domains: [], icon: 'socicon-yahoo' },
-				{ name: 'Bing', domains: [], icon: 'socicon-bing' },
-				{ name: 'Yandex', domains: [], icon: 'socicon-yandex' }
+			vm.searchEngines = [{
+					name: 'Google',
+					domains: [],
+					icon: 'socicon-google'
+				},
+				{
+					name: 'Yahoo',
+					domains: [],
+					icon: 'socicon-yahoo'
+				},
+				{
+					name: 'Bing',
+					domains: [],
+					icon: 'socicon-bing'
+				},
+				{
+					name: 'Yandex',
+					domains: [],
+					icon: 'socicon-yandex'
+				}
 			];
 
 			websitesService.getGoogleDomains().then(function (response) {
@@ -101,8 +137,7 @@
 				};
 			}
 
-			vm.seViews = [
-				{
+			vm.seViews = [{
 					index: 0,
 					viewMode: true,
 					editMode: false,
@@ -125,9 +160,14 @@
 			];
 
 
-			vm.protocols = [
-				{ name: "http://", selected: true },
-				{ name: "https://", selected: false }
+			vm.protocols = [{
+					name: "http://",
+					selected: true
+				},
+				{
+					name: "https://",
+					selected: false
+				}
 			];
 
 			// default protocol
@@ -174,24 +214,32 @@
 			vm.maxStep = 3;
 			vm.showBusyText = false;
 			vm.stepData = [{
-				step: 1,
-				completed: false,
-				optional: false,
-				data: {
-					website: {
-						url: null
-					},
-					searhEngines: angular.copy(vm.searchEngines)
+					step: 1,
+					completed: false,
+					optional: false,
+					data: {
+						website: {
+							url: null
+						},
+						searhEngines: angular.copy(vm.searchEngines)
+					}
+				},
+				{
+					step: 2,
+					completed: false,
+					optional: false,
+					data: {
+						isMonitored: true,
+						isPromoted: true,
+						keywords: []
+					}
+				},
+				{
+					step: 3,
+					completed: false,
+					optional: false,
+					data: {}
 				}
-			},
-			{
-				step: 2, completed: false, optional: false, data: {
-					isMonitored: true,
-					isPromoted: true,
-					keywords: []
-				}
-			},
-			{ step: 3, completed: false, optional: false, data: {} }
 			];
 
 			var userId = 1;
@@ -207,13 +255,13 @@
 			});
 
 			vm.enterModes = [{
-				value: "freeText",
-				label: "Free Text Mode"
-			},
-			{
-				value: "tabular",
-				label: "Tabular Mode"
-			}
+					value: "freeText",
+					label: "Free Text Mode"
+				},
+				{
+					value: "tabular",
+					label: "Tabular Mode"
+				}
 			];
 			vm.enteringMode = vm.enterModes[0].value;
 
@@ -240,7 +288,7 @@
 			return (input.$dirty) && input.$error[type];
 		};
 
-		vm.setPrimaryLanguage = function($item) {
+		vm.setPrimaryLanguage = function ($item) {
 			vm.stepData[0].data.primaryLanguage = $item;
 		};
 
@@ -279,11 +327,11 @@
 			if (vm.enteringMode === vm.enterModes[1].value && !vm.isEmptyKeywordsInput()) {
 				vm.getKeywordsFromText();
 				$timeout(function () {
-					_.times(vm.totalMonitoring - vm.keywordsInput.length,
-						function () {
-							vm.keywordsInput.push("");
-						});
-				},
+						_.times(vm.totalMonitoring - vm.keywordsInput.length,
+							function () {
+								vm.keywordsInput.push("");
+							});
+					},
 					100);
 
 			}
@@ -364,8 +412,8 @@
 				vm.showBusyText ||
 				!vm.stepData[0].data.userEmail ||
 				!vm.stepData[0].data.isTermOfService ||
-				!vm.stepData[0].data.primaryLanguage
-				|| !$scope.form.checkValid(form);
+				!vm.stepData[0].data.primaryLanguage ||
+				!$scope.form.checkValid(form);
 		};
 
 		vm.urlVerify = function (url) {
@@ -375,20 +423,20 @@
 			vm.isUrlError = false;
 			vm.isUrlOk = false;
 			REST.checkSite(url).then(function (response) {
-				if (response.data) {
-					vm.urlChecking = false;
-					vm.isUrlOk = true;
-				}
-			},
+					if (response.data) {
+						vm.urlChecking = false;
+						vm.isUrlOk = true;
+					}
+				},
 				function (errResponse) {
 					console.log(errResponse);
 					vm.urlChecking = false;
 					vm.isUrlError = true;
 				}).catch(function (errResponse) {
 
-					vm.urlChecking = false;
-					vm.isUrlError = true;
-				});
+				vm.urlChecking = false;
+				vm.isUrlError = true;
+			});
 		};
 
 		vm.urlMessage = "";
@@ -443,7 +491,7 @@
 				.split("\n");
 		};
 
-		vm.removeKeyword = function(array, index) {
+		vm.removeKeyword = function (array, index) {
 			array.splice(index, 1);
 		};
 
@@ -463,8 +511,8 @@
 			}
 
 			REST.sitesAddNewPost(postData).then(function (response) {
-				if (response.data) {
-					vm.showSuccess = true;
+					if (response.data) {
+						vm.showSuccess = true;
 					}
 				},
 				function (errResponse) {
@@ -474,25 +522,4 @@
 		};
 	}
 
-
-	addSiteWizardController.$inject = [
-		"$scope",
-		"$timeout",
-		"$resource",
-		"$q",
-		"$location",
-		"websitesService",
-		"usersService",
-		"keywordsService",
-		"$uibModal",
-		"toastr",
-		"REST",
-		"$injector",
-		"editableOptions",
-		"editableThemes"
-	];
-
-	angular
-		.module("components.websites")
-		.controller("addSiteWizardController", addSiteWizardController);
 })(angular);

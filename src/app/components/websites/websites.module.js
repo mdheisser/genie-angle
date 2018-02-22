@@ -6,8 +6,7 @@
 			[
 				"ui.bootstrap",
 				"app.lazyload",
-				"ngSanitize",
-				"REST"
+				"ngSanitize"
 			])
 		.config(function($provide) {
 			//Exception handling

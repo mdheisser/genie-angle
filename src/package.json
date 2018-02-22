@@ -2,8 +2,13 @@
     "name": "seogenie",
     "version": "1.0.0",
     "description": "SEOgenie",
-    "author": "@themicon_co",
+    "author": "@seo_genie_team",
     "private": true,
+    "scripts": {
+        "dev": "gulp serve",
+        "dev:api": "./node_modules/.bin/swagger project edit",
+        "demo": "gulp build --mock"
+    },
     "devDependencies": {
         "bower": "^1.8.2",
         "bower-npm-resolver": "0.7.0",
@@ -48,10 +53,5 @@
         "through2": "2.0.3",
         "uuid": "^3.1.0",
         "yargs": "7.0.2"
-    },
-    "scripts": {
-        "dev": "gulp serve",
-        "dev:api": "./node_modules/.bin/swagger project edit",
-        "demo": "gulp build --mock"
     }
 }
