@@ -14,12 +14,12 @@
                                 button.left.btn.btn-primary.btn-outline
                                     i.fa.fa-plus
                                 .float-label.ml.mda-input-group.left
-                                    input.mda-form-control(type='text', ng-model="username", placeholder='Filter/Search', ng-click="listc.advancedFilter=true")
+                                    input.mda-form-control(type='text', ng-model="username", placeholder='Filter/Search', ng-click="listc.popupOpen.show()")
                                     span.mda-input-group-addon
                                         em.fa.fa-search.fa-lg
                                     span.mda-input-group-addon-suffix
                                         em.fa.fa-microphone.fa-lg
-                                    overlay-popup(active='listc.advancedFilter', width='600')
+                                    overlay-popup(controls='listc.popupOpen', width='600')
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .left.sort-by
                                     label Sort By
@@ -40,9 +40,12 @@
                         tr
                             th.text-center #
                             th(st-sort="keyword") Keywords
-                            th.text-center(st-sort="g") G
-                            th.text-center(st-sort="y") Y
-                            th.text-center(st-sort="m") M
+                            th.text-center(st-sort="g")
+                                i.glyphicon.socicon-google
+                            th.text-center(st-sort="y")
+                                i.glyphicon.socicon-yahoo
+                            th.text-center(st-sort="m")
+                                i.glyphicon.socicon-bing
                             th.text-center(st-sort="") Active Pages
                             //- th.text-center Actions
                             //-     i.fa.fa-caret-down.pull-right.fa-lg
@@ -50,21 +53,21 @@
                                 //- md-select.m0(placeholder='Actions', ng-model='listc.actions')
                                 | Actions
                                 i.fa.fa-caret-down.pull-right.fa-lg(ng-click="listc.openBulkAcions=true")
-                                overlay-popup.bulk-action(active='listc.openBulkAcions')
-                                    .mda-list
-                                        .mda-list-item
-                                            label.pull-left Bulk Actions
-                                            label.mda-checkbox.pull-right
-                                                input(type='checkbox', ng-model='listc.allBulkActions')
-                                                em.bg-indigo-500
-                                        .mda-list-item(ng-repeat='item in listc.bulkActions')
-                                            em.fa.pull-left(ng-class='item.icon')
-                                            label.pull-left {{ item.label }}&nbsp;
-                                            label.mda-checkbox.pull-right
-                                                input(type='checkbox', ng-model='listc.bulkActionModel[$index]')
-                                                em.bg-indigo-500
+                                //- overlay-popup.bulk-action(active='listc.openBulkAcions')
+                                //-     .mda-list
+                                //-         .mda-list-item
+                                //-             label.pull-left Bulk Actions
+                                //-             label.mda-checkbox.pull-right
+                                //-                 input(type='checkbox', ng-model='listc.allBulkActions')
+                                //-                 em.bg-indigo-500
+                                //-         .mda-list-item(ng-repeat='item in listc.bulkActions')
+                                //-             em.fa.pull-left(ng-class='item.icon')
+                                //-             label.pull-left {{ item.label }}&nbsp;
+                                //-             label.mda-checkbox.pull-right
+                                //-                 input(type='checkbox', ng-model='listc.bulkActionModel[$index]')
+                                //-                 em.bg-indigo-500
                     tbody
-                        tr(ng-repeat="row in listc.rowCollection")
+                        tr(st-select-row="row", st-select-mode="single", ng-repeat="row in listc.rowCollection")
                             td.text-center {{ $index + 1 }}
                             td.keyword-col
                                 label {{ row.keyword }}
@@ -82,9 +85,15 @@
                                     span 5 &nbsp;
                                         i.fa.fa-caret-down
                                 .stacked-progress.pull-left
-                                    uib-progressbar.progress-striped(type='danger', value='50')
+                                    uib-progressbar(type='green', value='100')
+                                .stacked-progress.pull-left
+                                    uib-progressbar(type='info', value='100')
+                                .stacked-progress.pull-left
+                                    uib-progressbar(type='warning', value='100')
                                 .pregress-caret.pull-left
                                     i.fa.fa-caret-down.text-grey
+                                .pregress-caret.pull-left
+                                    i.fa.fa-anchor
                             td.text-center
                                 label.mda-checkbox
                                     input(type='checkbox')

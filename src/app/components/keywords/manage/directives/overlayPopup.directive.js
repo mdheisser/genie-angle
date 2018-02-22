@@ -12,7 +12,7 @@
             restrict: 'EA',
             templateUrl: '/app/components/keywords/manage/templates/overlayPopup.html',
             scope: {
-                active: '=',
+                controls: '=',
                 width: '@'
             },
             transclude: true,
@@ -23,41 +23,36 @@
 
         function link(scope, element) {
             scope.isActive = false;
+            scope.opened = false;
 
+            // Set popup screen's width if width option was set.
             if(scope.width) {
                 element.css('width', scope.width + 'px');
             }
 
-            scope.$watch('active', function() {
-                if (scope.active == true) {
+            // The function which open popup(callable from any controller).
+            angular.extend(scope.controls, {
+                show: function(){
                     scope.isActive = true;
-                    $timeout(bindClick);
-                } else {
-                    scope.isActive = false;
-                    unbindClick();
+                    $timeout(function() {
+                        scope.opened = true;
+                    }); 
                 }
-            })
+            });
 
             // Hide overlay popup when click even is happened outside of the element.
-            function bindClick() {
-                var everywhere = angular.element(window.document);
-            
-                everywhere.bind('click', function(event){
-                    var isClickedElementChildOfPopup = element.find(event.target).length > 0;
+            var everywhere = angular.element(window.document);
 
-                    if (!isClickedElementChildOfPopup) {
-                        scope.$apply(function(){
-                            scope.active = false;
-                            unbindClick();
-                        });
-                    }
-                });
-            }
+            everywhere.bind('click', function(event){
+                var isClickedElementChildOfPopup = element.find(event.target).length > 0;
 
-            function unbindClick() {
-                var everywhere = angular.element(window.document);            
-                everywhere.unbind('click');
-            }
+                if (!isClickedElementChildOfPopup && scope.opened) {
+                    scope.$apply(function(){
+                        scope.isActive = false;
+                        scope.opened = false;
+                    });
+                }
+            });
         }
     }
 

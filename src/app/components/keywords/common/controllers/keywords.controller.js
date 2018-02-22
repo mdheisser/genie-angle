@@ -9,7 +9,6 @@
     function keywordsController($scope, $timeout, $resource, $q, $location, keywordsService, toastr, ngDialog) {
         var vm = this;
         vm.activeTab = 1;
-        vm.addKeywordsOpenDialog = addKeywordsOpenDialog;
 
         activate();
 
@@ -17,15 +16,6 @@
 
         function activate() {
             setRoute();
-        }
-
-        // Show add keywords modal.
-        function addKeywordsOpenDialog() {
-            ngDialog.open({
-                template: 'app/views/modals/addKeywords.html',
-                className: 'ngdialog-theme-default add-keywords',
-                showClose: false
-            });
         }
 
         // Detect the changing of the route.

@@ -15,11 +15,10 @@
         vm.sites = [];
         vm.keywords = [];
         vm.bulkActions = [];
-        vm.advancedFilter = false;
-        vm.openBulkAcions = false;
         vm.filterCondition = '1';
         vm.allBulkActions = false;
         vm.bulkActionModel = [];
+        vm.popupOpen = {};
 
         activate();
 

@@ -210,6 +210,7 @@
         margin-bottom: 10px;
         th, td {
             border: 1px solid #696464;
+            cursor: pointer;
         }
         th {
             padding: 2px;
@@ -231,6 +232,15 @@
         }
         td {
             padding: 0;
+        }
+        .st-sort-ascent:before{
+            content: '\25B2';
+        }
+        .st-sort-descent:before{
+            content: '\25BC';
+        }
+        .st-selected {
+            background: #dfeaff !important;
         }
         .table-control {
             td {
@@ -274,6 +284,20 @@
         }
         md-switch {
             margin: 0;
+            .md-container {
+                margin-top: 5px;
+            }
+            .md-bar {
+                width: 30px;
+                height: 10px;
+            }
+            .md-thumb {
+                height: 15px;
+                width: 15px;
+            }
+            .md-label {
+                font-size: 12px;
+            }
         }
         em {
             padding: 8px 10px;
@@ -285,13 +309,16 @@
             width: 30%
         }
         .stacked-progress {
-            width: 50%;
+            width: 15%;
         }
         .pregress-caret {
             padding-left: 5px;
         }
         .progress {
             background-color: burlywood;
+            padding: 0;
+            border: none;
+            border-radius: 0;
         }
     }
     .actions-col {
