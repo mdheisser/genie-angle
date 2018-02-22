@@ -14,7 +14,8 @@
             templateUrl: '/app/components/keywords/common/templates/sideAccordionItem.html',
             restrict: 'EA',
             scope: {
-                name: '@'
+                name: '@',
+                href: '@'
             },
             transclude: true
         };
@@ -36,13 +37,22 @@
                 accordionCtrl.response(element, scope.isActive());
             });
 
+            // Change collapse status icon when collapse status is changed.
+            scope.$watch(function() {
+                return accordionCtrl.activeTab;
+            }, function() {
+                var iconTag = element.find('em.collapse-icon');
+                if (scope.tabNumber === accordionCtrl.activeTab) {
+                    expandIcon(iconTag);
+                } else {
+                    colapseIcon(iconTag);
+                }
+            });
+
             // Check if the panel is opened.
             scope.isActive = function () {
                 return scope.tabNumber === accordionCtrl.activeTab;
             }
-
-            if (scope.isActive())
-                expandIcon($(element).find('em.fa'));
 
             // Collapse the panel.
             scope.active = function (e) {
@@ -52,7 +62,7 @@
                 // Convert the children elements's click event to accordion-item element's one.
                 if (eventElement.hasClass('accordion-item')) {
                     accordionItem = eventElement.parent();
-                } else if (eventElement[0].tagName === 'EM' || eventElement.hasClass('rotated-text') || eventElement[0].tagName === 'SPAN') {
+                } else if (eventElement[0].tagName === 'EM' || eventElement.hasClass('rotated-text') || eventElement[0].tagName === 'SPAN' || eventElement.hasClass('collapsed-body')) {
                     accordionItem = eventElement.closest('.accordion-item').parent();
                 }
 
@@ -83,10 +93,8 @@
                 angular.forEach(accordionItems, function (item) {
                     var pane = angular.element(item);
                     collapsePane(pane, collapseWidth);
-                    colapseIcon(pane.children().children().children().first());
                 });
                 expandPane(accordionItem, panelContentWidth);
-                expandIcon(accordionItem.children().children().children().first());
             }
 
             function caculateContentWidth(e) {

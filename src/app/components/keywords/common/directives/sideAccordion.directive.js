@@ -5,9 +5,9 @@
         .module('components.keywords')
         .directive('sideAccordion', sideAccordion);
 
-    sideAccordion.$inject = ['$window', '$timeout'];
+    sideAccordion.$inject = ['$window', '$timeout', '$location'];
 
-    function sideAccordion($window, $timeout) {
+    function sideAccordion($window, $timeout, $location) {
         var directive = {
             link: link,
             templateUrl: '/app/components/keywords/common/templates/sideAccordion.html',
@@ -33,16 +33,24 @@
         function accordionCtrl(scope) {
             var self = this;
             this.totalTabNumber = 1;
+            this.hrefs = [];
 
             this.init = function (e, childScope) {
                 getWrapperWidth();
                 initialize(e);
                 childScope.tabNumber = this.totalTabNumber;
                 this.totalTabNumber++;
+                this.hrefs.push(childScope.href);
             };
 
             this.setAsActive = function (value) {
                 this.activeTab = value;
+                var portNumber = '/#/';
+                if ($location.$$host == 'localhost') {
+                    portNumber = ':8080/#/';
+                }
+                var url = $location.$$protocol + '://' + $location.$$host + portNumber + this.hrefs[this.activeTab - 1];
+                location.href = url;
             };
 
             this.response = function (e, isActive) {

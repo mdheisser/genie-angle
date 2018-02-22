@@ -11,14 +11,12 @@
                     thead.table-control
                         tr
                             td.text-right(colspan="7")
-                                button.left.btn.btn-primary.btn-outline
+                                a.left.btn.btn-primary.btn-outline(href='#/app/keywords/add-keywords')
                                     i.fa.fa-plus
                                 .float-label.ml.mda-input-group.left
                                     input.mda-form-control(type='text', ng-model="username", placeholder='Filter/Search', ng-click="listc.popupOpen.show()")
                                     span.mda-input-group-addon
                                         em.fa.fa-search.fa-lg
-                                    span.mda-input-group-addon-suffix
-                                        em.fa.fa-microphone.fa-lg
                                     overlay-popup(controls='listc.popupOpen', width='600')
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .left.sort-by
