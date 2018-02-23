@@ -7,7 +7,7 @@
     .panel-wrapper(uib-collapse="keyList")
         .panel-body.p0
             .container-fluid
-                table.table.table-bordered.table-condensed(st-table="listc.rowCollection")
+                table.table.table-bordered.table-condensed(st-table="displayedCollection", st-safe-src='listc.rowCollection')
                     thead.table-control
                         tr
                             td.text-right(colspan="7")
@@ -17,7 +17,7 @@
                                     input.mda-form-control(type='text', ng-model="username", placeholder='Filter/Search', ng-click="listc.popupOpen.show()")
                                     span.mda-input-group-addon
                                         em.fa.fa-search.fa-lg
-                                    overlay-popup(controls='listc.popupOpen', width='600')
+                                    overlay-popup(controls='listc.popupOpen', width='400')
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .left.sort-by
                                     label Sort By
@@ -45,27 +45,11 @@
                             th.text-center(st-sort="m")
                                 i.glyphicon.socicon-bing
                             th.text-center(st-sort="") Active Pages
-                            //- th.text-center Actions
-                            //-     i.fa.fa-caret-down.pull-right.fa-lg
                             th.text-center.actions-col
-                                //- md-select.m0(placeholder='Actions', ng-model='listc.actions')
-                                | Actions
-                                i.fa.fa-caret-down.pull-right.fa-lg(ng-click="listc.openBulkAcions=true")
-                                //- overlay-popup.bulk-action(active='listc.openBulkAcions')
-                                //-     .mda-list
-                                //-         .mda-list-item
-                                //-             label.pull-left Bulk Actions
-                                //-             label.mda-checkbox.pull-right
-                                //-                 input(type='checkbox', ng-model='listc.allBulkActions')
-                                //-                 em.bg-indigo-500
-                                //-         .mda-list-item(ng-repeat='item in listc.bulkActions')
-                                //-             em.fa.pull-left(ng-class='item.icon')
-                                //-             label.pull-left {{ item.label }}&nbsp;
-                                //-             label.mda-checkbox.pull-right
-                                //-                 input(type='checkbox', ng-model='listc.bulkActionModel[$index]')
-                                //-                 em.bg-indigo-500
+                                select(selectpicker='')
+                                    option.text-bold(ng-repeat='action in listc.bulkActions', data-icon='fa {{action.icon}}') {{ action.label }}
                     tbody
-                        tr(st-select-row="row", st-select-mode="single", ng-repeat="row in listc.rowCollection")
+                        tr(st-select-row="row", st-select-mode="single", ng-repeat="row in displayedCollection")
                             td.text-center {{ $index + 1 }}
                             td.keyword-col
                                 label {{ row.keyword }}
@@ -96,3 +80,6 @@
                                 label.mda-checkbox
                                     input(type='checkbox')
                                     em.bg-indigo-500
+                button.btn.pull-right.mb Apply
+                a.pull-right.mt.mr UnMark All
+                a.pull-right.mt.mr Mark All

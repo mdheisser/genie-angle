@@ -13,10 +13,8 @@ h5.p0.input-group(ng-click='listc.categoryPane=!listc.categoryPane') Additional 
         input.mda-form-control(type='text', placeholder='Filter by Category/Performance')
         span.mda-input-group-addon
             em.fa.fa-search.fa-lg
-        span.mda-input-group-addon-suffix
-            em.fa.fa-microphone.fa-lg
-    .row.text-left
-        .col-md-4
+    .filter-body.text-left
+        .filter-category
             p By Category
                 em.fa.fa-angle-down
             .mda-list.p0
@@ -47,7 +45,7 @@ h5.p0.input-group(ng-click='listc.categoryPane=!listc.categoryPane') Additional 
                         input(type='checkbox')
                         em.bg-indigo-500
                     label.pull-left Forced Keywords
-        .col-md-4
+        .filter-significance
             p Significance
                 em.fa.fa-angle-down
             .mda-list.p0
@@ -86,7 +84,7 @@ h5.p0.input-group(ng-click='listc.categoryPane=!listc.categoryPane') Additional 
                     label.mda-checkbox.pull-right
                         input(type='checkbox', checked='', onclick='return false;')
                         em.bg-pink-300.empty
-        .col-md-4
+        .filter-suitablity
             p Suitability
                 em.fa.fa-angle-down
             .mda-list.p0
