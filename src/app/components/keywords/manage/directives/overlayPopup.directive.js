@@ -12,8 +12,8 @@
             restrict: 'EA',
             templateUrl: '/app/components/keywords/manage/templates/overlayPopup.html',
             scope: {
-                controls: '=',
-                width: '@'
+                width: '@',
+                active: '='
             },
             transclude: true,
             link: link
@@ -22,7 +22,7 @@
         return directive;
 
         function link(scope, element) {
-            scope.isActive = false;
+            scope.visible = false;
             scope.opened = false;
 
             // Set popup screen's width if width option was set.
@@ -30,13 +30,16 @@
                 element.css('width', scope.width + 'px');
             }
 
-            // The function which open popup(callable from any controller).
-            angular.extend(scope.controls, {
-                show: function(){
-                    scope.isActive = true;
+            // Show/Hide popup in accordance with scope value.
+            scope.$watch('active', function() {
+                if (scope.active) {
+                    scope.visible = true;
                     $timeout(function() {
                         scope.opened = true;
-                    }); 
+                    })
+                } else {
+                    scope.visible = false;
+                    scope.opened = false;
                 }
             });
 
@@ -48,7 +51,7 @@
 
                 if (!isClickedElementChildOfPopup && scope.opened) {
                     scope.$apply(function(){
-                        scope.isActive = false;
+                        scope.active = false;
                         scope.opened = false;
                     });
                 }

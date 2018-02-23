@@ -31,8 +31,8 @@ var config = {
 // MAIN PATHS
 var dir = {
     dist: "../dist",
-    mock: "./rest",
-    rest: "./rest/generated"
+    mock: "./api/rest",
+    rest: "./api/rest/generated"
 };
 
 var paths = {
@@ -123,14 +123,14 @@ var tplCacheOptions = {
     root: "/app",
     filename: "templates.js",
     module: "app.core",
-    base: function(file) {
+    base: function (file) {
         return file.path.split("templates")[1];
     }
 };
 
 var injectOptions = {
     name: "templates",
-    transform: function(filepath) {
+    transform: function (filepath) {
         return `script(src=\'${filepath.substr(
       filepath.indexOf("app")
     )}?v=${uuidv()}\')`;
@@ -210,7 +210,7 @@ gulp.task(
 );
 
 // LESS THEMES
-gulp.task("styles:themes", function() {
+gulp.task("styles:themes", function () {
     log("Building application theme styles..");
     return gulp
         .src(source.styles.themes)
@@ -225,7 +225,7 @@ gulp.task("styles:themes", function() {
 });
 
 // JADE
-gulp.task("templates:index", ["templates:views"], function() {
+gulp.task("templates:index", ["templates:views"], function () {
     log("Building index..");
 
     var tplscript = gulp.src(build.templates.cache, {
@@ -251,7 +251,7 @@ gulp.task("templates:index", ["templates:views"], function() {
 });
 
 // JADE
-gulp.task("templates:views", function() {
+gulp.task("templates:views", function () {
     log("Building views.. " + (config.useCache ? "using cache" : ""));
 
     if (config.useCache) {
@@ -304,7 +304,7 @@ gulp.task("templates:views", function() {
 //---------------
 
 // Rerun the task when a file changes
-gulp.task("watch", function() {
+gulp.task("watch", function () {
     log("Watching source files..");
     gulp.watch(source.scripts, ["scripts:app"]);
     gulp.watch(source.swagger.src, ["scripts:swagger"]);
@@ -319,7 +319,7 @@ gulp.task("watch", function() {
 });
 
 // Serve files with auto reaload
-gulp.task("browsersync", function() {
+gulp.task("browsersync", function () {
     log("Starting BrowserSync..");
 
     browserSync({
@@ -332,7 +332,7 @@ gulp.task("browsersync", function() {
 });
 
 // lint javascript
-gulp.task("lint", function() {
+gulp.task("lint", function () {
     return gulp
         .src(source.scripts)
         .pipe($.jshint())
@@ -345,7 +345,7 @@ gulp.task("lint", function() {
 });
 
 // Remove all files from the build paths
-gulp.task("clean", function(done) {
+gulp.task("clean", function (done) {
     var delconfig = [].concat(
         build.styles,
         build.scripts,
@@ -360,7 +360,7 @@ gulp.task("clean", function(done) {
     // force: clean files outside current directory
     del(delconfig, {
         force: true
-    }).then(function() {
+    }).then(function () {
         done();
     });
 });
@@ -372,21 +372,21 @@ gulp.task("clean", function(done) {
 // build for production (minify)
 gulp.task("build", gulpsync.sync(["prod", "vendor", "assets"]));
 
-gulp.task("prod", function() {
+gulp.task("prod", function () {
     log("Starting production build...");
     config.isProduction = true;
 });
 
-gulp.task("assets:static:app:clean", function(done) {
+gulp.task("assets:static:app:clean", function (done) {
     var oldStatic = paths.static.map(i => `${paths.app}${i}`);
     del(oldStatic, {
         force: true
-    }).then(function() {
+    }).then(function () {
         done();
     });
 });
 
-gulp.task("assets:static:app", function() {
+gulp.task("assets:static:app", function () {
     if (!paths.staticMapped) {
         paths.static = paths.static.map(i => `${i}/**/*.*`);
         paths.staticMapped = true;
@@ -398,7 +398,7 @@ gulp.task("assets:static:app", function() {
         .pipe(gulp.dest(paths.app));
 });
 
-gulp.task("assets:static:serve", function() {
+gulp.task("assets:static:serve", function () {
     paths.server = paths.server.map(i => `${i}/**/*.*`);
     gulp
         .src(paths.server, {
@@ -415,7 +415,7 @@ gulp.task("serve:prod", gulpsync.sync(["build", "browsersync"]), done);
 
 // build with sourcemaps (no minify)
 gulp.task("sourcemaps", ["usesources", "default"]);
-gulp.task("usesources", function() {
+gulp.task("usesources", function () {
     config.useSourceMaps = true;
 });
 

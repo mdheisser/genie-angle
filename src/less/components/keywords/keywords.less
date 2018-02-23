@@ -267,6 +267,12 @@
                     margin-left: 5px;
                 }
             }
+            .bootstrap-select>.dropdown-toggle {
+                height: 35px;
+            }
+            .dropdown-menu {
+                top: 33px;
+            }
         }
     }
     .keyword-col {
@@ -319,6 +325,20 @@
     .actions-col {
         position: relative;
         width: 70px;
+        #bulkActionsPopup {
+            top: 32px;
+            left: -211px;
+            font-weight: normal;
+            .mda-list-item {
+                padding: 0 10px;
+                &:hover {
+                    background-color: #ddd;
+                }
+            }
+            em {
+                width: 16px;
+            }
+        }
     }
     .left {
         float: left;

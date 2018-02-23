@@ -21,8 +21,8 @@
         vm.keywords = [];
         vm.bulkActions = [];
         vm.filterCondition = '1';
-        vm.allBulkActions = false;
-        vm.bulkActionModel = [];
+        vm.allRowsMarked = false;
+        vm.selectedRows = [];
         vm.popupOpen = {};
 
         activate();
@@ -62,9 +62,8 @@
                     icon: 'fa-anchor'
                 }
             ];
-            _(vm.bulkActions).forEach(function (value, index) {
-                vm.bulkActionModel[index] = false;
-            });
+            vm.itemsByPage =  ['5', '10', '15', '20'];
+            vm.numberOfRows = vm.itemsByPage[1];
         }
 
         // Get user's own site names.
@@ -90,17 +89,20 @@
                 .then(function (response) {
                     vm.rowCollection = response.data;
                     vm.numberOfRows = '10';
+                    _(vm.rowCollection).forEach(function (value, index) {
+                        vm.selectedRows[index] = false;
+                    });
                 });
         }
 
         $scope.$watch(function () {
-            return vm.allBulkActions;
+            return vm.allRowsMarked;
         }, function (current, original) {
-            _(vm.bulkActionModel).forEach(function (value, index) {
+            _(vm.selectedRows).forEach(function (value, index) {
                 if (current === true) {
-                    vm.bulkActionModel[index] = true;
+                    vm.selectedRows[index] = true;
                 } else {
-                    vm.bulkActionModel[index] = false;
+                    vm.selectedRows[index] = false;
                 }
             });
         });

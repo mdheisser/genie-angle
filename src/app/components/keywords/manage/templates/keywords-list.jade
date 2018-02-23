@@ -14,10 +14,10 @@
                                 a.left.btn.btn-primary.btn-outline(href='#/app/keywords/add-keywords')
                                     i.fa.fa-plus
                                 .float-label.ml.mda-input-group.left
-                                    input.mda-form-control(type='text', ng-model="username", placeholder='Filter/Search', ng-click="listc.popupOpen.show()")
+                                    input.mda-form-control(type='text', ng-model="username", placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
                                     span.mda-input-group-addon
                                         em.fa.fa-search.fa-lg
-                                    overlay-popup(controls='listc.popupOpen', width='400')
+                                    overlay-popup(active='listc.showAdditionalFilter', width='400')
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .left.sort-by
                                     label Sort By
@@ -29,11 +29,7 @@
                                 .right.display-rows
                                     label Display
                                     label
-                                        select.form-control(ng-model="listc.numberOfRows")
-                                            option 5
-                                            option 10
-                                            option 15
-                                            option 20
+                                        select(selectpicker='', ng-model="listc.numberOfRows" ng-options='item for item in listc.itemsByPage')
                     thead
                         tr
                             th.text-center #
@@ -45,9 +41,13 @@
                             th.text-center(st-sort="m")
                                 i.glyphicon.socicon-bing
                             th.text-center(st-sort="") Active Pages
-                            th.text-center.actions-col
-                                select(selectpicker='')
-                                    option.text-bold(ng-repeat='action in listc.bulkActions', data-icon='fa {{action.icon}}') {{ action.label }}
+                            th.text-center.actions-col(ng-click="listc.showBulkAction=!listc.showBulkAction")
+                                label.mda-checkbox
+                                    input(type='checkbox', ng-model='listc.allRowsMarked', ng-click='$event.stopPropagation()')
+                                    em.bg-indigo-500
+                                i.fa.fa-caret-down
+                                overlay-popup#bulkActionsPopup(active='listc.showBulkAction', width='280')
+                                    div(ng-include="'app/components/keywords/manage/templates/bulkActions.html'")
                     tbody
                         tr(st-select-row="row", st-select-mode="single", ng-repeat="row in displayedCollection")
                             td.text-center {{ $index + 1 }}
@@ -78,8 +78,5 @@
                                     i.fa.fa-anchor
                             td.text-center
                                 label.mda-checkbox
-                                    input(type='checkbox')
+                                    input(type='checkbox', ng-model='listc.selectedRows[$index]')
                                     em.bg-indigo-500
-                button.btn.pull-right.mb Apply
-                a.pull-right.mt.mr UnMark All
-                a.pull-right.mt.mr Mark All
