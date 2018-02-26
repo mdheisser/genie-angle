@@ -1,6 +1,6 @@
 .mda-list.p0
     .mda-list-item
         label.pull-left Bulk Actions
-    .mda-list-item(ng-repeat='item in listc.bulkActions')
+    .mda-list-item(ng-repeat='item in listc.bulkActions', ng-click='listc.performAction(item.label)')
         em.fa.pull-left(ng-class='item.icon')
         span.pull-left {{ item.label }}

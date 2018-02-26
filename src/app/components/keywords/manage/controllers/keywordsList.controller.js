@@ -7,12 +7,12 @@
 
     keywordsListController.$inject = [
         '$scope', '$timeout', '$resource', '$q',
-        '$location', 'keywordsService'
+        '$location', 'keywordsService', 'Notify'
     ];
 
     function keywordsListController(
         $scope, $timeout, $resource, $q,
-        $location, keywordsService) {
+        $location, keywordsService, Notify) {
         /* jshint validthis:true */
         var vm = this;
         vm.site = {};
@@ -24,6 +24,9 @@
         vm.allRowsMarked = false;
         vm.selectedRows = [];
         vm.popupOpen = {};
+        vm.performAction = performAction;
+        vm.selectedCategories = [];
+        vm.getSelectedCategories = getSelectedCategories;
 
         activate();
 
@@ -60,6 +63,10 @@
                 {
                     label: 'Mark as Default Keyword',
                     icon: 'fa-anchor'
+                },
+                {
+                    label: 'Export CSV',
+                    icon: 'fa-list'
                 }
             ];
             vm.itemsByPage =  ['5', '10', '15', '20'];
@@ -95,6 +102,27 @@
                 });
         }
 
+        // Perform bulk action
+        function performAction(name) {
+            var msgHtml = name + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+
+            Notify.alert(
+                msgHtml,
+                {status: 'success', pos: 'top-right'}
+            );
+        }
+
+        // Get selected categories
+        function getSelectedCategories() {
+            $scope.$broadcast('getSelectedCategories');
+            return  vm.selectedCategories;
+        }
+
+        $scope.$on('callBack', function(e,data) {
+            vm.selectedCategories = data;
+        });
+
+        // Mark/Unmark all rows
         $scope.$watch(function () {
             return vm.allRowsMarked;
         }, function (current, original) {

@@ -1,126 +1,42 @@
-.p
-    .input-group
-        input.form-control(type='text')
-        .input-group-btn(uib-dropdown="")
-            select.form-control.filter-condition(ng-model="listc.filterCondition")
-                option(value='1') Contains
-                option(value='2') Does not
-                option(value='3') Begins with
-                option(value='4') Ends with
-    h5.p0.input-group(ng-click='listc.categoryPane=!listc.categoryPane') Additional Filters
+.p(ng-controller='additionalFilterController as afc')
+    h5.m0.input-group(ng-click='listc.categoryPane=!listc.categoryPane') Additional Filters
         em.fa.fa-caret-down
-    .category-body(ng-if='listc.categoryPane')
-        .mda-input-group.mb
-            input.mda-form-control(type='text', placeholder='Filter by Category/Performance')
-            span.mda-input-group-addon
-                em.fa.fa-search.fa-lg
+    .category-body.mt(ng-if='listc.categoryPane')
         .filter-body.text-left
             .filter-category
                 p By Category
                     em.fa.fa-angle-down
-                .mda-list.p0
+                .mda-list.p0(ng-repeat='category in afc.categoriesForFilter')
                     .mda-list-item
-                        em.fa.pull-left.fa-anchor
+                        em.fa.pull-left(ng-class='category.icon')
                         label.mda-checkbox.pull-left
-                            input(type='checkbox')
+                            input(type='checkbox',
+                                  value='{{category.value}}',
+                                  ng-model='category.selected',
+                                  ng-click='afc.updateCategorySelection()')
                             em.bg-indigo-500
-                        label.pull-left Default Keywords
-                .mda-list.p0
-                    .mda-list-item
-                        em.fa.pull-left.fa-toggle-on
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left Promoted Keywords
-                .mda-list.p0
-                    .mda-list-item
-                        em.fa.pull-left.fa-line-chart
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left Monitored Keywords
-                .mda-list.p0
-                    .mda-list-item
-                        em.fa.pull-left.fa-bookmark-o
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left Forced Keywords
+                        label.pull-left {{category.name}}
             .filter-significance
                 p Significance
                     em.fa.fa-angle-down
-                .mda-list.p0
+                .mda-list.p0(ng-repeat='significance in afc.significancesForFilter')
                     .mda-list-item
                         label.mda-checkbox.pull-left
                             input(type='checkbox')
                             em.bg-indigo-500
-                        label.pull-left Excelent
+                        label.pull-left {{significance.name}}
                         label.mda-checkbox.pull-right
                             input(type='checkbox', checked='', onclick='return false;')
-                            em.bg-green-300.empty
-                .mda-list.p0
-                    .mda-list-item
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left Good
-                        label.mda-checkbox.pull-right
-                            input(type='checkbox', checked='', onclick='return false;')
-                            em.bg-green-500.empty
-                .mda-list.p0
-                    .mda-list-item
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left Suitable
-                        label.mda-checkbox.pull-right
-                            input(type='checkbox', checked='', onclick='return false;')
-                            em.bg-yellow-800.empty
-                .mda-list.p0
-                    .mda-list-item
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left Poor
-                        label.mda-checkbox.pull-right
-                            input(type='checkbox', checked='', onclick='return false;')
-                            em.bg-pink-300.empty
+                            em.empty(ng-class='significance.bg')
             .filter-suitablity
                 p Suitability
                     em.fa.fa-angle-down
-                .mda-list.p0
+                .mda-list.p0(ng-repeat='suitablity in afc.suitablitiesForFilter')
                     .mda-list-item
                         label.mda-checkbox.pull-left
                             input(type='checkbox')
                             em.bg-indigo-500
-                        label.pull-left Excelent
+                        label.pull-left {{suitablity.name}}
                         label.mda-checkbox.pull-right
                             input(type='checkbox', checked='', onclick='return false;')
-                            em.bg-green-300.empty
-                .mda-list.p0
-                    .mda-list-item
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left Good
-                        label.mda-checkbox.pull-right
-                            input(type='checkbox', checked='', onclick='return false;')
-                            em.bg-green-500.empty
-                .mda-list.p0
-                    .mda-list-item
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left Suitable
-                        label.mda-checkbox.pull-right
-                            input(type='checkbox', checked='', onclick='return false;')
-                            em.bg-yellow-800.empty
-                .mda-list.p0
-                    .mda-list-item
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left Poor
-                        label.mda-checkbox.pull-right
-                            input(type='checkbox', checked='', onclick='return false;')
-                            em.bg-pink-300.empty
+                            em.empty(ng-class='suitablity.bg')

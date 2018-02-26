@@ -11,20 +11,22 @@
                     thead.table-control
                         tr
                             td.text-right(colspan="7")
-                                a.left.btn.btn-primary.btn-outline(href='#/app/keywords/add-keywords')
+                                a.left.btn.btn-primary.btn-outline.btn-xs(href='#/app/keywords/add-keywords')
                                     i.fa.fa-plus
-                                .float-label.ml.mda-input-group.left
+                                .left.ml.mda-input-group
                                     input.mda-form-control(type='text', ng-model="username", placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
                                     span.mda-input-group-addon
-                                        em.fa.fa-search.fa-lg
+                                        em.fa.fa-search
                                     overlay-popup(active='listc.showAdditionalFilter', width='400')
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
-                                .left.sort-by
-                                    label Sort By
-                                    i.fa.fa-sort
-                                .left.sort-by
-                                    label Export CSV
-                                    i.fa.fa-list
+                                .left
+                                    select.filter-condition(selectpicker='', ng-model="listc.filterCondition")
+                                        option(value='1') Contains
+                                        option(value='2') Does not
+                                        option(value='3') Begins with
+                                        option(value='4') Ends with
+                                .left.ml(ng-if='listc.getSelectedCategories().length>0') Filter
+                                    span.text-danger ON
                                 .right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/keywords/manage/templates/pagination.custom.html")
                                 .right.display-rows
                                     label Display
@@ -32,15 +34,15 @@
                                         select(selectpicker='', ng-model="listc.numberOfRows" ng-options='item for item in listc.itemsByPage')
                     thead
                         tr
-                            th.text-center #
+                            th.text-center.row-index #
                             th(st-sort="keyword") Keywords
-                            th.text-center(st-sort="g")
+                            th.text-center(st-sort="g", style='width:7%;')
                                 i.glyphicon.socicon-google
-                            th.text-center(st-sort="y")
+                            th.text-center(st-sort="y", style='width:7%;')
                                 i.glyphicon.socicon-yahoo
-                            th.text-center(st-sort="m")
+                            th.text-center(st-sort="m", style='width:7%;')
                                 i.glyphicon.socicon-bing
-                            th.text-center(st-sort="") Active Pages
+                            th.text-center(st-sort="", style='width:20%;') Active Pages
                             th.text-center.actions-col(ng-click="listc.showBulkAction=!listc.showBulkAction")
                                 label.mda-checkbox
                                     input(type='checkbox', ng-model='listc.allRowsMarked', ng-click='$event.stopPropagation()')
@@ -57,11 +59,14 @@
                                 label.m0.right
                                     md-switch AUTO
                                 em.fa.fa-cog.right.text-grey
-                            td.text-center.text-warning
-                                i.fa.fa-angle-double-down &nbsp; {{ row.g }}
-                            td.text-center.text-danger
-                                i.fa.fa-angle-double-up &nbsp; {{ row.y }}
-                            td.text-center.text-success {{ row.m }}
+                            td.text-center.text-warning.soc-ranking
+                                i.fa.fa-angle-double-down
+                                    span {{ row.g }}
+                            td.text-center.text-danger.soc-ranking
+                                i.fa.fa-angle-double-up
+                                    span {{ row.y }}
+                            td.text-center.text-success.soc-ranking
+                                span {{ row.m }}
                             td.progress-col
                                 .number.pull-left.text-center
                                     span 5 &nbsp;

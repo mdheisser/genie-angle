@@ -246,33 +246,39 @@
             td {
                 border: none;
             }
+            .mda-input-group {
+                input {
+                    border: 1px solid #e2e2e2;
+                    padding-left: 23px;
+                    border-radius: 2px;
+                }
+                > .mda-input-group-addon {
+                    top: 2px;
+                    left: 4px;
+                }
+                .mda-form-control {
+                    height: 25px;
+                }
+            }
             .pagination {
                 margin: 0;
+            }
+            .pagination > li > a {
+                padding: 1px 16px;
             }
             .display-rows {
                 margin-right: 10px;
             }
-            .mda-input-group {
-                input {
-                    border: 1px solid #736d6d;
-                }
-                > .mda-input-group-addon {
-                    top: 7px;
-                    left: 8px;
-                }
-            }
-            .sort-by {
-                padding: 6px 10px;
-                i {
-                    margin-left: 5px;
-                }
-            }
-            .bootstrap-select>.dropdown-toggle {
-                height: 35px;
+            .bootstrap-select .btn {
+                padding-top: 1px !important;
+                padding-bottom: 1px !important;
             }
             .dropdown-menu {
-                top: 33px;
+                top: 23px;
             }
+        }
+        .row-index {
+            width: 30px;
         }
     }
     .keyword-col {
@@ -305,6 +311,10 @@
             font-size: 16px;
         }
     }
+    .soc-ranking span {
+        font-family: "Roboto", sans-serif;
+        margin-left: 5px;
+    }
     .progress-col {
         .number {
             width: 30%
@@ -325,6 +335,7 @@
     .actions-col {
         position: relative;
         width: 70px;
+        padding-left: 10px;
         #bulkActionsPopup {
             top: 32px;
             left: -211px;
@@ -337,6 +348,7 @@
             }
             em {
                 width: 16px;
+                margin-top: 3px;
             }
         }
     }

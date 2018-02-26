@@ -15,6 +15,7 @@
         "app.settings",
         "app.utils",
         "app.material",
-        "app.panels"
+        "app.panels",
+        "app.notify"
     ]);
 })();
