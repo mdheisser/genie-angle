@@ -1,4 +1,4 @@
 (function(angular) {
     angular
-        .module("services", ["API"]);
+        .module("components.services", ["API"]);
 })(angular);

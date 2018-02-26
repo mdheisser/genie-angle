@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('services')
+        .module('components.services')
         .factory('keywordsService', keywordsService);
 
     keywordsService.$inject = ["REST"];

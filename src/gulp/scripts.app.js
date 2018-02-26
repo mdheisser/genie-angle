@@ -5,8 +5,8 @@ const gulp = require("gulp"),
   reload = browserSync.reload,
   log = require("./utils/log");
 
-module.exports = function(opt) {
-  return function() {
+module.exports = function (opt) {
+  return function () {
     log("Building scripts..");
     // Minify and copy all JavaScript (except vendor scripts)
     if (!opt.config.isProduction || opt.config.useMock) {
@@ -18,10 +18,8 @@ module.exports = function(opt) {
       log(`Mocks Injected from: ${mockLocation}`);
     }
 
-    opt.source.scripts.unshift(`${opt.dir.rest}/Client/DefaultApi.js`);
-    opt.source.scripts.unshift(`${opt.dir.rest}/**/!(DefaultApi)*.js`);
-    opt.source.scripts.unshift(`${opt.dir.rest}/lib/**/*.js`);
-    
+    opt.source.scripts.unshift(`${opt.dir.rest}/**/*.js`);
+
     return gulp
       .src(opt.source.scripts)
       .pipe($.jsvalidate())

@@ -10,6 +10,7 @@
         "demo": "gulp build --mock"
     },
     "devDependencies": {
+        "codeceptjs": "^1.1.5",
         "bower": "^1.8.2",
         "bower-npm-resolver": "0.7.0",
         "browser-sync": "2.18.8",

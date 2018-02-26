@@ -146,5 +146,3 @@ sftp-config.json
 # Visual Studio Code - https://code.visualstudio.com/
 .settings/
 .vscode/
-src/package-lock.json
-src/yarn.lock

@@ -16,7 +16,7 @@
 		"keywordsService",
 		"$uibModal",
 		"toastr",
-		"API",
+		"components.services",
 		"$injector",
 		"editableOptions",
 		"editableThemes"

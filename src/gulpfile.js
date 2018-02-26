@@ -32,7 +32,8 @@ var config = {
 var dir = {
     dist: "../dist",
     mock: "./api/rest",
-    rest: "./api/rest/generated"
+    rest: "./api/generated",
+    swagger: "./api/swagger/swagger.yaml"
 };
 
 var paths = {
@@ -89,8 +90,8 @@ var source = {
         ]
     },
     swagger: {
-        src: "./api/swagger/swagger.yaml",
-        dest: "./rest/generated/Client"
+        src: dir.swagger,
+        dest: dir.rest
     }
 };
 
@@ -160,9 +161,9 @@ gulp.task(
 );
 
 // VENDOR BUILD
-gulp.task("vendor", gulpsync.sync(["install", "vendor:base", "vendor:app"]));
+gulp.task("vendor:swagger", getTask("swagger", source.swagger));
+gulp.task("vendor", gulpsync.sync(["install", "vendor:base", "vendor:app", "vendor:swagger"]));
 gulp.task("install", getTask("install"));
-gulp.task("scripts:swagger", getTask("swagger", source.swagger));
 
 // Build the base script to start the application from vendor assets
 gulp.task(
@@ -307,7 +308,7 @@ gulp.task("templates:views", function () {
 gulp.task("watch", function () {
     log("Watching source files..");
     gulp.watch(source.scripts, ["scripts:app"]);
-    gulp.watch(source.swagger.src, ["scripts:swagger"]);
+    gulp.watch(source.swagger.src, ["vendor:swagger"]);
     gulp.watch(source.styles.watch, ["styles:app", "styles:app:rtl"]);
     gulp.watch(source.styles.themes, ["styles:themes"]);
     gulp.watch(source.templates.views, ["templates:views"]);
@@ -426,7 +427,6 @@ gulp.task("assets", [
     "assets:static:app",
     "assets:static:serve",
     "scripts:app",
-    "scripts:swagger",
     "styles:app",
     "styles:app:rtl",
     "styles:themes",

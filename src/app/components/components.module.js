@@ -1,12 +1,13 @@
 // APP START
 // -----------------------------------
 
-(function() {
+(function () {
     "use strict";
 
     angular.module("app.components", [
         "components.dashboard",
-        "components.websites",
+        "components.dashboard",
+        "components.services",
         "components.generic",
         "components.keywords",
         "validation",
