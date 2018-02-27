@@ -7,12 +7,12 @@
 
     keywordsListController.$inject = [
         '$scope', '$timeout', '$resource', '$q',
-        '$location', 'keywordsService', 'Notify'
+        '$location', 'keywordsService', 'Notify', 'filterFilter'
     ];
 
     function keywordsListController(
         $scope, $timeout, $resource, $q,
-        $location, keywordsService, Notify) {
+        $location, keywordsService, Notify, filterFilter) {
         /* jshint validthis:true */
         var vm = this;
         vm.site = {};
@@ -104,7 +104,14 @@
 
         // Perform bulk action
         function performAction(name) {
-            var msgHtml = name + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+            var selectedRows = filterFilter(vm.selectedRows, true);
+            var msgHtml = '';
+
+            if(selectedRows.length <= 0) {
+                msgHtml = 'Nothing selected!'
+            } else {
+                msgHtml = selectedRows.length + ' Records: ' + name + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+            }
 
             Notify.alert(
                 msgHtml,

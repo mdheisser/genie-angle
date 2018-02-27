@@ -11,8 +11,7 @@
         /* jshint validthis:true */
         var vm = this;
         vm.categoriesForFilter = [];
-        vm.significancesForFilter = [];
-        vm.suitablitiesForFilter = [];
+        vm.activePageRanking = [];
 
         activate();
 
@@ -49,53 +48,28 @@
                     selected: false
                 }
             ];
-            vm.significancesForFilter = [{
-                    name: 'Excelent',
+            vm.activePageRanking = [{
+                    name: 'Excellent',
                     value: '1',
-                    bg: 'bg-green-300',
+                    bg: 'bg-red-500',
                     selected: false
                 },
                 {
                     name: 'Good',
                     value: '2',
-                    bg: 'bg-green-500',
+                    bg: 'bg-yellow-700',
                     selected: false
                 },
                 {
                     name: 'Suitable',
                     value: '3',
-                    bg: 'bg-yellow-800',
+                    bg: 'bg-green-500',
                     selected: false
                 },
                 {
                     name: 'Poor',
                     value: '4',
-                    bg: 'bg-pink-300',
-                    selected: false
-                }
-            ];
-            vm.suitablitiesForFilter = [{
-                    name: 'Excelent',
-                    value: '1',
                     bg: 'bg-green-300',
-                    selected: false
-                },
-                {
-                    name: 'Good',
-                    value: '2',
-                    bg: 'bg-green-500',
-                    selected: false
-                },
-                {
-                    name: 'Suitable',
-                    value: '3',
-                    bg: 'bg-yellow-800',
-                    selected: false
-                },
-                {
-                    name: 'Poor',
-                    value: '4',
-                    bg: 'bg-pink-300',
                     selected: false
                 }
             ];

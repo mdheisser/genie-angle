@@ -1,6 +1,6 @@
 #keyList.container-fluid.panel.panel-default.panel-dark.m0(ng-controller='keywordsListController as listc')
     .panel-heading.custom-heading
-        .description Keywords&nbsp;List
+        .description Manage&nbsp;Keywords
         .panel-title.w-70p.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='listc.site.selected')
                 option.text-bold(ng-repeat='site in listc.sites') {{ site.name }}
@@ -14,13 +14,13 @@
                                 a.left.btn.btn-primary.btn-outline.btn-xs(href='#/app/keywords/add-keywords')
                                     i.fa.fa-plus
                                 .left.ml.mda-input-group
-                                    input.mda-form-control(type='text', ng-model="username", placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
+                                    input.mda-form-control(type='text', st-search='', ng-model="username", placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
                                     span.mda-input-group-addon
                                         em.fa.fa-search
-                                    overlay-popup(active='listc.showAdditionalFilter', width='400')
+                                    overlay-popup(active='listc.showAdditionalFilter', width='530')
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .left
-                                    select.filter-condition(selectpicker='', ng-model="listc.filterCondition")
+                                    select(selectpicker='', ng-model="listc.filterCondition")
                                         option(value='1') Contains
                                         option(value='2') Does not
                                         option(value='3') Begins with
@@ -42,7 +42,7 @@
                                 i.glyphicon.socicon-yahoo
                             th.text-center(st-sort="m", style='width:7%;')
                                 i.glyphicon.socicon-bing
-                            th.text-center(st-sort="", style='width:20%;') Active Pages
+                            th.text-center(st-sort="", style='width:22%;') Active Pages
                             th.text-center.actions-col(ng-click="listc.showBulkAction=!listc.showBulkAction")
                                 label.mda-checkbox
                                     input(type='checkbox', ng-model='listc.allRowsMarked', ng-click='$event.stopPropagation()')

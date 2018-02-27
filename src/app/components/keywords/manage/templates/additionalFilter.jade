@@ -16,27 +16,34 @@
                                   ng-click='afc.updateCategorySelection()')
                             em.bg-indigo-500
                         label.pull-left {{category.name}}
-            .filter-significance
-                p Significance
-                    em.fa.fa-angle-down
-                .mda-list.p0(ng-repeat='significance in afc.significancesForFilter')
-                    .mda-list-item
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left {{significance.name}}
-                        label.mda-checkbox.pull-right
-                            input(type='checkbox', checked='', onclick='return false;')
-                            em.empty(ng-class='significance.bg')
-            .filter-suitablity
-                p Suitability
-                    em.fa.fa-angle-down
-                .mda-list.p0(ng-repeat='suitablity in afc.suitablitiesForFilter')
-                    .mda-list-item
-                        label.mda-checkbox.pull-left
-                            input(type='checkbox')
-                            em.bg-indigo-500
-                        label.pull-left {{suitablity.name}}
-                        label.mda-checkbox.pull-right
-                            input(type='checkbox', checked='', onclick='return false;')
-                            em.empty(ng-class='suitablity.bg')
+            .filter-ranking
+                table
+                    tr
+                        td
+                        td
+                            p Ranking
+                                em.fa.fa-angle-down
+                        td
+                            p Significance
+                                em.fa.fa-angle-down
+                        td
+                            p Suitability
+                                em.fa.fa-angle-down
+                    tr(ng-repeat='item in afc.activePageRanking')
+                        td.level-name.pl
+                            label.pull-left {{item.name}}
+                            label.mda-checkbox.pull-right
+                                input(type='checkbox', checked='', onclick='return false;')
+                                em.empty(ng-class='item.bg')
+                        td.text-center
+                            label.mda-checkbox
+                                input(type='checkbox')
+                                em.bg-indigo-500
+                        td.text-center
+                            label.mda-checkbox
+                                input(type='checkbox')
+                                em.bg-indigo-500
+                        td.text-center
+                            label.mda-checkbox
+                                input(type='checkbox')
+                                em.bg-indigo-500
