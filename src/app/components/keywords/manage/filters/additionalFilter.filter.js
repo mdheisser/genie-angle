@@ -16,16 +16,7 @@
 
         return function customFilter(array, expression) {
             function customComparator(actual, expected) {
-
                 if (angular.isObject(expected)) {
-                    //exact match
-                    if (expected.distinct) {
-                        if (!actual || actual.toLowerCase() !== expected.distinct.toLowerCase()) {
-                        return false;
-                        }
-
-                        return true;
-                    }
 
                     //matchAny
                     if (expected.matchAny) {
@@ -38,7 +29,7 @@
                         }
 
                         for (var i = 0; i < expected.matchAny.items.length; i++) {
-                            if (actual.toLowerCase() === expected.matchAny.items[i].toLowerCase()) {
+                            if (actual == expected.matchAny.items[i]) {
                                 return true;
                             }
                         }

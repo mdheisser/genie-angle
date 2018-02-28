@@ -10,11 +10,10 @@
                     .mda-list-item
                         em.fa.pull-left(ng-class='category.icon')
                         label.mda-checkbox.pull-left
-                            input(type='checkbox',
-                                  st-category-search='',
-                                  category='category.value',
-                                  value='{{category.value}}',
-                                  ng-model='category.selected')
+                            input.category-option(type='checkbox',
+                                st-category-search='',
+                                value='{{category.value}}',
+                                ng-model='category.selected')
                             em.bg-indigo-500
                         label.pull-left {{category.name}}
             .filter-ranking
@@ -38,13 +37,22 @@
                                 em.empty(ng-class='item.bg')
                         td.text-center
                             label.mda-checkbox
-                                input(type='checkbox')
+                                input.ranking-option(type='checkbox',
+                                    st-rank-search='',
+                                    rank-type='ranking',
+                                    value='{{item.value}}')
                                 em.bg-indigo-500
                         td.text-center
                             label.mda-checkbox
-                                input(type='checkbox')
+                                input.significance-option(type='checkbox',
+                                    st-rank-search='',
+                                    rank-type='significance',
+                                    value='{{item.value}}')
                                 em.bg-indigo-500
                         td.text-center
                             label.mda-checkbox
-                                input(type='checkbox')
+                                input.suitability-option(type='checkbox',
+                                    st-rank-search='',
+                                    rank-type='suitability',
+                                    value='{{item.value}}')
                                 em.bg-indigo-500

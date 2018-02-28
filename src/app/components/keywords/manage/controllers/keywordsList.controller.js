@@ -94,7 +94,7 @@
             keywordsService
                 .getKeywords(demoSiteID)
                 .then(function (response) {
-                    vm.rowCollection = response.data;
+                    vm.rowCollection = convertResponse(response.data);
                     vm.numberOfRows = '10';
                     _(vm.rowCollection).forEach(function (value, index) {
                         vm.selectedRows[index] = false;
@@ -141,6 +141,29 @@
                 }
             });
         });
+
+        // Convert data to suitable structure.(add ranking option in accordance with google active number)
+        function convertResponse(input) {
+            var output = [];
+
+            _.each(input, function(item) {
+                var googleRanking = item.g;
+
+                if (googleRanking < 2) {
+                    item.ranking = 1;
+                } else if(googleRanking < 4){
+                    item.ranking = 2;
+                } else if(googleRanking < 11) {
+                    item.ranking = 3;
+                } else {
+                    item.ranking = 4;
+                }
+
+                output.push(item);
+            });
+
+            return output;
+        }
     }
 
 })(angular);

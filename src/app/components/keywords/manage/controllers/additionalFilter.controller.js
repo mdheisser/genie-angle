@@ -50,25 +50,25 @@
             ];
             vm.activePageRanking = [{
                     name: 'Excellent',
-                    value: '1',
+                    value: '4',
                     bg: 'bg-red-500',
                     selected: false
                 },
                 {
                     name: 'Good',
-                    value: '2',
+                    value: '3',
                     bg: 'bg-yellow-700',
                     selected: false
                 },
                 {
                     name: 'Suitable',
-                    value: '3',
+                    value: '2',
                     bg: 'bg-green-500',
                     selected: false
                 },
                 {
                     name: 'Poor',
-                    value: '4',
+                    value: '1',
                     bg: 'bg-green-300',
                     selected: false
                 }

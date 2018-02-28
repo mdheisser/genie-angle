@@ -55,9 +55,9 @@
                             td.text-center {{ $index + 1 }}
                             td.keyword-col
                                 label {{ row.keyword }}
-                                em.fa.fa-line-chart.right.text-info
+                                em.fa.fa-line-chart.right(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]')
                                 label.m0.right
-                                    md-switch AUTO
+                                    md-switch(ng-model='row.category.promoted') AUTO
                                 em.fa.fa-cog.right.text-grey
                             td.text-center.text-warning.soc-ranking
                                 i.fa.fa-angle-double-down
@@ -72,19 +72,18 @@
                                     span 5 &nbsp;
                                         i.fa.fa-caret-down
                                 .stacked-progress.pull-left
-                                    uib-progressbar(type='green', value='100')
+                                    uib-progressbar(value='100', uib-tooltip="SERP Ranking", ng-class='row.g | rankingFilter')
                                 .stacked-progress.pull-left
-                                    uib-progressbar(type='info', value='100')
+                                    uib-progressbar(value='100', ng-class='{1:"bg-green-300", 2:"bg-green-500", 3:"bg-yellow-700", 4:"bg-red-500"}[row.significance]', uib-tooltip="Significance")
                                 .stacked-progress.pull-left
-                                    uib-progressbar(type='warning', value='100')
+                                    uib-progressbar(value='100', ng-class='{1:"bg-green-300", 2:"bg-green-500", 3:"bg-yellow-700", 4:"bg-red-500"}[row.suitability]', uib-tooltip="Suitability")
                                 .pregress-caret.pull-left
                                     i.fa.fa-caret-down.text-grey
-                                .pregress-caret.pull-left
+                                .pregress-caret.pull-left(ng-if='row.category.default')
                                     i.fa.fa-anchor
                             td.text-center
                                 label.mda-checkbox
                                     input(type='checkbox', ng-model='listc.selectedRows[$index]')
                                     em.bg-indigo-500
-                        tr.no-data-row.text-center(ng-if='displayedCollection.length===0')
+                        tr.no-data-row.text-center(ng-if='displayedCollection.length < 4')
                             td(colspan='7')
-                                | No data to display
