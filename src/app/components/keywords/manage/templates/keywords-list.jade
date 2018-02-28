@@ -7,14 +7,14 @@
     .panel-wrapper(uib-collapse="keyList")
         .panel-body.p0
             .container-fluid
-                table.table.table-bordered.table-condensed(st-table="displayedCollection", st-safe-src='listc.rowCollection')
+                table.table.table-bordered.table-condensed(st-table="displayedCollection", st-safe-src='listc.rowCollection', st-set-filter="additionalFilter")
                     thead.table-control
                         tr
                             td.text-right(colspan="7")
                                 a.left.btn.btn-primary.btn-outline.btn-xs(href='#/app/keywords/add-keywords')
                                     i.fa.fa-plus
                                 .left.ml.mda-input-group
-                                    input.mda-form-control(type='text', st-search='', ng-model="username", placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
+                                    input.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
                                     span.mda-input-group-addon
                                         em.fa.fa-search
                                     overlay-popup(active='listc.showAdditionalFilter', width='530')
@@ -85,3 +85,6 @@
                                 label.mda-checkbox
                                     input(type='checkbox', ng-model='listc.selectedRows[$index]')
                                     em.bg-indigo-500
+                        tr.no-data-row.text-center(ng-if='displayedCollection.length===0')
+                            td(colspan='7')
+                                | No data to display

@@ -11,9 +11,10 @@
                         em.fa.pull-left(ng-class='category.icon')
                         label.mda-checkbox.pull-left
                             input(type='checkbox',
+                                  st-category-search='',
+                                  category='category.value',
                                   value='{{category.value}}',
-                                  ng-model='category.selected',
-                                  ng-click='afc.updateCategorySelection()')
+                                  ng-model='category.selected')
                             em.bg-indigo-500
                         label.pull-left {{category.name}}
             .filter-ranking

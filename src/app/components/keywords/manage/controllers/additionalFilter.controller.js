@@ -25,25 +25,25 @@
         function init() {
             vm.categoriesForFilter = [{
                     name: 'Default Keywords',
-                    value: '1',
+                    value: 'default',
                     icon: 'fa-anchor',
                     selected: false
                 },
                 {
                     name: 'Promoted Keywords',
-                    value: '2',
+                    value: 'promoted',
                     icon: 'fa-toggle-on',
                     selected: false
                 },
                 {
                     name: 'Monitored Keywords',
-                    value: '3',
+                    value: 'monitored',
                     icon: 'fa-line-chart',
                     selected: false
                 },
                 {
                     name: 'Forced Keywords',
-                    value: '4',
+                    value: 'forced',
                     icon: 'fa-bookmark-o',
                     selected: false
                 }
@@ -75,15 +75,15 @@
             ];
         }
 
-        // Return selected categories.
-        function returnCategorySelection() {
-            return filterFilter(vm.categoriesForFilter, {selected: true});
-        }
-
         // Bind to parent controller's method
         $scope.$on('getSelectedCategories', function(e) {
             $scope.$emit("callBack", returnCategorySelection());
         });
+
+        // Return selected categories.
+        function returnCategorySelection() {
+            return filterFilter(vm.categoriesForFilter, {selected: true});
+        }
     }
 
 })(angular);
