@@ -17,17 +17,13 @@
                                     input.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
                                     span.mda-input-group-addon
                                         em.fa.fa-search
-                                    overlay-popup(active='listc.showAdditionalFilter', width='530')
+                                    overlay-popup(active='listc.showAdditionalFilter', width='450')
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .left
-                                    select(selectpicker='', ng-model="listc.filterCondition")
-                                        option(value='1') Contains
-                                        option(value='2') Does not
-                                        option(value='3') Begins with
-                                        option(value='4') Ends with
-                                .left.ml(ng-if='listc.getSelectedCategories().length>0') Filter
+                                    fiter-condition
+                                .left.ml(ng-if='listc.getFilterState()') Filter
                                     span.text-danger ON
-                                .right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/keywords/manage/templates/pagination.custom.html")
+                                .right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/keywords/manage/templates/pagination.custom.html", st-page-change="listc.changeTablePage(newPage)")
                                 .right.display-rows
                                     label Display
                                     label
@@ -52,12 +48,12 @@
                                     div(ng-include="'app/components/keywords/manage/templates/bulkActions.html'")
                     tbody
                         tr(st-select-row="row", st-select-mode="single", ng-repeat="row in displayedCollection")
-                            td.text-center {{ $index + 1 }}
+                            td.text-center {{ ((listc.currentPage-1) * listc.numberOfRows) + $index + 1 }}
                             td.keyword-col
                                 label {{ row.keyword }}
                                 em.fa.fa-line-chart.right(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]')
                                 label.m0.right
-                                    md-switch(ng-model='row.category.promoted') AUTO
+                                    md-switch(ng-model='row.category.promoted', aria-label='auto')
                                 em.fa.fa-cog.right.text-grey
                             td.text-center.text-warning.soc-ranking
                                 i.fa.fa-angle-double-down
@@ -69,14 +65,14 @@
                                 span {{ row.m }}
                             td.progress-col
                                 .number.pull-left.text-center
-                                    span 5 &nbsp;
+                                    span {{ row.activepages }} &nbsp;
                                         i.fa.fa-caret-down
                                 .stacked-progress.pull-left
-                                    uib-progressbar(value='100', uib-tooltip="SERP Ranking", ng-class='row.g | rankingFilter')
+                                    uib-progressbar(value='100', uib-tooltip="SERP Ranking, page {{row.activepages}}: position {{row.g}}", ng-class='row.g | rankingFilter')
                                 .stacked-progress.pull-left
-                                    uib-progressbar(value='100', ng-class='{1:"bg-green-300", 2:"bg-green-500", 3:"bg-yellow-700", 4:"bg-red-500"}[row.significance]', uib-tooltip="Significance")
+                                    uib-progressbar(value='100', ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.significance]', uib-tooltip="Significance: 34%")
                                 .stacked-progress.pull-left
-                                    uib-progressbar(value='100', ng-class='{1:"bg-green-300", 2:"bg-green-500", 3:"bg-yellow-700", 4:"bg-red-500"}[row.suitability]', uib-tooltip="Suitability")
+                                    uib-progressbar(value='100', ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.suitability]', uib-tooltip="Suitability: 68%")
                                 .pregress-caret.pull-left
                                     i.fa.fa-caret-down.text-grey
                                 .pregress-caret.pull-left(ng-if='row.category.default')
@@ -85,5 +81,5 @@
                                 label.mda-checkbox
                                     input(type='checkbox', ng-model='listc.selectedRows[$index]')
                                     em.bg-indigo-500
-                        tr.no-data-row.text-center(ng-if='displayedCollection.length < 4')
+                        tr.no-data-row.text-center(ng-if='displayedCollection.length < 7')
                             td(colspan='7')

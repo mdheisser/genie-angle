@@ -11,7 +11,21 @@
         var filterFilter = $filter('filter');
         var standardComparator = function standardComparator(obj, text) {
             text = ('' + text).toLowerCase();
-            return ('' + obj).toLowerCase().indexOf(text) > -1;
+
+            var condition = localStorage.getItem('searchCondition');
+
+            switch(condition) {
+                case '1':
+                    return ('' + obj).toLowerCase().indexOf(text) > -1;
+                case '2':
+                    return ('' + obj).toLowerCase().indexOf(text) == -1;
+                case '3':
+                    return ('' + obj).toLowerCase().startsWith(text);
+                case '4':
+                    return ('' + obj).toLowerCase().endsWith(text);
+                default:
+                    return ('' + obj).toLowerCase().indexOf(text) > -1;
+            }
         };
 
         return function customFilter(array, expression) {

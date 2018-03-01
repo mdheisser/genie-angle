@@ -11,10 +11,10 @@
 
         return function (input) {
             var bgColors = [
-                'bg-green-300',
-                'bg-green-500',
+                'bg-red-500',
                 'bg-yellow-700',
-                'bg-red-500'
+                'bg-green-500',
+                'bg-green-300'
             ];
 
             var output = '';

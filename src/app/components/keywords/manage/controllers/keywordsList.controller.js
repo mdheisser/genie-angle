@@ -25,8 +25,10 @@
         vm.selectedRows = [];
         vm.popupOpen = {};
         vm.performAction = performAction;
-        vm.selectedCategories = [];
-        vm.getSelectedCategories = getSelectedCategories;
+        vm.filterOn = false;
+        vm.getFilterState = getFilterState;
+        vm.changeTablePage = changeTablePage;
+        vm.currentPage = 1;
 
         activate();
 
@@ -119,14 +121,14 @@
             );
         }
 
-        // Get selected categories
-        function getSelectedCategories() {
-            $scope.$broadcast('getSelectedCategories');
-            return  vm.selectedCategories;
+        // Get fiter applied state.
+        function getFilterState() {
+            $scope.$broadcast('getFilterState');
+            return  vm.filterOn;
         }
 
         $scope.$on('callBack', function(e,data) {
-            vm.selectedCategories = data;
+            vm.filterOn = data;
         });
 
         // Mark/Unmark all rows
@@ -163,6 +165,11 @@
             });
 
             return output;
+        }
+
+        // Change table index when table is paginationed.
+        function changeTablePage(page) {
+            vm.currentPage = page;
         }
     }
 

@@ -269,6 +269,9 @@
                 }
                 .display-rows {
                     margin-right: 10px;
+                    label {
+                        font-weight: normal;
+                    }
                 }
                 .bootstrap-select .btn {
                     padding-top: 1px !important;
@@ -282,7 +285,7 @@
                 width: 30px;
             }
             .no-data-row {
-                height: 250px;
+                height: 200px;
             }
         }
     }
@@ -297,7 +300,7 @@
         md-switch {
             margin: 0;
             .md-container {
-                margin-top: 5px;
+                margin: 5px 0 0 0;
             }
             .md-bar {
                 width: 30px;
@@ -306,9 +309,6 @@
             .md-thumb {
                 height: 15px;
                 width: 15px;
-            }
-            .md-label {
-                font-size: 11px;
             }
         }
         em {
@@ -370,28 +370,42 @@
     }
     overlay-popup {
         .category-body {
-            label {
+            a {
+                font-size: 13px;
+                text-decoration: underline;
+                color: black;
+            }
+            span {
                 font-size: 12px;
             }
-            .mda-list-item>em {
-                width: 16px;
+            p {
+                font-size: 11px;
+                margin-bottom: 0;
+                color: #8a7878;
+            }
+            .mda-list {
+                padding: 16px 0 0 0;
+            }
+            .mda-list-item {
+                padding-top: 3px;
+                >em {
+                    width: 16px;
+                }
             }
             .filter-body {
                 display: flex;
             }
             .filter-category {
                 float: left;
-                width: 32%;
+                width: 38%;
             }
             .filter-ranking {
                 float: left;
-                width: 68%;
+                width: 62%;
+                border-left: 1px solid #ddd;
+                padding-left: 3px;
                 table {
                     width: 100%;
-                    border: 1px solid #ddd;
-                }
-                .level-name label {
-                    margin-bottom: 0;
                 }
             }
         }
