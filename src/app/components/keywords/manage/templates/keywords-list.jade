@@ -27,7 +27,7 @@
                                 .right.display-rows
                                     label Display
                                     label
-                                        select(selectpicker='', ng-model="listc.numberOfRows" ng-options='item for item in listc.itemsByPage')
+                                        select(selectpicker='', ng-model="listc.numberOfRows" ng-options='item.value as item.label for item in listc.itemsByPage')
                     thead
                         tr
                             th.text-center.row-index #
@@ -38,13 +38,13 @@
                                 i.glyphicon.socicon-yahoo
                             th.text-center(st-sort="m", style='width:7%;')
                                 i.glyphicon.socicon-bing
-                            th.text-center(st-sort="", style='width:22%;') Active Pages
+                            th.text-center(st-sort="activepages", style='width:22%;') Active Pages
                             th.text-center.actions-col(ng-click="listc.showBulkAction=!listc.showBulkAction")
                                 label.mda-checkbox
                                     input(type='checkbox', ng-model='listc.allRowsMarked', ng-click='$event.stopPropagation()')
                                     em.bg-indigo-500
                                 i.fa.fa-caret-down
-                                overlay-popup#bulkActionsPopup(active='listc.showBulkAction', width='280')
+                                overlay-popup#bulkActionsPopup(active='listc.showBulkAction', width='180')
                                     div(ng-include="'app/components/keywords/manage/templates/bulkActions.html'")
                     tbody
                         tr(st-select-row="row", st-select-mode="single", ng-repeat="row in displayedCollection")

@@ -1,10 +1,11 @@
-.p(ng-controller='additionalFilterController as afc')
-    h5.m0.input-group(ng-click='listc.categoryPane=!listc.categoryPane') Additional Filters
-        em.fa.fa-caret-down
-    .category-body(ng-if='listc.categoryPane')
+div(ng-controller='additionalFilterController as afc')
+    .filter-title.bg-white
+        h5.m0.input-group(ng-click='listc.categoryPane=!listc.categoryPane') Additional Filters
+            em.fa.fa-caret-down
+    .category-body.shadow-z3(ng-if='listc.categoryPane')
         .filter-body.text-left
             .filter-category
-                a By Category
+                a Category
                 .mda-list
                     .mda-list-item(ng-repeat='category in afc.categoriesForFilter')
                         em.fa.pull-left(ng-class='category.icon')
@@ -16,10 +17,10 @@
                             em.bg-indigo-500
                         span.pull-left {{category.name}}
             .filter-ranking
-                a By keyword Performance
                 table
                     tr
                         td
+                            a Performance
                         td
                             p Ranking
                         td

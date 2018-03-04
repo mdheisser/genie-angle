@@ -42,14 +42,19 @@
             scope.selectedOption = scope.conditionItems[0];
             localStorage.setItem('searchCondition', scope.conditionItems[0].value);
 
-            // Save search condition on local storage.
+            // Save search condition on local storage and search by text.
             scope.optionChanged = function(option) {
                 var condition = option.value;
                 localStorage.setItem('searchCondition', condition);
+
+                var searchText = localStorage.getItem('searchText');
+                table.search(searchText, 'keyword');
             }
 
+            // Remove local storage variables.
             scope.$on('destroy', function() {
                 localStorage.removeItem('searchCondition');
+                localStorage.removeItem('searchText');
             });
         }
     }

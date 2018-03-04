@@ -43,27 +43,27 @@
         // Initialize controller
         function init() {
             vm.bulkActions = [{
-                    label: 'Remove Marked from System',
+                    label: 'Remove from System',
                     icon: 'fa-trash-o'
                 },
                 {
-                    label: 'Refresh, Process Marked',
+                    label: 'Refresh, Process',
                     icon: 'fa-refresh'
                 },
                 {
-                    label: 'Mark Keyword for Monitoring',
+                    label: 'Mark for Monitoring',
                     icon: 'fa-line-chart'
                 },
                 {
-                    label: 'Mark Keyword for Promotion',
+                    label: 'Mark for Promotion',
                     icon: 'fa-toggle-on'
                 },
                 {
-                    label: 'Force Promotion of Marked Keyword ',
+                    label: 'Force Promotion',
                     icon: 'fa-bookmark-o'
                 },
                 {
-                    label: 'Mark as Default Keyword',
+                    label: 'Default Keyword',
                     icon: 'fa-anchor'
                 },
                 {
@@ -71,8 +71,6 @@
                     icon: 'fa-list'
                 }
             ];
-            vm.itemsByPage =  ['5', '10', '15', '20'];
-            vm.numberOfRows = vm.itemsByPage[1];
         }
 
         // Get user's own site names.
@@ -97,7 +95,18 @@
                 .getKeywords(demoSiteID)
                 .then(function (response) {
                     vm.rowCollection = convertResponse(response.data);
-                    vm.numberOfRows = '10';
+
+                    // Set value for number of row by page in dropdown.
+                    vm.itemsByPage =  [
+                        { label: '5', value: '5' },
+                        { label: '10', value: '10' },
+                        { label: '15', value: '15' },
+                        { label: '20', value: '20' },
+                        { label: 'All', value: vm.rowCollection.length.toString()}
+                    ];
+                    vm.numberOfRows = vm.itemsByPage[1].value;
+
+                    // Initialize selected state of rows.
                     _(vm.rowCollection).forEach(function (value, index) {
                         vm.selectedRows[index] = false;
                     });

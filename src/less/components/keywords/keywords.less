@@ -345,7 +345,7 @@
         padding-left: 10px !important;
         #bulkActionsPopup {
             top: 32px;
-            left: -211px;
+            left: -110px;
             font-weight: normal;
             .mda-list-item {
                 padding: 0 10px;
@@ -369,7 +369,13 @@
         color: grey;
     }
     overlay-popup {
+        .filter-title {
+            padding: 5px;
+            width: 150px;
+        }
         .category-body {
+            background-color: white;
+            padding: 0 10px 10px 10px;
             a {
                 font-size: 13px;
                 text-decoration: underline;
@@ -384,7 +390,7 @@
                 color: #8a7878;
             }
             .mda-list {
-                padding: 16px 0 0 0;
+                padding: 0;
             }
             .mda-list-item {
                 padding-top: 3px;
@@ -408,6 +414,9 @@
                     width: 100%;
                 }
             }
+        }
+        #bulk-actions {
+            border: 1px solid #868686;
         }
     }
     .bulk-action {
