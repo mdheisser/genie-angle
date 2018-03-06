@@ -22,7 +22,7 @@
 
             scope.conditionItems = [
                 {
-                    label: 'contains',
+                    label: 'Contains',
                     value: 1
                 },
                 {

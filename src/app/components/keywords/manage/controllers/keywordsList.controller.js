@@ -26,9 +26,10 @@
         vm.popupOpen = {};
         vm.performAction = performAction;
         vm.filterOn = false;
-        vm.getFilterState = getFilterState;
         vm.changeTablePage = changeTablePage;
         vm.currentPage = 1;
+        vm.copyToClipboard = copyToClipboard;
+        vm.textCopyState = 'Click to copy to clipboard';
 
         activate();
 
@@ -130,14 +131,19 @@
             );
         }
 
-        // Get fiter applied state.
-        function getFilterState() {
-            $scope.$broadcast('getFilterState');
-            return  vm.filterOn;
-        }
+        // Get fiter selection state.
+        $scope.$broadcast('getFilterState');
 
         $scope.$on('callBack', function(e,data) {
             vm.filterOn = data;
+        });
+
+        $scope.$watch(function() {
+            return vm.filterOn;
+        }, function(newValue, oldValue) {
+            if (newValue === false) {
+                $scope.$broadcast('resetFilter');
+            }
         });
 
         // Mark/Unmark all rows
@@ -179,6 +185,34 @@
         // Change table index when table is paginationed.
         function changeTablePage(page) {
             vm.currentPage = page;
+        }
+
+        // Save keyword to clipbaord
+        function copyToClipboard(text, el) {
+            var copyTest = document.queryCommandSupported('copy');
+
+            if (copyTest === true) {
+                var copyTextArea = document.createElement("textarea");
+                copyTextArea.value = text;
+                document.body.appendChild(copyTextArea);
+                copyTextArea.select();
+                try {
+                    var successful = document.execCommand('copy');
+                    vm.textCopyState = successful ? 'Copied!' : 'Whoops, not copied!';
+
+                    // Initialize tooltip text when element lose mouse.
+                    var element = angular.element(el.target);
+                    element.bind('mouseleave', function() {
+                        vm.textCopyState = 'Click to copy to clipboard';
+                    });
+                } catch (err) {
+                    console.log('Oops, unable to copy');
+                }
+                document.body.removeChild(copyTextArea);
+            } else {
+                // Fallback if browser doesn't support .execCommand('copy')
+                window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
+            }
         }
     }
 

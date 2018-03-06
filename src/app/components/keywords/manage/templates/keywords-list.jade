@@ -21,8 +21,9 @@
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .left
                                     fiter-condition
-                                .left.ml(ng-if='listc.getFilterState()') Filter
-                                    span.text-danger ON
+                                .left.pl.filter-title Filter
+                                .left.ml
+                                    md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='')
                                 .right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/keywords/manage/templates/pagination.custom.html", st-page-change="listc.changeTablePage(newPage)")
                                 .right.display-rows
                                     label Display
@@ -50,11 +51,13 @@
                         tr(st-select-row="row", st-select-mode="single", ng-repeat="row in displayedCollection")
                             td.text-center {{ ((listc.currentPage-1) * listc.numberOfRows) + $index + 1 }}
                             td.keyword-col
-                                label {{ row.keyword }}
-                                em.fa.fa-line-chart.right(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]')
-                                label.m0.right
-                                    md-switch(ng-model='row.category.promoted', aria-label='auto')
-                                em.fa.fa-cog.right.text-grey
+                                .left.keyword-label
+                                    p.m0(data-toggle='tooltip', title='{{row.keyword}}', ng-click='listc.copyToClipboard(row.keyword, $event)', uib-tooltip='{{listc.textCopyState}}', tooltip-placement='top-left') {{ row.keyword }}
+                                .right.keyword-control
+                                    em.fa.fa-line-chart.right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]')
+                                    label.m0.right
+                                        md-switch(ng-model='row.category.promoted', aria-label='auto')
+                                    em.fa.fa-cog.right.text-grey
                             td.text-center.text-warning.soc-ranking
                                 i.fa.fa-angle-double-down
                                     span {{ row.g }}

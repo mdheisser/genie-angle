@@ -12,6 +12,7 @@
         var vm = this;
         vm.categoriesForFilter = [];
         vm.activePageRanking = [];
+        vm.onSelectFilter = onSelectFilter;
 
         activate();
 
@@ -83,9 +84,16 @@
             ];
         }
 
-        // Bind to parent controller's method
-        $scope.$on('getFilterState', function(e) {
-            $scope.$emit("callBack", returnCategorySelection());
+        // Reset Filter selection.
+        $scope.$on('resetFilter', function(e) {
+            _.each(vm.categoriesForFilter, function(value, key) {
+                vm.categoriesForFilter[key].selected = false;
+            });
+            _.each(vm.activePageRanking, function(value, key) {
+                vm.activePageRanking[key].rankSelected = false;
+                vm.activePageRanking[key].significanceSelected = false;
+                vm.activePageRanking[key].suitabilitySelected = false;
+            });
         });
 
         // Return filter applied state.
@@ -99,6 +107,11 @@
                 return true;
             }
             return false;
+        }
+
+        // Emit event to parent controller when one and more filter is selected.
+        function onSelectFilter() {
+            $scope.$emit("callBack", returnCategorySelection());
         }
     }
 

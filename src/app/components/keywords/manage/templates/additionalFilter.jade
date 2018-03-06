@@ -13,7 +13,8 @@ div(ng-controller='additionalFilterController as afc')
                             input.category-option(type='checkbox',
                                 st-category-search='',
                                 value='{{category.value}}',
-                                ng-model='category.selected')
+                                ng-model='category.selected',
+                                ng-click='afc.onSelectFilter()')
                             em.bg-indigo-500
                         span.pull-left {{category.name}}
             .filter-ranking
@@ -33,13 +34,14 @@ div(ng-controller='additionalFilterController as afc')
                             span.mda-checkbox.pull-right
                                 input(type='checkbox', checked='', onclick='return false;')
                                 em.empty(ng-class='item.bg')
-                        td.text-center
+                        td.text-right
                             label.mda-checkbox
                                 input.ranking-option(type='checkbox',
                                     st-rank-search='',
                                     rank-type='ranking',
                                     value='{{item.value}}',
-                                    ng-model='item.rankSelected')
+                                    ng-model='item.rankSelected',
+                                    ng-click='afc.onSelectFilter()')
                                 em.bg-indigo-500
                         td.text-center
                             label.mda-checkbox
@@ -47,13 +49,15 @@ div(ng-controller='additionalFilterController as afc')
                                     st-rank-search='',
                                     rank-type='significance',
                                     value='{{item.value}}',
-                                    ng-model='item.significanceSelected')
+                                    ng-model='item.significanceSelected',
+                                    ng-click='afc.onSelectFilter()')
                                 em.bg-indigo-500
-                        td.text-center
+                        td.text-left
                             label.mda-checkbox
                                 input.suitability-option(type='checkbox',
                                     st-rank-search='',
                                     rank-type='suitability',
                                     value='{{item.value}}',
-                                    ng-model='item.suitabilitySelected')
+                                    ng-model='item.suitabilitySelected',
+                                    ng-click='afc.onSelectFilter()')
                                 em.bg-indigo-500
