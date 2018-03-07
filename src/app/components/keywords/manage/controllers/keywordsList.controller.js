@@ -7,12 +7,12 @@
 
     keywordsListController.$inject = [
         '$scope', '$timeout', '$resource', '$q',
-        '$location', 'keywordsService', 'Notify', 'filterFilter'
+        '$location', 'keywordsService', 'Notify', 'filterFilter', 'convertTableDataFilter'
     ];
 
     function keywordsListController(
         $scope, $timeout, $resource, $q,
-        $location, keywordsService, Notify, filterFilter) {
+        $location, keywordsService, Notify, filterFilter, convertTableDataFilter) {
         /* jshint validthis:true */
         var vm = this;
         vm.site = {};
@@ -20,13 +20,12 @@
         vm.sites = [];
         vm.keywords = [];
         vm.bulkActions = [];
+        vm.rowCollection = [];
         vm.filterCondition = '1';
         vm.allRowsMarked = false;
-        vm.selectedRows = [];
         vm.popupOpen = {};
         vm.performAction = performAction;
         vm.filterOn = false;
-        vm.changeTablePage = changeTablePage;
         vm.currentPage = 1;
         vm.copyToClipboard = copyToClipboard;
         vm.textCopyState = 'Click to copy to clipboard';
@@ -95,7 +94,7 @@
             keywordsService
                 .getKeywords(demoSiteID)
                 .then(function (response) {
-                    vm.rowCollection = convertResponse(response.data);
+                    vm.rowCollection = convertTableDataFilter(response.data);
 
                     // Set value for number of row by page in dropdown.
                     vm.itemsByPage =  [
@@ -106,17 +105,12 @@
                         { label: 'All', value: vm.rowCollection.length.toString()}
                     ];
                     vm.numberOfRows = vm.itemsByPage[1].value;
-
-                    // Initialize selected state of rows.
-                    _(vm.rowCollection).forEach(function (value, index) {
-                        vm.selectedRows[index] = false;
-                    });
                 });
         }
 
         // Perform bulk action
         function performAction(name) {
-            var selectedRows = filterFilter(vm.selectedRows, true);
+            var selectedRows = filterFilter($scope.filteredCollection, {selected: true});
             var msgHtml = '';
 
             if(selectedRows.length <= 0) {
@@ -131,13 +125,7 @@
             );
         }
 
-        // Get fiter selection state.
-        $scope.$broadcast('getFilterState');
-
-        $scope.$on('callBack', function(e,data) {
-            vm.filterOn = data;
-        });
-
+        // Reset Fitler.
         $scope.$watch(function() {
             return vm.filterOn;
         }, function(newValue, oldValue) {
@@ -150,42 +138,27 @@
         $scope.$watch(function () {
             return vm.allRowsMarked;
         }, function (current, original) {
-            _(vm.selectedRows).forEach(function (value, index) {
+            _($scope.filteredCollection).forEach(function (value, index) {
                 if (current === true) {
-                    vm.selectedRows[index] = true;
+                    $scope.filteredCollection[index].selected = true;
                 } else {
-                    vm.selectedRows[index] = false;
+                    $scope.filteredCollection[index].selected = false;
                 }
             });
         });
 
-        // Convert data to suitable structure.(add ranking option in accordance with google active number)
-        function convertResponse(input) {
-            var output = [];
-
-            _.each(input, function(item) {
-                var googleRanking = item.g;
-
-                if (googleRanking < 2) {
-                    item.ranking = 1;
-                } else if(googleRanking < 4){
-                    item.ranking = 2;
-                } else if(googleRanking < 11) {
-                    item.ranking = 3;
+        // Set filter on/off switch status.
+        $scope.$watch('filteredCollection', function() {
+            if ($scope.filteredCollection != undefined) {
+                var original = vm.rowCollection.length;
+                var filtered = $scope.filteredCollection.length;
+                if(original != filtered) {
+                    vm.filterOn = true;
                 } else {
-                    item.ranking = 4;
+                    vm.filterOn = false;
                 }
-
-                output.push(item);
-            });
-
-            return output;
-        }
-
-        // Change table index when table is paginationed.
-        function changeTablePage(page) {
-            vm.currentPage = page;
-        }
+            }
+        });
 
         // Save keyword to clipbaord
         function copyToClipboard(text, el) {

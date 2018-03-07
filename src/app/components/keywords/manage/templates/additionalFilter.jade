@@ -13,8 +13,7 @@ div(ng-controller='additionalFilterController as afc')
                             input.category-option(type='checkbox',
                                 st-category-search='',
                                 value='{{category.value}}',
-                                ng-model='category.selected',
-                                ng-click='afc.onSelectFilter()')
+                                ng-model='category.selected')
                             em.bg-indigo-500
                         span.pull-left {{category.name}}
             .filter-ranking
@@ -40,8 +39,7 @@ div(ng-controller='additionalFilterController as afc')
                                     st-rank-search='',
                                     rank-type='ranking',
                                     value='{{item.value}}',
-                                    ng-model='item.rankSelected',
-                                    ng-click='afc.onSelectFilter()')
+                                    ng-model='item.rankSelected')
                                 em.bg-indigo-500
                         td.text-center
                             label.mda-checkbox
@@ -49,8 +47,7 @@ div(ng-controller='additionalFilterController as afc')
                                     st-rank-search='',
                                     rank-type='significance',
                                     value='{{item.value}}',
-                                    ng-model='item.significanceSelected',
-                                    ng-click='afc.onSelectFilter()')
+                                    ng-model='item.significanceSelected')
                                 em.bg-indigo-500
                         td.text-left
                             label.mda-checkbox
@@ -58,6 +55,5 @@ div(ng-controller='additionalFilterController as afc')
                                     st-rank-search='',
                                     rank-type='suitability',
                                     value='{{item.value}}',
-                                    ng-model='item.suitabilitySelected',
-                                    ng-click='afc.onSelectFilter()')
+                                    ng-model='item.suitabilitySelected')
                                 em.bg-indigo-500
