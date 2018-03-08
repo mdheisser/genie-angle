@@ -23,7 +23,7 @@
                                     fiter-condition
                                 .left.pl.filter-title Filter
                                 .left.ml
-                                    md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='')
+                                    md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='', ng-disabled='!listc.filterOn')
                                 .right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/keywords/manage/templates/pagination.custom.html", st-page-change="listc.currentPage = newPage")
                                 .right.display-rows
                                     label Display
@@ -54,24 +54,24 @@
                                 .left.keyword-label
                                     span.m0(data-toggle='tooltip', title='{{row.keyword}}', ng-click='listc.copyToClipboard(row.keyword, $event)', uib-tooltip='{{listc.textCopyState}}') {{ row.keyword }}
                                 .right.keyword-control
-                                    em.fa.fa-line-chart.right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]')
+                                    em.fa.fa-line-chart.right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='SERP Monitoring Active')
                                     label.m0.right
-                                        md-switch(ng-model='row.category.promoted', aria-label='auto')
-                                    em.fa.fa-cog.right.text-grey
+                                        md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='Keyword Auto-Promotion ON/OFF')
+                                    em.fa.fa-cog.right.text-grey(uib-tooltip='Keyword Parameters and Settings')
                             td.text-center.text-warning.soc-ranking
-                                i.fa.fa-angle-double-down
+                                i.fa.fa-angle-double-down(uib-tooltip='Google.com. SERP Ranking: Page {{row.activepages}}, Position {{row.g}}')
                                     span {{ row.g }}
                             td.text-center.text-danger.soc-ranking
-                                i.fa.fa-angle-double-up
+                                i.fa.fa-angle-double-up(uib-tooltip='Yahoo.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.y}}')
                                     span {{ row.y }}
                             td.text-center.text-success.soc-ranking
                                 span {{ row.m }}
                             td.progress-col
                                 .number.pull-left.text-center
-                                    span {{ row.activepages }} &nbsp;
+                                    span(uib-tooltip='Keyword Assigned to {{row.activepages}} Pages') {{ row.activepages }} &nbsp;
                                         i.fa.fa-caret-down
                                 .stacked-progress.pull-left
-                                    uib-progressbar(value='100', uib-tooltip="SERP Ranking, page {{row.activepages}}: position {{row.g}}", ng-class='row.g | rankingFilter')
+                                    uib-progressbar(value='100', uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}", ng-class='row.g | rankingFilter')
                                 .stacked-progress.pull-left
                                     uib-progressbar(value='100', ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.significance]', uib-tooltip="Significance: 34%")
                                 .stacked-progress.pull-left
@@ -79,9 +79,9 @@
                                 .pregress-caret.pull-left
                                     i.fa.fa-caret-down.text-grey
                                 .pregress-caret.pull-left(ng-if='row.category.default')
-                                    i.fa.fa-anchor
+                                    i.fa.fa-anchor(uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
                                 .pregress-caret.pull-left(ng-if='row.category.forced')
-                                    i.fa.fa-bookmark-o
+                                    i.fa.fa-bookmark-o(uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score')
                             td.text-center
                                 label.mda-checkbox
                                     input(type='checkbox', ng-model='row.selected')
