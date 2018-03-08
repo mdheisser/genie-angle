@@ -289,6 +289,24 @@
         }
         #bulk-actions {
             border: 1px solid #868686;
+            #force-setting {
+                display: none;
+                position: absolute;
+                right: 179px;
+                bottom: 15px;
+                background-color: white;
+                border: 1px solid #868686;
+                width: 332px;
+                input {
+                    height: 25px;
+                }
+            }
+            .force-promotion {
+                display: relative;
+                &:hover #force-setting {
+                    display: block;
+                }
+            }
         }
     }
     .bulk-action {

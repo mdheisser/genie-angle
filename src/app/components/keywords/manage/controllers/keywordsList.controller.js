@@ -29,6 +29,8 @@
         vm.currentPage = 1;
         vm.copyToClipboard = copyToClipboard;
         vm.textCopyState = 'Click to copy to clipboard';
+        vm.minForcedPromotion = 1;
+        vm.maxForcedPromotion = 1;
 
         activate();
 
@@ -60,7 +62,8 @@
                 },
                 {
                     label: 'Force Promotion',
-                    icon: 'fa-bookmark-o'
+                    icon: 'fa-bookmark-o',
+                    class: 'force-promotion'
                 },
                 {
                     label: 'Default Keyword',

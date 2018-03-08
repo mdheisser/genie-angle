@@ -1,6 +1,17 @@
 #bulk-actions.mda-list.p0.shadow-z3.bg-white
     .mda-list-item
         label.pull-left Bulk Actions
-    .mda-list-item(ng-repeat='item in listc.bulkActions', ng-click='listc.performAction(item.label)')
+    .mda-list-item(ng-repeat='item in listc.bulkActions', ng-click='listc.performAction(item.label)', ng-class='item.class')
         em.fa.pull-left(ng-class='item.icon')
         span.pull-left {{ item.label }}
+        #force-setting.container-fluid.shadow-z3.p-sm(ng-click='$event.stopPropagation()')
+            p.m0.mb-sm Force Keyword Promotion & Assignment to Page(s)
+            .row.m0
+                .col-sm-3.text-center
+                    p Min
+                .col-sm-3
+                    input.m0.p0.form-control(type='number', ng-model='listc.minForcedPromotion')
+                .col-sm-3.text-center
+                    p Max
+                .col-sm-3
+                    input.m0.p0.form-control(type='number', ng-model='listc.maxForcedPromotion')
