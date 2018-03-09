@@ -2,7 +2,7 @@
     "use strict";
     angular.module("components.keywords", [
             "ui.bootstrap",
-            'components.services'
+            'components.common'
         ])
         .config(function ($provide) {
             //Exception handling

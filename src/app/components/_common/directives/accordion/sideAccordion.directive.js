@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('components.keywords')
+        .module('components.directives')
         .directive('sideAccordion', sideAccordion);
 
     sideAccordion.$inject = ['$window', '$timeout', '$location'];
@@ -10,7 +10,7 @@
     function sideAccordion($window, $timeout, $location) {
         var directive = {
             link: link,
-            templateUrl: '/app/components/keywords/common/templates/sideAccordion.html',
+            templateUrl: '/app/components/_common/directives/accordion/sideAccordion.html',
             restrict: 'EA',
             transclude: true,
             scope: {},
@@ -20,6 +20,7 @@
             controller: ['$scope', accordionCtrl],
             controllerAs: 'vm'
         };
+
         return directive;
 
         var wrapperWidth = 0;
@@ -78,7 +79,7 @@
             function reRender(e, isActive) {
                 var item = angular.element(e);
                 var numberOfItem = item.parent().children().length;
-                var collapseWidth = item.children().first().prop('clientWidth');
+                var collapseWidth = 30;//item.children().first().prop('clientWidth');
                 var panelContentWidth = wrapperWidth - collapseWidth * numberOfItem;
 
                 var iconTag = item.children().children().children().first();
@@ -116,9 +117,9 @@
         // Calculate the accordion wrapper's width.
         function getWrapperWidth() {
             var wrapper = angular.element(wrapperElement).children().first();
-            wrapperWidth = wrapper.prop('clientWidth');
+            wrapperWidth = $(wrapper).innerWidth();
             if (hasScroll()) {
-                wrapperWidth -= 17;
+                wrapperWidth -= $.scrollbarWidth() * 2.5;
             }
         }
 

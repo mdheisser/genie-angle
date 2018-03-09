@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('components.keywords')
+        .module('components.directives')
         .directive('sideAccordionItem', sideAccordionItem);
 
     sideAccordionItem.$inject = ['$window', '$timeout'];
@@ -11,7 +11,7 @@
         var directive = {
             require: '^^sideAccordion',
             link: link,
-            templateUrl: '/app/components/keywords/common/templates/sideAccordionItem.html',
+            templateUrl: '/app/components/_common/directives/accordion/sideAccordionItem.html',
             restrict: 'EA',
             scope: {
                 name: '@',
@@ -31,21 +31,22 @@
             });
 
             // Rerender accordion when element's content is changed.
-            scope.$watch(function() {
+            scope.$watch(function () {
                 return element.html();
-            },function() {
+            }, function () {
                 accordionCtrl.response(element, scope.isActive());
             });
 
             // Change collapse status icon when collapse status is changed.
-            scope.$watch(function() {
+            scope.$watch(function () {
                 return accordionCtrl.activeTab;
-            }, function() {
+            }, function () {
                 var iconTag = element.find('em.collapse-icon');
+                var tab = element.children();
                 if (scope.tabNumber === accordionCtrl.activeTab) {
-                    expandIcon(iconTag);
+                    setTabActive(iconTag, tab);
                 } else {
-                    colapseIcon(iconTag);
+                    setTabNotActive(iconTag, tab);
                 }
             });
 
@@ -108,14 +109,14 @@
                 };
             }
 
-            function colapseIcon(iconTag) {
+            function setTabNotActive(iconTag, tabTag) {
                 iconTag.addClass('fa-grip');
-                iconTag.removeClass('fa-grip-small');
+                tabTag.removeClass('accordion-item-active');
             }
 
-            function expandIcon(iconTag) {
-                iconTag.addClass('fa-grip-small');
+            function setTabActive(iconTag, tabTag) {
                 iconTag.removeClass('fa-grip');
+                tabTag.addClass('accordion-item-active');
             }
 
             function collapsePane(pane, width) {

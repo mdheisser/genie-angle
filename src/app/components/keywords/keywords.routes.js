@@ -21,7 +21,7 @@
         $stateProvider.state("app.keywords", {
             url: "/keywords",
             title: "Keywords",
-            templateUrl: helper.componentPath("keywords/common", "keywords"),
+            templateUrl: helper.componentPath("keywords", "keywords"),
             resolve: helper.resolveFor(
                 "smart-table",
                 "ui.select",
