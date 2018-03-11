@@ -7,9 +7,9 @@
         span.pull-right(ng-if='item.class!=undefined') {{listc.minForcedPromotion}}/{{listc.maxForcedPromotion}}
         #force-setting.container-fluid.shadow-z3.p0(ng-click='$event.stopPropagation()')
             .row.m0
-                .col-sm-7.text-center.p-sm
+                .col-xs-7.text-center.p-sm
                     span Pages:  Min
                     input.m0.p0.form-control(type='number', min='0', ng-model='listc.minForcedPromotion')
-                .col-sm-5.text-center.p-sm
+                .col-xs-5.text-center.p-sm
                     span Max
                     input.m0.p0.form-control(type='number', min='0', ng-model='listc.maxForcedPromotion')
