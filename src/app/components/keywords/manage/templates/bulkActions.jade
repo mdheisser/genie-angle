@@ -4,14 +4,12 @@
     .mda-list-item(ng-repeat='item in listc.bulkActions', ng-click='listc.performAction(item.label)', ng-class='item.class')
         em.fa.pull-left(ng-class='item.icon')
         span.pull-left {{ item.label }}
-        #force-setting.container-fluid.shadow-z3.p-sm(ng-click='$event.stopPropagation()')
-            p.m0.mb-sm Force Keyword Promotion & Assignment to Page(s)
+        span.pull-right(ng-if='item.class!=undefined') {{listc.minForcedPromotion}}/{{listc.maxForcedPromotion}}
+        #force-setting.container-fluid.shadow-z3.p0(ng-click='$event.stopPropagation()')
             .row.m0
-                .col-sm-3.text-center
-                    p Min
-                .col-sm-3
-                    input.m0.p0.form-control(type='number', ng-model='listc.minForcedPromotion')
-                .col-sm-3.text-center
-                    p Max
-                .col-sm-3
-                    input.m0.p0.form-control(type='number', ng-model='listc.maxForcedPromotion')
+                .col-sm-7.text-center.p-sm
+                    span Pages:  Min
+                    input.m0.p0.form-control(type='number', min='0', ng-model='listc.minForcedPromotion')
+                .col-sm-5.text-center.p-sm
+                    span Max
+                    input.m0.p0.form-control(type='number', min='0', ng-model='listc.maxForcedPromotion')

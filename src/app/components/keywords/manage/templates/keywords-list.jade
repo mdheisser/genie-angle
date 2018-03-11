@@ -54,7 +54,7 @@
                                 .left.keyword-label
                                     span.m0(data-toggle='tooltip', title='{{row.keyword}}', ng-click='listc.copyToClipboard(row.keyword, $event)', uib-tooltip='{{listc.textCopyState}}') {{ row.keyword }}
                                 .right.keyword-control
-                                    em.fa.fa-line-chart.right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}')
+                                    em.fa.fa-line-chart.right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.promoted]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.promoted]}}')
                                     label.m0.right
                                         md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}')
                                     em.fa.fa-cog.right.text-grey(uib-tooltip='Keyword Parameters and Settings')
