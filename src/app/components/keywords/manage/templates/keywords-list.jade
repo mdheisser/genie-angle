@@ -1,5 +1,5 @@
 #keyList.container-fluid.panel.panel-default.panel-dark.m0(ng-controller='keywordsListController as listc')
-    .panel-heading.custom-heading
+    .panel-heading.custom-heading.flex-heading
         .description Manage&nbsp;Keywords
         .panel-title.w-70p.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='listc.site.selected')
@@ -48,11 +48,13 @@
                                 overlay-popup#bulkActionsPopup(active='listc.showBulkAction', width='180')
                                     div(ng-include="'app/components/keywords/manage/templates/bulkActions.html'")
                     tbody
-                        tr(st-select-row="row", st-select-mode="single", ng-repeat="row in displayedCollection")
+                        tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection")
                             td.text-center {{ ((listc.currentPage-1) * listc.numberOfRows) + $index + 1 }}
                             td.keyword-col
                                 .left.keyword-label
                                     span.m0(data-toggle='tooltip', title='{{row.keyword}}', ng-click='listc.copyToClipboard(row.keyword, $event)', uib-tooltip='{{listc.textCopyState}}') {{ row.keyword }}
+                                    em.icon-arrow-down(ng-if='!row.expanded', uib-tooltip='Expand Keyword Screen', ng-click='row.expanded=true;listc.expandKeywordDetail(row)')
+                                    em.icon-arrow-up(ng-if='row.expanded', uib-tooltip='Collapse Keyword Screen', ng-click='row.expanded=false')
                                 .right.keyword-control
                                     em.fa.fa-line-chart.right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.promoted]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.promoted]}}')
                                     label.m0.right
@@ -84,5 +86,8 @@
                                 label.mda-checkbox
                                     input(type='checkbox', ng-model='row.selected')
                                     em.bg-indigo-500
+                        tr(ng-if="row.expanded", ng-repeat-end="")
+                            td(colspan='7')
+                                div(ng-include="'app/components/keywords/manage/templates/expandedKeyword.html'")
                         tr.no-data-row.text-center(ng-if='displayedCollection.length < 7')
                             td(colspan='7')

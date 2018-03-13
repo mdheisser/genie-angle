@@ -1,0 +1,160 @@
+.expanded-keyword.container-fluid.p-sm
+    .row
+        .col-md-6.p-sm
+            #keywordSetting.panel.mb-sm
+                .panel-heading.sub-heading
+                    .panel-title Settings for Keyword: "{{ row.keyword }}"
+                    paneltool(tool-collapse, ng-init="keywordSetting=false")
+                .panel-wrapper(uib-collapse="keywordSetting")
+                    .panel-body.row
+                        .col-lg-7.col-xs-8.p0
+                            .mda-list.p0
+                                .mda-list-item
+                                    span.pull-left Promot: Auto Optimise
+                                    span.pull-right(ng-if='row.category.promoted') ON
+                                    span.pull-right(ng-if='!row.category.promoted') OFF
+                                    em.pull-right.fa.fa-toggle-on(ng-class='{true:"text-info", false:"text-grey"}[row.category.promoted]')
+                                .mda-list-item
+                                    span.pull-left Monitor: SERP Ranking
+                                    span.pull-right(ng-if='row.category.monitored') ON
+                                    span.pull-right(ng-if='!row.category.monitored') OFF
+                                    em.pull-right.fa.fa-line-chart(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]')
+                                .mda-list-item
+                                    span.pull-left Default Keyword
+                                    span.pull-right(ng-if='row.category.default') ON
+                                    span.pull-right(ng-if='!row.category.default') OFF
+                                    em.pull-right.fa.fa-anchor(ng-class='{true:"text-info", false:"text-grey"}[row.category.default]')
+                                .mda-list-item
+                                    span.pull-left Force Keyword Promotion
+                                    span.pull-right(ng-if='row.category.forced') ON
+                                    span.pull-right(ng-if='!row.category.forced') OFF
+                                    em.pull-right.fa.fa-bookmark-o(ng-class='{true:"text-info", false:"text-grey"}[row.category.forced]')
+                                .mda-list-item
+                                    span.pull-left Maximum assignment
+                                    em.pull-right.fa.fa-toggle-on.mr-22
+                                .mda-list-item
+                                    span.pull-left Refresh, Process Keyword
+                                    em.pull-right.fa.fa-refresh.mr-22
+                                .mda-list-item
+                                    span.pull-left Search Kewyword
+                                    em.pull-right.fa.fa-search.mr-22
+                                .mda-list-item
+                                    span.pull-left Copy to Clipboard
+                                    em.pull-right.fa.fa-copy.mr-22
+                                .mda-list-item
+                                    span.pull-left Remove Keyword
+                                    em.pull-right.fa.fa-trash-o.mr-22
+                        .col-lg-5.col-xs-4.pr0
+                            select(selectpicker='', title='Keyword Category', multiple, data-selected-text-format='static')
+                                option Product
+                                option Service
+                                option Solution
+                                option Person
+                            .mda-input-group.mt
+                                input.mda-form-control(type='text', placeholder='Search Keyword on Website')
+                                span.mda-input-group-addon
+                                    em.fa.fa-search
+        .col-md-6.p-sm
+            #keywordPerformance.panel.mb-sm
+                .panel-heading.sub-heading
+                    .panel-title SEO Performance for Keyword: "{{ row.keyword }}"
+                    paneltool(tool-collapse, ng-init="keywordPerformance=false")
+                .panel-wrapper(uib-collapse="keywordPerformance")
+                    .panel-body
+                        .row
+                            .col-xs-7.p0
+                                uib-progressbar.progress-striped(type='success', value='82')
+                                    span.text-black Best Page SEO Suitability 82%
+                            .col-xs-5.p0
+                                em.icon-question.pull-left.mt-sm
+                                a.pull-right Recomended Action!
+                        .row.mt
+                            .col-xs-7.p0
+                                uib-progressbar.progress-striped(type='success', value='72')
+                                    span.text-black Best Page CONTENT Significance 72%
+                            .col-xs-5.p0
+                                em.icon-question.pull-left.mt-sm
+                                a.pull-right Recomended Action!
+                        .row.mt
+                            .col-xs-7.p0
+                                uib-progressbar.progress-striped(type='success', value='50')
+                                    span.text-black Best Rank Position 1, Page1
+                            .col-xs-5.p0
+                                em.icon-question.pull-left.mt-sm
+                                a.pull-right Recomended Action!
+    #keywordRankingChart.panel.mb
+        .panel-heading.sub-heading
+            .panel-title SERP Keyword Ranking "{{ row.keyword }}"
+            paneltool(tool-collapse, ng-init="keywordRankingChart=false")
+        .panel-wrapper(uib-collapse="keywordRankingChart")
+            .panel-body
+                div(hc-charts='', options='listc.chartOptions')
+                .chart-filter
+                    label.report-date.pull-left Report Date: {{ listc.reportDate }}
+                    label.pull-right.dropup
+                        select(selectpicker='', ng-model='listc.selectedDay', ng-options='(day.name + " Days") for day in listc.filterDays')
+    #keywordAssignedPages.panel.mb-sm
+        .panel-heading.sub-heading
+            .panel-title Pages Assigned to Keyword: "{{ row.keyword }}"
+            paneltool(tool-collapse, ng-init="keywordAssignedPages=false")
+        .panel-wrapper(uib-collapse="keywordAssignedPages")
+            .panel-body
+                table.table.table-bordered.table-condensed(st-table="detailDisplayedCollection", st-safe-src='listc.keywordDetailCollection', st-detail-filtered-collection)
+                    thead.table-control
+                        tr
+                            td.text-right(colspan="7")
+                                .left.ml.mda-input-group
+                                    input.mda-form-control(type='text', st-search='pageUrl', placeholder='Filter/Search')
+                                    span.mda-input-group-addon
+                                        em.fa.fa-search
+                                .left
+                                    fiter-condition
+                                .left.pl.filter-title Filter
+                                .left.ml
+                                    md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='', ng-disabled='!listc.filterOn')
+                                .right(st-pagination='', st-items-by-page="listc.detailNumberOfRows", st-template="app/components/keywords/manage/templates/pagination.custom.html", st-page-change="listc.detailCurrentPage = newPage")
+                                .right.display-rows
+                                    label Display
+                                    label
+                                        select(selectpicker='', ng-model="listc.detailNumberOfRows" ng-options='item.value as item.label for item in listc.detailItemsByPage')
+                    thead
+                        tr
+                            th.text-center.row-index #
+                            th(st-sort="pageUrl") Site Pages
+                            th.text-center(st-sort="keywords") Keywords
+                            th.text-center(st-sort="violate") SEO Violat
+                            th.text-center(style='width:10%;') Score
+                            th.text-center.actions-col(ng-click="listc.showDetailBulkAction=!listc.showDetailBulkAction")
+                                label.mda-checkbox
+                                    input(type='checkbox', ng-model='listc.detailAllRowsMarked', ng-click='$event.stopPropagation()')
+                                    em.bg-indigo-500
+                                i.fa.fa-caret-down
+                                overlay-popup#bulkActionsPopup(active='listc.showDetailBulkAction', width='180')
+                                    div(ng-include="'app/components/keywords/manage/templates/detailBulkActions.html'")
+                    tbody
+                        tr(st-select-row="detail", st-select-mode="multiple", ng-repeat="detail in detailDisplayedCollection")
+                            td.text-center {{ ((listc.detailCurrentPage-1) * listc.detailNumberOfRows) + $index + 1 }}
+                            td.keyword-col
+                                .left.keyword-label
+                                    span.m0 {{ detail.pageUrl }}
+                                .right.keyword-control
+                                    label.m0.right
+                                        md-switch(ng-model='detail.category.promoted', aria-label='auto')
+                                    em.fa.fa-cog.right.text-grey
+                                    em.fa.fa-anchor.right(ng-if='detail.category.default')
+                                    em.fa.fa-bookmark-o.right(ng-if='detail.category.forced')
+                            td.text-center
+                                span {{ detail.keywords }}
+                            td.text-center
+                                em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-warning", 3:"fa-info-circle text-danger"}[detail.violate]')
+                                em.fa.fa-caret-down.text-grey
+                            td.pl-sm.pr-sm
+                                .detail-score
+                                    .flex.bg-green-500
+                                    .flex.bg-green-300
+                                    .flex.bg-green-500
+                            td.text-center
+                                label.mda-checkbox
+                                    input(type='checkbox', ng-model='detail.selected')
+                                    em.bg-indigo-500
+                        tr.no-data-row.text-center(ng-if='detailDisplayedCollection.length < 5')

@@ -148,6 +148,43 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
+             * Returns a keyword's detail information from the system that the user has access to
+             * @method
+             * @name API#getKeywordDetail
+             * @param {object} parameters - method options and parameters
+             * @param {string} parameters.keywordId - keyword Id of needed keyword
+             */
+            API.prototype.getKeywordDetail = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/keyword-detail';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['keywordId'] !== undefined) {
+                    queryParameters['keywordId'] = parameters['keywordId'];
+                }
+
+                if (parameters['keywordId'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: keywordId'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
              * Returns pages from the system that the user has access to
              * @method
              * @name API#getPages

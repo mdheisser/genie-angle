@@ -26,6 +26,7 @@
                 }
 
                 item.selected = false;
+                item.expanded = false;
 
                 output.push(item);
             });

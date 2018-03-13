@@ -141,15 +141,7 @@
                         color: '#410093'
                     }],
                     color: '#410093'
-                }],
-                navigation: {
-                    buttonOptions: {
-                        height: 30,
-                        width: 28,
-                        symbolX: 20,
-                        symbolY: 22
-                    }
-                }
+                }]
             };
 
             vm.chartOptions = chartOptions;

@@ -31,6 +31,11 @@
         vm.textCopyState = 'Click to copy to clipboard';
         vm.minForcedPromotion = 1;
         vm.maxForcedPromotion = 1;
+        vm.filterDays = [];
+        vm.reportDate = '1. 22.2018';
+        vm.expandKeywordDetail = expandKeywordDetail;
+        vm.detailCurrentPage = 1;
+        vm.detailAllRowsMarked = false;
 
         activate();
 
@@ -74,6 +79,27 @@
                     icon: 'fa-list'
                 }
             ];
+
+            var data = [{
+                    id: 1,
+                    name: '360'
+                },
+                {
+                    id: 2,
+                    name: '180'
+                },
+                {
+                    id: 3,
+                    name: '90'
+                },
+                {
+                    id: 4,
+                    name: '30'
+                }
+            ];
+            vm.filterDays = data;
+            vm.selectedDay = data[0];
+            drawCharts();
         }
 
         // Get user's own site names.
@@ -109,6 +135,50 @@
                     ];
                     vm.numberOfRows = vm.itemsByPage[1].value;
                 });
+        }
+
+        function drawCharts() {
+
+            var chartHeight = 300;
+
+            var chartOptions = {
+                chart: {
+                    height: chartHeight
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+                },
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                },
+                series: [{
+                    name: 'Google',
+                    data: [29, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54],
+                    zones: [{
+                        color: '#DB3236'
+                    }],
+                    color: '#DB3236'
+                }, {
+                    name: 'Yahoo',
+                    data: [39, 75, 16, 19, 174, 16, 235, 178, 276, 294, 195, 154],
+                    zones: [{
+                        color: '#410093'
+                    }],
+                    color: '#410093'
+                }]
+            };
+
+            vm.chartOptions = chartOptions;
         }
 
         // Perform bulk action
@@ -190,6 +260,46 @@
                 window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
             }
         }
+
+        /////////////////////////  DETAIL EXPANSION  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Expand Keyword Detail Page
+        function expandKeywordDetail(row) {
+            getKeywordDetail(row);
+        }
+
+        // Get selected keyword's detail information.
+        function getKeywordDetail(row) {
+            //TODO: Replace by real side it from row.id
+            var keywordID = '1111111';
+            keywordsService
+                .getKeywordDetail(keywordID)
+                .then(function (response) {
+                    vm.keywordDetailCollection = response.data;
+                    // Set value for number of row by page in dropdown.
+                    vm.detailItemsByPage =  [
+                        { label: '5', value: '5' },
+                        { label: '10', value: '10' },
+                        { label: '15', value: '15' },
+                        { label: '20', value: '20' },
+                        { label: 'All', value: vm.keywordDetailCollection.length.toString()}
+                    ];
+                    vm.detailNumberOfRows = vm.detailItemsByPage[1].value;
+                });
+        }
+
+        // Mark/Unmark all rows
+        $scope.$watch(function () {
+            return vm.detailAllRowsMarked;
+        }, function (current, original) {
+            _(vm.keywordDetailCollection).forEach(function (value, index) {
+                if (current === true) {
+                    vm.keywordDetailCollection[index].selected = true;
+                } else {
+                    vm.keywordDetailCollection[index].selected = false;
+                }
+            });
+        });
     }
 
 })(angular);

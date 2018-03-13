@@ -39,6 +39,26 @@ paths:
             type: array
             items:
               $ref: '#/definitions/keyword'
+  /keyword-detail:
+    get:
+      description: Returns a keyword's detail information from the system that the user has access to
+      operationId: getKeywordDetail
+      summary: Get keyword detail
+      produces:
+        - application/json
+      parameters:
+        - name: keywordId
+          in: query
+          description: keyword Id of needed keyword
+          required: true
+          type: string
+      responses:
+        '200':
+          description: A list of site pages.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/keyword-detail'
   /pages:
     get:
       description: Returns pages from the system that the user has access to
@@ -261,6 +281,19 @@ definitions:
       name:
         type: string
   keyword:
+    type: object
+    required:
+      - id
+      - text
+      - type
+    properties:
+      id:
+        type: string
+      text:
+        type: string
+      type:
+        type: string
+  keyword-detail:
     type: object
     required:
       - id

@@ -1,5 +1,5 @@
 #keyDashboard.container-fluid.panel.mb0(ng-controller='dashboardController as dac')
-    .panel-heading.custom-heading
+    .panel-heading.custom-heading.flex-heading
         .description Keywords&nbsp;Dashboard
         .panel-title.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='dac.site.selected')
@@ -56,5 +56,5 @@
                             div(hc-charts='', options='dac.chartOptions')
                             .chart-filter
                                 label.report-date.pull-left Report Date: {{ dac.reportDate }}
-                                label.pull-right
+                                label.pull-right.dropup
                                     select(selectpicker='', ng-model='dac.selectedDay', ng-options='(day.name + " Days") for day in dac.filterDays')

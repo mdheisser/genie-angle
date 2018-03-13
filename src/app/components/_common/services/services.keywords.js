@@ -15,8 +15,15 @@
             });
         };
 
+        var getKeywordDetail = function (keywordId) {
+            return REST.getKeywordDetail({
+                keywordId: keywordId
+            });
+        }
+
         return {
-            getKeywords: getKeywords
+            getKeywords: getKeywords,
+            getKeywordDetail: getKeywordDetail
         };
     }
 
