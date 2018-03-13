@@ -119,7 +119,7 @@
             var wrapper = angular.element(wrapperElement).children().first();
             wrapperWidth = $(wrapper).innerWidth();
             if (hasScroll()) {
-                wrapperWidth -= $.scrollbarWidth() * 2.5;
+                // wrapperWidth -= $.scrollbarWidth() * 2.5;
             }
         }
 

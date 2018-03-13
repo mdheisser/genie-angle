@@ -78,7 +78,7 @@
                         .row.mt
                             .col-xs-7.p0
                                 uib-progressbar.progress-striped(type='success', value='50')
-                                    span.text-black Best Rank Position 1, Page1
+                                    span.text-black Best Rank Position {{row.g}}, Page {{row.activepages}}
                             .col-xs-5.p0
                                 em.icon-question.pull-left.mt-sm
                                 a.pull-right Recomended Action!
@@ -132,7 +132,7 @@
                                 overlay-popup#bulkActionsPopup(active='listc.showDetailBulkAction', width='180')
                                     div(ng-include="'app/components/keywords/manage/templates/detailBulkActions.html'")
                     tbody
-                        tr(st-select-row="detail", st-select-mode="multiple", ng-repeat="detail in detailDisplayedCollection")
+                        tr(st-select-row="detail", st-select-mode="multiple", ng-repeat="detail in detailDisplayedCollection", ng-class='{true: "bg-blue-100", false:""}[detail.assignedState]', ng-click='listc.onSelectKeywordDetail(detail, $event)')
                             td.text-center {{ ((listc.detailCurrentPage-1) * listc.detailNumberOfRows) + $index + 1 }}
                             td.keyword-col
                                 .left.keyword-label

@@ -6,12 +6,12 @@
         .controller('keywordsListController', keywordsListController)
 
     keywordsListController.$inject = [
-        '$scope', '$timeout', '$resource', '$q',
+        '$scope', '$timeout', '$resource', '$q', '$mdDialog',
         '$location', 'keywordsService', 'Notify', 'filterFilter', 'convertTableDataFilter'
     ];
 
     function keywordsListController(
-        $scope, $timeout, $resource, $q,
+        $scope, $timeout, $resource, $q, $mdDialog,
         $location, keywordsService, Notify, filterFilter, convertTableDataFilter) {
         /* jshint validthis:true */
         var vm = this;
@@ -36,6 +36,7 @@
         vm.expandKeywordDetail = expandKeywordDetail;
         vm.detailCurrentPage = 1;
         vm.detailAllRowsMarked = false;
+        vm.onSelectKeywordDetail = onSelectKeywordDetail;
 
         activate();
 
@@ -300,6 +301,24 @@
                 }
             });
         });
+
+        // Select/Deselect a page to be assigned keyword with confirmation dialog.
+        function onSelectKeywordDetail(detail, ev) {
+            if(detail.assignedState === true) {
+                var confirm = $mdDialog.confirm()
+                    .title('Are you sure to remove the keyword from this page?')
+                    .content('')
+                    .cancel('NO')
+                    .ok('YES')
+                    .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function() {
+                    detail.assignedState = false;
+                }, function() {
+                    detail.assignedState = true;
+                });
+            }
+        }
     }
 
 })(angular);
