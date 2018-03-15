@@ -12,9 +12,6 @@
         var standardComparator = function standardComparator(obj, text) {
             text = ('' + text).toLowerCase();
 
-            // Save search text on local storage
-            localStorage.setItem('searchText', text);
-
             var condition = localStorage.getItem('searchCondition');
 
             switch(condition) {

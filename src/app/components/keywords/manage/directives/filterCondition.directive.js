@@ -47,14 +47,13 @@
                 var condition = option.value;
                 localStorage.setItem('searchCondition', condition);
 
-                var searchText = localStorage.getItem('searchText');
+                var searchText = $('#searchKeyword').val();
                 table.search(searchText, 'keyword');
             }
 
             // Remove local storage variables.
             scope.$on('destroy', function() {
                 localStorage.removeItem('searchCondition');
-                localStorage.removeItem('searchText');
             });
         }
     }

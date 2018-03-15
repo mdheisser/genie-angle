@@ -7,11 +7,17 @@
     }
     .mda-list-item {
         em {
-            margin: 3px 3px 0 0;
             width: 16px;
         }
-        .mr-22 {
-            margin-right: 22px;
+        .pull-right {
+            width: 50px;
+        }
+        md-switch {
+            height: 20px;
+            .md-container {
+                width: 16px;
+                margin: 6px 4px 0 0;
+            }
         }
     }
     #keywordSetting .bootstrap-select .dropdown-menu {
@@ -31,12 +37,16 @@
             height: 25px;
         }
     }
-    .progress {
-        background-color: #abe8b0;
-        .progress-bar {
-            color: black;
-            span {
-                white-space: nowrap;
+    #keywordPerformance {
+        .progress {
+            background-color: #abe8b0;
+            .progress-bar {
+                color: black;
+                text-align: left;
+                padding-left: 5px;
+                span {
+                    white-space: nowrap;
+                }
             }
         }
     }
@@ -68,12 +78,6 @@
             width: 125px !important;
             em {
                 padding: 9px 5px;
-            }
-        }
-        .detail-score {
-            display: flex;
-            .flex {
-                height: 20px;
             }
         }
     }

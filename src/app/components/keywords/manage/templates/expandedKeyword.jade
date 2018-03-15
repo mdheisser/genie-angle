@@ -10,42 +10,51 @@
                         .col-lg-7.col-xs-8.p0
                             .mda-list.p0
                                 .mda-list-item
-                                    span.pull-left Promot: Auto Optimise
-                                    span.pull-right(ng-if='row.category.promoted') ON
-                                    span.pull-right(ng-if='!row.category.promoted') OFF
-                                    em.pull-right.fa.fa-toggle-on(ng-class='{true:"text-info", false:"text-grey"}[row.category.promoted]')
+                                    span.pull-left(uib-tooltip='Promot: Auto Optimise') Promot: Auto Optimise
+                                    span.pull-right
+                                        md-switch.pull-left(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActiveMonitoredKeyword(row)')
+                                        span.pull-left(ng-if='row.category.promoted') ON
+                                        span.pull-left(ng-if='!row.category.promoted') OFF
                                 .mda-list-item
-                                    span.pull-left Monitor: SERP Ranking
-                                    span.pull-right(ng-if='row.category.monitored') ON
-                                    span.pull-right(ng-if='!row.category.monitored') OFF
-                                    em.pull-right.fa.fa-line-chart(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]')
+                                    span.pull-left(uib-tooltip='Monitor: SERP Ranking') Monitor: SERP Ranking
+                                    span.pull-right
+                                        em.fa.fa-line-chart(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]')
+                                        span(ng-if='row.category.monitored') ON
+                                        span(ng-if='!row.category.monitored') OFF
                                 .mda-list-item
-                                    span.pull-left Default Keyword
-                                    span.pull-right(ng-if='row.category.default') ON
-                                    span.pull-right(ng-if='!row.category.default') OFF
-                                    em.pull-right.fa.fa-anchor(ng-class='{true:"text-info", false:"text-grey"}[row.category.default]')
+                                    span.pull-left(uib-tooltip='Default Keyword') Default Keyword
+                                    span.pull-right
+                                        em.fa.fa-anchor(ng-class='{true:"text-info", false:"text-grey"}[row.category.default]')
+                                        span(ng-if='row.category.default') ON
+                                        span(ng-if='!row.category.default') OFF
                                 .mda-list-item
-                                    span.pull-left Force Keyword Promotion
-                                    span.pull-right(ng-if='row.category.forced') ON
-                                    span.pull-right(ng-if='!row.category.forced') OFF
-                                    em.pull-right.fa.fa-bookmark-o(ng-class='{true:"text-info", false:"text-grey"}[row.category.forced]')
+                                    span.pull-left(uib-tooltip='Force Keyword Promotion') Force Keyword Promotion
+                                    span.pull-right
+                                        em.fa.fa-bookmark-o(ng-class='{true:"text-info", false:"text-grey"}[row.category.forced]')
+                                        span(ng-if='row.category.forced') ON
+                                        span(ng-if='!row.category.forced') OFF
                                 .mda-list-item
-                                    span.pull-left Maximum assignment
-                                    em.pull-right.fa.fa-toggle-on.mr-22
+                                    span.pull-left(uib-tooltip='Maximum assignment') Maximum assignment
+                                    span.pull-right
+                                        em.fa.fa-toggle-on
                                 .mda-list-item
-                                    span.pull-left Refresh, Process Keyword
-                                    em.pull-right.fa.fa-refresh.mr-22
+                                    span.pull-left(uib-tooltip='Refresh, Process Keyword') Refresh, Process Keyword
+                                    span.pull-right
+                                        em.fa.fa-refresh
                                 .mda-list-item
-                                    span.pull-left Search Kewyword
-                                    em.pull-right.fa.fa-search.mr-22
+                                    span.pull-left(uib-tooltip='Search Keyword') Search Keyword
+                                    span.pull-right
+                                        em.fa.fa-search(ng-click='listc.onSearchWithKeyword(row.keyword)')
                                 .mda-list-item
-                                    span.pull-left Copy to Clipboard
-                                    em.pull-right.fa.fa-copy.mr-22
+                                    span.pull-left(uib-tooltip='Copy to Clipboard') Copy to Clipboard
+                                    span.pull-right
+                                        em.fa.fa-copy(ng-click='listc.copyToClipboard(row.keyword, $event)')
                                 .mda-list-item
-                                    span.pull-left Remove Keyword
-                                    em.pull-right.fa.fa-trash-o.mr-22
+                                    span.pull-left(uib-tooltip='Remove Keyword') Remove Keyword
+                                    span.pull-right
+                                        em.fa.fa-trash-o
                         .col-lg-5.col-xs-4.pr0
-                            select(selectpicker='', title='Keyword Category', multiple, data-selected-text-format='static')
+                            select(selectpicker='', title='Keyword Category', multiple, data-selected-text-format='values')
                                 option Product
                                 option Service
                                 option Solution
@@ -122,7 +131,7 @@
                             th.text-center.row-index #
                             th(st-sort="pageUrl") Site Pages
                             th.text-center(st-sort="keywords") Keywords
-                            th.text-center(st-sort="violate") SEO Violat
+                            th.text-center(st-sort="violate") SEO Violations
                             th.text-center(style='width:10%;') Score
                             th.text-center.actions-col(ng-click="listc.showDetailBulkAction=!listc.showDetailBulkAction")
                                 label.mda-checkbox
@@ -136,23 +145,23 @@
                             td.text-center {{ ((listc.detailCurrentPage-1) * listc.detailNumberOfRows) + $index + 1 }}
                             td.keyword-col
                                 .left.keyword-label
-                                    span.m0 {{ detail.pageUrl }}
+                                    span.m0(ng-click='listc.onSearchWithKeyword(detail.pageUrl, $event)') {{ detail.pageUrl }}
                                 .right.keyword-control
                                     label.m0.right
-                                        md-switch(ng-model='detail.category.promoted', aria-label='auto')
-                                    em.fa.fa-cog.right.text-grey
-                                    em.fa.fa-anchor.right(ng-if='detail.category.default')
-                                    em.fa.fa-bookmark-o.right(ng-if='detail.category.forced')
+                                        md-switch(ng-model='detail.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[detail.category.promoted]}}', ng-click='$event.stopPropagation()')
+                                    em.fa.fa-cog.right.text-grey(uib-tooltip='Keyword Parameters and Settings', ng-click='$event.stopPropagation()')
+                                    em.fa.fa-anchor.right(ng-if='detail.category.default', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords', ng-click='$event.stopPropagation()')
+                                    em.fa.fa-bookmark-o.right(ng-if='detail.category.forced', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score', ng-click='$event.stopPropagation()')
                             td.text-center
                                 span {{ detail.keywords }}
                             td.text-center
                                 em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-warning", 3:"fa-info-circle text-danger"}[detail.violate]')
                                 em.fa.fa-caret-down.text-grey
                             td.pl-sm.pr-sm
-                                .detail-score
-                                    .flex.bg-green-500
-                                    .flex.bg-green-300
-                                    .flex.bg-green-500
+                                .color-bar
+                                    .flex(ng-class='row.g | rankingFilter', uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}")
+                                    .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.significance]', uib-tooltip="Significance: 34%")
+                                    .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.suitability]', uib-tooltip="Suitability: 68%")
                             td.text-center
                                 label.mda-checkbox
                                     input(type='checkbox', ng-model='detail.selected')

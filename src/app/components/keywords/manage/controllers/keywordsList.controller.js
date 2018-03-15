@@ -6,12 +6,12 @@
         .controller('keywordsListController', keywordsListController)
 
     keywordsListController.$inject = [
-        '$scope', '$timeout', '$resource', '$q', '$mdDialog',
+        '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window',
         '$location', 'keywordsService', 'Notify', 'filterFilter', 'convertTableDataFilter'
     ];
 
     function keywordsListController(
-        $scope, $timeout, $resource, $q, $mdDialog,
+        $scope, $timeout, $resource, $q, $mdDialog, $window,
         $location, keywordsService, Notify, filterFilter, convertTableDataFilter) {
         /* jshint validthis:true */
         var vm = this;
@@ -31,12 +31,14 @@
         vm.textCopyState = 'Click to copy to clipboard';
         vm.minForcedPromotion = 1;
         vm.maxForcedPromotion = 1;
+        vm.onActiveMonitoredKeyword = onActiveMonitoredKeyword;
         vm.filterDays = [];
         vm.reportDate = '1. 22.2018';
         vm.expandKeywordDetail = expandKeywordDetail;
         vm.detailCurrentPage = 1;
         vm.detailAllRowsMarked = false;
         vm.onSelectKeywordDetail = onSelectKeywordDetail;
+        vm.onSearchWithKeyword = onSearchWithKeyword;
 
         activate();
 
@@ -262,6 +264,14 @@
             }
         }
 
+        // Active monitored keyword when promoted keyowrd is activated.
+        function onActiveMonitoredKeyword(row) {
+            if (row.category.promoted === true) {
+                // To Do : This value has to be changed with backend api callback.
+                row.category.monitored = true;
+            }
+        }
+
         /////////////////////////  DETAIL EXPANSION  /////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Expand Keyword Detail Page
@@ -318,6 +328,18 @@
                     detail.assignedState = true;
                 });
             }
+        }
+
+        // Search selected keyword on new tab.
+        function onSearchWithKeyword(keyword, event) {
+            var url = '';
+            if (('' + keyword).toLowerCase().indexOf('http') > -1) {
+                url = keyword;
+            } else {
+                url = 'http://google.com/search?q=' + keyword;
+            }
+            $window.open(url, '_blank');
+            event.stopPropagation();
         }
     }
 
