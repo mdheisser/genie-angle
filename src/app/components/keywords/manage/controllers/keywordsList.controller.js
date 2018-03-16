@@ -28,7 +28,7 @@
         vm.filterOn = false;
         vm.currentPage = 1;
         vm.copyToClipboard = copyToClipboard;
-        vm.textCopyState = 'Click to copy to clipboard';
+        vm.textCopyState = 'Copy Keyword';
         vm.minForcedPromotion = 1;
         vm.maxForcedPromotion = 1;
         vm.onActiveMonitoredKeyword = onActiveMonitoredKeyword;
@@ -254,7 +254,7 @@
                     // Initialize tooltip text when element lose mouse.
                     var element = angular.element(el.target);
                     element.bind('mouseleave', function() {
-                        vm.textCopyState = 'Click to copy to clipboard';
+                        vm.textCopyState = 'Copy Keyword';
                     });
                 } catch (err) {
                     console.log('Oops, unable to copy');
@@ -325,9 +325,9 @@
                     .targetEvent(ev);
 
                 $mdDialog.show(confirm).then(function() {
-                    detail.assignedState = false;
+                    console.log('yes');
                 }, function() {
-                    detail.assignedState = true;
+                    console.log('no');
                 });
             } else {
                 var confirm = $mdDialog.confirm()
@@ -338,9 +338,9 @@
                     .targetEvent(ev);
 
                 $mdDialog.show(confirm).then(function() {
-                    detail.assignedState = false;
+                    console.log('yes');
                 }, function() {
-                    detail.assignedState = true;
+                    console.log('no');
                 });
             }
         }

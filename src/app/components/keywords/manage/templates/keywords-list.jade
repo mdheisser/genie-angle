@@ -45,7 +45,7 @@
                                     input(type='checkbox', ng-model='listc.allRowsMarked', ng-click='$event.stopPropagation()')
                                     em.bg-indigo-500
                                 i.fa.fa-caret-down
-                                overlay-popup#bulkActionsPopup(active='listc.showBulkAction', width='205')
+                                overlay-popup#bulkActionsPopup(active='listc.showBulkAction', width='215')
                                     div(ng-include="'app/components/keywords/manage/templates/bulkActions.html'")
                     tbody
                         tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection")

@@ -48,7 +48,7 @@
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Copy to Clipboard') Copy to Clipboard
                                     span.pull-right
-                                        em.fa.fa-copy(ng-click='listc.copyToClipboard(row.keyword, $event)', uib-tooltip='Copy to Clipboard')
+                                        em.fa.fa-copy(ng-click='listc.copyToClipboard(row.keyword, $event)', uib-tooltip='{{listc.textCopyState}}')
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Remove Keyword') Remove Keyword
                                     span.pull-right
