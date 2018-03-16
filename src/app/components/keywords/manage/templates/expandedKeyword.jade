@@ -18,41 +18,41 @@
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Monitor: SERP Ranking') Monitor: SERP Ranking
                                     span.pull-right
-                                        em.fa.fa-line-chart(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]')
+                                        em.fa.fa-line-chart(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}')
                                         span(ng-if='row.category.monitored') ON
                                         span(ng-if='!row.category.monitored') OFF
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Default Keyword') Default Keyword
                                     span.pull-right
-                                        em.fa.fa-anchor(ng-class='{true:"text-info", false:"text-grey"}[row.category.default]')
+                                        em.fa.fa-anchor(ng-class='{true:"text-info", false:"text-grey"}[row.category.default]', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
                                         span(ng-if='row.category.default') ON
                                         span(ng-if='!row.category.default') OFF
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Force Keyword Promotion') Force Keyword Promotion
                                     span.pull-right
-                                        em.fa.fa-bookmark-o(ng-class='{true:"text-info", false:"text-grey"}[row.category.forced]')
+                                        em.fa.fa-bookmark-o(ng-class='{true:"text-info", false:"text-grey"}[row.category.forced]', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score')
                                         span(ng-if='row.category.forced') ON
                                         span(ng-if='!row.category.forced') OFF
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Maximum assignment') Maximum assignment
                                     span.pull-right
-                                        em.fa.fa-toggle-on
+                                        em.fa.fa-toggle-on(uib-tooltip='Maximum assignment')
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Refresh, Process Keyword') Refresh, Process Keyword
                                     span.pull-right
-                                        em.fa.fa-refresh
+                                        em.fa.fa-refresh(uib-tooltip='Refresh, Process Keyword')
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Search Keyword') Search Keyword
                                     span.pull-right
-                                        em.fa.fa-search(ng-click='listc.onSearchWithKeyword(row.keyword)')
+                                        em.fa.fa-search(ng-click='listc.onSearchWithKeyword(row.keyword)', uib-tooltip='Search Keyword')
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Copy to Clipboard') Copy to Clipboard
                                     span.pull-right
-                                        em.fa.fa-copy(ng-click='listc.copyToClipboard(row.keyword, $event)')
+                                        em.fa.fa-copy(ng-click='listc.copyToClipboard(row.keyword, $event)', uib-tooltip='Copy to Clipboard')
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Remove Keyword') Remove Keyword
                                     span.pull-right
-                                        em.fa.fa-trash-o
+                                        em.fa.fa-trash-o(uib-tooltip='Remove Keyword')
                         .col-lg-5.col-xs-4.pr0
                             select(selectpicker='', title='Keyword Category', multiple, data-selected-text-format='values')
                                 option Product
@@ -108,19 +108,21 @@
             paneltool(tool-collapse, ng-init="keywordAssignedPages=false")
         .panel-wrapper(uib-collapse="keywordAssignedPages")
             .panel-body
-                table.table.table-bordered.table-condensed(st-table="detailDisplayedCollection", st-safe-src='listc.keywordDetailCollection', st-detail-filtered-collection)
+                table.table.table-bordered.table-condensed(st-table="detailDisplayedCollection", st-safe-src='listc.keywordDetailCollection', st-set-filter="additionalFilter", st-detail-filtered-collection)
                     thead.table-control
                         tr
                             td.text-right(colspan="7")
                                 .left.ml.mda-input-group
-                                    input.mda-form-control(type='text', st-search='pageUrl', placeholder='Filter/Search')
+                                    input#searchForpageUrl.mda-form-control(type='text', st-search='pageUrl', placeholder='Filter/Search', ng-click="listc.showDetailAdditionalFilter=true")
                                     span.mda-input-group-addon
                                         em.fa.fa-search
+                                    overlay-popup(active='listc.showDetailAdditionalFilter', width='450')
+                                        div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .left
-                                    fiter-condition
+                                    fiter-condition(condition-for='pageUrl')
                                 .left.pl.filter-title Filter
                                 .left.ml
-                                    md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='', ng-disabled='!listc.filterOn')
+                                    md-switch.m0(ng-model='listc.detailFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.detailFilterOn',  st-reset='', ng-disabled='!listc.detailFilterOn')
                                 .right(st-pagination='', st-items-by-page="listc.detailNumberOfRows", st-template="app/components/keywords/manage/templates/pagination.custom.html", st-page-change="listc.detailCurrentPage = newPage")
                                 .right.display-rows
                                     label Display
@@ -133,13 +135,13 @@
                             th.text-center(st-sort="keywords") Keywords
                             th.text-center(st-sort="violate") SEO Violations
                             th.text-center(style='width:10%;') Score
-                            th.text-center.actions-col(ng-click="listc.showDetailBulkAction=!listc.showDetailBulkAction")
-                                label.mda-checkbox
-                                    input(type='checkbox', ng-model='listc.detailAllRowsMarked', ng-click='$event.stopPropagation()')
-                                    em.bg-indigo-500
-                                i.fa.fa-caret-down
-                                overlay-popup#bulkActionsPopup(active='listc.showDetailBulkAction', width='180')
-                                    div(ng-include="'app/components/keywords/manage/templates/detailBulkActions.html'")
+                            //- th.text-center.actions-col(ng-click="listc.showDetailBulkAction=!listc.showDetailBulkAction")
+                            //-     label.mda-checkbox
+                            //-         input(type='checkbox', ng-model='listc.detailAllRowsMarked', ng-click='$event.stopPropagation()', disabled)
+                            //-         em.bg-indigo-500
+                            //-     i.fa.fa-caret-down
+                                //- overlay-popup#detailBulkActionsPopup(active='listc.showDetailBulkAction', width='205')
+                                //-     div(ng-include="'app/components/keywords/manage/templates/detailBulkActions.html'")
                     tbody
                         tr(st-select-row="detail", st-select-mode="multiple", ng-repeat="detail in detailDisplayedCollection", ng-class='{true: "bg-blue-100", false:""}[detail.assignedState]', ng-click='listc.onSelectKeywordDetail(detail, $event)')
                             td.text-center {{ ((listc.detailCurrentPage-1) * listc.detailNumberOfRows) + $index + 1 }}
@@ -159,11 +161,11 @@
                                 em.fa.fa-caret-down.text-grey
                             td.pl-sm.pr-sm
                                 .color-bar
-                                    .flex(ng-class='row.g | rankingFilter', uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}")
-                                    .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.significance]', uib-tooltip="Significance: 34%")
-                                    .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.suitability]', uib-tooltip="Suitability: 68%")
-                            td.text-center
-                                label.mda-checkbox
-                                    input(type='checkbox', ng-model='detail.selected')
-                                    em.bg-indigo-500
+                                    .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.ranking]', uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}")
+                                    .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.significance]', uib-tooltip="Significance: 34%")
+                                    .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.suitability]', uib-tooltip="Suitability: 68%")
+                            //- td.text-center
+                            //-     label.mda-checkbox
+                            //-         input(type='checkbox', ng-model='detail.selected', disabled)
+                            //-         em.bg-indigo-500
                         tr.no-data-row.text-center(ng-if='detailDisplayedCollection.length < 5')

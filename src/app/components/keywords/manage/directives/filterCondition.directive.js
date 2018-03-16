@@ -12,7 +12,9 @@
             restrict: 'EA',
             require: '^stTable',
             template: '<select selectpicker ng-model="selectedOption" ng-change="optionChanged(selectedOption)" ng-options="opt as opt.label for opt in conditionItems"></select>',
-            scope: {},
+            scope: {
+                conditionFor: '@'
+            },
             link: link
         };
 
@@ -47,8 +49,8 @@
                 var condition = option.value;
                 localStorage.setItem('searchCondition', condition);
 
-                var searchText = $('#searchKeyword').val();
-                table.search(searchText, 'keyword');
+                var searchText = $('#searchFor' + scope.conditionFor).val();
+                table.search(searchText, scope.conditionFor);
             }
 
             // Remove local storage variables.

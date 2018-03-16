@@ -14,13 +14,13 @@
                                 a.left.btn.btn-primary.btn-outline.btn-xs(href='#/app/keywords/add-keywords')
                                     i.fa.fa-plus
                                 .left.ml.mda-input-group
-                                    input#searchKeyword.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
+                                    input#searchForkeyword.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
                                     span.mda-input-group-addon
                                         em.fa.fa-search
                                     overlay-popup(active='listc.showAdditionalFilter', width='450')
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .left
-                                    fiter-condition
+                                    fiter-condition(condition-for='keyword')
                                 .left.pl.filter-title Filter
                                 .left.ml
                                     md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='', ng-disabled='!listc.filterOn')

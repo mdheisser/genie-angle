@@ -39,6 +39,8 @@
         vm.detailAllRowsMarked = false;
         vm.onSelectKeywordDetail = onSelectKeywordDetail;
         vm.onSearchWithKeyword = onSearchWithKeyword;
+        vm.detailFilterOn = false;
+        vm.keywordDetailCollection = [];
 
         activate();
 
@@ -172,7 +174,7 @@
                     }],
                     color: '#DB3236'
                 }, {
-                    name: 'Yahoo',
+                    name: 'Yahoo.UK',
                     data: [39, 75, 16, 19, 174, 16, 235, 178, 276, 294, 195, 154],
                     zones: [{
                         color: '#410093'
@@ -316,7 +318,20 @@
         function onSelectKeywordDetail(detail, ev) {
             if(detail.assignedState === true) {
                 var confirm = $mdDialog.confirm()
-                    .title('Are you sure to remove the keyword from this page?')
+                    .title('Remove Keyword from this Page?')
+                    .content('')
+                    .cancel('NO')
+                    .ok('YES')
+                    .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function() {
+                    detail.assignedState = false;
+                }, function() {
+                    detail.assignedState = true;
+                });
+            } else {
+                var confirm = $mdDialog.confirm()
+                    .title('Add the Keyword to this Page?')
                     .content('')
                     .cancel('NO')
                     .ok('YES')
@@ -341,6 +356,31 @@
             $window.open(url, '_blank');
             event.stopPropagation();
         }
+
+        // Reset Detail Expansion Fitler.
+        $scope.$watch(function() {
+            return vm.detailFilterOn;
+        }, function(newValue, oldValue) {
+            if (newValue === false) {
+                $scope.$broadcast('resetFilter');
+            }
+        });
+
+        // Set detail filter on/off switch status.
+        $scope.$watch(function() {
+            return localStorage.getItem('detailFilteredCollection');
+        }, function() {
+            var detailFilteredCollection = JSON.parse(localStorage.getItem('detailFilteredCollection'));
+            if (detailFilteredCollection != undefined) {
+                var original = vm.keywordDetailCollection.length;
+                var filtered = detailFilteredCollection.length;
+                if(original != filtered) {
+                    vm.detailFilterOn = true;
+                } else {
+                    vm.detailFilterOn = false;
+                }
+            }
+        });
     }
 
 })(angular);

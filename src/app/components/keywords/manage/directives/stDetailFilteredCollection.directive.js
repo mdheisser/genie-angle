@@ -18,7 +18,12 @@
 
         function link(scope, element, attr, table) {
             scope.$watch(table.getFilteredCollection, function(val){
-                scope.detailFilteredCollection = val;
+                localStorage.setItem('detailFilteredCollection', JSON.stringify(val));
+            });
+
+            // Remove local storage variables.
+            scope.$on('destroy', function() {
+                localStorage.removeItem('detailFilteredCollection');
             });
         }
     }
