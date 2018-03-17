@@ -59,6 +59,42 @@ paths:
             type: array
             items:
               $ref: '#/definitions/keyword-detail'
+  /keyword/active-promoted:
+    get:
+      description: Returns true if selected keyword is promoted, else return false
+      operationId: activePromotedKeyword
+      summary: Promote Keyword
+      produces:
+        - application/json
+      parameters:
+        - name: keywordId
+          in: query
+          description: keyword Id of needed keyword
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Promoted status.
+          schema:
+            $ref: '#/definitions/jsonObject'
+  /keyword/deactive-promoted:
+    get:
+      description: Returns true if selected keyword is not promoted, else return false
+      operationId: deactivePromotedKeyword
+      summary: Deactive Promoted Keyword
+      produces:
+        - application/json
+      parameters:
+        - name: keywordId
+          in: query
+          description: keyword Id of needed keyword
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Promoted status.
+          schema:
+            $ref: '#/definitions/jsonObject'
   /pages:
     get:
       description: Returns pages from the system that the user has access to

@@ -15,45 +15,41 @@
         $location, keywordsService, Notify, filterFilter, convertTableDataFilter) {
         /* jshint validthis:true */
         var vm = this;
-        vm.site = {};
-        vm.site.selected = undefined;
-        vm.sites = [];
-        vm.keywords = [];
-        vm.bulkActions = [];
-        vm.rowCollection = [];
-        vm.filterCondition = '1';
+
         vm.allRowsMarked = false;
-        vm.popupOpen = {};
-        vm.performAction = performAction;
-        vm.filterOn = false;
+        vm.bulkActions = [];
         vm.currentPage = 1;
         vm.copyToClipboard = copyToClipboard;
-        vm.textCopyState = 'Copy Keyword';
+        vm.filterCondition = '1';
+        vm.filterOn = false;
+        vm.keywords = [];
         vm.minForcedPromotion = 1;
         vm.maxForcedPromotion = 1;
-        vm.onActiveMonitoredKeyword = onActiveMonitoredKeyword;
-        vm.filterDays = [];
-        vm.reportDate = '1. 22.2018';
-        vm.expandKeywordDetail = expandKeywordDetail;
+        vm.onActivePromotedKeyword = onActivePromotedKeyword;
+        vm.popupOpen = {};
+        vm.performAction = performAction;
+        vm.rowCollection = [];
+        vm.site = {};
+        vm.selectedSite = {};
+        vm.sites = [];
+        vm.textCopyState = 'Copy Keyword';
+
         vm.detailCurrentPage = 1;
+        vm.detailFilterOn = false;
         vm.detailAllRowsMarked = false;
+        vm.expandKeywordDetail = expandKeywordDetail;
+        vm.filterDays = [];
+        vm.keywordDetailCollection = [];
         vm.onSelectKeywordDetail = onSelectKeywordDetail;
         vm.onSearchWithKeyword = onSearchWithKeyword;
-        vm.detailFilterOn = false;
-        vm.keywordDetailCollection = [];
+        vm.reportDate = '1. 22.2018';
+        vm.savedExpandedRowId = null;
 
         activate();
 
         //////////////
 
         function activate() {
-            getOwnSites();
-            getKeywords();
-            init();
-        }
-
-        // Initialize controller
-        function init() {
             vm.bulkActions = [{
                     label: 'Remove from System',
                     icon: 'fa-trash-o'
@@ -84,7 +80,6 @@
                     icon: 'fa-list'
                 }
             ];
-
             var data = [{
                     id: 1,
                     name: '360'
@@ -104,31 +99,28 @@
             ];
             vm.filterDays = data;
             vm.selectedDay = data[0];
+
+            getOwnSites();
             drawCharts();
         }
 
         // Get user's own site names.
         function getOwnSites() {
-            var data = [{
-                    id: 1,
-                    name: 'www.umm.com'
-                },
-                {
-                    id: 2,
-                    name: 'www.uee.com'
-                }
-            ];
-            vm.sites = data;
-            vm.site.selected = data[0].name;
+            keywordsService
+                .getSites()
+                .then(function (response) {
+                    vm.sites = response.data;
+                    vm.selectedSite = vm.sites[0];
+                    getKeywords(vm.selectedSite.id);
+                });
         }
 
-        function getKeywords() {
-            //TODO: Replace by real side it from vm.site.selected.id
-            var demoSiteID = 'sdfsdfsdfsdffsdf';
+        function getKeywords(siteId) {
             keywordsService
-                .getKeywords(demoSiteID)
+                .getKeywords(siteId)
                 .then(function (response) {
                     vm.rowCollection = convertTableDataFilter(response.data);
+                    vm.rowCollection[vm.savedExpandedRowId - 1].expanded = true;
 
                     // Set value for number of row by page in dropdown.
                     vm.itemsByPage =  [
@@ -144,11 +136,9 @@
 
         function drawCharts() {
 
-            var chartHeight = 300;
-
             var chartOptions = {
                 chart: {
-                    height: chartHeight
+                    height: 300
                 },
                 title: {
                     text: ''
@@ -238,6 +228,13 @@
             }
         });
 
+        // Get the keywords when the selected site is changed.
+        $scope.$watch(function() {
+            return vm.selectedSite;
+        }, function() {
+            getKeywords(vm.selectedSite.id);
+        });
+
         // Save keyword to clipbaord
         function copyToClipboard(text, el) {
             var copyTest = document.queryCommandSupported('copy');
@@ -266,11 +263,27 @@
             }
         }
 
-        // Active monitored keyword when promoted keyowrd is activated.
-        function onActiveMonitoredKeyword(row) {
+        // Active/Deactive promoted keyword.
+        function onActivePromotedKeyword(row) {
+
+            var keywordID = row.id;
+
             if (row.category.promoted === true) {
-                // To Do : This value has to be changed with backend api callback.
-                row.category.monitored = true;
+                keywordsService
+                    .activePromotedKeyword(keywordID)
+                    .then(function (response) {
+                        if (response.data.response === true) {
+                            getKeywords(vm.selectedSite.id);
+                        }
+                    });
+            } else {
+                keywordsService
+                    .deactivePromotedKeyword(keywordID)
+                    .then(function (response) {
+                        if (response.data.response === true) {
+                            getKeywords(vm.selectedSite.id);
+                        }
+                    });
             }
         }
 
@@ -278,13 +291,17 @@
 
         // Expand Keyword Detail Page
         function expandKeywordDetail(row) {
+            _.each(vm.rowCollection, function(value, key) {
+                vm.rowCollection[key].expanded = false;
+            });
+            row.expanded = true;
+            vm.savedExpandedRowId = row.id;
             getKeywordDetail(row);
         }
 
         // Get selected keyword's detail information.
         function getKeywordDetail(row) {
-            //TODO: Replace by real side it from row.id
-            var keywordID = '1111111';
+            var keywordID = row.id;
             keywordsService
                 .getKeywordDetail(keywordID)
                 .then(function (response) {

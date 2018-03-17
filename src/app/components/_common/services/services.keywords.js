@@ -9,6 +9,10 @@
 
     function keywordsService(REST) {
 
+        var getSites = function (userID) {
+            return REST.getSites();
+        };
+
         var getKeywords = function (siteID) {
             return REST.getKeywords({
                 siteId: siteID
@@ -19,11 +23,26 @@
             return REST.getKeywordDetail({
                 keywordId: keywordId
             });
-        }
+        };
+
+        var activePromotedKeyword = function (keywordId) {
+            return REST.activePromotedKeyword({
+                keywordId: keywordId
+            });
+        };
+
+        var deactivePromotedKeyword = function (keywordId) {
+            return REST.deactivePromotedKeyword({
+                keywordId: keywordId
+            });
+        };
 
         return {
+            getSites: getSites,
             getKeywords: getKeywords,
-            getKeywordDetail: getKeywordDetail
+            getKeywordDetail: getKeywordDetail,
+            activePromotedKeyword: activePromotedKeyword,
+            deactivePromotedKeyword: deactivePromotedKeyword
         };
     }
 

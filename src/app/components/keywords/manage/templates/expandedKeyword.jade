@@ -12,7 +12,7 @@
                                 .mda-list-item
                                     span.pull-left(uib-tooltip='Promot: Auto Optimise') Promot: Auto Optimise
                                     span.pull-right
-                                        md-switch.pull-left(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActiveMonitoredKeyword(row)')
+                                        md-switch.pull-left(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)')
                                         span.pull-left(ng-if='row.category.promoted') ON
                                         span.pull-left(ng-if='!row.category.promoted') OFF
                                 .mda-list-item
