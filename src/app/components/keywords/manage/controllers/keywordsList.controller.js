@@ -120,7 +120,10 @@
                 .getKeywords(siteId)
                 .then(function (response) {
                     vm.rowCollection = convertTableDataFilter(response.data);
-                    vm.rowCollection[vm.savedExpandedRowId - 1].expanded = true;
+
+                    if(vm.savedExpandedRowId != null) {
+                        vm.rowCollection[vm.savedExpandedRowId - 1].expanded = true;
+                    }
 
                     // Set value for number of row by page in dropdown.
                     vm.itemsByPage =  [
@@ -130,6 +133,7 @@
                         { label: '20', value: '20' },
                         { label: 'All', value: vm.rowCollection.length.toString()}
                     ];
+
                     vm.numberOfRows = vm.itemsByPage[1].value;
                 });
         }

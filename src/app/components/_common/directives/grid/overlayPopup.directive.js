@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('components.keywords')
+        .module('components.directives')
         .directive('overlayPopup', overlayPopup);
 
     overlayPopup.$inject = ['$window', '$timeout'];
@@ -10,7 +10,7 @@
     function overlayPopup($window, $timeout) {
         var directive = {
             restrict: 'EA',
-            templateUrl: '/app/components/keywords/manage/templates/overlayPopup.html',
+            templateUrl: '/app/components/_common/directives/grid/overlayPopup.html',
             scope: {
                 width: '@',
                 active: '='

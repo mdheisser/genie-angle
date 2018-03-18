@@ -2,6 +2,7 @@
     angular
         .module("components.common", ['validation.rule',
             'components.services',
-            'components.directives'
+            'components.directives',
+            'components.filters'
         ]);
 })(angular);
