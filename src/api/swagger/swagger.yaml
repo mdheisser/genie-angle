@@ -95,6 +95,60 @@ paths:
           description: Promoted status.
           schema:
             $ref: '#/definitions/jsonObject'
+  /keyword/active-forced:
+    get:
+      description: Returns true if selected keyword is forced, else return false
+      operationId: activeForcedKeyword
+      summary: Forced Keyword
+      produces:
+        - application/json
+      parameters:
+        - name: data
+          in: query
+          description: min and max value of needed keyword
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Forced status.
+          schema:
+            $ref: '#/definitions/jsonObject'
+  /keyword/active-monitored:
+    get:
+      description: Returns true if selected keyword is monitored, else return false
+      operationId: activeMonitoredKeyword
+      summary: Monitored Keyword
+      produces:
+        - application/json
+      parameters:
+        - name: keywordId
+          in: query
+          description: keyword Id of needed keyword
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Monitored status.
+          schema:
+            $ref: '#/definitions/jsonObject'
+  /keyword/deactive-monitored:
+    get:
+      description: Returns true if selected keyword is not monitored, else return false
+      operationId: deactiveMonitoredKeyword
+      summary: Deactive Monitored Keyword
+      produces:
+        - application/json
+      parameters:
+        - name: keywordId
+          in: query
+          description: keyword Id of needed keyword
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Monitored status.
+          schema:
+            $ref: '#/definitions/jsonObject'
   /pages:
     get:
       description: Returns pages from the system that the user has access to

@@ -1,96 +1,104 @@
-.expanded-keyword.container-fluid.p-sm
+.expanded-keyword.container-fluid
     .row
-        .col-md-6.p-sm
-            #keywordSetting.panel.mb-sm
+        .col-lg-7
+            #keywordSetting.panel
                 .panel-heading.sub-heading
                     .panel-title Settings for Keyword: "{{ row.keyword }}"
                     paneltool(tool-collapse, ng-init="keywordSetting=false")
                 .panel-wrapper(uib-collapse="keywordSetting")
                     .panel-body.row
-                        .col-lg-7.col-xs-8.p0
+                        .col-lg-7.col-xs-8.p-sm
                             .mda-list.p0
                                 .mda-list-item
-                                    span.pull-left(uib-tooltip='Promot: Auto Optimise') Promot: Auto Optimise
-                                    span.pull-right
+                                    span.pull-left Promot: Auto Optimise
+                                        em.icon-question(uib-tooltip='Promot: Auto Optimise')
+                                    span.pull-right.setting-icon
                                         md-switch.pull-left(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)')
                                         span.pull-left(ng-if='row.category.promoted') ON
                                         span.pull-left(ng-if='!row.category.promoted') OFF
                                 .mda-list-item
-                                    span.pull-left(uib-tooltip='Monitor: SERP Ranking') Monitor: SERP Ranking
-                                    span.pull-right
+                                    span.pull-left Monitor: SERP Ranking
+                                        em.icon-question(uib-tooltip='Monitor: SERP Ranking')
+                                    span.pull-right.setting-icon(ng-click='listc.onActiveMonitoredKeyword(row)')
                                         em.fa.fa-line-chart(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}')
                                         span(ng-if='row.category.monitored') ON
                                         span(ng-if='!row.category.monitored') OFF
                                 .mda-list-item
-                                    span.pull-left(uib-tooltip='Default Keyword') Default Keyword
-                                    span.pull-right
+                                    span.pull-left Default Keyword
+                                        em.icon-question(uib-tooltip='Default Keyword')
+                                    span.pull-right.setting-icon
                                         em.fa.fa-anchor(ng-class='{true:"text-info", false:"text-grey"}[row.category.default]', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
                                         span(ng-if='row.category.default') ON
                                         span(ng-if='!row.category.default') OFF
                                 .mda-list-item
-                                    span.pull-left(uib-tooltip='Force Keyword Promotion') Force Keyword Promotion
-                                    span.pull-right
+                                    span.pull-left Force Keyword Promotion
+                                        em.icon-question(uib-tooltip='Force Keyword Promotion')
+                                    span.pull-right.setting-icon(ng-click='listc.showMaxAssignmentPane=!listc.showMaxAssignmentPane')
                                         em.fa.fa-bookmark-o(ng-class='{true:"text-info", false:"text-grey"}[row.category.forced]', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score')
-                                        span(ng-if='row.category.forced') ON
+                                        span(ng-if='row.category.forced') {{row.forced_min}}/{{row.forced_max}}
                                         span(ng-if='!row.category.forced') OFF
+                                .mda-list-item(ng-if='listc.showMaxAssignmentPane')
+                                    .max-assign-setting
+                                        input.pull-right.m0.p0.form-control(type='number', min='0', max='9999', ng-model='row.forced_max', ng-change='listc.activeDetailForcedPromotion(row)')
+                                        span.pull-right.mr-sm.ml-sm Max
+                                        input.pull-right.m0.p0.form-control(type='number', min='0', max='9999', ng-model='row.forced_min', ng-change='listc.activeDetailForcedPromotion(row)')
+                                        span.pull-right.mr-sm Pages:&nbsp;Min
                                 .mda-list-item
-                                    span.pull-left(uib-tooltip='Maximum assignment') Maximum assignment
-                                    span.pull-right
-                                        em.fa.fa-toggle-on(uib-tooltip='Maximum assignment')
-                                .mda-list-item
-                                    span.pull-left(uib-tooltip='Refresh, Process Keyword') Refresh, Process Keyword
-                                    span.pull-right
+                                    span.pull-left Refresh, Process Keyword
+                                        em.icon-question(uib-tooltip='Refresh, Process Keyword')
+                                    span.pull-right.setting-icon
                                         em.fa.fa-refresh(uib-tooltip='Refresh, Process Keyword')
                                 .mda-list-item
-                                    span.pull-left(uib-tooltip='Search Keyword') Search Keyword
-                                    span.pull-right
+                                    span.pull-left Search Keyword
+                                        em.icon-question(uib-tooltip='Search Keyword')
+                                    span.pull-right.setting-icon
                                         em.fa.fa-search(ng-click='listc.onSearchWithKeyword(row.keyword)', uib-tooltip='Search Keyword')
                                 .mda-list-item
-                                    span.pull-left(uib-tooltip='Copy to Clipboard') Copy to Clipboard
-                                    span.pull-right
+                                    span.pull-left Copy to Clipboard
+                                        em.icon-question(uib-tooltip='Copy to Clipboard')
+                                    span.pull-right.setting-icon
                                         em.fa.fa-copy(ng-click='listc.copyToClipboard(row.keyword, $event)', uib-tooltip='{{listc.textCopyState}}')
                                 .mda-list-item
-                                    span.pull-left(uib-tooltip='Remove Keyword') Remove Keyword
-                                    span.pull-right
-                                        em.fa.fa-trash-o(uib-tooltip='Remove Keyword')
-                        .col-lg-5.col-xs-4.pr0
-                            select(selectpicker='', title='Keyword Category', multiple, data-selected-text-format='values')
-                                option Product
-                                option Service
-                                option Solution
-                                option Person
+                                    span.pull-left Remove Keyword
+                                        em.icon-question(uib-tooltip='Remove Keyword')
+                                    span.pull-right.setting-icon
+                                        em.fa.fa-trash-o(uib-tooltip='Remove Keyword', ng-click='listc.removeKeyword(row, $event)')
+                        .col-lg-5.col-xs-4.p-sm
+                            ui-select(multiple='', ng-model='listc.selectedKeywordCategory', theme='bootstrap')
+                                ui-select-match(placeholder='Keyword Category') {{$item}}
+                                ui-select-choices(repeat='category in listc.keywordCategories | filter:$select.search') {{category}}
                             .mda-input-group.mt
                                 input.mda-form-control(type='text', placeholder='Search Keyword on Website')
                                 span.mda-input-group-addon
                                     em.fa.fa-search
-        .col-md-6.p-sm
-            #keywordPerformance.panel.mb-sm
+        .col-lg-5
+            #keywordPerformance.panel
                 .panel-heading.sub-heading
                     .panel-title SEO Performance for Keyword: "{{ row.keyword }}"
                     paneltool(tool-collapse, ng-init="keywordPerformance=false")
                 .panel-wrapper(uib-collapse="keywordPerformance")
                     .panel-body
                         .row
-                            .col-xs-7.p0
-                                uib-progressbar.progress-striped(type='success', value='82')
+                            .col-xs-7.p-sm
+                                uib-progressbar.progress-striped(type='success', value='82', uib-tooltip='Keyword Suitability index ranks a specific Keyword/Keyphrase across all your website pages, checking its compatibility to SEO related factors of each page. A high Suitability rank means that this particular Keyword/Keyphrase has a high probability of being ranked high in relation to at least one web page. The displayed ranking is based on the last analysis report.', tooltip-placement='bottom')
                                     span.text-black Best Page SEO Suitability 82%
-                            .col-xs-5.p0
-                                em.icon-question.pull-left.mt-sm
-                                a.pull-right Recomended Action!
+                            .col-xs-5.p-sm
+                                a.pull-left.ml-sm
+                                    small Recomended Action!
                         .row.mt
-                            .col-xs-7.p0
-                                uib-progressbar.progress-striped(type='success', value='72')
+                            .col-xs-7.p-sm
+                                uib-progressbar.progress-striped(type='success', value='72', uib-tooltip='Keyword Significance index ranks a specific Keyword/Keyphrase across all your website pages, checking its relation to the webpage content/text. A high Significance rank means that this particular Keyword/Keyphrase is highly related to the topic, subject that the webpage text is discussing. The displayed ranking is based on the last analysis report.', tooltip-placement='bottom')
                                     span.text-black Best Page CONTENT Significance 72%
-                            .col-xs-5.p0
-                                em.icon-question.pull-left.mt-sm
-                                a.pull-right Recomended Action!
+                            .col-xs-5.p-sm
+                                a.pull-left.ml-sm
+                                    small Recomended Action!
                         .row.mt
-                            .col-xs-7.p0
-                                uib-progressbar.progress-striped(type='success', value='50')
+                            .col-xs-7.p-sm
+                                uib-progressbar.progress-striped(type='success', value='50', uib-tooltip='Best page SERP ranking for the spesific Keyword', tooltip-placement='bottom')
                                     span.text-black Best Rank Position {{row.g}}, Page {{row.activepages}}
-                            .col-xs-5.p0
-                                em.icon-question.pull-left.mt-sm
-                                a.pull-right Recomended Action!
+                            .col-xs-5.p-sm
+                                a.pull-left.ml-sm
+                                    small Recomended Action!
     #keywordRankingChart.panel.mb
         .panel-heading.sub-heading
             .panel-title SERP Keyword Ranking "{{ row.keyword }}"
@@ -102,7 +110,7 @@
                     label.report-date.pull-left Report Date: {{ listc.reportDate }}
                     label.pull-right.dropup
                         select(selectpicker='', ng-model='listc.selectedDay', ng-options='(day.name + " Days") for day in listc.filterDays')
-    #keywordAssignedPages.panel.mb-sm
+    #keywordAssignedPages.panel
         .panel-heading.sub-heading
             .panel-title Pages Assigned to Keyword: "{{ row.keyword }}"
             paneltool(tool-collapse, ng-init="keywordAssignedPages=false")

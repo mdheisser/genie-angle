@@ -47,18 +47,17 @@
                                 overlay-popup#bulkActionsPopup(active='listc.showBulkAction', width='215')
                                     div(ng-include="'app/components/keywords/manage/templates/bulkActions.html'")
                     tbody
-                        tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection")
+                        tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]')
                             td.text-center {{ ((listc.currentPage-1) * listc.numberOfRows) + $index + 1 }}
                             td.keyword-col
                                 .left.keyword-label
                                     span.m0(data-toggle='tooltip', title='{{row.keyword}}', ng-click='listc.copyToClipboard(row.keyword, $event)', uib-tooltip='{{listc.textCopyState}}') {{ row.keyword }}
-                                    em.icon-arrow-down(ng-if='!row.expanded', uib-tooltip='Expand Keyword Screen', ng-click='listc.expandKeywordDetail(row)')
-                                    em.icon-arrow-up(ng-if='row.expanded', uib-tooltip='Collapse Keyword Screen', ng-click='row.expanded=false')
+                                    i.fa.fa-caret-down.ml-sm(ng-if='!row.expanded', uib-tooltip='Expand Keyword Screen', ng-click='listc.expandKeywordDetail(row)')
+                                    i.fa.fa-caret-up.ml-sm(ng-if='row.expanded', uib-tooltip='Collapse Keyword Screen', ng-click='row.expanded=false')
                                 .right.keyword-control
                                     em.fa.fa-line-chart.right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}')
                                     label.m0.right
                                         md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)')
-                                    em.fa.fa-cog.right.text-grey(uib-tooltip='Keyword Parameters and Settings')
                             td.text-center.text-warning
                                 i.fa.fa-angle-double-down(uib-tooltip='Google.com. SERP Ranking: Page {{row.activepages}}, Position {{row.g}}')
                                     span.font-roboto.ml-sm {{ row.g }}
@@ -70,7 +69,8 @@
                             td.progress-col.pl-sm
                                 .pull-left.text-center.pr-sm
                                     span(uib-tooltip='Keyword Assigned to {{row.activepages}} Pages') {{ row.activepages }}
-                                    em.fa.fa-caret-down
+                                    em.fa.fa-caret-down(ng-if='!row.expanded', uib-tooltip='Expand Keyword Screen', ng-click='listc.expandKeywordDetail(row)')
+                                    em.fa.fa-caret-up(ng-if='row.expanded', uib-tooltip='Collapse Keyword Screen', ng-click='row.expanded=false')
                                 .color-bar.pull-left
                                     .flex(uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}", ng-class='row.g | rankingFilter')
                                     .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.significance]', uib-tooltip="Significance: 34%")

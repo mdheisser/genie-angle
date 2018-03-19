@@ -26,6 +26,7 @@
         vm.minForcedPromotion = 1;
         vm.maxForcedPromotion = 1;
         vm.onActivePromotedKeyword = onActivePromotedKeyword;
+        vm.onActiveMonitoredKeyword = onActiveMonitoredKeyword;
         vm.popupOpen = {};
         vm.performAction = performAction;
         vm.rowCollection = [];
@@ -34,16 +35,20 @@
         vm.sites = [];
         vm.textCopyState = 'Copy Keyword';
 
+        vm.activeDetailForcedPromotion = activeDetailForcedPromotion;
         vm.detailCurrentPage = 1;
         vm.detailFilterOn = false;
         vm.detailAllRowsMarked = false;
         vm.expandKeywordDetail = expandKeywordDetail;
         vm.filterDays = [];
         vm.keywordDetailCollection = [];
+        vm.keywordCategories = [];
         vm.onSelectKeywordDetail = onSelectKeywordDetail;
         vm.onSearchWithKeyword = onSearchWithKeyword;
         vm.reportDate = '1. 22.2018';
+        vm.removeKeyword = removeKeyword;
         vm.savedExpandedRowId = null;
+        vm.selectedKeywordCategory = null;
 
         activate();
 
@@ -99,6 +104,8 @@
             ];
             vm.filterDays = data;
             vm.selectedDay = data[0];
+
+            vm.keywordCategories = ['Product', 'Service', 'Solution', 'Person'];
 
             getOwnSites();
             drawCharts();
@@ -277,7 +284,7 @@
                     .activePromotedKeyword(keywordID)
                     .then(function (response) {
                         if (response.data.response === true) {
-                            getKeywords(vm.selectedSite.id);
+                            row.category.monitored = true;
                         }
                     });
             } else {
@@ -285,9 +292,35 @@
                     .deactivePromotedKeyword(keywordID)
                     .then(function (response) {
                         if (response.data.response === true) {
-                            getKeywords(vm.selectedSite.id);
+                            // getKeywords(vm.selectedSite.id);
                         }
                     });
+            }
+        }
+
+        // Active/Deactive promoted keyword.
+        function onActiveMonitoredKeyword(row) {
+
+            var keywordID = row.id;
+
+            if (row.category.promoted === false) {
+                if (row.category.monitored === true) {
+                    keywordsService
+                        .activeMonitoredKeyword(keywordID)
+                        .then(function (response) {
+                            if (response.data.response === true) {
+                                row.category.monitored = false;
+                            }
+                        });
+                } else {
+                    keywordsService
+                        .deactiveMonitoredKeyword(keywordID)
+                        .then(function (response) {
+                            if (response.data.response === true) {
+                                row.category.monitored = true;
+                            }
+                        });
+                }
             }
         }
 
@@ -402,6 +435,37 @@
                 }
             }
         });
+
+        // Remove selected keyword from system
+        function removeKeyword(row, ev) {
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure you want to remove this Keyword from the system?')
+                .content('')
+                .cancel('NO')
+                .ok('YES')
+                .targetEvent(ev);
+
+            $mdDialog.show(confirm).then(function() {
+                console.log('yes');
+            }, function() {
+                console.log('no');
+            });
+        }
+
+        // Active forced keyword with min, max value
+        function activeDetailForcedPromotion(row) {
+            var data = {
+                min: row.forced_min,
+                max: row.forced_max
+            };
+            keywordsService
+                .activeForcedKeyword(JSON.stringify(data))
+                .then(function (response) {
+                    if (response.data.response === true) {
+                        row.category.forced = true;
+                    }
+                });
+        }
     }
 
 })(angular);

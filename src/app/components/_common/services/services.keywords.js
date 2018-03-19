@@ -37,12 +37,33 @@
             });
         };
 
+        var activeForcedKeyword = function (data) {
+            return REST.activeForcedKeyword({
+                data: data
+            });
+        };
+
+        var activeMonitoredKeyword = function (keywordId) {
+            return REST.activeMonitoredKeyword({
+                keywordId: keywordId
+            });
+        };
+
+        var deactiveMonitoredKeyword = function (keywordId) {
+            return REST.deactiveMonitoredKeyword({
+                keywordId: keywordId
+            });
+        };
+
         return {
             getSites: getSites,
             getKeywords: getKeywords,
             getKeywordDetail: getKeywordDetail,
             activePromotedKeyword: activePromotedKeyword,
-            deactivePromotedKeyword: deactivePromotedKeyword
+            deactivePromotedKeyword: deactivePromotedKeyword,
+            activeForcedKeyword: activeForcedKeyword,
+            activeMonitoredKeyword: activeMonitoredKeyword,
+            deactiveMonitoredKeyword: deactiveMonitoredKeyword
         };
     }
 
