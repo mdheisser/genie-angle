@@ -1,7 +1,25 @@
 .expanded-keyword {
     border-left: 10px solid #BBDEFB;
+    font-size: 13px;
     .panel-heading {
-        padding: 3px 10px;
+        padding: 3px;
+        .panel-title {
+            font-size: 14px;
+        }
+        paneltool {
+            margin-top: -20px;
+        }
+    }
+    .row-eq-height {
+        @media only screen and (min-width: @md-width) {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display:         flex;
+            .panel {
+                height: 90%;
+            }
+        }
     }
     #keywordSetting {
         .bootstrap-select .dropdown-menu {

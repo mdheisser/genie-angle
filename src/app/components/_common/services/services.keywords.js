@@ -25,6 +25,30 @@
             });
         };
 
+        var activeDefaultKeyword = function (keywordId) {
+            return REST.activeDefaultKeyword({
+                keywordId: keywordId
+            });
+        };
+
+        var deactiveDefaultKeyword = function (keywordId) {
+            return REST.deactiveDefaultKeyword({
+                keywordId: keywordId
+            });
+        };
+
+        var activeForcedKeyword = function (keywordId) {
+            return REST.activeForcedKeyword({
+                keywordId: keywordId
+            });
+        };
+
+        var deactiveForcedKeyword = function (keywordId) {
+            return REST.deactiveForcedKeyword({
+                keywordId: keywordId
+            });
+        };
+
         var activePromotedKeyword = function (keywordId) {
             return REST.activePromotedKeyword({
                 keywordId: keywordId
@@ -34,12 +58,6 @@
         var deactivePromotedKeyword = function (keywordId) {
             return REST.deactivePromotedKeyword({
                 keywordId: keywordId
-            });
-        };
-
-        var activeForcedKeyword = function (data) {
-            return REST.activeForcedKeyword({
-                data: data
             });
         };
 
@@ -59,9 +77,12 @@
             getSites: getSites,
             getKeywords: getKeywords,
             getKeywordDetail: getKeywordDetail,
+            activeDefaultKeyword: activeDefaultKeyword,
+            deactiveDefaultKeyword: deactiveDefaultKeyword,
+            activeForcedKeyword: activeForcedKeyword,
+            deactiveForcedKeyword: deactiveForcedKeyword,
             activePromotedKeyword: activePromotedKeyword,
             deactivePromotedKeyword: deactivePromotedKeyword,
-            activeForcedKeyword: activeForcedKeyword,
             activeMonitoredKeyword: activeMonitoredKeyword,
             deactiveMonitoredKeyword: deactiveMonitoredKeyword
         };

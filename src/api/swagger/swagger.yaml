@@ -59,6 +59,78 @@ paths:
             type: array
             items:
               $ref: '#/definitions/keyword-detail'
+  /keyword/active-default:
+    get:
+      description: Returns true if selected keyword is default, else return false
+      operationId: activeDefaultKeyword
+      summary: Default Keyword
+      produces:
+        - application/json
+      parameters:
+        - name: keywordId
+          in: query
+          description: keyword Id of needed keyword
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Default status.
+          schema:
+            $ref: '#/definitions/jsonObject'
+  /keyword/deactive-default:
+    get:
+      description: Returns true if selected keyword is not default, else return false
+      operationId: deactiveDefaultKeyword
+      summary: Deactive Default Keyword
+      produces:
+        - application/json
+      parameters:
+        - name: keywordId
+          in: query
+          description: keyword Id of needed keyword
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Default status.
+          schema:
+            $ref: '#/definitions/jsonObject'
+  /keyword/active-forced:
+    get:
+      description: Returns true if selected keyword is forced, else return false
+      operationId: activeForcedKeyword
+      summary: Forced Keyword
+      produces:
+        - application/json
+      parameters:
+        - name: keywordId
+          in: query
+          description: keyword Id of needed keyword
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Forced status.
+          schema:
+            $ref: '#/definitions/jsonObject'
+  /keyword/deactive-forced:
+    get:
+      description: Returns true if selected keyword is not forced, else return false
+      operationId: deactiveForcedKeyword
+      summary: Deactive Forced Keyword
+      produces:
+        - application/json
+      parameters:
+        - name: keywordId
+          in: query
+          description: keyword Id of needed keyword
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Forced status.
+          schema:
+            $ref: '#/definitions/jsonObject'
   /keyword/active-promoted:
     get:
       description: Returns true if selected keyword is promoted, else return false
@@ -93,24 +165,6 @@ paths:
       responses:
         '200':
           description: Promoted status.
-          schema:
-            $ref: '#/definitions/jsonObject'
-  /keyword/active-forced:
-    get:
-      description: Returns true if selected keyword is forced, else return false
-      operationId: activeForcedKeyword
-      summary: Forced Keyword
-      produces:
-        - application/json
-      parameters:
-        - name: data
-          in: query
-          description: min and max value of needed keyword
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Forced status.
           schema:
             $ref: '#/definitions/jsonObject'
   /keyword/active-monitored:

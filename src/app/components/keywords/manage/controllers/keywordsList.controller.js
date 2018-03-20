@@ -7,12 +7,12 @@
 
     keywordsListController.$inject = [
         '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window',
-        '$location', 'keywordsService', 'websitesService', 'Notify', 'filterFilter', 'convertTableDataFilter'
+        '$location', 'keywordsService', 'websitesService', 'Notify', 'filterFilter', 'convertTableDataFilter', 'convertPageDataFilter'
     ];
 
     function keywordsListController(
         $scope, $timeout, $resource, $q, $mdDialog, $window,
-        $location, keywordsService, websitesService, Notify, filterFilter, convertTableDataFilter) {
+        $location, keywordsService, websitesService, Notify, filterFilter, convertTableDataFilter, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -25,6 +25,8 @@
         vm.keywords = [];
         vm.minForcedPromotion = 1;
         vm.maxForcedPromotion = 1;
+        vm.onActiveDefaultKeyword = onActiveDefaultKeyword;
+        vm.onActiveForcedKeyword = onActiveForcedKeyword;
         vm.onActivePromotedKeyword = onActivePromotedKeyword;
         vm.onActiveMonitoredKeyword = onActiveMonitoredKeyword;
         vm.openKeywordActionPane = openKeywordActionPane;
@@ -36,7 +38,6 @@
         vm.sites = [];
         vm.textCopyState = 'Copy Keyword';
 
-        vm.activeDetailForcedPromotion = activeDetailForcedPromotion;
         vm.detailCurrentPage = 1;
         vm.detailFilterOn = false;
         vm.detailAllRowsMarked = false;
@@ -48,6 +49,7 @@
         vm.languages = [];
         vm.onSelectKeywordDetail = onSelectKeywordDetail;
         vm.onSearchWithKeyword = onSearchWithKeyword;
+        vm.openPageActionPane = openPageActionPane;
         vm.reportDate = '1. 22.2018';
         vm.removeKeyword = removeKeyword;
         vm.savedExpandedRowId = null;
@@ -89,6 +91,10 @@
                 }
             ];
             var data = [{
+                    id: 0,
+                    name: 'ALL'
+                },
+                {
                     id: 1,
                     name: '360'
                 },
@@ -106,7 +112,7 @@
                 }
             ];
             vm.filterDays = data;
-            vm.selectedDay = data[0];
+            vm.selectedDay = data[1];
 
             vm.keywordCategories = [
                 { name: 'CreativeWork', group: 'Creative works' },
@@ -311,6 +317,56 @@
             el.stopPropagation();
         }
 
+        // Active/Deactive default keyword.
+        function onActiveDefaultKeyword(row) {
+
+            var keywordID = row.id;
+
+            if (row.category.default === true) {
+                keywordsService
+                    .activeDefaultKeyword(keywordID)
+                    .then(function (response) {
+                        if (response.data.response === true) {
+                            row.category.default = false;
+                        }
+                    });
+            } else {
+                keywordsService
+                    .deactiveDefaultKeyword(keywordID)
+                    .then(function (response) {
+                        if (response.data.response === true) {
+                            row.category.default = true;
+                        }
+                    });
+            }
+        }
+
+        // Active/Deactive default keyword.
+        function onActiveForcedKeyword(row) {
+
+            var keywordID = row.id;
+
+            if (row.category.forced === true) {
+                keywordsService
+                    .activeForcedKeyword(keywordID)
+                    .then(function (response) {
+                        if (response.data.response === true) {
+                            row.category.forced = false;
+                            row.forced_min = 1;
+                            row.forced_max = 1;
+                        }
+                    });
+            } else {
+                keywordsService
+                    .deactiveForcedKeyword(keywordID)
+                    .then(function (response) {
+                        if (response.data.response === true) {
+                            row.category.forced = true;
+                        }
+                    });
+            }
+        }
+
         // Active/Deactive promoted keyword.
         function onActivePromotedKeyword(row) {
 
@@ -393,7 +449,7 @@
             keywordsService
                 .getKeywordDetail(keywordID)
                 .then(function (response) {
-                    vm.keywordDetailCollection = response.data;
+                    vm.keywordDetailCollection = convertPageDataFilter(response.data);
                     // Set value for number of row by page in dropdown.
                     vm.detailItemsByPage =  [
                         { label: '5', value: '5' },
@@ -474,6 +530,18 @@
             event.stopPropagation();
         }
 
+        // Open action pane for page url
+        function openPageActionPane(detail, event) {
+            _.each(vm.keywordDetailCollection, function(value, key) {
+                if (detail != value) {
+                    vm.keywordDetailCollection[key].showActions = false;
+                }
+            });
+            detail.showActions = !detail.showActions;
+
+            event.stopPropagation();
+        }
+
         // Reset Detail Expansion Fitler.
         $scope.$watch(function() {
             return vm.detailFilterOn;
@@ -515,21 +583,6 @@
             });
 
             ev.stopPropagation();
-        }
-
-        // Active forced keyword with min, max value
-        function activeDetailForcedPromotion(row) {
-            var data = {
-                min: row.forced_min,
-                max: row.forced_max
-            };
-            keywordsService
-                .activeForcedKeyword(JSON.stringify(data))
-                .then(function (response) {
-                    if (response.data.response === true) {
-                        row.category.forced = true;
-                    }
-                });
         }
     }
 
