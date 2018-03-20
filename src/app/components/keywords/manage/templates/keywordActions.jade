@@ -1,5 +1,5 @@
 .bulk-actions.mda-list.p0.shadow-z3.bg-white
-    .mda-list-item(ng-click='listc.copyToClipboard(row.keyword, $event)')
+    .mda-list-item(ng-click='listc.copyToClipboard(row, $event)')
         i.fa.fa-copy
         span.ml-sm Copy to Clipboard
     .mda-list-item(ng-click='listc.onSearchWithKeyword(row.keyword, $event)')
@@ -11,6 +11,6 @@
     .mda-list-item(ng-click='listc.removeKeyword(row, $event)')
         i.fa.fa-trash-o
         span.ml-sm Remove from System
-    .mda-list-item(ng-click='$event.stopPropagation()')
+    .mda-list-item(ng-click='listc.refreshKeyword(row, $event)')
         i.fa.fa-refresh
         span.ml-sm Refresh, Process

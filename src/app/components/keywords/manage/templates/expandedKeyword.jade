@@ -1,13 +1,13 @@
 .expanded-keyword.container-fluid
     .row.row-eq-height
-        .col-lg-4
+        .col-sm-6.col-lg-4
             #keywordSetting.panel
                 .panel-heading.sub-heading
                     .panel-title Settings for Keyword: "{{ row.keyword }}"
                     paneltool(tool-collapse, ng-init="keywordSetting=false")
                 .panel-wrapper(uib-collapse="keywordSetting")
                     .panel-body.p-sm
-                        .mda-list.p0
+                        .mda-list.p0.mb-lg
                             .mda-list-item
                                 span.pull-left Promot: Auto Optimise
                                     em.icon-question(uib-tooltip='Promot: Auto Optimise')
@@ -45,7 +45,7 @@
                                     span.pull-left.mr-sm.ml-sm
                                         small Max
                                     input.pull-left.m0.p0.form-control(type='number', min='0', max='9999', ng-model='row.forced_max')
-        .col-lg-4
+        .col-sm-6.col-lg-4
             #keywordCategories.panel
                 .panel-heading.sub-heading
                     .panel-title Categories for Keyword: "{{ row.keyword }}"
@@ -60,7 +60,7 @@
                             ui-select-match(placeholder='Keyword Language Categories') {{$item.name}}
                             ui-select-choices(repeat='language in listc.languages | filter: {name: $select.search}')
                                 div(ng-bind-html='language.name | highlight: $select.search')
-        .col-lg-4
+        .col-sm-12.col-lg-4
             #keywordPerformance.panel
                 .panel-heading.sub-heading
                     .panel-title SEO Performance for Keyword: "{{ row.keyword }}"

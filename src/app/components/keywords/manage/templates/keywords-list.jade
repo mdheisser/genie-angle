@@ -51,7 +51,7 @@
                             td.text-center {{ ((listc.currentPage-1) * listc.numberOfRows) + $index + 1 }}
                             td.keyword-col
                                 .left.keyword-label
-                                    span.pull-left.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.keyword }}
+                                    span.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.keyword }}
                                     i.fa.fa-caret-down.ml-sm(ng-click='listc.openKeywordActionPane(row, $event)')
                                     overlay-popup(active='row.showActions', width='185')
                                         div(ng-include="'app/components/keywords/manage/templates/keywordActions.html'")

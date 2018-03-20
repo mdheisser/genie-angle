@@ -32,6 +32,7 @@
         vm.openKeywordActionPane = openKeywordActionPane;
         vm.popupOpen = {};
         vm.performAction = performAction;
+        vm.refreshKeyword = refreshKeyword;
         vm.rowCollection = [];
         vm.site = {};
         vm.selectedSite = {};
@@ -245,6 +246,18 @@
             );
         }
 
+        // Refresh, process selected keyword
+        function refreshKeyword(row, event) {
+            row.showActions = false;
+            var msgHtml = 'Refresh the keyword' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+            Notify.alert(
+                msgHtml,
+                {status: 'success', pos: 'top-center'}
+            );
+
+            event.stopPropagation();
+        }
+
         // Reset Fitler.
         $scope.$watch(function() {
             return vm.filterOn;
@@ -288,7 +301,8 @@
         });
 
         // Save keyword to clipbaord
-        function copyToClipboard(text, el) {
+        function copyToClipboard(row, el) {
+            var text = row.keyword;
             var copyTest = document.queryCommandSupported('copy');
 
             if (copyTest === true) {
@@ -313,6 +327,15 @@
                 // Fallback if browser doesn't support .execCommand('copy')
                 window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
             }
+
+            row.showActions = false;
+
+            var msgHtml = 'Copied the keyword to clipboard!';
+
+            Notify.alert(
+                msgHtml,
+                {status: 'success', pos: 'top-center'}
+            );
 
             el.stopPropagation();
         }
@@ -577,7 +600,12 @@
                 .targetEvent(ev);
 
             $mdDialog.show(confirm).then(function() {
-                console.log('yes');
+                row.showActions = false;
+                var msgHtml = 'Removed the keyword from System' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+                Notify.alert(
+                    msgHtml,
+                    {status: 'success', pos: 'top-center'}
+                );
             }, function() {
                 console.log('no');
             });
