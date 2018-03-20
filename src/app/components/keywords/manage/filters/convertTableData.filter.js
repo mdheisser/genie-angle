@@ -27,6 +27,7 @@
 
                 item.selected = false;
                 item.expanded = false;
+                item.showActions = false;
 
                 output.push(item);
             });

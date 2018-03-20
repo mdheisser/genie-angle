@@ -7,12 +7,12 @@
 
     keywordsListController.$inject = [
         '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window',
-        '$location', 'keywordsService', 'Notify', 'filterFilter', 'convertTableDataFilter'
+        '$location', 'keywordsService', 'websitesService', 'Notify', 'filterFilter', 'convertTableDataFilter'
     ];
 
     function keywordsListController(
         $scope, $timeout, $resource, $q, $mdDialog, $window,
-        $location, keywordsService, Notify, filterFilter, convertTableDataFilter) {
+        $location, keywordsService, websitesService, Notify, filterFilter, convertTableDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -27,6 +27,7 @@
         vm.maxForcedPromotion = 1;
         vm.onActivePromotedKeyword = onActivePromotedKeyword;
         vm.onActiveMonitoredKeyword = onActiveMonitoredKeyword;
+        vm.openKeywordActionPane = openKeywordActionPane;
         vm.popupOpen = {};
         vm.performAction = performAction;
         vm.rowCollection = [];
@@ -43,6 +44,8 @@
         vm.filterDays = [];
         vm.keywordDetailCollection = [];
         vm.keywordCategories = [];
+        vm.keywordCategoryGroup = keywordCategoryGroup;
+        vm.languages = [];
         vm.onSelectKeywordDetail = onSelectKeywordDetail;
         vm.onSearchWithKeyword = onSearchWithKeyword;
         vm.reportDate = '1. 22.2018';
@@ -105,9 +108,31 @@
             vm.filterDays = data;
             vm.selectedDay = data[0];
 
-            vm.keywordCategories = ['Product', 'Service', 'Solution', 'Person'];
+            vm.keywordCategories = [
+                { name: 'CreativeWork', group: 'Creative works' },
+                { name: 'Book', group: 'Creative works' },
+                { name: 'Movie', group: 'Creative works' },
+                { name: 'MusicRecording', group: 'Creative works' },
+                { name: 'Recipe', group: 'Creative works' },
+                { name: 'TVSeries', group: 'Creative works' },
+                { name: 'AudioObject', group: 'Embedded non-text objects' },
+                { name: 'ImageObject', group: 'Embedded non-text objects' },
+                { name: 'VideoObject', group: 'Embedded non-text objects' },
+                { name: 'Event', group: '' },
+                { name: 'Organization', group: '' },
+                { name: 'Person', group: '' },
+                { name: 'Place', group: '' },
+                { name: 'LocalBusiness', group: '' },
+                { name: 'Restaurant', group: '' },
+                { name: 'Product', group: '' },
+                { name: 'Offer', group: '' },
+                { name: 'AggregateOffer', group: '' },
+                { name: 'Review', group: '' },
+                { name: 'AggregateRating', group: '' }
+            ];
 
             getOwnSites();
+            getLanguages();
             drawCharts();
         }
 
@@ -119,6 +144,7 @@
                     vm.sites = response.data;
                     vm.selectedSite = vm.sites[0];
                     getKeywords(vm.selectedSite.id);
+                    getLanguages(vm.selectedSite.id);
                 });
         }
 
@@ -142,6 +168,15 @@
                     ];
 
                     vm.numberOfRows = vm.itemsByPage[1].value;
+                });
+        }
+
+        // Gey available languages.
+        function getLanguages(siteId) {
+            websitesService
+                .getLanguages(siteId)
+                .then(function (response) {
+                    vm.languages = response.data;
                 });
         }
 
@@ -272,6 +307,8 @@
                 // Fallback if browser doesn't support .execCommand('copy')
                 window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
             }
+
+            el.stopPropagation();
         }
 
         // Active/Deactive promoted keyword.
@@ -324,14 +361,28 @@
             }
         }
 
+        // Open Actions Pane for a specific keyword
+        function openKeywordActionPane(row, event) {
+            _.each(vm.rowCollection, function(value, key) {
+                if (row != value) {
+                    vm.rowCollection[key].showActions = false;
+                }
+            });
+            row.showActions = !row.showActions;
+
+            event.stopPropagation();
+        }
+
         /////////////////////////  DETAIL EXPANSION  /////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Expand Keyword Detail Page
         function expandKeywordDetail(row) {
             _.each(vm.rowCollection, function(value, key) {
-                vm.rowCollection[key].expanded = false;
+                if (row != value) {
+                    vm.rowCollection[key].expanded = false;
+                }
             });
-            row.expanded = true;
+            row.expanded = !row.expanded;
             vm.savedExpandedRowId = row.id;
             getKeywordDetail(row);
         }
@@ -353,6 +404,18 @@
                     ];
                     vm.detailNumberOfRows = vm.detailItemsByPage[1].value;
                 });
+        }
+
+        // Group for keyword category
+        function keywordCategoryGroup(item) {
+            if (item.group === 'Creative works')
+                return 'Creative works';
+
+            if (item.group === 'Embedded non-text objects')
+                return 'Embedded non-text objects';
+
+            if (item.group === '')
+                return 'Other';
         }
 
         // Mark/Unmark all rows
@@ -450,6 +513,8 @@
             }, function() {
                 console.log('no');
             });
+
+            ev.stopPropagation();
         }
 
         // Active forced keyword with min, max value
