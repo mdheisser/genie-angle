@@ -33,6 +33,7 @@
         vm.popupOpen = {};
         vm.performAction = performAction;
         vm.refreshKeyword = refreshKeyword;
+        vm.resetFilter = resetFilter;
         vm.rowCollection = [];
         vm.site = {};
         vm.selectedSite = {};
@@ -42,6 +43,7 @@
         vm.detailCurrentPage = 1;
         vm.detailFilterOn = false;
         vm.detailAllRowsMarked = false;
+        vm.resetPageFilter = resetPageFilter;
         vm.expandKeywordDetail = expandKeywordDetail;
         vm.filterDays = [];
         vm.keywordDetailCollection = [];
@@ -55,6 +57,7 @@
         vm.removeKeyword = removeKeyword;
         vm.savedExpandedRowId = null;
         vm.selectedKeywordCategory = null;
+        vm.setManualPromotion = setManualPromotion;
 
         activate();
 
@@ -258,14 +261,12 @@
             event.stopPropagation();
         }
 
-        // Reset Fitler.
-        $scope.$watch(function() {
-            return vm.filterOn;
-        }, function(newValue, oldValue) {
-            if (newValue === false) {
+        // Reset Keyword Fitler.
+        function resetFilter() {
+            if (vm.filterOn === true) {
                 $scope.$broadcast('resetFilter');
             }
-        });
+        }
 
         // Mark/Unmark all rows
         $scope.$watch(function () {
@@ -415,7 +416,7 @@
         }
 
         // Active/Deactive promoted keyword.
-        function onActiveMonitoredKeyword(row) {
+        function onActiveMonitoredKeyword(row, event) {
 
             var keywordID = row.id;
 
@@ -438,6 +439,8 @@
                         });
                 }
             }
+
+            event.stopPropagation();
         }
 
         // Open Actions Pane for a specific keyword
@@ -522,7 +525,7 @@
                     .targetEvent(ev);
 
                 $mdDialog.show(confirm).then(function() {
-                    var msgHtml = 'UnAssign the keyword from System' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+                    var msgHtml = 'KeyWord UnAssigned from the Page' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
                     Notify.alert(
                         msgHtml,
                         {status: 'success', pos: 'bottom-center'}
@@ -540,7 +543,12 @@
                     .targetEvent(ev);
 
                 $mdDialog.show(confirm).then(function() {
-                    console.log('yes');
+                    var msgHtml = 'KeyWord Assigned to the Page' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+                    Notify.alert(
+                        msgHtml,
+                        {status: 'success', pos: 'bottom-center'}
+                    );
+                    detail.assignedState = true;
                 }, function() {
                     console.log('no');
                 });
@@ -548,7 +556,8 @@
         }
 
         // Search selected keyword on new tab.
-        function onSearchWithKeyword(keyword, event) {
+        function onSearchWithKeyword(row, event) {
+            var keyword = row.keyword;
             var url = '';
             if (('' + keyword).toLowerCase().indexOf('http') > -1) {
                 url = keyword;
@@ -556,6 +565,8 @@
                 url = 'http://google.com/search?q=' + keyword;
             }
             $window.open(url, '_blank');
+
+            row.showActions = false;
             event.stopPropagation();
         }
 
@@ -571,14 +582,12 @@
             event.stopPropagation();
         }
 
-        // Reset Detail Expansion Fitler.
-        $scope.$watch(function() {
-            return vm.detailFilterOn;
-        }, function(newValue, oldValue) {
-            if (newValue === false) {
-                $scope.$broadcast('resetFilter');
+        // Reset Page Fitler.
+        function resetPageFilter() {
+            if (vm.detailFilterOn === true) {
+                $scope.$broadcast('resetPageFilter');
             }
-        });
+        }
 
         // Set detail filter on/off switch status.
         $scope.$watch(function() {
@@ -617,6 +626,27 @@
             });
 
             ev.stopPropagation();
+        }
+
+        // Set the promotion for selected keyword manually
+        function setManualPromotion(detail, event) {
+            // var element = angular.element(event.target);
+            // var label = element.closest('label')
+            // var manual_promotion = detail.manual_promotion;
+
+            // if (detail.category.promoted === false) {
+            //     if(manual_promotion === false) {
+            //         label.find('md-switch .md-thumb').css('background-color', 'rgb(78, 83, 195)');
+            //         // To Do implement with api
+            //         detail.manual_promotion = true;
+            //     } else {
+            //         label.find('md-switch .md-thumb').css('background-color', '#FFF');
+            //         // To Do implement with api
+            //         detail.manual_promotion = false;
+            //     }
+            // }
+
+            event.stopPropagation();
         }
     }
 

@@ -90,19 +90,6 @@
                 vm.activePageRanking[key].suitabilitySelected = false;
             });
         });
-
-        // Return filter applied state.
-        function returnCategorySelection() {
-            var isSelectedCategory = filterFilter(vm.categoriesForFilter, {selected: true}).length > 0;
-            var isSelectedRank = filterFilter(vm.activePageRanking, {rankSelected: true}).length > 0;
-            var isSelectedSignificance = filterFilter(vm.activePageRanking, {significanceSelected: true}).length > 0;
-            var isSelectedSuitability = filterFilter(vm.activePageRanking, {suitabilitySelected: true}).length > 0;
-
-            if(isSelectedCategory || isSelectedRank || isSelectedSignificance || isSelectedSuitability) {
-                return true;
-            }
-            return false;
-        }
     }
 
 })(angular);

@@ -1,13 +1,13 @@
 .expanded-keyword.container-fluid
     .row.row-eq-height
-        .col-sm-6.col-lg-4
+        .col-md-6.col-lg-4
             #keywordSetting.panel
                 .panel-heading.sub-heading
                     .panel-title Settings for Keyword: "{{ row.keyword }}"
                     paneltool(tool-collapse, ng-init="keywordSetting=false")
                 .panel-wrapper(uib-collapse="keywordSetting")
                     .panel-body.p-sm
-                        .mda-list.p0.mb-lg
+                        .mda-list.p0.mt.mb-lg
                             .mda-list-item
                                 span.pull-left Promot: Auto Optimise
                                     em.icon-question(uib-tooltip='Promot: Auto Optimise')
@@ -18,7 +18,7 @@
                             .mda-list-item
                                 span.pull-left Monitor: SERP Ranking
                                     em.icon-question(uib-tooltip='Monitor: SERP Ranking')
-                                span.pull-right.setting-icon(ng-click='listc.onActiveMonitoredKeyword(row)')
+                                span.pull-right.setting-icon(ng-click='listc.onActiveMonitoredKeyword(row, $event)')
                                     em.fa.fa-line-chart(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}')
                                     span(ng-if='row.category.monitored') ON
                                     span(ng-if='!row.category.monitored') OFF
@@ -45,7 +45,7 @@
                                     span.pull-left.mr-sm.ml-sm
                                         small Max
                                     input.pull-left.m0.p0.form-control(type='number', min='0', max='9999', ng-model='row.forced_max')
-        .col-sm-6.col-lg-4
+        .col-md-6.col-lg-4
             #keywordCategories.panel
                 .panel-heading.sub-heading
                     .panel-title Categories for Keyword: "{{ row.keyword }}"
@@ -60,7 +60,7 @@
                             ui-select-match(placeholder='Keyword Language Categories') {{$item.name}}
                             ui-select-choices(repeat='language in listc.languages | filter: {name: $select.search}')
                                 div(ng-bind-html='language.name | highlight: $select.search')
-        .col-sm-12.col-lg-4
+        .col-md-12.col-lg-4
             #keywordPerformance.panel
                 .panel-heading.sub-heading
                     .panel-title SEO Performance for Keyword: "{{ row.keyword }}"
@@ -117,7 +117,7 @@
                                     fiter-condition(condition-for='pageUrl')
                                 .left.pl.filter-title Filter
                                 .left.ml
-                                    md-switch.m0(ng-model='listc.detailFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.detailFilterOn',  st-reset='', ng-disabled='!listc.detailFilterOn')
+                                    md-switch.m0(ng-model='listc.detailFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.detailFilterOn',  st-reset='', ng-disabled='!listc.detailFilterOn', ng-click='listc.resetPageFilter()')
                                 .right(st-pagination='', st-items-by-page="listc.detailNumberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="listc.detailCurrentPage = newPage")
                                 .right.display-rows
                                     label Display
@@ -129,7 +129,7 @@
                             th(st-sort="pageUrl") Site Pages
                             th.text-center(st-sort="keywords") Keywords
                             th.text-center(st-sort="violate") SEO Violations
-                            th.text-center(style='width:142px;') Score
+                            th.text-center Score
                     tbody
                         tr(ng-repeat="detail in detailDisplayedCollection", ng-class='{true: "bg-blue-100", false:""}[detail.assignedState]', ng-click='listc.onSelectKeywordDetail(detail, $event)')
                             td.text-center {{ ((listc.detailCurrentPage-1) * listc.detailNumberOfRows) + $index + 1 }}
@@ -141,16 +141,16 @@
                                         div(ng-include="'app/components/keywords/manage/templates/pageActions.html'")
                                 .right.keyword-control
                                     label.m0.right
-                                        md-switch(ng-model='detail.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[detail.category.promoted]}}', ng-click='$event.stopPropagation()')
+                                        md-switch(ng-model='detail.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[detail.category.promoted]}}', ng-click='listc.setManualPromotion(detail, $event)')
                                     em.fa.fa-anchor.right(ng-if='detail.category.default', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords', ng-click='$event.stopPropagation()')
                                     em.fa.fa-bookmark-o.right(ng-if='detail.category.forced', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score', ng-click='$event.stopPropagation()')
-                            td.text-center
+                            td.text-center.page-keyword-col
                                 span {{ detail.keywords }}
                                 em.fa.fa-caret-down.text-grey
-                            td.text-center
+                            td.text-center.seo-violation-col
                                 em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-warning", 3:"fa-info-circle text-danger"}[detail.violate]')
                                 em.fa.fa-caret-down.text-grey
-                            td.pl-sm.pr-sm
+                            td.score-col
                                 .color-bar
                                     .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.ranking]', uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}")
                                     .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.significance]', uib-tooltip="Significance: 34%")

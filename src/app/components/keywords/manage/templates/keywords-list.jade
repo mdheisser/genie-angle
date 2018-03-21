@@ -22,7 +22,7 @@
                                     fiter-condition(condition-for='keyword')
                                 .left.pl.filter-title Filter
                                 .left.ml
-                                    md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='', ng-disabled='!listc.filterOn')
+                                    md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='', ng-disabled='!listc.filterOn', ng-click='listc.resetFilter()')
                                 .right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="listc.currentPage = newPage")
                                 .right.display-rows
                                     label Display
@@ -56,7 +56,7 @@
                                     overlay-popup(active='row.showActions', width='185')
                                         div(ng-include="'app/components/keywords/manage/templates/keywordActions.html'")
                                 .right.keyword-control
-                                    em.fa.fa-line-chart.right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='$event.stopPropagation()')
+                                    em.fa.fa-line-chart.right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='listc.onActiveMonitoredKeyword(row, $event)')
                                     label.m0.right
                                         md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)', ng-click='$event.stopPropagation()')
                             td.text-center.text-warning
@@ -77,7 +77,7 @@
                                 .pull-left.pl-sm(ng-if='row.category.default')
                                     i.fa.fa-anchor(uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
                                 .pull-left.soc-ranking.pl-sm(ng-if='row.category.forced')
-                                    i.fa.fa-bookmark-o(uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score')
+                                    i.fa.fa-bookmark-o(uib-tooltip='Forcing Promotion Min {{row.forced_min}}, Max {{row.forced_max}}')
                             td.text-center
                                 label.mda-checkbox
                                     input(type='checkbox', ng-model='row.selected', ng-click='$event.stopPropagation()')

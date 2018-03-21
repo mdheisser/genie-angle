@@ -18,11 +18,35 @@
             display:         flex;
             .panel {
                 height: 90%;
+                .panel-wrapper {
+                    max-width: 350px;
+                    margin: 0 auto;
+                }
             }
         }
-        .col-lg-4 .panel{
-            &:first-child {
+        @media only screen and (max-width: @custom-920) {
+            .col-lg-4 .panel-wrapper{
+                max-width: 480px;
+            }
+        }
+        @media only screen and (max-width: @pad-h-width) {
+            .col-lg-4 .panel-wrapper{
+                max-width: 400px;
+            }
+        }
+        @media only screen and (max-width: @custom-550 ) {
+            .col-lg-4 .panel-wrapper{
                 max-width: 350px;
+            }
+        }
+        @media only screen and (max-width: @custom-500 ) {
+            .col-lg-4 .panel-wrapper{
+                max-width: 300px;
+            }
+        }
+        @media only screen and (max-width: @custom-460 ) {
+            .col-lg-4 .panel-wrapper{
+                max-width: 230px;
             }
         }
     }
@@ -110,11 +134,59 @@
         }
         .keyword-label {
             width: calc(~"100% - 75px") !important;
+            overlay-popup {
+                transform: translate(-130px, 20px) !important;
+            }
         }
         .keyword-control {
             width: 75px !important;
             em {
                 padding: 9px 5px;
+            }
+        }
+        .page-keyword-col {
+            width: 63px;
+        }
+        .seo-violation-col {
+            width: 92px;
+        }
+        .score-col {
+            width: 142px;
+            min-width: 142px;
+            padding-left: 23px;
+            padding-right: 38px;
+        }
+    }
+    #keywordRankingChart, #keywordAssignedPages {
+        .panel-wrapper {
+            overflow: auto;
+        }
+    }
+    @media only screen and (max-width: @md-width) {
+        #keywordRankingChart, #keywordAssignedPages {
+            .panel-wrapper {
+                width: 740px;
+            }
+        }
+    }
+    @media only screen and (max-width: @custom-1160 ) {
+        #keywordRankingChart, #keywordAssignedPages {
+            .panel-wrapper {
+                width: 700px;
+            }
+        }
+    }
+    @media only screen and (max-width: @custom-1080 ) {
+        #keywordRankingChart, #keywordAssignedPages {
+            .panel-wrapper {
+                width: 660px;
+            }
+        }
+    }
+    @media only screen and (max-width: @custom-1040 ) {
+        #keywordRankingChart, #keywordAssignedPages {
+            .panel-wrapper {
+                width: 620px;
             }
         }
     }

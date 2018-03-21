@@ -65,7 +65,7 @@
         }
 
         // Reset Filter selection.
-        $scope.$on('resetFilter', function(e) {
+        $scope.$on('resetPageFilter', function(e) {
             vm.categoriesForFilter[0].categorySelected = false;
             vm.categoriesForFilter[1].categorySelected = false;
 
