@@ -129,7 +129,7 @@
                             th(st-sort="pageUrl") Site Pages
                             th.text-center(st-sort="keywords") Keywords
                             th.text-center(st-sort="violate") SEO Violations
-                            th.text-center(style='width:10%;') Score
+                            th.text-center(style='width:142px;') Score
                     tbody
                         tr(ng-repeat="detail in detailDisplayedCollection", ng-class='{true: "bg-blue-100", false:""}[detail.assignedState]', ng-click='listc.onSelectKeywordDetail(detail, $event)')
                             td.text-center {{ ((listc.detailCurrentPage-1) * listc.detailNumberOfRows) + $index + 1 }}
@@ -155,4 +155,4 @@
                                     .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.ranking]', uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}")
                                     .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.significance]', uib-tooltip="Significance: 34%")
                                     .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.suitability]', uib-tooltip="Suitability: 68%")
-                        tr.no-data-row.text-center(ng-if='detailDisplayedCollection.length < 5')
+                        tr.no-data-row.text-center(ng-if='detailDisplayedCollection.length < 2')

@@ -482,6 +482,8 @@
                         { label: 'All', value: vm.keywordDetailCollection.length.toString()}
                     ];
                     vm.detailNumberOfRows = vm.detailItemsByPage[1].value;
+
+                    vm.pageCategoryPane = true;
                 });
         }
 
@@ -514,20 +516,24 @@
         function onSelectKeywordDetail(detail, ev) {
             if(detail.assignedState === true) {
                 var confirm = $mdDialog.confirm()
-                    .title('Remove Keyword from this Page?')
-                    .content('')
+                    .title('UnAssign Keyword From This Page?')
                     .cancel('NO')
                     .ok('YES')
                     .targetEvent(ev);
 
                 $mdDialog.show(confirm).then(function() {
-                    console.log('yes');
+                    var msgHtml = 'UnAssign the keyword from System' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+                    Notify.alert(
+                        msgHtml,
+                        {status: 'success', pos: 'bottom-center'}
+                    );
+                    detail.assignedState = false;
                 }, function() {
                     console.log('no');
                 });
             } else {
                 var confirm = $mdDialog.confirm()
-                    .title('Add the Keyword to this Page?')
+                    .title('Assign Keyword To This Page?')
                     .content('')
                     .cancel('NO')
                     .ok('YES')

@@ -21,7 +21,7 @@
             vm.categoriesForFilter = [{
                     name: 'Assigned Pages',
                     value: 'assign',
-                    categorySelected: false
+                    categorySelected: true
                 },
                 {
                     name: 'Not Assigned pages',
@@ -66,6 +66,8 @@
 
         // Reset Filter selection.
         $scope.$on('resetFilter', function(e) {
+            vm.categoriesForFilter[0].categorySelected = false;
+            vm.categoriesForFilter[1].categorySelected = false;
 
             _.each(vm.activePageRanking, function(value, key) {
                 vm.activePageRanking[key].rankSelected = false;

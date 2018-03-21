@@ -1,8 +1,8 @@
 div(ng-controller='pageFilterController as pfc')
     .filter-title.bg-white
-        h5.m0.input-group(ng-click='listc.categoryPane=!listc.categoryPane') Additional Filters
+        h5.m0.input-group(ng-click='listc.pageCategoryPane=!listc.pageCategoryPane') Additional Filters
             em.fa.fa-caret-down
-    .category-body.shadow-z3(ng-if='listc.categoryPane')
+    .category-body.shadow-z3(ng-if='listc.pageCategoryPane')
         .filter-body.text-left
             .filter-category
                 a Category

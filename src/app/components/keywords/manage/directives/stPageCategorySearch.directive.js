@@ -5,9 +5,9 @@
         .module('components.keywords')
         .directive('stPageCategorySearch', stPageCategorySearch);
 
-    stPageCategorySearch.$inject = [];
+    stPageCategorySearch.$inject = ['$rootScope'];
 
-    function stPageCategorySearch() {
+    function stPageCategorySearch($rootScope) {
         var directive = {
             restrict: 'EA',
             require: '^stTable',
@@ -54,6 +54,29 @@
 
                 return selectedOptions;
             }
+
+            // Initialize filter, by defalut assigned pages is displayed.
+            scope.isLoaded = false;
+            $rootScope.pageTableInit = 0;
+
+            scope.$watch(table.getFilteredCollection, function(val){
+                scope.isLoaded = true;
+            });
+
+            scope.$watch('isLoaded', function() {
+                if ($rootScope.pageTableInit == 0) {
+
+                    var query = {
+                        matchAny: {}
+                    };
+
+                    query.matchAny.items = ['assign'];
+
+                    table.search(query, 'assign');
+                }
+
+                $rootScope.pageTableInit++;
+            })
         }
     }
 
