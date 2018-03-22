@@ -23,7 +23,7 @@
             // Bind click event to input checkbox for selecting category.
             scope.$watch('assigned', function() {
 
-                table.search(scope.assigned, 'manual_assign');
+                table.search(scope.assigned, 'auto_assign');
 
             });
         }
