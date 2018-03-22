@@ -10,6 +10,7 @@
         "demo": "gulp build --mock"
     },
     "devDependencies": {
+        "aws-amplify": "^0.2.11",
         "codeceptjs": "^1.1.5",
         "bower": "^1.8.2",
         "bower-npm-resolver": "0.7.0",

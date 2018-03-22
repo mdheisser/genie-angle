@@ -145,8 +145,10 @@
                                     em.fa.fa-anchor.right(ng-if='detail.category.default', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords', ng-click='$event.stopPropagation()')
                                     em.fa.fa-bookmark-o.right(ng-if='detail.category.forced', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score', ng-click='$event.stopPropagation()')
                             td.text-center.page-keyword-col
-                                span {{ detail.keywords }}
-                                em.fa.fa-caret-down.text-grey
+                                span(uib-tooltip='{{ detail.auto_keywords + detail.manual_keywords }} Keywords Assigned to Page, {{detail.manual_keywords}} Assigned Manually') ({{ detail.manual_keywords }}){{ detail.auto_keywords + detail.manual_keywords }}
+                                em.fa.fa-caret-down.text-grey(ng-click='listc.openPageKeywordPopup(detail, $event)')
+                                overlay-popup(active='detail.showKeywordsPopup', width='135')
+                                    div(ng-include="'app/components/keywords/manage/templates/pageKeywordPopup.html'")
                             td.text-center.seo-violation-col
                                 em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-warning", 3:"fa-info-circle text-danger"}[detail.violate]')
                                 em.fa.fa-caret-down.text-grey

@@ -15,6 +15,14 @@ div(ng-controller='pageFilterController as pfc')
                                 ng-model='pageCategory.categorySelected')
                             em.bg-indigo-500
                         span.pull-left {{pageCategory.name}}
+                    .mda-list-item
+                        span.mda-checkbox.pull-left
+                            input(type='checkbox',
+                                st-auto-assign-search='',
+                                assigned='pfc.autoAssign',
+                                ng-model='pfc.autoAssign')
+                            em.bg-indigo-500
+                        span.pull-left System Assigned Pages
             .filter-ranking
                 table
                     tr

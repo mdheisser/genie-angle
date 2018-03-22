@@ -53,6 +53,8 @@
         vm.onSelectKeywordDetail = onSelectKeywordDetail;
         vm.onSearchWithKeyword = onSearchWithKeyword;
         vm.openPageActionPane = openPageActionPane;
+        vm.openPageKeywordPopup = openPageKeywordPopup;
+        vm.openPageUrl = openPageUrl;
         vm.reportDate = '1. 22.2018';
         vm.removeKeyword = removeKeyword;
         vm.savedExpandedRowId = null;
@@ -579,6 +581,28 @@
             });
             detail.showActions = !detail.showActions;
 
+            event.stopPropagation();
+        }
+
+        // Open popup for assigned pages
+        function openPageKeywordPopup(detail, event) {
+            _.each(vm.keywordDetailCollection, function(value, key) {
+                if (detail != value) {
+                    vm.keywordDetailCollection[key].showKeywordsPopup = false;
+                }
+            });
+            detail.showKeywordsPopup = !detail.showKeywordsPopup;
+
+            event.stopPropagation();
+        }
+
+        // Search selected keyword on new tab.
+        function openPageUrl(row, event) {
+            var url = row.pageUrl;
+            $window.open(url, '_blank');
+
+            row.showActions = false;
+            row.showKeywordsPopup = false;
             event.stopPropagation();
         }
 

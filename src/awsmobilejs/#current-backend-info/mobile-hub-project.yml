@@ -1,0 +1,10 @@
+--- !com.amazonaws.mobilehub.v0.Project
+apps: 
+  web: !com.amazonaws.mobilehub.v0.AppDO {}
+features: 
+  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint
+    components: 
+      analytics: !com.amazonaws.mobilehub.v0.PinpointAnalytics {}
+  sign-in: !com.amazonaws.mobilehub.v0.SignIn {}
+name: SEOgenie
+region: us-east-1
