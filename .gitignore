@@ -1,4 +1,4 @@
-﻿### Node ###
+### Node ###
 # Logs
 logs
 *.log
@@ -146,3 +146,11 @@ sftp-config.json
 # Visual Studio Code - https://code.visualstudio.com/
 .settings/
 .vscode/
+
+#awsmobilejs
+awsmobilejs-info.json
+project-info.json
+awsmobilejs-exports.js
+awsmobilejs/.awsmobile/backend-build
+awsmobilejs/\#current-backend-info
+~awsmobilejs-*/
