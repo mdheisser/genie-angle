@@ -1,0 +1,59 @@
+#pages_dashboard.container-fluid.panel.mb0(ng-controller='pagesDashboardController as pageDashCtrl')
+    .custom-heading.flex-heading
+        .description Pages&nbsp;Dashboard
+        .panel-title
+            select(selectpicker='', data-live-search='true', ng-model='pageDashCtrl.selectedSite', ng-options='site.name for site in pageDashCtrl.sites')
+    .panel-wrapper
+        .panel-body.row.pb0
+            .col-lg-7.col-md-8(style="display:flow-root;")
+                .row
+                    .col-sm-8
+                        ul.list-group.m0
+                            li.list-group-item
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 534
+                                | Number of Pages Being Promoted
+                            li.list-group-item
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 787
+                                | &nbsp;
+                            li.list-group-item
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 4
+                                | Total number of Pages on website
+                            li.list-group-item.average-number
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 4
+                                    span.badge.bg-info.text-center.mt-sm 54
+                                p Average number of Keywords assignd to a Page
+                            li.list-group-item
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 77   
+                                | Number of pages with SEO violations
+                        p 
+                    .col-sm-4
+                        ul.list-group.m0
+                            li.list-group-item.border0
+                                a Best performing Pages
+                            li.list-group-item.border0
+                                a Least performing Pages
+            .col-lg-4.col-md-4.col-sm-8
+                ul.list-group
+                    li.list-group-item.border0
+                        span.pull-right
+                            em.fa.fa-check.text-success
+                            em.fa.fa-toggle-on.text-info
+                        | SiteMap Active
+                    li.list-group-item.border0
+                        span.pull-right
+                            em.fa.fa-check.text-success
+                        | Robot TXT
+                    li.list-group-item.border0
+                        span.pull-right
+                            em.fa.fa-check.text-success
+                            em.fa.fa-toggle-on.text-info
+                        | Add New Pages Automatically to SEOgenie System
+                    li.list-group-item.border0
+                        span.pull-right
+                            em.fa.fa-check.text-success
+                        | Last Report Date: 09-12-2017

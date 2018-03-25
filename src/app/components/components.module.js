@@ -9,6 +9,7 @@
         "components.services",
         "components.generic",
         "components.keywords",
-        "components.common"
+        "components.common",
+        "components.pages"
     ]);
 })();

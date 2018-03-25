@@ -22,8 +22,29 @@
                     {"text": "Ranking", "sref": "app.keywords.dashboard.ranking"}
                 ]
             },
-            {"text": "Manage", "sref": "app.keywords.list" },
-            {"text": "Add Keywords", "sref": "app.keywords.add-keywords" }
+            {
+                "text": "Manage",
+                "sref": "app.keywords.list"
+            },
+            {
+                "text": "Add Keywords",
+                "sref": "app.keywords.add-keywords"
+            }
+        ]
+    },
+    {
+        "icon": "fa fa-file-text-o",
+        "text": "Pages",
+        "sref": "app.pages",
+        "submenu": [
+            {
+                "text": "Dashboard",
+                "sref": "app.pages.dashboard"
+            },
+            {
+                "text": "Manage",
+                "sref": "app.pages.manage"
+            }
         ]
     },
     {

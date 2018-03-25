@@ -9,10 +9,6 @@
 
     function keywordsService(REST) {
 
-        var getSites = function (userID) {
-            return REST.getSites();
-        };
-
         var getKeywords = function (siteID) {
             return REST.getKeywords({
                 siteId: siteID
@@ -74,7 +70,6 @@
         };
 
         return {
-            getSites: getSites,
             getKeywords: getKeywords,
             getKeywordDetail: getKeywordDetail,
             activeDefaultKeyword: activeDefaultKeyword,

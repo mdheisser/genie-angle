@@ -32,7 +32,7 @@
         }
         .item-body {
             background-color: white;
-            min-height: 400px;
+            // min-height: 400px;
             margin-left: @collapsed-panel-width - 2 * @padding;
         }
         .smoothidden {
@@ -47,14 +47,30 @@
     @media only screen and (max-width: @md-width) {
         font-size: 13px;
     }
-}
 
-// dropdown box for selecting site
-.panel-heading {
-    .bootstrap-select {
-        .dropdown-toggle {
-            .filter-option {
-                font-weight: bold;
+    // Content Header Style
+    .flex-heading {
+        display: flex;
+        justify-content: flex-start;
+        padding: 3px 10px;
+        border-top-left-radius: 0;
+        .description {
+            font-size: 17px;
+            color: white;
+            padding: 3px 10px 0 0;
+            @media only screen and (max-width: @pad-m-width) {
+                font-size: 15px;
+            }
+        }
+        .panel-title {
+            width: -webkit-fill-available;
+            .bootstrap-select {
+                .dropdown-toggle .filter-option {
+                    font-weight: bold;
+                }
+                .dropdown-menu {
+                    top: 27px;
+                }
             }
         }
     }

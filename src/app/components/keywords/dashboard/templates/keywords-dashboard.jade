@@ -1,5 +1,5 @@
 #keyDashboard.container-fluid.panel.mb0(ng-controller='dashboardController as dac')
-    .panel-heading.custom-heading.flex-heading
+    .custom-heading.flex-heading
         .description Keywords&nbsp;Dashboard
         .panel-title.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='dac.site.selected')
@@ -8,7 +8,7 @@
         .panel-body.row.pb0.pr0.m0
             .col-lg-5.col-sm-12.pl0
                 #statistics.panel
-                    .panel-heading.flex-heading.sub-heading
+                    .panel-heading.sub-heading
                         .panel-title 
                             | Statistics
                             span.text-underline {{ dac.site.selected }}
@@ -20,7 +20,7 @@
                                     span.badge.bg-info.text-center {{ item.value }}
                                     | {{ item.name }}
                 #searchEngine.panel(ng-controller='searchEngineCtrl as sec')
-                    .panel-heading.flex-heading.sub-heading
+                    .panel-heading.sub-heading
                         .panel-title 
                             | Search Engines to 
                             span.text-underline {{ dac.site.selected }}
@@ -46,7 +46,7 @@
                                 em Please select up to 3 search engines to monitor your Keywords SERP ranking positions
             .col-lg-7.col-sm-12.pl0
                 #chartsPanel.panel
-                    .panel-heading.flex-heading.sub-heading
+                    .panel-heading.sub-heading
                         .panel-title
                             | SERP Ranking
                             span.text-underline {{ dac.site.selected }}

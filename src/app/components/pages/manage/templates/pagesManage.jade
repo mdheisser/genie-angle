@@ -1,0 +1,7 @@
+#pages_manage.container-fluid.panel.mb0(ng-controller='pagesManageController as pageMCtrl')
+    .custom-heading.flex-heading
+        .description Pages&nbsp;Manage
+        .panel-title.dashboard-title
+            select(selectpicker='', data-live-search='true', ng-model='pageMCtrl.selectedSite', ng-options='site.name for site in pageMCtrl.sites')
+    .panel-wrapper
+        .panel-body

@@ -1,0 +1,8 @@
+h3.content-heading.text-bold
+    | Keywords
+div(ng-controller='pagesController as pagesCtrl')
+    side-accordion(active-tab='pagesCtrl.activeTab')
+        side-accordion-item.custom-heading(name='Pages Dashboard', href='app/pages/dashboard')
+            div(ng-include="'app/components/pages/dashboard/templates/pagesDashboard.html'")
+        side-accordion-item.custom-heading(name='Manage Pages', href='app/pages/manage')
+            div(ng-include="'app/components/pages/manage/templates/pagesManage.html'")

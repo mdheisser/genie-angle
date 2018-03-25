@@ -7,12 +7,12 @@
 
     keywordsListController.$inject = [
         '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window',
-        '$location', 'keywordsService', 'websitesService', 'Notify', 'filterFilter', 'convertTableDataFilter', 'convertPageDataFilter'
+        '$location', 'commonService', 'keywordsService', 'websitesService', 'Notify', 'filterFilter', 'convertTableDataFilter', 'convertPageDataFilter'
     ];
 
     function keywordsListController(
         $scope, $timeout, $resource, $q, $mdDialog, $window,
-        $location, keywordsService, websitesService, Notify, filterFilter, convertTableDataFilter, convertPageDataFilter) {
+        $location, commonService, keywordsService, websitesService, Notify, filterFilter, convertTableDataFilter, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -150,7 +150,7 @@
 
         // Get user's own site names.
         function getOwnSites() {
-            keywordsService
+            commonService
                 .getSites()
                 .then(function (response) {
                     vm.sites = response.data;

@@ -1,0 +1,120 @@
+// common
+.text-underline {
+    text-decoration: underline;
+}
+.w-70p {
+    width: 70%;
+}
+.border0 {
+    border: none !important;
+}
+
+// Content Heading Style
+.content-heading {
+    padding-bottom: 5px !important;
+    padding-top: 10px !important;
+}
+
+// Panel Style
+.panel {
+    .panel-heading {
+        padding: 3px 5px;
+    }
+    paneltool {
+        margin-top: -21px;
+    }
+}
+
+// bootstrap-select custom style
+.bootstrap-select {
+    .form-control {
+        border-radius: 5px !important;
+    }
+    &:not([class*=col-]) {
+        &:not([class*=form-control]) {
+            &:not(.input-group-btn) {
+                width: 100% !important;
+            }
+        }
+    }
+    .btn {
+        padding-top: 3px !important;
+        padding-bottom: 3px !important;
+        &:hover {
+            box-shadow: none !important;
+            transform: none !important;
+            background-color: #e6e6e6 !important;
+            border-color: #adadad !important;
+        }
+        &:focus {
+            box-shadow: none !important;
+            transform: none !important;
+        }
+    }
+    .dropdown-toggle {
+        @media only screen and (max-width: @pad-width) {
+            // padding-left: 5px;
+        }
+        .filter-option {
+            font-size: 14px;
+            i {
+                font-size: 16px;
+            }
+        }
+        &:focus {
+            outline: none !important;
+        }
+    }
+}
+
+/* Flash class and keyframe animation */
+.flashit{
+    -webkit-animation: flash linear .5s;
+    animation: flash linear .5s;
+}
+@-webkit-keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: .1; }
+    100% { opacity: 1; }
+}
+@keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: .1; }
+    100% { opacity: 1; }
+}
+
+// vertical text for cross browser
+.rotated-text {
+    display: inline-block;
+    overflow: hidden;
+    width: 1.5em;
+    margin-left: 5px;
+}
+.rotated-text__inner {
+    display: inline-block;
+    white-space: nowrap;
+    -webkit-transform: translate(1.1em,0) rotate(90deg);
+    -moz-transform: translate(1.1em,0) rotate(90deg);
+    -o-transform: translate(1.1em,0) rotate(90deg);
+    transform: translate(1.1em,0) rotate(90deg);
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -ms-transform: none;
+    -ms-transform-origin: none;
+    -ms-writing-mode: tb-rl;
+    *writing-mode: tb-rl;
+    font-size: 16px;
+    font-weight: 200;
+    &:before {
+        content: "";
+        float: left;
+        margin-top: 100%;
+    }
+}
+
+// Dialog Box Style
+md-dialog .md-dialog-content {
+    padding-bottom: 0;
+}
