@@ -1,7 +1,73 @@
 #pages_manage.container-fluid.panel.mb0(ng-controller='pagesManageController as pageMCtrl')
     .custom-heading.flex-heading
         .description Pages&nbsp;Manage
-        .panel-title.dashboard-title
+        .panel-title
             select(selectpicker='', data-live-search='true', ng-model='pageMCtrl.selectedSite', ng-options='site.name for site in pageMCtrl.sites')
     .panel-wrapper
         .panel-body
+            table.custom-table(st-table="pagesDisplayedCollection", st-safe-src='pageMCtrl.pagesList', st-set-filter="additionalFilter", st-filtered-collection)
+                thead.table-control
+                    tr
+                        td.text-right(colspan="7")
+                            .pull-left.ml.mda-input-group
+                                input#searchForpageUrl.mda-form-control(type='text', st-search='pageUrl', placeholder='Filter/Search', ng-click="pageMCtrl.showAdditionalFilter=true")
+                                span.mda-input-group-addon
+                                    em.fa.fa-search
+                                overlay-popup#pages_manage_filter(active='pageMCtrl.showAdditionalFilter', width='350')
+                                    div(ng-include="'app/components/pages/manage/templates/pagesFilter.html'")
+                            .pull-left
+                                fiter-condition(condition-for='pageUrl')
+                            .pull-left.pl.filter-title Filter
+                            .pull-left.ml
+                                md-switch.m0(ng-model='pageMCtrl.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='pageMCtrl.filterOn',  st-reset='', ng-disabled='!pageMCtrl.filterOn', ng-click='pageMCtrl.resetPagesFilter()')
+                            .pull-right(st-pagination='', st-items-by-page="pageMCtrl.numberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pageMCtrl.currentPage = newPage")
+                            .pull-right.display-rows
+                                label Display
+                                label
+                                    select(selectpicker='', ng-model="pageMCtrl.numberOfRows" ng-options='item.value as item.label for item in pageMCtrl.itemsByPage')
+                thead
+                    tr
+                        th.text-center.row-index #
+                        th(st-sort="pageUrl") Site Pages
+                        th.text-center(st-sort="keywords") Keywords
+                        th.text-center(st-sort="violate") SEO Violations
+                        th.text-center Score
+                        th.text-center.actions-col(ng-click="pageMCtrl.showBulkAction=!pageMCtrl.showBulkAction")
+                            label.mda-checkbox
+                                input(type='checkbox', ng-model='pageMCtrl.allRowsMarked', ng-click='$event.stopPropagation()')
+                                em.bg-indigo-500
+                            i.fa.fa-caret-down
+                            overlay-popup#pages_manage_actions(active='pageMCtrl.showBulkAction', width='206')
+                                div(ng-include="'app/components/pages/manage/templates/pagesManageBulkActions.html'")
+                tbody
+                    tr(ng-repeat="page in pagesDisplayedCollection", ng-click='pageMCtrl.onSelectKeywordDetail(detail, $event)')
+                        td.text-center {{ ((pageMCtrl.currentPage-1) * pageMCtrl.numberOfRows) + $index + 1 }}
+                        td.keyword-col
+                            .pull-left.keyword-label
+                                span.m0 {{ page.pageUrl }}
+                                i.fa.fa-caret-down.ml-sm(ng-click='pageMCtrl.openPageActions(page, $event)')
+                                overlay-popup(active='page.showActions', width='206')
+                                    div(ng-include="'app/components/pages/manage/templates/pageActions.html'")
+                            .pull-right.keyword-control
+                                label.m0.pull-right
+                                    md-switch(ng-model='page.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[page.category.promoted]}}', ng-click='listc.setManualPromotion(page, $event)')
+                                em.fa.fa-anchor.pull-right.pl0.pr-sm(ng-if='page.category.default', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords', ng-click='$event.stopPropagation()')
+                                em.fa.fa-bookmark-o.pull-right.pl0(ng-if='page.category.forced', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score', ng-click='$event.stopPropagation()')
+                        td.text-center.page-keyword-col
+                            span(uib-tooltip='{{ page.auto_keywords + page.manual_keywords }} Keywords Assigned to Page, {{page.manual_keywords}} Assigned Manually') {{ page | pageKeywordNumber }}
+                            em.fa.fa-caret-down.text-grey(ng-click='listc.openPageKeywordPopup(page, $event)')
+                            overlay-popup(active='page.showKeywordsPopup', width='135')
+                                div(ng-include="'app/components/keywords/manage/templates/pageKeywordPopup.html'")
+                        td.text-center.seo-violation-col
+                            em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-warning", 3:"fa-info-circle text-danger"}[page.violate]')
+                            em.fa.fa-caret-down.text-grey
+                        td.score-col.pl.pr
+                            .color-bar
+                                .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[page.ranking]', uib-tooltip="SERP Ranking, Page {{page.activepages}}: Position {{page.g}}")
+                                .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[page.significance]', uib-tooltip="Significance: 34%")
+                                .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[page.suitability]', uib-tooltip="Suitability: 68%")
+                        td.text-center
+                            label.mda-checkbox
+                                input(type='checkbox', ng-model='page.selected', ng-click='$event.stopPropagation()')
+                                em.bg-indigo-500
+                    tr.no-data-row.text-center(ng-if='detailDisplayedCollection.length < 2')

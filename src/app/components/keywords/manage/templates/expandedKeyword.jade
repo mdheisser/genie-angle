@@ -105,7 +105,7 @@
             paneltool(tool-collapse, ng-init="keywordAssignedPages=false")
         .panel-wrapper(uib-collapse="keywordAssignedPages")
             .panel-body
-                table.table.table-bordered.table-condensed(st-table="detailDisplayedCollection", st-safe-src='listc.keywordDetailCollection', st-set-filter="additionalFilter", st-detail-filtered-collection)
+                table.custom-table(st-table="detailDisplayedCollection", st-safe-src='listc.keywordDetailCollection', st-set-filter="additionalFilter", st-detail-filtered-collection)
                     thead.table-control
                         tr
                             td.text-right(colspan="7")

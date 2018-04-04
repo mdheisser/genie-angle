@@ -1,0 +1,25 @@
+.bulk-actions.mda-list.shadow-z3.bg-white
+    .mda-list-item(ng-click='pageMCtrl.openPageUrl(page, $event)')
+        em.fa.fa-search.pull-left
+        span.pull-left Launch URL/Page
+    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+        em.fa.fa-expand.pull-left
+        span.pull-left Expand Page Info
+    .mda-list-item(ng-click='pageMCtrl.copyToClipboard(page, $event)')
+        em.fa.fa-copy.pull-left
+        span.pull-left Copy to Clipboard
+    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+        em.fa.fa-toggle-on.pull-left
+        span.pull-left Auto Optimise Page
+    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+        em.fa.fa-toggle-on.pull-left
+        span.pull-left Generate Title/Description
+    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+        em.fa.fa-trash-o.pull-left
+        span.pull-left Remove from System
+    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+        em.fa.fa-refresh.pull-left
+        span.pull-left Refresh, Process
+    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+        em.fa.fa-list.pull-left
+        span.pull-left Export CSV

@@ -6,7 +6,7 @@
     .panel-wrapper(uib-collapse="keyList")
         .panel-body.p0
             .container-fluid
-                table.table.table-bordered.table-condensed(st-table="displayedCollection", st-safe-src='listc.rowCollection', st-set-filter="additionalFilter", st-filtered-collection)
+                table.custom-table(st-table="displayedCollection", st-safe-src='listc.rowCollection', st-set-filter="additionalFilter", st-filtered-collection)
                     thead.table-control
                         tr
                             td.text-right(colspan="7")

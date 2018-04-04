@@ -1,0 +1,6 @@
+.bulk-actions.mda-list.bg-white
+    .mda-list-item
+        label.pull-left Bulk Actions
+    .mda-list-item(ng-repeat='item in pageMCtrl.bulkActions', ng-click='pageMCtrl.performBulkAction(item.label)', ng-class='item.class')
+        em.fa.pull-left(ng-class='item.icon')
+        span.pull-left {{ item.label }}

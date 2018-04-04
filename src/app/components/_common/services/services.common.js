@@ -13,8 +13,15 @@
             return REST.getSites();
         };
 
+        var getPages = function (siteID) {
+            return REST.getPages({
+                siteId: siteID
+            });
+        };
+
         return {
-            getSites: getSites
+            getSites: getSites,
+            getPages: getPages
         };
     }
 
