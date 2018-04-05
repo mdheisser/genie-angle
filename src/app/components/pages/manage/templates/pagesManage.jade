@@ -9,6 +9,8 @@
                 thead.table-control
                     tr
                         td.text-right(colspan="7")
+                            a.pull-left.btn.btn-primary.btn-outline.btn-oval.btn-xs(href='')
+                                    i.fa.fa-plus
                             .pull-left.ml.mda-input-group
                                 input#searchForpageUrl.mda-form-control(type='text', st-search='pageUrl', placeholder='Filter/Search', ng-click="pageMCtrl.showAdditionalFilter=true")
                                 span.mda-input-group-addon
@@ -29,8 +31,8 @@
                     tr
                         th.text-center.row-index #
                         th(st-sort="pageUrl") Site Pages
-                        th.text-center(st-sort="keywords") Keywords
-                        th.text-center(st-sort="violate") SEO Violations
+                        th.text-center(st-sort="keywords", style="width:70px;") Keywords
+                        th.text-center(st-sort="violate", style="width:100px;") SEO Violations
                         th.text-center Score
                         th.text-center.actions-col(ng-click="pageMCtrl.showBulkAction=!pageMCtrl.showBulkAction")
                             label.mda-checkbox
@@ -50,12 +52,12 @@
                                     div(ng-include="'app/components/pages/manage/templates/pageActions.html'")
                             .pull-right.keyword-control
                                 label.m0.pull-right
-                                    md-switch(ng-model='page.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[page.category.promoted]}}', ng-click='listc.setManualPromotion(page, $event)')
-                                em.fa.fa-anchor.pull-right.pl0.pr-sm(ng-if='page.category.default', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords', ng-click='$event.stopPropagation()')
-                                em.fa.fa-bookmark-o.pull-right.pl0(ng-if='page.category.forced', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score', ng-click='$event.stopPropagation()')
-                        td.text-center.page-keyword-col
-                            span(uib-tooltip='{{ page.auto_keywords + page.manual_keywords }} Keywords Assigned to Page, {{page.manual_keywords}} Assigned Manually') {{ page | pageKeywordNumber }}
-                            em.fa.fa-caret-down.text-grey(ng-click='listc.openPageKeywordPopup(page, $event)')
+                                    md-switch(ng-model='page.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Page Auto-Promote ON", false:"Page Auto-Promote OFF"}[page.category.promoted]}}', ng-click='pageMCtrl.setManualPromotion(page, $event)')
+                        td.text-right.page-keyword-col.pr-sm
+                            em.fa.fa-anchor.pl0.pr-sm(ng-if='page.category.default', uib-tooltip='', ng-click='$event.stopPropagation()')
+                            span(uib-tooltip='{{ page.auto_keywords + page.manual_keywords }} {{ page.category.default ? "Defalut" : "" }} Keywords Assigned to Page, {{page.manual_keywords}} Assigned Manually') {{ page.auto_keywords + page.manual_keywords }}
+                                small ({{ page.manual_keywords }})
+                            em.fa.fa-caret-down.text-grey(ng-click='pageMCtrl.openPageKeywordPopup(page, $event)')
                             overlay-popup(active='page.showKeywordsPopup', width='135')
                                 div(ng-include="'app/components/keywords/manage/templates/pageKeywordPopup.html'")
                         td.text-center.seo-violation-col
@@ -63,7 +65,7 @@
                             em.fa.fa-caret-down.text-grey
                         td.score-col.pl.pr
                             .color-bar
-                                .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[page.ranking]', uib-tooltip="SERP Ranking, Page {{page.activepages}}: Position {{page.g}}")
+                                .flex(ng-class='{4:"bg-red-500", 3:"bg-yellow-700", 2:"bg-green-500", 1:"bg-green-300"}[page.ranking]', uib-tooltip="SERP Ranking, Page {{page.activepages}}: Position {{page.g}}")
                                 .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[page.significance]', uib-tooltip="Significance: 34%")
                                 .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[page.suitability]', uib-tooltip="Suitability: 68%")
                         td.text-center

@@ -54,11 +54,11 @@ div(ng-controller='pagesManageFilterController as pmfc')
                                     value='{{item.value}}',
                                     ng-model='item.rankSelected')
                                 em.bg-indigo-500
-                        td.text-center
+                        td.text-center(ng-if='item.value!="4"')
                             label.mda-checkbox
-                                input.significance-option(type='checkbox',
+                                input.violate-option(type='checkbox',
                                     st-pages-rank-search='',
-                                    rank-type='significance',
+                                    rank-type='violate',
                                     value='{{item.value}}',
                                     ng-model='item.significanceSelected')
                                 em.bg-indigo-500

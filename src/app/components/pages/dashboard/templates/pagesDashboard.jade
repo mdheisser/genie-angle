@@ -5,7 +5,7 @@
             select(selectpicker='', data-live-search='true', ng-model='pageDashCtrl.selectedSite', ng-options='site.name for site in pageDashCtrl.sites')
     .panel-wrapper
         .panel-body.row.pb0.row-eq-height
-            .col-md-6(style="display:flow-root;")
+            .col-lg-6(style="display:flow-root;")
                 #statistics.panel
                     .panel-heading.sub-heading
                         .panel-title 
@@ -33,12 +33,12 @@
                             li.list-group-item
                                 span.pull-right.text-center
                                     span.badge.bg-info.text-center 77   
-                                a Best performing Pages
+                                a(href='/#/app/pages/manage') Best performing Pages
                             li.list-group-item
                                 span.pull-right.text-center
                                     span.badge.bg-info.text-center 77   
-                                a Least performing Pages
-            .col-sm-6
+                                a(href='/#/app/pages/manage') Least performing Pages
+            .col-lg-6
                 #statistics1.panel
                     .panel-heading.sub-heading
                         .panel-title 

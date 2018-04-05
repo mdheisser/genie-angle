@@ -21,6 +21,7 @@
         vm.openPageUrl = openPageUrl
         vm.pagesList = [];
         vm.performBulkAction = performBulkAction
+        vm.resetPagesFilter = resetPagesFilter;
         vm.selectedSite = {};
         vm.sites = [];
 
@@ -161,6 +162,13 @@
                 msgHtml,
                 {status: 'success', pos: 'top-right'}
             );
+        }
+
+        // Reset Pages Fitler.
+        function resetPagesFilter() {
+            if (vm.filterOn === true) {
+                $scope.$broadcast('resetPagesFilter');
+            }
         }
 
         // Mark/Unmark all rows

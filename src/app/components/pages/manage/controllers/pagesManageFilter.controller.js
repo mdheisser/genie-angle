@@ -43,7 +43,7 @@
             ];
             vm.activePageRanking = [{
                     name: 'Excellent',
-                    value: '4',
+                    value: '1',
                     bg: 'bg-green-300',
                     rankSelected: false,
                     significanceSelected: false,
@@ -51,7 +51,7 @@
                 },
                 {
                     name: 'Good',
-                    value: '3',
+                    value: '2',
                     bg: 'bg-green-500',
                     rankSelected: false,
                     significanceSelected: false,
@@ -59,7 +59,7 @@
                 },
                 {
                     name: 'Suitable',
-                    value: '2',
+                    value: '3',
                     bg: 'bg-yellow-700',
                     rankSelected: false,
                     significanceSelected: false,
@@ -67,7 +67,7 @@
                 },
                 {
                     name: 'Poor',
-                    value: '1',
+                    value: '4',
                     bg: 'bg-red-500',
                     rankSelected: false,
                     significanceSelected: false,
@@ -77,9 +77,12 @@
         }
 
         // Reset Filter selection.
-        $scope.$on('resetPageFilter', function(e) {
-            vm.categoriesForFilter[0].categorySelected = false;
-            vm.categoriesForFilter[1].categorySelected = false;
+        $scope.$on('resetPagesFilter', function(e) {
+            vm.assignedFilter[0].categorySelected = false;
+            vm.assignedFilter[1].categorySelected = false;
+
+            vm.promotedFilter[0].categorySelected = false;
+            vm.promotedFilter[1].categorySelected = false;
 
             _.each(vm.activePageRanking, function(value, key) {
                 vm.activePageRanking[key].rankSelected = false;
