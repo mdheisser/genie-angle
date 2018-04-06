@@ -17,6 +17,11 @@
         vm.currentPage = 1;
         vm.filterOn = false;
         vm.itemsByPage = [];
+        vm.onAutoOptimisePage = onAutoOptimisePage
+        vm.onExportCSV = onExportCSV
+        vm.onGenerateTitle = onGenerateTitle
+        vm.onRefreshPage = onRefreshPage
+        vm.onRemoveFromSystem = onRemoveFromSystem
         vm.openPageActions = openPageActions
         vm.openPageUrl = openPageUrl
         vm.pagesList = [];
@@ -123,6 +128,56 @@
                     ];
                     vm.numberOfRows = vm.itemsByPage[1].value;
                 });
+        }
+
+        // Active auto optimise page
+        function onAutoOptimisePage(page) {
+            page.showActions = false;
+            var msgHtml = 'Page auto optimized.' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+            Notify.alert(
+                msgHtml,
+                {status: 'success', pos: 'top-center'}
+            );
+        }
+
+        // Export CSV for page
+        function onExportCSV(page) {
+            page.showActions = false;
+            var msgHtml = 'Exported CSV file.' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+            Notify.alert(
+                msgHtml,
+                {status: 'success', pos: 'top-center'}
+            );
+        }
+
+        // Generate the title/description for page
+        function onGenerateTitle(page) {
+            page.showActions = false;
+            var msgHtml = 'Generated the title/description.' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+            Notify.alert(
+                msgHtml,
+                {status: 'success', pos: 'top-center'}
+            );
+        }
+
+        // Refresh, process page from system
+        function onRefreshPage(page) {
+            page.showActions = false;
+            var msgHtml = 'Refreshed page.' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+            Notify.alert(
+                msgHtml,
+                {status: 'success', pos: 'top-center'}
+            );
+        }
+
+        // Remove page from system
+        function onRemoveFromSystem(page) {
+            page.showActions = false;
+            var msgHtml = 'Removed page from system.' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+            Notify.alert(
+                msgHtml,
+                {status: 'success', pos: 'top-center'}
+            );
         }
 
         // Open Actions Pane for a specific page

@@ -8,18 +8,18 @@
     .mda-list-item(ng-click='pageMCtrl.copyToClipboard(page, $event)')
         em.fa.fa-copy.pull-left
         span.pull-left Copy to Clipboard
-    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+    .mda-list-item(ng-click='pageMCtrl.onAutoOptimisePage(page)')
         em.fa.fa-toggle-on.pull-left
         span.pull-left Auto Optimise Page
-    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+    .mda-list-item(ng-click='pageMCtrl.onGenerateTitle(page);')
         em.fa.fa-toggle-on.pull-left
         span.pull-left Generate Title/Description
-    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+    .mda-list-item(ng-click='pageMCtrl.onRemoveFromSystem(page);')
         em.fa.fa-trash-o.pull-left
         span.pull-left Remove from System
-    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+    .mda-list-item(ng-click='pageMCtrl.onRefreshPage(page);')
         em.fa.fa-refresh.pull-left
         span.pull-left Refresh, Process
-    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+    .mda-list-item(ng-click='pageMCtrl.onExportCSV(page);')
         em.fa.fa-list.pull-left
         span.pull-left Export CSV
