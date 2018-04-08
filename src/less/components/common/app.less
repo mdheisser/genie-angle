@@ -15,6 +15,27 @@
     padding-top: 10px !important;
 }
 
+// Panel Custom Heading Style
+.flex-heading {
+    display: flex;
+    justify-content: flex-start;
+    padding: 3px 10px;
+    .description {
+        font-size: 17px;
+        color: white;
+        padding: 3px 6px 0 0;
+        @media only screen and (max-width: @pad-m-width) {
+            font-size: 15px;
+        }
+    }
+    .panel-title {
+        width: -webkit-fill-available;
+        .bootstrap-select .dropdown-toggle .filter-option {
+            font-weight: bold;
+        }
+    }
+}
+
 // Panel Style
 .panel {
     .panel-heading {
@@ -64,6 +85,9 @@
         &:focus {
             outline: none !important;
         }
+    }
+    .dropdown-menu {
+        top: 100%;
     }
 }
 

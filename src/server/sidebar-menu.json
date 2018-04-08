@@ -11,24 +11,33 @@
     {
         "icon": "fa fa-key",
         "text": "Keywords",
-        "sref": "app.keywords",
+        "sref": "app.keywords-dashboard",
         "submenu": [
             {
                 "text": "Dashboard",
-                "sref": "app.keywords.dashboard",
+                "sref": "app.keywords-dashboard",
                 "submenu": [
-                    {"text": "Statistics", "sref": "app.keywords.dashboard.statistics"},
-                    {"text": "Search Engines", "sref": "app.keywords.dashboard.engines"},
-                    {"text": "Ranking", "sref": "app.keywords.dashboard.ranking"}
+                    {
+                        "text": "Statistics",
+                        "sref": "app.keywords-dashboard.statistics"
+                    },
+                    {
+                        "text": "Search Engines",
+                        "sref": "app.keywords-dashboard.engines"
+                    },
+                    {
+                        "text": "Ranking",
+                        "sref": "app.keywords-dashboard.ranking"
+                    }
                 ]
             },
             {
                 "text": "Manage",
-                "sref": "app.keywords.list"
+                "sref": "app.keywords-manage"
             },
             {
                 "text": "Add Keywords",
-                "sref": "app.keywords.add-keywords"
+                "sref": "app.keywords-add"
             }
         ]
     },

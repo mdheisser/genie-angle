@@ -3,20 +3,25 @@
 
     angular
         .module('components.keywords')
-        .controller('dashboardController', dashboardController)
+        .controller('keyDashController', keyDashController)
 
-    dashboardController.$inject = ['$scope', '$timeout', '$resource', '$q', '$location'];
+    keyDashController.$inject = ['$scope', '$timeout', 'commonService', 'websitesService'];
 
-    function dashboardController($scope, $timeout, $resource, $q, $location) {
+    function keyDashController($scope, $timeout, commonService, websitesService) {
         /* jshint validthis:true */
         var vm = this;
-        vm.site = {};
-        vm.site.selected = undefined;
-        vm.sites = [];
-        vm.analyzeKeywords = [];
-        vm.chartOptions = undefined;
-        vm.reportDate = '1. 22.2018';
+
+        vm.changeDomains = changeDomains;
+        vm.chartOptions = null;
+        vm.domains = [];
         vm.filterDays = [];
+        vm.getDomains = getDomains;
+        vm.reportDate = '1. 22.2018';
+        vm.searchEngines = [];
+        vm.selectDomain = selectDomain;
+        vm.selectedSite = {}
+        vm.seViews = [];
+        vm.sites = [];
 
         activate();
 
@@ -24,23 +29,124 @@
 
         function activate() {
             getOwnSites();
-            getKeywordStatistics();
             drawCharts();
             getFilerDays();
+            init();
         }
 
-        function getOwnSites() {
-            var data = [{
-                    id: 1,
-                    name: 'www.umm.com'
+        // initialize the controller
+        function init() {
+            vm.searchEngines = [{
+                    name: 'Google',
+                    domains: [],
+                    icon: 'socicon-google'
                 },
                 {
-                    id: 2,
-                    name: 'www.uee.com'
+                    name: 'Yahoo',
+                    domains: [],
+                    icon: 'socicon-yahoo'
+                },
+                {
+                    name: 'Bing',
+                    domains: [],
+                    icon: 'socicon-bing'
+                },
+                {
+                    name: 'Yandex',
+                    domains: [],
+                    icon: 'socicon-yandex'
                 }
             ];
-            vm.sites = data;
-            vm.site.selected = data[0].name;
+            vm.seViews = [{
+                    index: 0,
+                    engines: angular.copy(vm.searchEngines),
+                    domains: [{}],
+                    selectedEngine: 'Google',
+                    selectedDomain: '',
+                    domainSelected: false,
+                    domainChecking: false
+                }, {
+                    index: 1,
+                    engines: angular.copy(vm.searchEngines),
+                    domains: [{}],
+                    selectedEngine: 'Yahoo',
+                    domainSelected: false,
+                    domainChecking: false
+                },
+                {
+                    index: 2,
+                    engines: angular.copy(vm.searchEngines),
+                    domains: [{}],
+                    selectedEngine: 'Bing',
+                    domainSelected: false,
+                    domainChecking: false
+                }
+            ];
+            getDomains();
+        }
+
+        // Get social domains from web service.
+        function getDomains () {
+            websitesService.getGoogleDomains().then(function (response) {
+                vm.domains.google = response.data;
+                vm.seViews[0].domains = response.data;
+                vm.seViews[0].selectedDomain = response.data[0];
+            });
+            websitesService.getYahooDomains().then(function (response) {
+                vm.domains.yahoo = response.data;
+                vm.seViews[1].domains = response.data;
+                vm.seViews[1].selectedDomain = response.data[0];
+            });
+            websitesService.getBingDomains().then(function (response) {
+                vm.domains.bing = response.data;
+                vm.seViews[2].domains = response.data;
+                vm.seViews[2].selectedDomain = response.data[0];
+            });
+            websitesService.getYandexDomains().then(function (response) {
+                vm.domains.yandex = response.data;
+            });
+        }
+
+        // Update subdomains by selecting the search engine.
+        function changeDomains($item) {
+            switch ($item.selectedEngine) {
+                case 'Google':
+                    $item.domains = vm.domains.google;
+                    $item.selectedDomain = vm.domains.google[0];
+                    break;
+                case 'Yahoo':
+                    $item.domains = vm.domains.yahoo;
+                    $item.selectedDomain = vm.domains.yahoo[0];
+                    break;
+                case 'Bing':
+                    $item.domains = vm.domains.bing;
+                    $item.selectedDomain = vm.domains.bing[0];
+                    break;
+                case 'Yandex':
+                    $item.domains = vm.domains.yandex;
+                    $item.selectedDomain = vm.domains.yandex[0];
+                    break;
+            };
+        }
+
+        // Show check icon when a subdomain is selected.
+        function selectDomain(item) {
+            item.domainChecking = true;
+            item.domainSelected = false;
+            $timeout(function () {
+                item.domainChecking = false;
+                item.domainSelected = true;
+            }, 1000);
+        }
+
+        // Get user's own site names.
+        function getOwnSites() {
+            commonService
+                .getSites()
+                .then(function (response) {
+                    vm.sites = response.data;
+                    vm.selectedSite = vm.sites[0];
+                });
         }
 
         function getFilerDays() {
@@ -63,41 +169,6 @@
             ];
             vm.filterDays = data;
             vm.selectedDay = data[0];
-        }
-
-        function getKeywordStatistics() {
-            var data = [{
-                    id: 1,
-                    name: 'Number of Active Keywords Being Promoted',
-                    value: 534
-                },
-                {
-                    id: 2,
-                    name: 'Number of Active Keywords Being Monitored',
-                    value: 787
-                },
-                {
-                    id: 3,
-                    name: 'Average number of Keywords assignd to a Page',
-                    value: 4
-                },
-                {
-                    id: 4,
-                    name: 'Average Keywords Page Position',
-                    value: 4
-                },
-                {
-                    id: 5,
-                    name: 'Best Performing Keyword',
-                    value: 87
-                },
-                {
-                    id: 6,
-                    name: 'Least performing keywords',
-                    value: 47
-                }
-            ];
-            vm.analyzeKeywords = data;
         }
 
         function drawCharts() {
@@ -145,10 +216,6 @@
             };
 
             vm.chartOptions = chartOptions;
-        }
-
-        function getHostUrl() {
-            return $location.$$protocol + '://' + $location.$$host + '/';
         }
     }
 

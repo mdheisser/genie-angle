@@ -15,19 +15,10 @@
                  options: '='
              },
              link: function (scope, element) {
-                 drawChart(scope, element);
-                 angular.element($window).bind('resize', function () {
-                     drawChart(scope, element);
-                 });
+                 Highcharts.chart(element[0], scope.options);
              }
          };
          return directive;
-
-         function drawChart(scope, element) {
-             setTimeout(function () {
-                 Highcharts.chart(element[0], scope.options);
-             }, 500);
-         }
      }
 
  })(angular);
