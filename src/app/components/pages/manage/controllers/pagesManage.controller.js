@@ -5,9 +5,13 @@
         .module('components.pages')
         .controller('pagesManageController', pagesManageController)
 
-    pagesManageController.$inject = ['$scope', '$window', 'Notify', 'filterFilter', 'commonService', 'convertPagesManageDataFilter'];
+    pagesManageController.$inject = [
+        '$rootScope', '$scope', '$window', '$stateParams', '$timeout',
+        'Notify', 'filterFilter', 'commonService', 'convertPagesManageDataFilter'];
 
-    function pagesManageController($scope, $window, Notify, filterFilter, commonService, convertPagesManageDataFilter) {
+    function pagesManageController(
+        $rootScope, $scope, $window, $stateParams, $timeout,
+        Notify, filterFilter, commonService, convertPagesManageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -28,6 +32,7 @@
         vm.performBulkAction = performBulkAction
         vm.resetPagesFilter = resetPagesFilter;
         vm.selectedSite = {};
+        vm.showAdditionalFilter = false;
         vm.sites = [];
 
         activate();
@@ -251,6 +256,18 @@
                 }
             }
         });
+
+        $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+            if (fromState.name == 'app.pages.dashboard' && toState.name == 'app.pages.manage' && toParams.filter != null) {
+                vm.showAdditionalFilter = true;
+                if (toParams.filter == 'best') {
+                    $scope.$broadcast('initBestPagesManageFilter');
+                } else if (toParams.filter == 'least') {
+                    $scope.$broadcast('initLeastPagesManageFilter');
+                }
+            }
+        })
+
     }
 
 })();

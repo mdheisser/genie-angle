@@ -5,12 +5,13 @@
         .module('components.pages')
         .controller('pagesDashboardController', pagesDashboardController)
 
-    pagesDashboardController.$inject = ['$scope', 'commonService'];
+    pagesDashboardController.$inject = ['$scope', '$state', 'commonService'];
 
-    function pagesDashboardController($scope, commonService) {
+    function pagesDashboardController($scope, $state, commonService) {
         /* jshint validthis:true */
         var vm = this;
 
+        vm.goManagePage = goManagePage
         vm.selectedSite = {};
         vm.sites = [];
 
@@ -31,6 +32,11 @@
                     vm.sites = response.data;
                     vm.selectedSite = vm.sites[0];
                 });
+        }
+
+        // Go to Pages Manage page with filter
+        function goManagePage(filter) {
+            $state.go('app.pages.manage', {filter:filter});
         }
     }
 

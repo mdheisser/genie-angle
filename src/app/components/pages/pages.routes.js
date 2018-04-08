@@ -32,7 +32,10 @@
             url: "/dashboard"
         })
         .state("app.pages.manage", {
-            url: "/manage"
+            url: "/manage",
+            params: {
+                filter: null
+            }
         });
     }
 })(angular);

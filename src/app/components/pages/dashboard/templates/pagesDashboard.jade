@@ -25,19 +25,19 @@
                             li.list-group-item
                                 span.pull-right.text-center
                                     span.badge.bg-info.text-center 4
-                                | Average number of Keywords assignd to a Page
+                                | Average number of Keywords assigned to a Page
                             li.list-group-item
                                 span.pull-right.text-center
-                                    span.badge.bg-info.text-center 77   
+                                    span.badge.bg-info.text-center 77
                                 | Number of pages with SEO violations
                             li.list-group-item
                                 span.pull-right.text-center
-                                    span.badge.bg-info.text-center 77   
-                                a(href='/#/app/pages/manage') Best performing Pages
+                                    span.badge.bg-info.text-center 77
+                                a(ng-click='pageDashCtrl.goManagePage("best")') Best performing Pages
                             li.list-group-item
                                 span.pull-right.text-center
-                                    span.badge.bg-info.text-center 77   
-                                a(href='/#/app/pages/manage') Least performing Pages
+                                    span.badge.bg-info.text-center 77
+                                a(ng-click='pageDashCtrl.goManagePage("least")') Least performing Pages
             .col-lg-6
                 #statistics1.panel
                     .panel-heading.sub-heading
@@ -47,22 +47,21 @@
                         paneltool(tool-collapse, ng-init="statistics1=false")
                     .panel-wrapper(uib-collapse="statistics1")
                         .panel-body
-                            ul.list-group
-                                li.list-group-item.border0
-                                    span.pull-right
-                                        em.fa.fa-check.text-success
-                                        em.fa.fa-toggle-on.text-info
-                                    | SiteMap Active
-                                li.list-group-item.border0
-                                    span.pull-right
-                                        em.fa.fa-check.text-success
-                                    | Robot TXT
-                                li.list-group-item.border0
-                                    span.pull-right
-                                        em.fa.fa-check.text-success
-                                        em.fa.fa-toggle-on.text-info
-                                    | Add New Pages Automatically to SEOgenie System
-                                li.list-group-item.border0
-                                    span.pull-right
-                                        em.fa.fa-check.text-success
-                                    | Last Report Date: 09-12-2017
+                            .row.p-sm
+                                .col-xs-9 SiteMap Active
+                                .col-xs-3.p0
+                                    em.fa.fa-check.text-success.pull-left.mt-sm
+                                    md-switch.m0.pull-left(ng-model='pageMCtrl.activeSiteMap', aria-label='filter')
+                            .row.p-sm
+                                .col-xs-9 Robot TXT
+                                .col-xs-3.p0
+                                    em.fa.fa-check.text-success.pull-left.mt-sm
+                            .row.p-sm
+                                .col-xs-9 New Pages Automatically to SEOgenie System
+                                .col-xs-3.p0
+                                    em.fa.fa-check.text-success.pull-left.mt-sm
+                                    md-switch.m0.pull-left(ng-model='pageMCtrl.autoNewPage', aria-label='filter')
+                            .row.p-sm
+                                .col-xs-9 Last Report Date: 09-12-2017
+                                .col-xs-3.p0
+                                    em.fa.fa-check.text-success.pull-left.mt-sm

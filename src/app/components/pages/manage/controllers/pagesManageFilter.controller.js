@@ -5,14 +5,15 @@
         .module('components.keywords')
         .controller('pagesManageFilterController', pagesManageFilterController)
 
-    pagesManageFilterController.$inject = ['$scope', 'filterFilter'];
+    pagesManageFilterController.$inject = ['$scope', '$timeout','filterFilter'];
 
-    function pagesManageFilterController($scope, filterFilter) {
+    function pagesManageFilterController($scope, $timeout, filterFilter) {
         /* jshint validthis:true */
         var vm = this;
 
         vm.activePageRanking = [];
         vm.categoriesForFilter = [];
+        vm.pageCategoryPane = false;
 
         activate();
 
@@ -90,6 +91,34 @@
                 vm.activePageRanking[key].suitabilitySelected = false;
             });
         });
+
+        // Init filter with best performance ranking
+        $scope.$on('initBestPagesManageFilter', function(e) {
+            vm.pageCategoryPane = true;
+            $timeout(function() {
+                if (vm.activePageRanking[3].rankSelected == true) {
+                    var el = document.querySelector('#pages_manage_filter .filter-ranking tr:last-child input.ranking-option');
+                    angular.element(el).click();
+                }
+                var el = document.querySelector('#pages_manage_filter .filter-ranking input.ranking-option:first-child');
+                angular.element(el).click();
+                vm.pageCategoryPane = false;
+            }, 500);
+        })
+
+        // Init filter with least performance ranking
+        $scope.$on('initLeastPagesManageFilter', function(e) {
+            vm.pageCategoryPane = true;
+            $timeout(function() {
+                if (vm.activePageRanking[0].rankSelected == true) {
+                    var el = document.querySelector('#pages_manage_filter .filter-ranking input.ranking-option:first-child');
+                    angular.element(el).click();
+                }
+                var el = document.querySelector('#pages_manage_filter .filter-ranking tr:last-child input.ranking-option');
+                angular.element(el).click();
+                vm.pageCategoryPane = false;
+            }, 500);
+        })
     }
 
 })(angular);

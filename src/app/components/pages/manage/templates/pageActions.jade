@@ -9,10 +9,11 @@
         em.fa.fa-copy.pull-left
         span.pull-left Copy to Clipboard
     .mda-list-item(ng-click='pageMCtrl.onAutoOptimisePage(page)')
-        em.fa.fa-toggle-on.pull-left
+        em.fa.fa-toggle-on.pull-left.text-info(ng-if='page.category.promoted', ng-click='pageMCtrl.setManualPromotion(page, $event)')
+        em.fa.fa-toggle-off.pull-left(ng-if='!page.category.promoted', ng-click='pageMCtrl.setManualPromotion(page, $event)')
         span.pull-left Auto Optimise Page
     .mda-list-item(ng-click='pageMCtrl.onGenerateTitle(page);')
-        em.fa.fa-toggle-on.pull-left
+        em.fa.fa-toggle-on.pull-left.text-info
         span.pull-left Generate Title/Description
     .mda-list-item(ng-click='pageMCtrl.onRemoveFromSystem(page);')
         em.fa.fa-trash-o.pull-left

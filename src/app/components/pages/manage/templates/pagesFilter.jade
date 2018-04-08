@@ -38,7 +38,7 @@ div(ng-controller='pagesManageFilterController as pmfc')
                             a Performance
                         td
                             p Ranking
-                        td
+                        td.text-center
                             p SEO
                     tr(ng-repeat='item in pmfc.activePageRanking')
                         td
@@ -46,7 +46,7 @@ div(ng-controller='pagesManageFilterController as pmfc')
                             span.mda-checkbox.pull-right
                                 input(type='checkbox', checked='', onclick='return false;')
                                 em.empty(ng-class='item.bg')
-                        td.text-center
+                        td.text-right
                             label.mda-checkbox
                                 input.ranking-option(type='checkbox',
                                     st-pages-rank-search='',
@@ -55,6 +55,9 @@ div(ng-controller='pagesManageFilterController as pmfc')
                                     ng-model='item.rankSelected')
                                 em.bg-indigo-500
                         td.text-center(ng-if='item.value!="4"')
+                            em.fa.fa-check.text-success(ng-if='item.value==1')
+                            em.fa.fa-warning.text-warning(ng-if='item.value==2')
+                            em.fa.fa-info-circle.text-danger(ng-if='item.value==3', style='width:13px;')
                             label.mda-checkbox
                                 input.violate-option(type='checkbox',
                                     st-pages-rank-search='',
