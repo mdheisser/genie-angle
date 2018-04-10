@@ -18,49 +18,27 @@
         $urlRouterProvider,
         helper
     ) {
-        $stateProvider
-            // .state("app.keywords", {
-            // url: "/keywords",
-            // title: "Keywords"
-            // templateUrl: helper.componentPath("keywords", "keywords"),
-            // resolve: helper.resolveFor(
-            //     "smart-table",
-            //     "ui.select",
-            //     "ng-dialog",
-            //     "ng-bootstrap-select",
-            //     "highcharts",
-            //     "highcharts-export"
-            // )
-        // })
-        .state("app.keywords-dashboard", {
+        $stateProvider.state("app.keywords-dashboard", {
             url: "/keywords-dashboard",
-            title: "Keywords",
+            title: "Keywords Dashboard",
             templateUrl: helper.componentPath("keywords/dashboard", "keywords-dashboard"),
             resolve: helper.resolveFor(
                 "ng-bootstrap-select",
                 "highcharts",
                 "highcharts-export"
             )
+        })
+        .state("app.keywords-manage", {
+            url: "/keywords-manage",
+            title: "Keywords Manage",
+            templateUrl: helper.componentPath("keywords/manage", "keywords-list"),
+            resolve: helper.resolveFor(
+                "smart-table",
+                "ui.select",
+                "ng-bootstrap-select",
+                "highcharts",
+                "highcharts-export"
+            )
         });
-        // .state("app.keywords.dashboard.statistics", {
-        //     url: "/statistics",
-        //     title: "Keywords"
-        // })
-        // .state("app.keywords.dashboard.engines", {
-        //     url: "/engines",
-        //     title: "Keywords"
-        // })
-        // .state("app.keywords.dashboard.ranking", {
-        //     url: "/ranking",
-        //     title: "Keywords"
-        // })
-        // .state("app.keywords.list", {
-        //     url: "/list",
-        //     title: "Keywords"
-        // })
-        // .state("app.keywords.add-keywords", {
-        //     url: "/add-keywords",
-        //     title: "Keywords"
-        // });
     }
 })(angular);

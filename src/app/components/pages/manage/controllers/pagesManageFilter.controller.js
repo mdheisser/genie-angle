@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('components.keywords')
+        .module('components.pages')
         .controller('pagesManageFilterController', pagesManageFilterController)
 
     pagesManageFilterController.$inject = ['$scope', '$timeout','filterFilter'];

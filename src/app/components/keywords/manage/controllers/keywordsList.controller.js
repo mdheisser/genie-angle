@@ -236,7 +236,7 @@
 
         // Perform bulk action
         function performAction(name) {
-            var selectedRows = filterFilter($scope.filteredCollection, {selected: true});
+            var selectedRows = filterFilter($scope.filteredKeyCollection, {selected: true});
             var msgHtml = '';
 
             if(selectedRows.length <= 0) {
@@ -274,20 +274,20 @@
         $scope.$watch(function () {
             return vm.allRowsMarked;
         }, function (current, original) {
-            _($scope.filteredCollection).forEach(function (value, index) {
+            _($scope.filteredKeyCollection).forEach(function (value, index) {
                 if (current === true) {
-                    $scope.filteredCollection[index].selected = true;
+                    $scope.filteredKeyCollection[index].selected = true;
                 } else {
-                    $scope.filteredCollection[index].selected = false;
+                    $scope.filteredKeyCollection[index].selected = false;
                 }
             });
         });
 
         // Set filter on/off switch status.
-        $scope.$watch('filteredCollection', function() {
-            if ($scope.filteredCollection != undefined) {
+        $scope.$watch('filteredKeyCollection', function() {
+            if ($scope.filteredKeyCollection != undefined) {
                 var original = vm.rowCollection.length;
-                var filtered = $scope.filteredCollection.length;
+                var filtered = $scope.filteredKeyCollection.length;
                 if(original != filtered) {
                     vm.filterOn = true;
                 } else {

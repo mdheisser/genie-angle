@@ -1,30 +1,32 @@
-#keyList.container-fluid.panel.panel-default.panel-dark.m0(ng-controller='keywordsListController as listc')
+h3.content-heading.text-bold
+    | Keywords/Manage
+#keywords_manage.panel(ng-controller='keywordsListController as listc')
     .panel-heading.custom-heading.flex-heading
         .description Manage&nbsp;Keywords
-        .panel-title.w-70p.dashboard-title
+        .panel-title.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='listc.selectedSite', ng-options='site.name for site in listc.sites')
-    .panel-wrapper(uib-collapse="keyList")
+    .panel-wrapper(uib-collapse="keywords_manage")
         .panel-body.p0
             .container-fluid
-                table.custom-table(st-table="displayedCollection", st-safe-src='listc.rowCollection', st-set-filter="additionalFilter", st-filtered-collection)
+                table.custom-table(st-table="displayedCollection", st-safe-src='listc.rowCollection', st-set-filter="additionalFilter", st-filtered-key-collection)
                     thead.table-control
                         tr
                             td.text-right(colspan="7")
-                                a.left.btn.btn-primary.btn-outline.btn-oval.btn-xs(href='#/app/keywords/add-keywords')
+                                a.pull-left.btn.btn-primary.btn-outline.btn-oval.btn-xs(href='')
                                     i.fa.fa-plus
-                                .left.ml.mda-input-group
+                                .pull-left.ml.mda-input-group
                                     input#searchForkeyword.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
                                     span.mda-input-group-addon
                                         em.fa.fa-search
                                     overlay-popup(active='listc.showAdditionalFilter', width='450')
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
-                                .left
+                                .pull-left
                                     fiter-condition(condition-for='keyword')
-                                .left.pl.filter-title Filter
-                                .left.ml
+                                .pull-left.pl.filter-title Filter
+                                .pull-left.ml
                                     md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='', ng-disabled='!listc.filterOn', ng-click='listc.resetFilter()')
-                                .right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="listc.currentPage = newPage")
-                                .right.display-rows
+                                .pull-right(st-pagination='', st-items-by-page="listc.numberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="listc.currentPage = newPage")
+                                .pull-right.display-rows
                                     label Display
                                     label
                                         select(selectpicker='', ng-model="listc.numberOfRows", ng-options='item.value as item.label for item in listc.itemsByPage')
@@ -50,14 +52,14 @@
                         tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='listc.expandKeywordDetail(row)')
                             td.text-center {{ ((listc.currentPage-1) * listc.numberOfRows) + $index + 1 }}
                             td.keyword-col
-                                .left.keyword-label
+                                .pull-left.keyword-label
                                     span.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.keyword }}
                                     i.fa.fa-caret-down.ml-sm(ng-click='listc.openKeywordActionPane(row, $event)')
                                     overlay-popup(active='row.showActions', width='185')
                                         div(ng-include="'app/components/keywords/manage/templates/keywordActions.html'")
-                                .right.keyword-control
-                                    em.fa.fa-line-chart.right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='listc.onActiveMonitoredKeyword(row, $event)')
-                                    label.m0.right
+                                .pull-right.keyword-control
+                                    em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='listc.onActiveMonitoredKeyword(row, $event)')
+                                    label.m0.pull-right
                                         md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)', ng-click='$event.stopPropagation()')
                             td.text-center.text-warning
                                 i.fa.fa-angle-double-down(uib-tooltip='Google.com. SERP Ranking: Page {{row.activepages}}, Position {{row.g}}')
@@ -85,5 +87,5 @@
                         tr(ng-if="row.expanded", ng-repeat-end="")
                             td(colspan='7')
                                 div(ng-include="'app/components/keywords/manage/templates/expandedKeyword.html'")
-                        tr.no-data-row.text-center(ng-if='displayedCollection.length < 7')
+                        tr.no-data-row.text-center(ng-if='displayedCollection.length < 6')
                             td(colspan='7')

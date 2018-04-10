@@ -42,7 +42,7 @@
                 #statistics1.panel
                     .panel-heading.sub-heading
                         .panel-title 
-                            | Statistics
+                            | Status
                             span.text-underline {{ pageDashCtrl.selectedSite.name }}
                         paneltool(tool-collapse, ng-init="statistics1=false")
                     .panel-wrapper(uib-collapse="statistics1")
@@ -59,7 +59,6 @@
                             .row.p-sm
                                 .col-xs-9 New Pages Automatically to SEOgenie System
                                 .col-xs-3.p0
-                                    em.fa.fa-check.text-success.pull-left.mt-sm
                                     md-switch.m0.pull-left(ng-model='pageMCtrl.autoNewPage', aria-label='filter')
                             .row.p-sm
                                 .col-xs-9 Last Report Date: 09-12-2017

@@ -32,7 +32,11 @@
                     query = '';
                 }
 
-                table.search(query, 'category');
+                scope.$apply(function() {
+
+                    table.search(query, 'category');
+
+                });
             });
 
             // Get selected categories.

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('components.keywords')
+        .module('components.pages')
         .filter('convertPagesManageData', convertPagesManageData)
 
     convertPagesManageData.$inject = [];
