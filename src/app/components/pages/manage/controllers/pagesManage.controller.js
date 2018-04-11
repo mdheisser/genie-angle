@@ -258,7 +258,7 @@
         });
 
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-            if (fromState.name == 'app.pages.dashboard' && toState.name == 'app.pages.manage' && toParams.filter != null) {
+            if (fromState.name == 'app.pages-dashboard' && toState.name == 'app.pages-manage' && toParams.filter != null) {
                 vm.showAdditionalFilter = true;
                 if (toParams.filter == 'best') {
                     $scope.$broadcast('initBestPagesManageFilter');

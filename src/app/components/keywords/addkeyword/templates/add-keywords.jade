@@ -1,9 +1,10 @@
-#addKeywords.panel.m0(ng-controller='addKeywordsCtrl as akc')
+h3.content-heading.text-bold
+    | Keywords/Add
+#addKeywords.panel(ng-controller='addKeywordsCtrl as akc')
     .panel-heading.custom-heading.flex-heading
         .description Add&nbsp;Keywords
-        .panel-title.dashboard-title
-            select(selectpicker='', data-live-search='true', ng-model='akc.site.selected')
-                option.text-bold(ng-repeat='site in akc.sites') {{ site.name }}
+        .panel-title
+            select(selectpicker='', data-live-search='true', ng-model='akc.selectedSite', ng-options='site.name for site in akc.sites')
     .panel-wrapper(uib-collapse="addKeywords")
         .panel-body.pb0
             .col-lg-7.text-mode

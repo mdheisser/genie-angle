@@ -36,7 +36,7 @@
 
         // Go to Pages Manage page with filter
         function goManagePage(filter) {
-            $state.go('app.pages.manage', {filter:filter});
+            $state.go('app.pages-manage', {filter:filter});
         }
     }
 

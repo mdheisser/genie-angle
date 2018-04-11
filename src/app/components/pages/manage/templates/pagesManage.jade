@@ -1,5 +1,7 @@
+h3.content-heading.text-bold
+    | Pages/Manage
 #pages_manage.container-fluid.panel.mb0(ng-controller='pagesManageController as pageMCtrl')
-    .custom-heading.flex-heading
+    .panel-heading.custom-heading.flex-heading
         .description Pages&nbsp;Manage
         .panel-title
             select(selectpicker='', data-live-search='true', ng-model='pageMCtrl.selectedSite', ng-options='site.name for site in pageMCtrl.sites')
@@ -54,9 +56,9 @@
                                 label.m0.pull-right
                                     md-switch(ng-model='page.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Page Auto-Promote ON", false:"Page Auto-Promote OFF"}[page.category.promoted]}}', ng-click='pageMCtrl.setManualPromotion(page, $event)')
                         td.text-right.page-keyword-col.pr-sm
-                            em.fa.fa-anchor.pl0.pr-sm(ng-if='page.category.default', uib-tooltip='', ng-click='$event.stopPropagation()')
+                            em.fa.fa-anchor.pl0.pr-sm(ng-if='page.category.default', uib-tooltip='', ng-click='$event.stopPropagation()', style='font-size:12px;')
                             span(uib-tooltip='{{ page.auto_keywords + page.manual_keywords }} {{ page.category.default ? "Defalut" : "" }} Keywords Assigned to Page, {{page.manual_keywords}} Assigned Manually') {{ page.auto_keywords + page.manual_keywords }}
-                                small ({{ page.manual_keywords }})
+                                small(ng-if='page.manual_keywords!=0') ({{ page.manual_keywords }})
                             em.fa.fa-caret-down.text-grey(ng-click='pageMCtrl.openPageKeywordPopup(page, $event)')
                             overlay-popup(active='page.showKeywordsPopup', width='135')
                                 div(ng-include="'app/components/keywords/manage/templates/pageKeywordPopup.html'")

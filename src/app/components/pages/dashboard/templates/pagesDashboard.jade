@@ -1,5 +1,7 @@
+h3.content-heading.text-bold
+    | Pages/Dashboard
 #pages_dashboard.container-fluid.panel.mb0(ng-controller='pagesDashboardController as pageDashCtrl')
-    .custom-heading.flex-heading
+    .panel-heading.custom-heading.flex-heading
         .description Pages&nbsp;Dashboard
         .panel-title
             select(selectpicker='', data-live-search='true', ng-model='pageDashCtrl.selectedSite', ng-options='site.name for site in pageDashCtrl.sites')
@@ -48,19 +50,20 @@
                     .panel-wrapper(uib-collapse="statistics1")
                         .panel-body
                             .row.p-sm
-                                .col-xs-9 SiteMap Active
+                                .col-xs-9
+                                    | SiteMap Active
+                                    em.fa.fa-check.text-success.mt-sm.ml-sm
                                 .col-xs-3.p0
-                                    em.fa.fa-check.text-success.pull-left.mt-sm
                                     md-switch.m0.pull-left(ng-model='pageMCtrl.activeSiteMap', aria-label='filter')
                             .row.p-sm
-                                .col-xs-9 Robot TXT
-                                .col-xs-3.p0
-                                    em.fa.fa-check.text-success.pull-left.mt-sm
+                                .col-xs-9
+                                    | Robot TXT
+                                    em.fa.fa-check.text-success.mt-sm
                             .row.p-sm
                                 .col-xs-9 New Pages Automatically to SEOgenie System
                                 .col-xs-3.p0
                                     md-switch.m0.pull-left(ng-model='pageMCtrl.autoNewPage', aria-label='filter')
                             .row.p-sm
-                                .col-xs-9 Last Report Date: 09-12-2017
-                                .col-xs-3.p0
-                                    em.fa.fa-check.text-success.pull-left.mt-sm
+                                .col-xs-9
+                                    | Last Report Date: 09-12-2017
+                                    em.fa.fa-check.text-success.mt-sm

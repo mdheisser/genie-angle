@@ -4,15 +4,14 @@
     angular
         .module('components.keywords')
         .controller("addKeywordsCtrl", addKeywordsCtrl);
-    addKeywordsCtrl.$inject = ['$scope'];
+    addKeywordsCtrl.$inject = ['$scope', 'commonService'];
 
-    function addKeywordsCtrl($scope) {
+    function addKeywordsCtrl($scope, commonService) {
         /* jshint validthis:true */
         var vm = this;
-        vm.site = {};
-        vm.site.selected = undefined;
+
+        vm.selectedSite = {};
         vm.sites = [];
-        vm.keywords = [];
 
         activate();
 
@@ -24,12 +23,12 @@
 
         // Get user's own site names.
         function getOwnSites() {
-            var data = [
-                { id: 1, name: 'www.umm.com' },
-                { id: 2, name: 'www.uee.com' }
-            ];
-            vm.sites = data;
-            vm.site.selected = data[0].name;
+            commonService
+                .getSites()
+                .then(function (response) {
+                    vm.sites = response.data;
+                    vm.selectedSite = vm.sites[0];
+                });
         }
     }
 

@@ -44,15 +44,15 @@
     {
         "icon": "fa fa-file-text-o",
         "text": "Pages",
-        "sref": "app.pages",
+        "sref": "app.pages-dashboard",
         "submenu": [
             {
                 "text": "Dashboard",
-                "sref": "app.pages.dashboard"
+                "sref": "app.pages-dashboard"
             },
             {
                 "text": "Manage",
-                "sref": "app.pages.manage"
+                "sref": "app.pages-manage"
             }
         ]
     },

@@ -39,6 +39,14 @@
                 "highcharts",
                 "highcharts-export"
             )
+        })
+        .state("app.keywords-add", {
+            url: "/keywords-add",
+            title: "Add Keywords",
+            templateUrl: helper.componentPath("keywords/addkeyword", "add-keywords"),
+            resolve: helper.resolveFor(
+                "ng-bootstrap-select"
+            )
         });
     }
 })(angular);

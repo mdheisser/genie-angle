@@ -18,24 +18,27 @@
         $urlRouterProvider,
         helper
     ) {
-        $stateProvider.state("app.pages", {
-            url: "/pages",
-            title: "Pages",
-            templateUrl: helper.componentPath("pages", "pages"),
+        $stateProvider.state("app.pages-dashboard", {
+            url: "/pages-dashboard",
+            title: "Pages Dashboard",
+            templateUrl: helper.componentPath("pages/dashboard", "pagesDashboard"),
             resolve: helper.resolveFor(
-                "smart-table",
-                "ui.select",
                 "ng-bootstrap-select"
             )
         })
-        .state("app.pages.dashboard", {
-            url: "/dashboard"
-        })
-        .state("app.pages.manage", {
-            url: "/manage",
+        .state("app.pages-manage", {
+            url: "/pages-manage",
+            title: "Pages Dashboard",
             params: {
                 filter: null
-            }
+            },
+            templateUrl: helper.componentPath("pages/manage", "pagesManage"),
+            resolve: helper.resolveFor(
+                "smart-table",
+                "ng-bootstrap-select",
+                "highcharts",
+                "highcharts-export"
+            )
         });
     }
 })(angular);
