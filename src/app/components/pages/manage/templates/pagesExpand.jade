@@ -1,0 +1,132 @@
+.expanded-page
+    .row
+        .col-md-4
+            #page_setting.panel
+                .panel-heading.sub-heading
+                    .panel-title Settings for Page: {{ page.pageUrl }}
+                    paneltool(tool-collapse, ng-init="page_setting=false")
+                .panel-wrapper(uib-collapse="page_setting")
+                    .panel-body.p-sm
+                        .mda-list.p0
+                            .mda-list-item.mb-sm
+                                span.pull-left Launch Page URL
+                                span.pull-right.fixed-width
+                                    em.fa.fa-search
+                            .mda-list-item.mb-sm
+                                span.pull-left Copy to Clipboard
+                                span.pull-right.fixed-width
+                                    em.fa.fa-copy
+                            .mda-list-item.mb-sm
+                                span.pull-left Auto Optimise Page
+                                span.pull-right.fixed-width
+                                    md-switch(ng-model='page.category.promoted', aria-label='auto')
+                            .mda-list-item.mb-sm
+                                span.pull-left Maximum Keywords for Page
+                                span.pull-right.fixed-width 5
+                                    em.fa.fa-caret-down
+                            .mda-list-item.mb-sm
+                                span.pull-left Refresh, Process Page
+                                span.pull-right.fixed-width
+                                    em.fa.fa-refresh
+                            .mda-list-item.mb-sm
+                                span.pull-left Remove Page from SEOgenie
+                                span.pull-right.fixed-width
+                                    em.fa.fa-trash-o
+                            .mda-list-item
+                                span.pull-left Page Primary Language
+                                span.pull-right
+                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", data-size="6", ng-model='pageMCtrl.selectedLanguage', ng-options='language.name for language in pageMCtrl.languages')
+        .col-md-8
+            #page_description.panel
+                .panel-heading.sub-heading
+                    .panel-title Page Title, Description: {{ page.pageUrl }}
+                    paneltool(tool-collapse, ng-init="page_description=false")
+                .panel-wrapper(uib-collapse="page_description")
+                    .panel-body.pt-sm
+                        h4
+                            a Herbal medicine | University of Maryland Medical Center
+                        p.m0 www.umm.deu >...> Complementary and Alternative Medicine Guide > Treatment
+                        p The most commonly used herbal supplements in the U.S. include: Echinacea (Echinacea purpurea and related species> St. John's wort(Hypericum perforatum) Ginkgo (Ginkgo biloba) Garlic (Allium sativum) Saw palmetto (Serrenoa repens) Ginseng (Panax ginseng or Asian ginseng) and Panax guinquefoluis or Amerian ginseng)
+                        div
+                            span.pull-left Auto Generate Title/Description
+                            .pull-left.pl
+                                md-switch(ng-model='page.autotitle', aria-label='auto')
+                            span Generate
+                            em.fa.fa-edit.pull-right
+    #pages_assign_key.panel
+        .panel-heading.sub-heading
+            .panel-title Keywords Assigned to Page: {{ page.pageUrl }}
+            paneltool(tool-collapse, ng-init='pages_assign_key')
+        .panel-wrapper(uib-collapse="pages_assign_key")
+            .panel-body
+                .container-fluid
+                    table.custom-table(st-table="pagesExpansionCollection", st-safe-src='pageMCtrl.keywordDetailCollection', st-set-filter="additionalFilter", st-filtered-key-collection)
+                        thead.table-control
+                            tr
+                                td.text-right(colspan="7")
+                                    a.pull-left.btn.btn-primary.btn-outline.btn-oval.btn-xs(href='/#/app/keywords-add')
+                                        i.fa.fa-plus
+                                    .pull-left.ml.mda-input-group
+                                        input#searchForkeyword.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
+                                        span.mda-input-group-addon
+                                            em.fa.fa-search
+                                        overlay-popup(active='listc.showAdditionalFilter', width='450')
+                                            div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
+                                    .pull-left
+                                        fiter-condition(condition-for='keyword')
+                                    .pull-left.pl.filter-title Filter
+                                    .pull-left.ml
+                                        md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='', ng-disabled='!listc.filterOn', ng-click='listc.resetFilter()')
+                                    .pull-right(st-pagination='', st-items-by-page="pageMCtrl.detailNumberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pageMCtrl.detailCurrentPage = newPage")
+                                    .pull-right.display-rows
+                                        label Display
+                                        label
+                                            select(selectpicker='', ng-model="pageMCtrl.detailNumberOfRows", ng-options='item.value as item.label for item in pageMCtrl.detailItemsByPage')
+                        thead
+                            tr
+                                th.text-center.row-index #
+                                th(st-sort="keyword") Keywords
+                                th.text-center(st-sort="g", style='width:55px;')
+                                    i.glyphicon.socicon-google
+                                th.text-center(st-sort="y", style='width:55px;')
+                                    i.glyphicon.socicon-yahoo
+                                th.text-center(st-sort="m", style='width:55px;')
+                                    i.glyphicon.socicon-bing
+                                th.text-center(st-sort="activepages", style='width:140px;') Active Pages
+                        tbody
+                            tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in pagesExpansionCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='listc.expandKeywordDetail(row)')
+                                td.text-center {{ ((pageMCtrl.detailCurrentPage-1) * pageMCtrl.detailNumberOfRows) + $index + 1 }}
+                                td.keyword-col
+                                    .pull-left.keyword-label
+                                        span.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.keyword }}
+                                        i.fa.fa-caret-down.ml-sm(ng-click='listc.openKeywordActionPane(row, $event)')
+                                        overlay-popup(active='row.showActions', width='185')
+                                            div(ng-include="'app/components/keywords/manage/templates/keywordActions.html'")
+                                    .pull-right.keyword-control
+                                        em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='listc.onActiveMonitoredKeyword(row, $event)')
+                                        label.m0.pull-right
+                                            md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)', ng-click='$event.stopPropagation()')
+                                td.text-center.text-warning
+                                    i.fa.fa-angle-double-down(uib-tooltip='Google.com. SERP Ranking: Page {{row.activepages}}, Position {{row.g}}')
+                                        span.font-roboto.ml-sm {{ row.g }}
+                                td.text-center.text-danger
+                                    i.fa.fa-angle-double-up(uib-tooltip='Yahoo.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.y}}')
+                                        span.font-roboto.ml-sm {{ row.y }}
+                                td.text-center.text-success
+                                    span.font-roboto.ml-sm(uib-tooltip='Bing.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.m}}') {{ row.m }}
+                                td.progress-col.pl-sm
+                                    .pull-left.text-center.pr-sm
+                                        span.mr-sm(uib-tooltip='Keyword Assigned to {{row.activepages}} Pages') {{ row.activepages }}
+                                    .color-bar.pull-left
+                                        .flex(uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}", ng-class='row.g | rankingFilter')
+                                        .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.significance]', uib-tooltip="Significance: 34%")
+                                        .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.suitability]', uib-tooltip="Suitability: 68%")
+                                    .pull-left.pl-sm(ng-if='row.category.default')
+                                        i.fa.fa-anchor(uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
+                                    .pull-left.soc-ranking.pl-sm(ng-if='row.category.forced')
+                                        i.fa.fa-bookmark-o(uib-tooltip='Forcing Promotion Min {{row.forced_min}}, Max {{row.forced_max}}')
+                            tr(ng-if="row.expanded", ng-repeat-end="")
+                                td(colspan='7')
+                                    div(ng-include="'app/components/keywords/manage/templates/expandedKeyword.html'")
+                            tr.no-data-row.text-center(ng-if='pagesExpansionCollection.length < 6')
+                                td(colspan='7')

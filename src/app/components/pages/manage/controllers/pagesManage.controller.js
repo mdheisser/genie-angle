@@ -7,11 +7,11 @@
 
     pagesManageController.$inject = [
         '$rootScope', '$scope', '$window', '$stateParams', '$timeout',
-        'Notify', 'filterFilter', 'commonService', 'convertPagesManageDataFilter'];
+        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'convertPagesManageDataFilter', 'convertPageDataFilter'];
 
     function pagesManageController(
         $rootScope, $scope, $window, $stateParams, $timeout,
-        Notify, filterFilter, commonService, convertPagesManageDataFilter) {
+        Notify, filterFilter, commonService, websitesService, keywordsService, convertPagesManageDataFilter, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -34,6 +34,12 @@
         vm.selectedSite = {};
         vm.showAdditionalFilter = false;
         vm.sites = [];
+
+        vm.detailCurrentPage = 1;
+        vm.getLanguages = getLanguages;
+        vm.expandPageDetail = expandPageDetail
+        vm.selectedLanguage = {};
+        vm.languages = [];
 
         activate();
 
@@ -113,6 +119,7 @@
                     vm.sites = response.data;
                     vm.selectedSite = vm.sites[0];
                     getPages(vm.selectedSite.id);
+                    getLanguages(vm.selectedSite.id);
                 });
         }
 
@@ -268,6 +275,50 @@
             }
         })
 
+        /////////////////////////  DETAIL EXPANSION  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Expand Keyword Detail Page
+        function expandPageDetail(row) {
+            _.each(vm.pagesList, function(value, key) {
+                if (row != value) {
+                    vm.pagesList[key].expanded = false;
+                }
+            });
+            row.expanded = !row.expanded;
+            vm.savedExpandedRowId = row.id;
+            getKeywordDetail(row);
+        }
+
+        // Get selected keyword's detail information.
+        function getKeywordDetail(row) {
+            var keywordID = row.id;
+            keywordsService
+                .getKeywords(keywordID)
+                .then(function (response) {
+                    vm.keywordDetailCollection = convertPageDataFilter(response.data);
+                    // Set value for number of row by page in dropdown.
+                    vm.detailItemsByPage =  [
+                        { label: '5', value: '5' },
+                        { label: '10', value: '10' },
+                        { label: '15', value: '15' },
+                        { label: '20', value: '20' },
+                        { label: 'All', value: vm.keywordDetailCollection.length.toString()}
+                    ];
+                    vm.detailNumberOfRows = vm.detailItemsByPage[1].value;
+
+                    vm.pageCategoryPane = true;
+                });
+        }
+
+        // Gey available languages.
+        function getLanguages(siteId) {
+            websitesService
+                .getLanguages(siteId)
+                .then(function (response) {
+                    vm.languages = response.data;
+                    vm.selectedLanguage = vm.languages[1];
+                });
+        }
     }
 
 })();

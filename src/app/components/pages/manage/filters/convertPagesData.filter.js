@@ -36,6 +36,7 @@
 
                 item.showActions = false;
                 item.showKeywordsPopup = false;
+                item.expanded = false;
 
                 output.push(item);
             });

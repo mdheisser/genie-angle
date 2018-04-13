@@ -44,7 +44,7 @@ h3.content-heading.text-bold
                             overlay-popup#pages_manage_actions(active='pageMCtrl.showBulkAction', width='206')
                                 div(ng-include="'app/components/pages/manage/templates/pagesManageBulkActions.html'")
                 tbody
-                    tr(ng-repeat="page in pagesDisplayedCollection", ng-click='pageMCtrl.onSelectKeywordDetail(detail, $event)')
+                    tr(ng-repeat-start="page in pagesDisplayedCollection", ng-click='pageMCtrl.expandPageDetail(page)', ng-class='{true: "bg-blue-100", false:""}[page.expanded]',)
                         td.text-center {{ ((pageMCtrl.currentPage-1) * pageMCtrl.numberOfRows) + $index + 1 }}
                         td.keyword-col
                             .pull-left.keyword-label
@@ -74,4 +74,7 @@ h3.content-heading.text-bold
                             label.mda-checkbox
                                 input(type='checkbox', ng-model='page.selected', ng-click='$event.stopPropagation()')
                                 em.bg-indigo-500
+                    tr(ng-if="page.expanded", ng-repeat-end="")
+                            td(colspan='7')
+                                div(ng-include="'app/components/pages/manage/templates/pagesExpand.html'")
                     tr.no-data-row.text-center(ng-if='pagesDisplayedCollection.length < 4')
