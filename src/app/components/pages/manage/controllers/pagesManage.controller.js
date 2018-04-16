@@ -37,8 +37,10 @@
 
         vm.detailCurrentPage = 1;
         vm.getLanguages = getLanguages;
+        vm.expandFilterOn = false;
         vm.expandPageDetail = expandPageDetail
         vm.selectedLanguage = {};
+        vm.pagesExpandCollection = [];
         vm.languages = [];
 
         activate();
@@ -295,14 +297,14 @@
             keywordsService
                 .getKeywords(keywordID)
                 .then(function (response) {
-                    vm.keywordDetailCollection = convertPageDataFilter(response.data);
+                    vm.pagesExpandCollection = convertPageDataFilter(response.data);
                     // Set value for number of row by page in dropdown.
                     vm.detailItemsByPage =  [
                         { label: '5', value: '5' },
                         { label: '10', value: '10' },
                         { label: '15', value: '15' },
                         { label: '20', value: '20' },
-                        { label: 'All', value: vm.keywordDetailCollection.length.toString()}
+                        { label: 'All', value: vm.pagesExpandCollection.length.toString()}
                     ];
                     vm.detailNumberOfRows = vm.detailItemsByPage[1].value;
 
@@ -319,6 +321,29 @@
                     vm.selectedLanguage = vm.languages[1];
                 });
         }
+
+        // Reset Page Fitler.
+        function resetPageFilter() {
+            if (vm.expandFilterOn === true) {
+                $scope.$broadcast('resetPageFilter');
+            }
+        }
+
+        // Set detail filter on/off switch status.
+        $scope.$watch(function() {
+            return localStorage.getItem('detailFilteredCollection');
+        }, function() {
+            var detailFilteredCollection = JSON.parse(localStorage.getItem('detailFilteredCollection'));
+            if (detailFilteredCollection != undefined) {
+                var original = vm.pagesExpandCollection.length;
+                var filtered = detailFilteredCollection.length;
+                if(original != filtered) {
+                    vm.expandFilterOn = true;
+                } else {
+                    vm.expandFilterOn = false;
+                }
+            }
+        });
     }
 
 })();
