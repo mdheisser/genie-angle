@@ -6,11 +6,11 @@
         .controller('pagesManageController', pagesManageController)
 
     pagesManageController.$inject = [
-        '$rootScope', '$scope', '$window', '$stateParams', '$timeout',
+        '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog',
         'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'convertPagesManageDataFilter', 'convertPageDataFilter'];
 
     function pagesManageController(
-        $rootScope, $scope, $window, $stateParams, $timeout,
+        $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog,
         Notify, filterFilter, commonService, websitesService, keywordsService, convertPagesManageDataFilter, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
@@ -39,8 +39,9 @@
         vm.getLanguages = getLanguages;
         vm.expandFilterOn = false;
         vm.expandPageDetail = expandPageDetail
-        vm.selectedLanguage = {};
+        vm.openViolationPage = openViolationPage
         vm.pagesExpandCollection = [];
+        vm.selectedLanguage = {};
         vm.languages = [];
 
         activate();
@@ -320,6 +321,25 @@
                     vm.languages = response.data;
                     vm.selectedLanguage = vm.languages[1];
                 });
+        }
+
+        // Open SEO violation page in popup
+        function openViolationPage(page, row, ev) {
+            $mdDialog.show({
+                locals:{
+                    pageData: page,
+                    keywordData: row
+                },
+                controller: 'pagesViolationController',
+                controllerAs: 'pvc',
+                templateUrl: 'app/components/pages/manage/templates/pagesViolation.html',
+                targetEvent: ev,
+            })
+            .then(function(answer) {
+                //
+            }, function() {
+                //
+            });
         }
 
         // Reset Page Fitler.

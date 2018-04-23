@@ -94,7 +94,7 @@
                                     i.glyphicon.socicon-bing
                                 th.text-center(st-sort="activepages", style='width:140px;') Active Pages
                         tbody
-                            tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in pagesExpansionCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='listc.expandKeywordDetail(row)')
+                            tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in pagesExpansionCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='pageMCtrl.openViolationPage(page, row, $event)')
                                 td.text-center {{ ((pageMCtrl.detailCurrentPage-1) * pageMCtrl.detailNumberOfRows) + $index + 1 }}
                                 td.keyword-col
                                     .pull-left.keyword-label

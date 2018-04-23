@@ -518,6 +518,43 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
+             * Returns violation status of the page
+             * @method
+             * @name API#getPageViolation
+             * @param {object} parameters - method options and parameters
+             * @param {string} parameters.pageId - Page Id of needed page
+             */
+            API.prototype.getPageViolation = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/page/violation';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['pageId'] !== undefined) {
+                    queryParameters['pageId'] = parameters['pageId'];
+                }
+
+                if (parameters['pageId'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: pageId'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
              * Login to the System
              * @method
              * @name API#postAccountLogin

@@ -1,0 +1,47 @@
+.panel.m0
+    .panel-heading.sub-heading
+        .panel-title SEO Violation for Page: {{ pvc.pageData.pageUrl }}
+        paneltool(tool-close, ng-click='pvc.hide()')
+    .panel-wrapper
+        .panel-body
+            .container-fluid
+                table.custom-table(st-table="pageViolationCollection", st-safe-src='pvc.pageViolationCollection', st-set-filter="additionalFilter", st-detail-filtered-collection)
+                    thead.table-control
+                        tr
+                            td.text-right(colspan="7")
+                                .pull-left.ml.mda-input-group
+                                    input#searchFordescription.mda-form-control(type='text', st-search='description', placeholder='Filter/Search', ng-click="pageMCtrl.showExpandAdditionalFilter=true", ng-model='pvc.searchInput')
+                                    span.mda-input-group-addon
+                                        em.fa.fa-search
+                                    //- overlay-popup#pages_expand_filter(active='pageMCtrl.showExpandAdditionalFilter', width='450')
+                                    //-     div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
+                                .pull-left
+                                    fiter-condition(condition-for='description')
+                                .pull-left.pl.filter-title Filter
+                                .pull-left.ml
+                                    md-switch.m0(ng-model='pvc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='pvc.filterOn',  st-reset='', ng-disabled='!pvc.filterOn')
+                                .pull-right(st-pagination='', st-items-by-page="pvc.numberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pvc.currentPage = newPage")
+                                .pull-right.display-rows
+                                    label Display
+                                    label
+                                        select(selectpicker='', ng-model="pvc.numberOfRows", ng-options='item.value as item.label for item in pvc.itemsByPage')
+                    thead
+                        tr
+                            th.text-center.row-index #
+                            th Violation Status
+                            th(st-sort="category") Category
+                            th(st-sort="description") Description
+                            th(st-sort="action") Recommendation/Actions
+                    tbody
+                        tr(st-select-row="row", st-select-mode="single", ng-repeat="row in pageViolationCollection")
+                            td.text-center.p-sm {{ ((pvc.currentPage-1) * pvc.numberOfRows) + $index + 1 }}
+                            td.keyword-col.p-sm {{ row.status | pageViolationStatus }}
+                            td.p-sm
+                                span.pull-left {{ row.category }}
+                                em.pull-right.fa(ng-class='{1:"fa-info-circle text-danger", 2:"fa-warning text-warning", 3:"fa-warning text-primary", 4:"fa-check text-success"}[row.status]')
+                            td.p-sm {{ row.description }}
+                            td.p-sm
+                                span.pull-left {{ row.action }}
+                                em.pull-right.fa.fa-wrench.text-success
+                        tr.no-data-row.text-center(ng-if='pageViolationCollection.length < 3')
+                            td(colspan='5')

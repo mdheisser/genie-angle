@@ -223,6 +223,26 @@ paths:
             type: array
             items:
               $ref: '#/definitions/page'
+  /page/violation:
+    get:
+      description: Returns violation status of the page
+      operationId: getPageViolation
+      summary: Get violations for page
+      produces:
+        - application/json
+      parameters:
+        - name: pageId
+          in: query
+          description: Page Id of needed page
+          required: true
+          type: string
+      responses:
+        '200':
+          description: A list of page violation.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/page'
   /account/login:
     post:
       description: Login to the System
