@@ -7,11 +7,11 @@
 
     pagesManageController.$inject = [
         '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog',
-        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'convertPagesManageDataFilter', 'convertPageDataFilter'];
+        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'pagesService', 'convertPagesManageDataFilter', 'convertPageDataFilter'];
 
     function pagesManageController(
         $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog,
-        Notify, filterFilter, commonService, websitesService, keywordsService, convertPagesManageDataFilter, convertPageDataFilter) {
+        Notify, filterFilter, commonService, websitesService, keywordsService, pagesService, convertPagesManageDataFilter, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -36,13 +36,15 @@
         vm.sites = [];
 
         vm.detailCurrentPage = 1;
+        vm.violationCurrentPage = 1;
         vm.getLanguages = getLanguages;
         vm.expandFilterOn = false;
         vm.expandPageDetail = expandPageDetail
-        vm.openViolationPage = openViolationPage
         vm.pagesExpandCollection = [];
+        vm.pageViolationCollection = [];
         vm.selectedLanguage = {};
         vm.languages = [];
+        vm.resetViolationFilter = resetViolationFilter;
 
         activate();
 
@@ -290,6 +292,7 @@
             row.expanded = !row.expanded;
             vm.savedExpandedRowId = row.id;
             getKeywordDetail(row);
+            getViolationData();
         }
 
         // Get selected keyword's detail information.
@@ -313,6 +316,24 @@
                 });
         }
 
+        // Gey violation status for page
+        function getViolationData() {
+            pagesService
+                .getPageViolation(1)
+                .then(function (response) {
+                    vm.pageViolationCollection = response.data;
+                    // Set value for number of row by page in dropdown.
+                    vm.violationItemsByPage =  [
+                        { label: '5', value: '5' },
+                        { label: '10', value: '10' },
+                        { label: '15', value: '15' },
+                        { label: '20', value: '20' },
+                        { label: 'All', value: vm.pageViolationCollection.length.toString()}
+                    ];
+                    vm.violationNumberOfRows = vm.violationItemsByPage[1].value;
+                });
+        }
+
         // Gey available languages.
         function getLanguages(siteId) {
             websitesService
@@ -321,25 +342,6 @@
                     vm.languages = response.data;
                     vm.selectedLanguage = vm.languages[1];
                 });
-        }
-
-        // Open SEO violation page in popup
-        function openViolationPage(page, row, ev) {
-            $mdDialog.show({
-                locals:{
-                    pageData: page,
-                    keywordData: row
-                },
-                controller: 'pagesViolationController',
-                controllerAs: 'pvc',
-                templateUrl: 'app/components/pages/manage/templates/pagesViolation.html',
-                targetEvent: ev,
-            })
-            .then(function(answer) {
-                //
-            }, function() {
-                //
-            });
         }
 
         // Reset Page Fitler.
@@ -361,6 +363,29 @@
                     vm.expandFilterOn = true;
                 } else {
                     vm.expandFilterOn = false;
+                }
+            }
+        });
+
+        // Reset Violation Fitler.
+        function resetViolationFilter() {
+            if (vm.violationFilterOn === true) {
+                $scope.$broadcast('resetViolationFilter');
+            }
+        }
+
+        // Set detail filter on/off switch status.
+        $scope.$watch(function() {
+            return localStorage.getItem('filteredViolations');
+        }, function() {
+            var filteredViolations = JSON.parse(localStorage.getItem('filteredViolations'));
+            if (filteredViolations != undefined) {
+                var original = vm.pageViolationCollection.length;
+                var filtered = filteredViolations.length;
+                if(original != filtered) {
+                    vm.violationFilterOn = true;
+                } else {
+                    vm.violationFilterOn = false;
                 }
             }
         });

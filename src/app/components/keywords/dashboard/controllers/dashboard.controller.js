@@ -5,9 +5,9 @@
         .module('components.keywords')
         .controller('keyDashController', keyDashController)
 
-    keyDashController.$inject = ['$scope', '$timeout', 'commonService', 'websitesService'];
+    keyDashController.$inject = ['$scope', '$timeout', '$location', 'commonService', 'websitesService'];
 
-    function keyDashController($scope, $timeout, commonService, websitesService) {
+    function keyDashController($scope, $timeout, $location, commonService, websitesService) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -216,6 +216,37 @@
             };
 
             vm.chartOptions = chartOptions;
+        }
+
+        // Detect the changing of the route.
+        $scope.$on('$locationChangeStart', function(event) {
+            setRoute();
+        })
+
+        // Define the behavior for sidebar menu.
+        function setRoute() {
+            switch($location.path()) {
+                case '/app/keywords-dashboard/statistics':
+                    flashHit('#keywords_statistics');
+                    break;
+                case '/app/keywords-dashboard/engines':
+                    flashHit('#keywords_search_engine');
+                    break;
+                case '/app/keywords-dashboard/ranking':
+                    flashHit('#keywords_dash_chart');
+                    break;
+            }
+        }
+
+        // Add flash animation to panel.
+        function flashHit(id) {
+            if (id != '') {
+                var panel = angular.element(document.querySelector(id));
+                panel.addClass('flashit');
+                $timeout(function() {
+                    panel.removeClass('flashit');
+                }, 1000);
+            }
         }
     }
 

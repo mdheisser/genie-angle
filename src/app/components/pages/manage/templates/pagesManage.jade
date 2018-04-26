@@ -34,7 +34,7 @@ h3.content-heading.text-bold
                         th.text-center.p-sm #
                         th(st-sort="pageUrl") Site Pages
                         th.text-center(st-sort="keywords", style="width:70px;") Keywords
-                        th.text-center(st-sort="violate", style="width:100px;") SEO Violations
+                        th.text-center(st-sort="violate", style="width:113px;") SEO Violations
                         th.text-center Score
                         th.text-center.actions-col(ng-click="pageMCtrl.showBulkAction=!pageMCtrl.showBulkAction")
                             label.mda-checkbox
@@ -77,4 +77,3 @@ h3.content-heading.text-bold
                     tr(ng-if="page.expanded", ng-repeat-end="")
                             td(colspan='7')
                                 div(ng-include="'app/components/pages/manage/templates/pagesExpand.html'")
-                    tr.no-data-row.text-center(ng-if='pagesDisplayedCollection.length < 4')

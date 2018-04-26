@@ -94,7 +94,7 @@
                                     i.glyphicon.socicon-bing
                                 th.text-center(st-sort="activepages", style='width:140px;') Active Pages
                         tbody
-                            tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in pagesExpansionCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='pageMCtrl.openViolationPage(page, row, $event)')
+                            tr(st-select-row="row", st-select-mode="single", ng-repeat="row in pagesExpansionCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]')
                                 td.text-center {{ ((pageMCtrl.detailCurrentPage-1) * pageMCtrl.detailNumberOfRows) + $index + 1 }}
                                 td.keyword-col
                                     .pull-left.keyword-label
@@ -125,8 +125,48 @@
                                         i.fa.fa-anchor(uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
                                     .pull-left.soc-ranking.pl-sm(ng-if='row.category.forced')
                                         i.fa.fa-bookmark-o(uib-tooltip='Forcing Promotion Min {{row.forced_min}}, Max {{row.forced_max}}')
-                            tr(ng-if="row.expanded", ng-repeat-end="")
-                                td(colspan='7')
-                                    div(ng-include="'app/components/keywords/manage/templates/expandedKeyword.html'")
-                            tr.no-data-row.text-center(ng-if='pagesExpansionCollection.length < 6')
-                                td(colspan='7')
+    #pages_violation.panel.m0
+        .panel-heading.sub-heading
+            .panel-title SEO Violation for Page: {{ page.pageUrl }}
+            paneltool(tool-collapse, ng-init='pages_violation')
+        .panel-wrapper(uib-collapse="pages_violation")
+            .panel-body
+                .container-fluid
+                    table.custom-table(st-table="pageViolationCollection", st-safe-src='pageMCtrl.pageViolationCollection', st-set-filter="additionalFilter", st-filtered-violations)
+                        thead.table-control
+                            tr
+                                td.text-right(colspan="7")
+                                    .pull-left.mda-input-group
+                                        input#searchFordescription.mda-form-control(type='text', st-search='description', placeholder='Filter/Search', ng-click="pageMCtrl.showViolationFilter=true")
+                                        span.mda-input-group-addon
+                                            em.fa.fa-search
+                                        overlay-popup(active='pageMCtrl.showViolationFilter', width='177')
+                                            div(ng-include="'app/components/pages/manage/templates/violationFilter.html'")
+                                    .pull-left
+                                        fiter-condition(condition-for='description')
+                                    .pull-left.pl.filter-title Filter
+                                    .pull-left.ml
+                                        md-switch.m0(ng-model='pageMCtrl.violationFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='pageMCtrl.violationFilterOn',  st-reset='', ng-disabled='!pageMCtrl.violationFilterOn', ng-click='pageMCtrl.resetViolationFilter()')
+                                    .pull-right(st-pagination='', st-items-by-page="pageMCtrl.violationNumberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pageMCtrl.violationCurrentPage = newPage")
+                                    .pull-right.display-rows
+                                        label Display
+                                        label
+                                            select(selectpicker='', ng-model="pageMCtrl.violationNumberOfRows", ng-options='item.value as item.label for item in pageMCtrl.violationItemsByPage')
+                        thead
+                            tr
+                                th.text-center.row-index #
+                                th Violation Status
+                                th(st-sort="category") Category
+                                th(st-sort="description") Description
+                                th(st-sort="action") Recommendation/Actions
+                        tbody
+                            tr(st-select-row="row", st-select-mode="single", ng-repeat="row in pageViolationCollection")
+                                td.text-center.p-sm {{ ((pageMCtrl.violationCurrentPage-1) * pageMCtrl.violationNumberOfRows) + $index + 1 }}
+                                td.p-sm
+                                    span.pull-left {{ row.status | pageViolationStatus }}
+                                    em.pull-right.fa(ng-class='{1:"fa-info-circle text-danger", 2:"fa-warning text-warning", 3:"fa-warning text-primary", 4:"fa-check text-success"}[row.status]')
+                                td.p-sm {{ row.category }}
+                                td.p-sm {{ row.description }}
+                                td.p-sm
+                                    span.pull-left {{ row.action }}
+                                    em.pull-right.fa.fa-wrench.text-success

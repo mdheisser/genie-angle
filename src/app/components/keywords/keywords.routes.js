@@ -28,6 +28,15 @@
                 "highcharts-export"
             )
         })
+        .state("app.keywords-dashboard.statistics", {
+            url: "/statistics"
+        })
+        .state("app.keywords-dashboard.engines", {
+            url: "/engines"
+        })
+        .state("app.keywords-dashboard.ranking", {
+            url: "/ranking"
+        })
         .state("app.keywords-manage", {
             url: "/keywords-manage",
             title: "Keywords Manage",
