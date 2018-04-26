@@ -10,11 +10,11 @@
                         .mda-list.p0
                             .mda-list-item.mb-sm
                                 span.pull-left Launch Page URL
-                                span.pull-right.fixed-width
+                                span.pull-right.fixed-width(ng-click='pageMCtrl.openPageUrl(page, $event)')
                                     em.fa.fa-search
                             .mda-list-item.mb-sm
                                 span.pull-left Copy to Clipboard
-                                span.pull-right.fixed-width
+                                span.pull-right.fixed-width(ng-click='pageMCtrl.copyToClipboard(page, $event)')
                                     em.fa.fa-copy
                             .mda-list-item.mb-sm
                                 span.pull-left Auto Optimise Page
@@ -26,11 +26,11 @@
                                     em.fa.fa-caret-down
                             .mda-list-item.mb-sm
                                 span.pull-left Refresh, Process Page
-                                span.pull-right.fixed-width
+                                span.pull-right.fixed-width(ng-click='pageMCtrl.onRefreshPage(page);')
                                     em.fa.fa-refresh
                             .mda-list-item.mb-sm
                                 span.pull-left Remove Page from SEOgenie
-                                span.pull-right.fixed-width
+                                span.pull-right.fixed-width(ng-click='pageMCtrl.onRemoveFromSystem(page);')
                                     em.fa.fa-trash-o
                             .mda-list-item
                                 span.pull-left Page Primary Language
@@ -43,8 +43,7 @@
                     paneltool(tool-collapse, ng-init="page_description=false")
                 .panel-wrapper(uib-collapse="page_description")
                     .panel-body.pt-sm
-                        h4
-                            a Herbal medicine | University of Maryland Medical Center
+                        a Herbal medicine | University of Maryland Medical Center
                         p.m0 www.umm.deu >...> Complementary and Alternative Medicine Guide > Treatment
                         p The most commonly used herbal supplements in the U.S. include: Echinacea (Echinacea purpurea and related species> St. John's wort(Hypericum perforatum) Ginkgo (Ginkgo biloba) Garlic (Allium sativum) Saw palmetto (Serrenoa repens) Ginseng (Panax ginseng or Asian ginseng) and Panax guinquefoluis or Amerian ginseng)
                         div
