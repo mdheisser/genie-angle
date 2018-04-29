@@ -7,11 +7,11 @@
 
     pagesManageController.$inject = [
         '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog',
-        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'pagesService', 'convertPagesManageDataFilter', 'convertPageDataFilter'];
+        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'pagesService', 'convertPagesManageDataFilter', 'convertPageDataFilter', 'convertPageKeywordsFilter'];
 
     function pagesManageController(
         $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog,
-        Notify, filterFilter, commonService, websitesService, keywordsService, pagesService, convertPagesManageDataFilter, convertPageDataFilter) {
+        Notify, filterFilter, commonService, websitesService, keywordsService, pagesService, convertPagesManageDataFilter, convertPageDataFilter, convertPageKeywordsFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -19,6 +19,7 @@
         vm.bulkActions = [];
         vm.copyToClipboard = copyToClipboard
         vm.currentPage = 1;
+        vm.exportManageTable = exportManageTable;
         vm.filterOn = false;
         vm.itemsByPage = [];
         vm.onAutoOptimisePage = onAutoOptimisePage
@@ -45,6 +46,8 @@
         vm.selectedLanguage = {};
         vm.languages = [];
         vm.resetViolationFilter = resetViolationFilter;
+        vm.resetPageKeywordFilter = resetPageKeywordFilter;
+        vm.onPageKeywordAction = onPageKeywordAction;
 
         activate();
 
@@ -113,6 +116,15 @@
             );
 
             el.stopPropagation();
+        }
+
+        // Export table to Excel file 
+        function exportManageTable() {
+            // TO Do : export excel
+            Notify.alert(
+                'Table exported to excel file.',
+                {status: 'success', pos: 'top-center'}
+            );
         }
 
         // Get the user's sites from server.
@@ -301,7 +313,7 @@
             keywordsService
                 .getKeywords(keywordID)
                 .then(function (response) {
-                    vm.pagesExpandCollection = convertPageDataFilter(response.data);
+                    vm.pagesExpandCollection = convertPageKeywordsFilter(response.data);
                     // Set value for number of row by page in dropdown.
                     vm.detailItemsByPage =  [
                         { label: '5', value: '5' },
@@ -312,7 +324,8 @@
                     ];
                     vm.detailNumberOfRows = vm.detailItemsByPage[1].value;
 
-                    vm.pageCategoryPane = true;
+                    vm.showExpandAdditionalFilter = true;
+                    vm.showPageKeywordFilterPane = true;
                 });
         }
 
@@ -345,9 +358,9 @@
         }
 
         // Reset Page Fitler.
-        function resetPageFilter() {
+        function resetPageKeywordFilter() {
             if (vm.expandFilterOn === true) {
-                $scope.$broadcast('resetPageFilter');
+                $scope.$broadcast('resetPageKeywordFilter');
             }
         }
 
@@ -389,6 +402,46 @@
                 }
             }
         });
+
+        // Remove or Add keyword to page
+        function onPageKeywordAction(detail, ev) {
+            if(detail.assignedState === true) {
+                var confirm = $mdDialog.confirm()
+                    .title('UnAssign Keyword From This Page?')
+                    .cancel('NO')
+                    .ok('YES')
+                    .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function() {
+                    var msgHtml = 'KeyWord UnAssigned from the Page' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+                    Notify.alert(
+                        msgHtml,
+                        {status: 'success', pos: 'bottom-center'}
+                    );
+                    detail.assignedState = false;
+                }, function() {
+                    console.log('no');
+                });
+            } else {
+                var confirm = $mdDialog.confirm()
+                    .title('Assign Keyword To This Page?')
+                    .content('')
+                    .cancel('NO')
+                    .ok('YES')
+                    .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function() {
+                    var msgHtml = 'KeyWord Assigned to the Page' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+                    Notify.alert(
+                        msgHtml,
+                        {status: 'success', pos: 'bottom-center'}
+                    );
+                    detail.assignedState = true;
+                }, function() {
+                    console.log('no');
+                });
+            }
+        }
     }
 
 })();

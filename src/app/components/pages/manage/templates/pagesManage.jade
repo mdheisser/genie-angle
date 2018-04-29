@@ -29,6 +29,9 @@ h3.content-heading.text-bold
                                 label Display
                                 label
                                     select(selectpicker='', ng-model="pageMCtrl.numberOfRows" ng-options='item.value as item.label for item in pageMCtrl.itemsByPage')
+                            .pull-right.mr(style='padding-top:2px;', ng-click='pageMCtrl.exportManageTable()')
+                                span Export XLS
+                                em.fa.fa-file-excel-o
                 thead
                     tr
                         th.text-center.p-sm #

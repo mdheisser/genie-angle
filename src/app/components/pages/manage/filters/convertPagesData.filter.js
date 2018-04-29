@@ -34,6 +34,18 @@
                     item.auto_assign = false;
                 }
 
+                var googleRanking = item.g;
+
+                if (googleRanking < 2) {
+                    item.ranking = 1;
+                } else if(googleRanking < 4){
+                    item.ranking = 2;
+                } else if(googleRanking < 11) {
+                    item.ranking = 3;
+                } else {
+                    item.ranking = 4;
+                }
+
                 item.showActions = false;
                 item.showKeywordsPopup = false;
                 item.expanded = false;
