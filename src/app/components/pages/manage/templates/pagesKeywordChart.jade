@@ -1,0 +1,11 @@
+#page_keyword_chart.panel.m0
+    .panel-heading.sub-heading
+        .panel-title SERP Ranking for Keyword: {{ pkcc.keywordData.keyword }}
+        paneltool(tool-close, ng-click='pkcc.hide()')
+    .panel-wrapper
+        .panel-body
+            div(hc-charts='', options='pkcc.chartOptions')
+            .chart-filter
+                label.report-date.pull-left Report Date: {{ pkcc.reportDate }}
+                label.pull-right.dropup
+                    select(selectpicker='', data-dropup-auto="false", ng-model='pkcc.selectedDay', ng-options='(day.name + " Days") for day in pkcc.filterDays')

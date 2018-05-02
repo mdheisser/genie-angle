@@ -9,16 +9,10 @@ h3.content-heading.text-bold
         .panel-body.pb0
             .col-lg-7.text-mode
                 label.title Add Keywords/Phrases
-                label
-                    input#inlineradio1(type='radio', name="i-radio", value='option1', checked)
-                    |  Free Text Mode
-                label
-                    input#inlineradio2(type='radio', name="i-radio", value='option2')
-                    |  Tabular Mode
                 a.pull-right(ng-click='') clear
                 md-input
                     textarea(class="form-control", id='add-keywords', rows='15' cols='50', ng-model='keywordsInputText', ng-change='getKeywordsFromText()', ng-model-options='{ debounce: 1000 }')                
-                em Pressing enter create a new line, each keyword/phrase can contain multiple words. You may also add Keywords separated by comma, in the Free Text Mode.
+                em Pressing enter create a new line, each keyword/phrase can contain multiple words. You may also add Keywords separated by comma.
             .col-lg-5.add-package
                 p.title Subscription Package Utilization Limits
                 .row.promoted-bar.m0

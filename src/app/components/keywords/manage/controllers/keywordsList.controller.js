@@ -6,12 +6,12 @@
         .controller('keywordsListController', keywordsListController)
 
     keywordsListController.$inject = [
-        '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window',
+        '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window', '$localStorage',
         '$location', 'commonService', 'keywordsService', 'websitesService', 'Notify', 'filterFilter', 'convertTableDataFilter', 'convertPageDataFilter'
     ];
 
     function keywordsListController(
-        $scope, $timeout, $resource, $q, $mdDialog, $window,
+        $scope, $timeout, $resource, $q, $mdDialog, $window, $localStorage,
         $location, commonService, keywordsService, websitesService, Notify, filterFilter, convertTableDataFilter, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
@@ -442,6 +442,16 @@
                 }
             }
 
+            expandKeywordDetail(row);
+            var data = angular.fromJson($localStorage['panelState']);
+            data.keywordSetting = true;
+            data.keywordCategories = true;
+            data.keywordPerformance = true;
+            data.keywordRankingChart = false;
+            data.keywordAssignedPages = true;
+            $localStorage['panelState'] = angular.toJson(data);
+            console.log(data);
+
             event.stopPropagation();
         }
 
@@ -467,6 +477,15 @@
                 }
             });
             row.expanded = !row.expanded;
+            if (row.expanded == true) {
+                var data = angular.fromJson($localStorage['panelState']);
+                data.keywordSetting = false;
+                data.keywordCategories = false;
+                data.keywordPerformance = false;
+                data.keywordRankingChart = false;
+                data.keywordAssignedPages = false;
+                $localStorage['panelState'] = angular.toJson(data);
+            }
             vm.savedExpandedRowId = row.id;
             getKeywordDetail(row);
         }

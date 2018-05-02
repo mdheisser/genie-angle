@@ -41,7 +41,7 @@
                                 .max-assign-setting
                                     span.pull-left.mr-sm
                                         small Pages:&nbsp;Min
-                                    input.pull-left.m0.p0.form-control(type='number', min='0', max='9999', ng-model='row.forced_min')
+                                    input.pull-left.m0.p0.form-control(type='number', min='0', max='{{row.forced_max}}', ng-model='row.forced_min')
                                     span.pull-left.mr-sm.ml-sm
                                         small Max
                                     input.pull-left.m0.p0.form-control(type='number', min='0', max='9999', ng-model='row.forced_max')

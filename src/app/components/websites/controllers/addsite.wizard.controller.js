@@ -254,17 +254,6 @@
 				console.log(errResponse);
 			});
 
-			vm.enterModes = [{
-					value: "freeText",
-					label: "Free Text Mode"
-				},
-				{
-					value: "tabular",
-					label: "Tabular Mode"
-				}
-			];
-			vm.enteringMode = vm.enterModes[0].value;
-
 			/// GET BILLING INFO METHOD NEEDED
 			vm.promotion = 3;
 			vm.totalPromotion = 3;
@@ -316,34 +305,6 @@
 			se.viewMode = true;
 		};
 
-		vm.changeEnterMode = function () {
-			if (vm.enteringMode === vm.enterModes[1].value && vm.isEmptyKeywordsInput()) {
-				vm.keywordsInput = [];
-				_.times(vm.totalMonitoring,
-					function () {
-						vm.keywordsInput.push("");
-					});
-			}
-			if (vm.enteringMode === vm.enterModes[1].value && !vm.isEmptyKeywordsInput()) {
-				vm.getKeywordsFromText();
-				$timeout(function () {
-						_.times(vm.totalMonitoring - vm.keywordsInput.length,
-							function () {
-								vm.keywordsInput.push("");
-							});
-					},
-					100);
-
-			}
-			if (vm.enteringMode === vm.enterModes[0].value && !_.isEmpty(vm.keywordsInput)) {
-				vm.keywordsInputText = '';
-				_.each(vm.keywordsInput, function (keyword) {
-					if (!_.isEmpty(keyword)) {
-						vm.keywordsInputText += keyword.trim() + '\n';
-					}
-				});
-			}
-		};
 
 		vm.updateKeyword = function ($index, model) {
 			vm.keywordsInput[$index] = model;
@@ -353,13 +314,6 @@
 			vm.stepData[1].data.keywords = angular.copy(vm.keywordsInput);
 		};
 
-		vm.isFreeText = function () {
-			return vm.enteringMode === vm.enterModes[0].value;
-		};
-
-		vm.isTabular = function () {
-			return vm.enteringMode === vm.enterModes[1].value;
-		};
 
 		// ----- Stepper-------------------
 

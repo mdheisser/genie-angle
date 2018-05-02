@@ -6,17 +6,16 @@
         .controller('pagesManageController', pagesManageController)
 
     pagesManageController.$inject = [
-        '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog',
+        '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog', '$localStorage',
         'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'pagesService', 'convertPagesManageDataFilter', 'convertPageDataFilter', 'convertPageKeywordsFilter'];
 
     function pagesManageController(
-        $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog,
+        $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog, $localStorage,
         Notify, filterFilter, commonService, websitesService, keywordsService, pagesService, convertPagesManageDataFilter, convertPageDataFilter, convertPageKeywordsFilter) {
         /* jshint validthis:true */
         var vm = this;
 
         vm.allRowsMarked = false;
-        vm.bulkActions = [];
         vm.copyToClipboard = copyToClipboard
         vm.currentPage = 1;
         vm.exportManageTable = exportManageTable;
@@ -48,6 +47,9 @@
         vm.resetViolationFilter = resetViolationFilter;
         vm.resetPageKeywordFilter = resetPageKeywordFilter;
         vm.onPageKeywordAction = onPageKeywordAction;
+        vm.expandViolationGrid = expandViolationGrid;
+        vm.expandKeywordsGrid = expandKeywordsGrid;
+        vm.showKeywordChart = showKeywordChart;
 
         activate();
 
@@ -55,27 +57,6 @@
 
         function activate() {
             getOwnSites();
-            vm.bulkActions = [{
-                    label: 'Remove from System',
-                    icon: 'fa-trash-o'
-                },
-                {
-                    label: 'Refresh, Process',
-                    icon: 'fa-refresh'
-                },
-                {
-                    label: 'Auto Optimise Page',
-                    icon: 'fa-toggle-on'
-                },
-                {
-                    label: 'Generate Title/Description',
-                    icon: 'fa-toggle-on'
-                },
-                {
-                    label: 'Export CSV',
-                    icon: 'fa-list'
-                }
-            ];
         }
 
         // Save keyword to clipbaord
@@ -295,13 +276,21 @@
         /////////////////////////  DETAIL EXPANSION  /////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Expand Keyword Detail Page
-        function expandPageDetail(row) {
+        function expandPageDetail(row, state) {
             _.each(vm.pagesList, function(value, key) {
                 if (row != value) {
                     vm.pagesList[key].expanded = false;
                 }
             });
             row.expanded = !row.expanded;
+            if (row.expanded == true) {
+                var data = angular.fromJson($localStorage['panelState']);
+                data.page_description = false;
+                data.page_setting = false;
+                data.pages_assign_key = false;
+                data.pages_violation = false;
+                $localStorage['panelState'] = angular.toJson(data);
+            }
             vm.savedExpandedRowId = row.id;
             getKeywordDetail(row);
             getViolationData();
@@ -327,6 +316,30 @@
                     vm.showExpandAdditionalFilter = true;
                     vm.showPageKeywordFilterPane = true;
                 });
+        }
+
+        // Expand violation grid
+        function expandViolationGrid(row, event) {
+            expandPageDetail(row);
+            var data = angular.fromJson($localStorage['panelState']);
+            data.page_description = true;
+            data.page_setting = true;
+            data.pages_assign_key = true;
+            data.pages_violation = false;
+            $localStorage['panelState'] = angular.toJson(data);
+            event.stopPropagation();
+        }
+
+        // Expand keywords grid
+        function expandKeywordsGrid(row, event) {
+            expandPageDetail(row);
+            var data = angular.fromJson($localStorage['panelState']);
+            data.page_description = true;
+            data.page_setting = true;
+            data.pages_assign_key = false;
+            data.pages_violation = true;
+            $localStorage['panelState'] = angular.toJson(data);
+            event.stopPropagation();
         }
 
         // Gey violation status for page
@@ -441,6 +454,26 @@
                     console.log('no');
                 });
             }
+        }
+
+        // Show Keywords chart on popup
+        function showKeywordChart(row, event) {
+            $mdDialog.show({
+                locals:{
+                    keywordData: row
+                },
+                controller: 'pagesKeywordChartController',
+                controllerAs: 'pkcc',
+                templateUrl: 'app/components/pages/manage/templates/pagesKeywordChart.html',
+                targetEvent: event,
+            })
+            .then(function(answer) {
+                //
+            }, function() {
+                //
+            });
+
+            event.stopPropagation();
         }
     }
 

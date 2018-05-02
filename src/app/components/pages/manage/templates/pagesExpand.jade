@@ -22,8 +22,10 @@
                                     md-switch(ng-model='page.category.promoted', aria-label='auto')
                             .mda-list-item.mb-sm
                                 span.pull-left Maximum Keywords for Page
-                                span.pull-right.fixed-width 5
-                                    em.fa.fa-caret-down
+                                //- span.pull-right.fixed-width 5
+                                //-     em.fa.fa-caret-down
+                                span.pull-right
+                                    input.m0.p0.form-control(type='number', min='0', max='999', ng-model='page.max_keywords', style='height:20px;width:40px')
                             .mda-list-item.mb-sm
                                 span.pull-left Refresh, Process Page
                                 span.pull-right.fixed-width(ng-click='pageMCtrl.onRefreshPage(page);')
@@ -55,7 +57,7 @@
     #pages_assign_key.panel
         .panel-heading.sub-heading
             .panel-title Keywords Assigned to Page: {{ page.pageUrl }}
-            paneltool(tool-collapse, ng-init='pages_assign_key')
+            paneltool(tool-collapse, ng-init='pages_assign_key=false')
         .panel-wrapper(uib-collapse="pages_assign_key")
             .panel-body
                 .container-fluid
@@ -102,7 +104,7 @@
                                         //- overlay-popup(active='row.showActions', width='185')
                                         //-     div(ng-include="'app/components/keywords/manage/templates/keywordActions.html'")
                                     .pull-right.keyword-control
-                                        em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='listc.onActiveMonitoredKeyword(row, $event)')
+                                        em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='pageMCtrl.showKeywordChart(row, $event)')
                                         label.m0.pull-right
                                             md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)', ng-click='$event.stopPropagation()')
                                 td.text-center.text-warning
@@ -127,7 +129,7 @@
     #pages_violation.panel.m0
         .panel-heading.sub-heading
             .panel-title SEO Violation for Page: {{ page.pageUrl }}
-            paneltool(tool-collapse, ng-init='pages_violation')
+            paneltool(tool-collapse, ng-init='pages_violation=false')
         .panel-wrapper(uib-collapse="pages_violation")
             .panel-body
                 .container-fluid
