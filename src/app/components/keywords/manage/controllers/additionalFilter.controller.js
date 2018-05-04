@@ -5,13 +5,14 @@
         .module('components.keywords')
         .controller('additionalFilterController', additionalFilterController)
 
-    additionalFilterController.$inject = ['$scope', 'filterFilter'];
+    additionalFilterController.$inject = ['$scope', '$timeout'];
 
-    function additionalFilterController($scope, filterFilter) {
+    function additionalFilterController($scope, $timeout) {
         /* jshint validthis:true */
         var vm = this;
-        vm.categoriesForFilter = [];
+
         vm.activePageRanking = [];
+        vm.categoriesForFilter = [];
 
         activate();
 
@@ -43,6 +44,7 @@
                     selected: false
                 }
             ];
+
             vm.activePageRanking = [{
                     name: 'Excellent',
                     value: '4',
@@ -84,11 +86,44 @@
                 vm.categoriesForFilter[key].selected = false;
             });
 
+            initPerformanceFilter();
+        });
+
+        // Initialize performance filter
+        function initPerformanceFilter() {
             _.each(vm.activePageRanking, function(value, key) {
                 vm.activePageRanking[key].rankSelected = false;
                 vm.activePageRanking[key].significanceSelected = false;
                 vm.activePageRanking[key].suitabilitySelected = false;
             });
+        }
+
+        // Setup the filter with best performance keywords
+        $scope.$on('setupFilterForBestKeywords', function(e) {
+
+            vm.categoryPane = true;
+
+            initPerformanceFilter();
+
+            $timeout(function() {
+                var el = document.querySelector('#keywords_manage_filter .filter-ranking input.ranking-option:first-child');
+                angular.element(el).click();
+                vm.categoryPane = false;
+            }, 500);
+        });
+
+        // Setup the filter with least performance keywords
+        $scope.$on('setupFilterForLeastKeywords', function(e) {
+
+            vm.categoryPane = true;
+
+            initPerformanceFilter();
+
+            $timeout(function() {
+                var el = document.querySelector('#keywords_manage_filter .filter-ranking tr:last-child input.ranking-option');
+                angular.element(el).click();
+                vm.categoryPane = false;
+            }, 500);
         });
     }
 

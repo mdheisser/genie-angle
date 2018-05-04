@@ -1,8 +1,8 @@
 div(ng-controller='additionalFilterController as afc')
     .filter-title.bg-white
-        h5.m0.input-group(ng-click='listc.categoryPane=!listc.categoryPane') Additional Filters
+        h5.m0.input-group(ng-click='afc.categoryPane=!afc.categoryPane') Additional Filters
             em.fa.fa-caret-down
-    .category-body.shadow-z3(ng-if='listc.categoryPane')
+    .category-body.shadow-z3(ng-if='afc.categoryPane')
         .filter-body.text-left
             .filter-category
                 a Category

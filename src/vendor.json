@@ -1,6 +1,8 @@
 [
     "bower_components/highcharts/highcharts.js",
     "bower_components/highcharts/modules/exporting.js",
+    "bower_components/highcharts-ng/dist/highcharts-ng.min.js",
+    "bower_components/highcharts-ng/dist/highcharts-ng.css",
     "bower_components/weather-icons/css/weather-icons.min.css",
     "bower_components/weather-icons/css/weather-icons-wind.min.css",
     "bower_components/weather-icons/font/*",

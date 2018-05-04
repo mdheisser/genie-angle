@@ -1,8 +1,8 @@
 h3.content-heading.text-bold
-    | Pages/Dashboard
+    | Pages
 #pages_dashboard.container-fluid.panel.mb0(ng-controller='pagesDashboardController as pageDashCtrl')
     .panel-heading.custom-heading.flex-heading
-        .description Pages&nbsp;Dashboard
+        .description Dashboard
         .panel-title
             select(selectpicker='', data-live-search='true', ng-model='pageDashCtrl.selectedSite', ng-options='site.name for site in pageDashCtrl.sites')
     .panel-wrapper

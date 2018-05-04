@@ -6,12 +6,12 @@
         .controller('keywordsListController', keywordsListController)
 
     keywordsListController.$inject = [
-        '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window', '$localStorage',
+        '$rootScope', '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window', '$localStorage',
         '$location', 'commonService', 'keywordsService', 'websitesService', 'Notify', 'filterFilter', 'convertTableDataFilter', 'convertPageDataFilter'
     ];
 
     function keywordsListController(
-        $scope, $timeout, $resource, $q, $mdDialog, $window, $localStorage,
+        $rootScope, $scope, $timeout, $resource, $q, $mdDialog, $window, $localStorage,
         $location, commonService, keywordsService, websitesService, Notify, filterFilter, convertTableDataFilter, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
@@ -180,7 +180,21 @@
                     ];
 
                     vm.numberOfRows = vm.itemsByPage[1].value;
+                    setRoute();
                 });
+        }
+
+        // Define the behavior for sidebar menu.
+        function setRoute() {
+            vm.showAdditionalFilter = true;
+            switch($location.path()) {
+                case '/app/keywords-manage/best':
+                    $scope.$broadcast('setupFilterForBestKeywords'); 
+                    break;
+                case '/app/keywords-manage/least':
+                    $scope.$broadcast('setupFilterForLeastKeywords');
+                    break;
+            }
         }
 
         // Gey available languages.
@@ -443,7 +457,7 @@
             }
 
             expandKeywordDetail(row);
-            var data = angular.fromJson($localStorage['panelState']);
+            var data = {};
             data.keywordSetting = true;
             data.keywordCategories = true;
             data.keywordPerformance = true;
@@ -478,7 +492,7 @@
             });
             row.expanded = !row.expanded;
             if (row.expanded == true) {
-                var data = angular.fromJson($localStorage['panelState']);
+                var data = {};
                 data.keywordSetting = false;
                 data.keywordCategories = false;
                 data.keywordPerformance = false;

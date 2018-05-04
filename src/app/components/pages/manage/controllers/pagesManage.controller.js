@@ -284,7 +284,7 @@
             });
             row.expanded = !row.expanded;
             if (row.expanded == true) {
-                var data = angular.fromJson($localStorage['panelState']);
+                var data = {};
                 data.page_description = false;
                 data.page_setting = false;
                 data.pages_assign_key = false;
@@ -321,7 +321,7 @@
         // Expand violation grid
         function expandViolationGrid(row, event) {
             expandPageDetail(row);
-            var data = angular.fromJson($localStorage['panelState']);
+            var data = {};
             data.page_description = true;
             data.page_setting = true;
             data.pages_assign_key = true;
@@ -333,7 +333,7 @@
         // Expand keywords grid
         function expandKeywordsGrid(row, event) {
             expandPageDetail(row);
-            var data = angular.fromJson($localStorage['panelState']);
+            var data = {};
             data.page_description = true;
             data.page_setting = true;
             data.pages_assign_key = false;

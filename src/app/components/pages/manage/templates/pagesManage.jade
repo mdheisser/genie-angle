@@ -1,8 +1,8 @@
 h3.content-heading.text-bold
-    | Pages/Manage
+    | Pages
 #pages_manage.container-fluid.panel.mb0(ng-controller='pagesManageController as pageMCtrl')
     .panel-heading.custom-heading.flex-heading
-        .description Pages&nbsp;Manage
+        .description Manage
         .panel-title
             select(selectpicker='', data-live-search='true', ng-model='pageMCtrl.selectedSite', ng-options='site.name for site in pageMCtrl.sites')
     .panel-wrapper

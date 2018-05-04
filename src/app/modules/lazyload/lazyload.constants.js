@@ -92,6 +92,11 @@
 					files: ['vendor/highcharts/modules/exporting.js']
 				},
 				{
+					name: 'highcharts-ng',
+					files: ['vendor/highcharts-ng/dist/highcharts-ng.min.js',
+						'vendor/highcharts-ng/dist/highcharts-ng.css']
+				},
+				{
 					name: 'ng-bootstrap-select',
 					files: ['vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
 						'vendor/bootstrap/dist/js/bootstrap.min.js',

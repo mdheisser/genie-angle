@@ -1,10 +1,10 @@
 h3.content-heading.text-bold
-    | Keywords/Dashboard
+    | Keywords
 #keywords_dashboard.panel(ng-controller='keyDashController as kdc')
     .panel-heading.flex-heading.custom-heading
-        .description Keywords&nbsp;Dashboard
+        .description Dashboard
         .panel-title.dashboard-title
-            select(selectpicker='', data-live-search='true', ng-model='kdc.selectedSite', ng-options='site.name for site in kdc.sites')
+            select(selectpicker='', data-live-search='true', ng-model='kdc.selectedSite', ng-options='site.name for site in kdc.sites', ng-change='kdc.changeSite()')
     .panel-wrapper
         .panel-body.row
             .col-lg-5.col-sm-12
@@ -31,10 +31,10 @@ h3.content-heading.text-bold
                                     | Average Keywords Page Position
                                 li.list-group-item
                                     span.badge.bg-info.text-center 87
-                                    a Best Performing Keyword
+                                    a(ng-click='kdc.goManagePage("best")') Best performing Keywords
                                 li.list-group-item
                                     span.badge.bg-info.text-center 47
-                                    a Least performing keywords
+                                    a(ng-click='kdc.goManagePage("least")') Least performing keywords
                 #keywords_search_engine.panel
                     .panel-heading.sub-heading
                         .panel-title 
@@ -68,8 +68,8 @@ h3.content-heading.text-bold
                         paneltool(tool-collapse, ng-init="keywords_dash_chart=false")
                     .panel-wrapper(uib-collapse="keywords_dash_chart")
                         .panel-body.pt0
-                            div(hc-charts='', options='kdc.chartOptions')
+                            highchart(config='kdc.chartOptions')
                             .chart-filter
                                 label.report-date.pull-left Report Date: {{ kdc.reportDate }}
                                 label.pull-right
-                                    select(selectpicker='', ng-model='kdc.selectedDay', ng-options='(day.name + " Days") for day in kdc.filterDays')
+                                    select(selectpicker='', ng-model='kdc.selectedDay', ng-options='(day.name + " Days") for day in kdc.filterDays', ng-change='kdc.changeChartRange()')

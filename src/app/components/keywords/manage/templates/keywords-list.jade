@@ -1,8 +1,8 @@
 h3.content-heading.text-bold
-    | Keywords/Manage
+    | Keywords
 #keywords_manage.panel(ng-controller='keywordsListController as listc')
     .panel-heading.custom-heading.flex-heading
-        .description Manage&nbsp;Keywords
+        .description Manage
         .panel-title.dashboard-title
             select(selectpicker='', data-live-search='true', ng-model='listc.selectedSite', ng-options='site.name for site in listc.sites')
     .panel-wrapper(uib-collapse="keywords_manage")
@@ -18,7 +18,7 @@ h3.content-heading.text-bold
                                     input#searchForkeyword.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
                                     span.mda-input-group-addon
                                         em.fa.fa-search
-                                    overlay-popup(active='listc.showAdditionalFilter', width='450')
+                                    overlay-popup#keywords_manage_filter(active='listc.showAdditionalFilter', width='450')
                                         div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
                                 .pull-left
                                     fiter-condition(condition-for='keyword')

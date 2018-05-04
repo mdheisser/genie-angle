@@ -25,7 +25,8 @@
             resolve: helper.resolveFor(
                 "ng-bootstrap-select",
                 "highcharts",
-                "highcharts-export"
+                "highcharts-export",
+                "highcharts-ng"
             )
         })
         .state("app.keywords-dashboard.statistics", {
@@ -48,6 +49,12 @@
                 "highcharts",
                 "highcharts-export"
             )
+        })
+        .state("app.keywords-manage.best", {
+            url: "/best"
+        })
+        .state("app.keywords-manage.least", {
+            url: "/least"
         })
         .state("app.keywords-add", {
             url: "/keywords-add",
