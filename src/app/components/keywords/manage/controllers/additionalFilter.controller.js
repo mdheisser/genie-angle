@@ -82,12 +82,17 @@
 
         // Reset Filter selection.
         $scope.$on('resetFilter', function(e) {
+
+            initCategoryFilter();
+            initPerformanceFilter();
+        });
+
+        // Initialize category filter
+        function initCategoryFilter() {
             _.each(vm.categoriesForFilter, function(value, key) {
                 vm.categoriesForFilter[key].selected = false;
             });
-
-            initPerformanceFilter();
-        });
+        }
 
         // Initialize performance filter
         function initPerformanceFilter() {
@@ -121,6 +126,20 @@
 
             $timeout(function() {
                 var el = document.querySelector('#keywords_manage_filter .filter-ranking tr:last-child input.ranking-option');
+                angular.element(el).click();
+                vm.categoryPane = false;
+            }, 500);
+        });
+
+        // Setup the filter with default keywords
+        $scope.$on('setupFilterForDefaultKeywords', function(e) {
+
+            vm.categoryPane = true;
+
+            initCategoryFilter();
+
+            $timeout(function() {
+                var el = document.querySelector('#keywords_manage_filter .filter-category .mda-list-item:first-child input.category-option');
                 angular.element(el).click();
                 vm.categoryPane = false;
             }, 500);

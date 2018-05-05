@@ -47,7 +47,8 @@
                 "ui.select",
                 "ng-bootstrap-select",
                 "highcharts",
-                "highcharts-export"
+                "highcharts-export",
+                "highcharts-ng"
             )
         })
         .state("app.keywords-manage.best", {
@@ -55,6 +56,9 @@
         })
         .state("app.keywords-manage.least", {
             url: "/least"
+        })
+        .state("app.keywords-manage.default", {
+            url: "/default"
         })
         .state("app.keywords-add", {
             url: "/keywords-add",

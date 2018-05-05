@@ -15,21 +15,21 @@
                                     md-switch.pull-left(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)')
                                     span.pull-left(ng-if='row.category.promoted') ON
                                     span.pull-left(ng-if='!row.category.promoted') OFF
-                            .mda-list-item
+                            .mda-list-item.mt
                                 span.pull-left Monitor: SERP Ranking
                                     em.icon-question(uib-tooltip='Monitor: SERP Ranking')
                                 span.pull-right.setting-icon(ng-click='listc.onActiveMonitoredKeyword(row, $event)')
                                     em.fa.fa-line-chart(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}')
                                     span(ng-if='row.category.monitored') ON
                                     span(ng-if='!row.category.monitored') OFF
-                            .mda-list-item
+                            .mda-list-item.mt
                                 span.pull-left Default Keyword
                                     em.icon-question(uib-tooltip='Default Keyword')
                                 span.pull-right.setting-icon(ng-click='listc.onActiveDefaultKeyword(row)')
                                     em.fa.fa-anchor(ng-class='{true:"text-info", false:"text-grey"}[row.category.default]', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
                                     span(ng-if='row.category.default') ON
                                     span(ng-if='!row.category.default') OFF
-                            .mda-list-item
+                            .mda-list-item.mt
                                 span.pull-left Force Keyword Promotion
                                     em.icon-question(uib-tooltip='Force Keyword Promotion')
                                 span.pull-right.setting-icon(ng-click='listc.onActiveForcedKeyword(row)')
@@ -71,19 +71,19 @@
                     .panel-body
                         .row
                             .col-xs-11.p-sm
-                                uib-progressbar.progress-striped(type='success', value='82', uib-tooltip='Best Page SEO Suitability 82%')
+                                uib-progressbar.progress-striped.m0(type='success', value='82', uib-tooltip='Best Page SEO Suitability 82%')
                                     span.text-black Best Page SEO Suitability 82%
                             .col-xs-1.p-sm
                                 em.icon-question.pull-left.mt-sm(uib-tooltip='Keyword Suitability index ranks a specific Keyword/Keyphrase across all your website pages, checking its compatibility to SEO related factors of each page. A high Suitability rank means that this particular Keyword/Keyphrase has a high probability of being ranked high in relation to at least one web page. The displayed ranking is based on the last analysis report.', tooltip-placement='bottom')
                         .row
                             .col-xs-11.p-sm
-                                uib-progressbar.progress-striped(type='success', value='72', uib-tooltip='Best Page CONTENT Significance 72%')
+                                uib-progressbar.progress-striped.m0(type='success', value='72', uib-tooltip='Best Page CONTENT Significance 72%')
                                     span.text-black Best Page CONTENT Significance 72%
                             .col-xs-1.p-sm
                                 em.icon-question.pull-left.mt-sm(uib-tooltip='Keyword Significance index ranks a specific Keyword/Keyphrase across all your website pages, checking its relation to the webpage content/text. A high Significance rank means that this particular Keyword/Keyphrase is highly related to the topic, subject that the webpage text is discussing. The displayed ranking is based on the last analysis report.', tooltip-placement='bottom')
                         .row
                             .col-xs-11.p-sm
-                                uib-progressbar.progress-striped(type='success', value='50', uib-tooltip='Best Rank Position {{row.g}}, Page {{row.activepages}}')
+                                uib-progressbar.progress-striped.m0(type='success', value='50', uib-tooltip='Best Rank Position {{row.g}}, Page {{row.activepages}}')
                                     span.text-black Best Rank Position {{row.g}}, Page {{row.activepages}}
                             .col-xs-1.p-sm
                                 em.icon-question.pull-left.mt-sm(uib-tooltip='Best page SERP ranking for the spesific Keyword', tooltip-placement='bottom')
@@ -94,11 +94,11 @@
             paneltool(tool-collapse, ng-init="keywordRankingChart=false")
         .panel-wrapper(uib-collapse="keywordRankingChart")
             .panel-body
-                div(hc-charts='', options='listc.chartOptions')
+                highchart(config='listc.chartOptions')
                 .chart-filter
                     label.report-date.pull-left Report Date: {{ listc.reportDate }}
                     label.pull-right.dropup
-                        select(selectpicker='', ng-model='listc.selectedDay', ng-options='(day.name + " Days") for day in listc.filterDays')
+                        select(selectpicker='', ng-model='listc.selectedDay', ng-options='(day.name + " Days") for day in listc.filterDays', ng-change='listc.changeChartRange()')
     #keywordAssignedPages.panel
         .panel-heading.sub-heading
             .panel-title Pages Assigned to Keyword: "{{ row.keyword }}"
@@ -125,6 +125,9 @@
                                     label Display
                                     label
                                         select(selectpicker='', ng-model="listc.detailNumberOfRows" ng-options='item.value as item.label for item in listc.detailItemsByPage')
+                                .pull-right.mr(style='padding-top:2px;')
+                                    span Export XLS
+                                    em.fa.fa-file-excel-o
                     thead
                         tr
                             th.text-center.row-index #

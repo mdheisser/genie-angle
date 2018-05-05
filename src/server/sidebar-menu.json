@@ -33,7 +33,13 @@
             },
             {
                 "text": "Manage",
-                "sref": "app.keywords-manage"
+                "sref": "app.keywords-manage",
+                "submenu": [
+                    {
+                        "text": "Default",
+                        "sref": "app.keywords-manage.default"
+                    }
+                ]
             },
             {
                 "text": "Add Keywords",

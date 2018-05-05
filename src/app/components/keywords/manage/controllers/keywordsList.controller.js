@@ -24,7 +24,7 @@
         vm.filterOn = false;
         vm.keywords = [];
         vm.minForcedPromotion = 1;
-        vm.maxForcedPromotion = 1;
+        vm.maxForcedPromotion = 3;
         vm.onActiveDefaultKeyword = onActiveDefaultKeyword;
         vm.onActiveForcedKeyword = onActiveForcedKeyword;
         vm.onActivePromotedKeyword = onActivePromotedKeyword;
@@ -40,6 +40,8 @@
         vm.sites = [];
         vm.textCopyState = 'Copy Keyword';
 
+        vm.changeChartRange = changeChartRange;
+        vm.chartOptions = null;
         vm.detailCurrentPage = 1;
         vm.detailFilterOn = false;
         vm.detailAllRowsMarked = false;
@@ -145,7 +147,34 @@
 
             getOwnSites();
             getLanguages();
-            drawCharts();
+
+            vm.chartOptions = {
+                chart: {
+                    height: 300
+                },
+                title: {
+                    text: 'Agreegated SERP Ranking For All Keywords',
+                    style: {
+                        fontSize: '15px'
+                    }
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+                },
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                },
+                credits: {
+                    enabled: false
+                }
+            };
         }
 
         // Get user's own site names.
@@ -186,13 +215,18 @@
 
         // Define the behavior for sidebar menu.
         function setRoute() {
-            vm.showAdditionalFilter = true;
             switch($location.path()) {
                 case '/app/keywords-manage/best':
+                    vm.showAdditionalFilter = true;
                     $scope.$broadcast('setupFilterForBestKeywords'); 
                     break;
                 case '/app/keywords-manage/least':
+                    vm.showAdditionalFilter = true;
                     $scope.$broadcast('setupFilterForLeastKeywords');
+                    break;
+                case '/app/keywords-manage/default':
+                    vm.showAdditionalFilter = true;
+                    $scope.$broadcast('setupFilterForDefaultKeywords');
                     break;
             }
         }
@@ -204,48 +238,6 @@
                 .then(function (response) {
                     vm.languages = response.data;
                 });
-        }
-
-        function drawCharts() {
-
-            var chartOptions = {
-                chart: {
-                    height: 300
-                },
-                title: {
-                    text: ''
-                },
-                xAxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                },
-                yAxis: {
-                    title: {
-                        text: ''
-                    }
-                },
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                },
-                series: [{
-                    name: 'Google',
-                    data: [29, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54],
-                    zones: [{
-                        color: '#DB3236'
-                    }],
-                    color: '#DB3236'
-                }, {
-                    name: 'Yahoo.UK',
-                    data: [39, 75, 16, 19, 174, 16, 235, 178, 276, 294, 195, 154],
-                    zones: [{
-                        color: '#410093'
-                    }],
-                    color: '#410093'
-                }]
-            };
-
-            vm.chartOptions = chartOptions;
         }
 
         // Perform bulk action
@@ -522,6 +514,8 @@
                     vm.detailNumberOfRows = vm.detailItemsByPage[1].value;
 
                     vm.pageCategoryPane = true;
+
+                    drawCharts();
                 });
         }
 
@@ -535,6 +529,91 @@
 
             if (item.group === '')
                 return 'Other';
+        }
+
+
+        function drawCharts() {
+
+            vm.chartOptions.title.text = '';
+
+            vm.chartOptions.series = [{
+                name: 'Google',
+                data: [29, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54],
+                zones: [{
+                    color: '#DB3236'
+                }],
+                color: '#DB3236'
+            }, {
+                name: 'Yahoo',
+                data: [39, 75, 16, 19, 174, 16, 235, 178, 276, 294, 195, 154],
+                zones: [{
+                    color: '#410093'
+                }],
+                color: '#410093'
+            }]
+        }
+
+        // Change the range on the chart
+        function changeChartRange() {
+            switch(vm.selectedDay.name) {
+                case '360' :
+                    vm.chartOptions.xAxis.categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    drawCharts(); break;
+                case '180' :
+                    vm.chartOptions.xAxis.categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+                    vm.chartOptions.series = [{
+                        name: 'Google',
+                        data: [29, 71, 106, 129, 144, 176],
+                        zones: [{
+                            color: '#DB3236'
+                        }],
+                        color: '#DB3236'
+                    }, {
+                        name: 'Yahoo',
+                        data: [39, 75, 16, 19, 174, 16],
+                        zones: [{
+                            color: '#410093'
+                        }],
+                        color: '#410093'
+                    }];
+                    break;
+                case '90' :
+                    vm.chartOptions.xAxis.categories = ['Jan', 'Feb', 'Mar'];
+                    vm.chartOptions.series = [{
+                        name: 'Google',
+                        data: [29, 71, 106],
+                        zones: [{
+                            color: '#DB3236'
+                        }],
+                        color: '#DB3236'
+                    }, {
+                        name: 'Yahoo',
+                        data: [39, 75, 16],
+                        zones: [{
+                            color: '#410093'
+                        }],
+                        color: '#410093'
+                    }];
+                    break;
+                case '30' :
+                    vm.chartOptions.xAxis.categories = ['1', '5', '10', '15', '20', '25', '30'];
+                    vm.chartOptions.series = [{
+                        name: 'Google',
+                        data: [29, 71, 106, 129, 144, 176, 123],
+                        zones: [{
+                            color: '#DB3236'
+                        }],
+                        color: '#DB3236'
+                    }, {
+                        name: 'Yahoo',
+                        data: [39, 75, 16, 19, 174, 16, 78],
+                        zones: [{
+                            color: '#410093'
+                        }],
+                        color: '#410093'
+                    }];
+                    break;
+            }
         }
 
         // Mark/Unmark all rows
@@ -705,6 +784,13 @@
 
             event.stopPropagation();
         }
+
+        $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+            if (toState.name == 'app.keywords-manage.default') {
+                vm.showAdditionalFilter = true;
+                $scope.$broadcast('setupFilterForDefaultKeywords');
+            }
+        })
     }
 
 })(angular);

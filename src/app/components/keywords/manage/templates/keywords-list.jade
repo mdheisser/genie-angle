@@ -30,6 +30,9 @@ h3.content-heading.text-bold
                                     label Display
                                     label
                                         select(selectpicker='', ng-model="listc.numberOfRows", ng-options='item.value as item.label for item in listc.itemsByPage')
+                                .pull-right.mr(style='padding-top:2px;')
+                                    span Export XLS
+                                    em.fa.fa-file-excel-o
                     thead
                         tr
                             th.text-center.row-index #
