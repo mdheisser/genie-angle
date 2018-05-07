@@ -20,12 +20,20 @@
                                 span.pull-left Auto Optimise Page
                                 span.pull-right.fixed-width
                                     md-switch(ng-model='page.category.promoted', aria-label='auto')
-                            .mda-list-item.mb-sm
+                            .mda-list-item.mb-sm(ng-click='pageMCtrl.showMaximumKeywordsPage=!pageMCtrl.showMaximumKeywordsPage')
                                 span.pull-left Maximum Keywords for Page
-                                //- span.pull-right.fixed-width 5
-                                //-     em.fa.fa-caret-down
-                                span.pull-right
-                                    input.m0.p0.form-control(type='number', min='0', max='999', ng-model='page.max_keywords', style='height:20px;width:40px')
+                                span.pull-right.fixed-width {{ page.forced_min }}/{{ page.forced_max }}
+                                    em.fa.fa-caret-down
+                                //- span.pull-right
+                                //-     input.m0.p0.form-control(type='number', min='0', max='999', ng-model='page.max_keywords', style='height:20px;width:40px')
+                            .mda-list-item.pl(ng-if='pageMCtrl.showMaximumKeywordsPage')
+                                .max-assign-setting
+                                    span.pull-left.mr-sm
+                                        small Keywords:&nbsp;Min
+                                    input.pull-left.m0.p0.form-control(type='number', min='0', max='{{page.forced_max}}', ng-model='page.forced_min')
+                                    span.pull-left.mr-sm.ml-sm
+                                        small Max
+                                    input.pull-left.m0.p0.form-control(type='number', min='0', max='7', ng-model='page.forced_max')
                             .mda-list-item.mb-sm
                                 span.pull-left Refresh, Process Page
                                 span.pull-right.fixed-width(ng-click='pageMCtrl.onRefreshPage(page);')
@@ -35,9 +43,9 @@
                                 span.pull-right.fixed-width(ng-click='pageMCtrl.onRemoveFromSystem(page);')
                                     em.fa.fa-trash-o
                             .mda-list-item
-                                span.pull-left Page Primary Language
+                                span.pull-left Page Languages
                                 span.pull-right
-                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", data-size="6", ng-model='pageMCtrl.selectedLanguage', ng-options='language.name for language in pageMCtrl.languages')
+                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", data-size="6", ng-model='pageMCtrl.selectedLanguage', ng-options='language.name for language in pageMCtrl.languages', multiple, data-max-options="3")
         .col-md-8
             #page_description.panel
                 .panel-heading.sub-heading
@@ -78,11 +86,14 @@
                                     .pull-left.pl.filter-title Filter
                                     .pull-left.ml
                                         md-switch.m0(ng-model='pageMCtrl.expandFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='pageMCtrl.expandFilterOn',  st-reset='', ng-disabled='!pageMCtrl.expandFilterOn', ng-click='pageMCtrl.resetPageKeywordFilter()')
-                                    .pull-right(st-pagination='', st-items-by-page="pageMCtrl.detailNumberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pageMCtrl.detailCurrentPage = newPage")
+                                    .pull-right(st-pagination='', st-items-by-page="pageMCtrl.numberOfRowsForKeywordGrid.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pageMCtrl.detailCurrentPage = newPage")
                                     .pull-right.display-rows
                                         label Display
                                         label
-                                            select(selectpicker='', ng-model="pageMCtrl.detailNumberOfRows", ng-options='item.value as item.label for item in pageMCtrl.detailItemsByPage')
+                                            select(selectpicker='', ng-model="pageMCtrl.numberOfRowsForKeywordGrid", ng-options='item.label for item in pageMCtrl.itemsByPageForKeywordGrid')
+                                    .pull-right.mr(style='padding-top:2px;', ng-click='pageMCtrl.exportPageKeywordTable()')
+                                        span Export
+                                        em.fa.fa-file-excel-o
                         thead
                             tr
                                 th.text-center.row-index #
@@ -96,13 +107,11 @@
                                 th.text-center(st-sort="activepages", style='width:140px;') Active Pages
                         tbody
                             tr(st-select-row="row", st-select-mode="single", ng-repeat="row in pagesExpansionCollection", ng-class='{true: "bg-blue-100", false:""}[row.assignedState]', ng-click='pageMCtrl.onPageKeywordAction(row, $event)')
-                                td.text-center {{ ((pageMCtrl.detailCurrentPage-1) * pageMCtrl.detailNumberOfRows) + $index + 1 }}
+                                td.text-center {{ ((pageMCtrl.detailCurrentPage-1) * pageMCtrl.numberOfRowsForKeywordGrid.value) + $index + 1 }}
                                 td.keyword-col
                                     .pull-left.keyword-label
                                         span.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.keyword }}
-                                        //- i.fa.fa-caret-down.ml-sm(ng-click='listc.openKeywordActionPane(row, $event)')
-                                        //- overlay-popup(active='row.showActions', width='185')
-                                        //-     div(ng-include="'app/components/keywords/manage/templates/keywordActions.html'")
+                                        i.fa.fa-caret-down.ml-sm
                                     .pull-right.keyword-control
                                         em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='pageMCtrl.showKeywordChart(row, $event)')
                                         label.m0.pull-right
@@ -148,21 +157,24 @@
                                     .pull-left.pl.filter-title Filter
                                     .pull-left.ml
                                         md-switch.m0(ng-model='pageMCtrl.violationFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='pageMCtrl.violationFilterOn',  st-reset='', ng-disabled='!pageMCtrl.violationFilterOn', ng-click='pageMCtrl.resetViolationFilter()')
-                                    .pull-right(st-pagination='', st-items-by-page="pageMCtrl.violationNumberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pageMCtrl.violationCurrentPage = newPage")
+                                    .pull-right(st-pagination='', st-items-by-page="pageMCtrl.numberOfRowsForViolationGrid.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pageMCtrl.violationCurrentPage = newPage")
                                     .pull-right.display-rows
                                         label Display
                                         label
-                                            select(selectpicker='', ng-model="pageMCtrl.violationNumberOfRows", ng-options='item.value as item.label for item in pageMCtrl.violationItemsByPage')
+                                            select(selectpicker='', ng-model="pageMCtrl.numberOfRowsForViolationGrid", ng-options='item.label for item in pageMCtrl.itemsByPageForViolationGrid')
+                                    .pull-right.mr(style='padding-top:2px;', ng-click='pageMCtrl.exportPageViolationTable()')
+                                        span Export
+                                        em.fa.fa-file-excel-o
                         thead
                             tr
                                 th.text-center.row-index #
-                                th Violation Status
+                                th(st-sort='status') Violation Status
                                 th(st-sort="category") Category
                                 th(st-sort="description") Description
                                 th(st-sort="action") Recommendation/Actions
                         tbody
                             tr(st-select-row="row", st-select-mode="single", ng-repeat="row in pageViolationCollection")
-                                td.text-center.p-sm {{ ((pageMCtrl.violationCurrentPage-1) * pageMCtrl.violationNumberOfRows) + $index + 1 }}
+                                td.text-center.p-sm {{ ((pageMCtrl.violationCurrentPage-1) * pageMCtrl.numberOfRowsForViolationGrid.value) + $index + 1 }}
                                 td.p-sm
                                     span.pull-left {{ row.status | pageViolationStatus }}
                                     em.pull-right.fa(ng-class='{1:"fa-info-circle text-danger", 2:"fa-warning text-warning", 3:"fa-warning text-primary", 4:"fa-check text-success"}[row.status]')

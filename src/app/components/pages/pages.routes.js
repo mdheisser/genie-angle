@@ -29,9 +29,6 @@
         .state("app.pages-manage", {
             url: "/pages-manage",
             title: "Pages Dashboard",
-            params: {
-                filter: null
-            },
             templateUrl: helper.componentPath("pages/manage", "pagesManage"),
             resolve: helper.resolveFor(
                 "smart-table",
@@ -39,6 +36,12 @@
                 "highcharts",
                 "highcharts-export"
             )
+        })
+        .state("app.pages-manage.best", {
+            url: "/best"
+        })
+        .state("app.pages-manage.least", {
+            url: "/least"
         });
     }
 })(angular);

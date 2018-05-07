@@ -46,33 +46,33 @@
                     name: 'Excellent',
                     value: '1',
                     bg: 'bg-green-300',
+                    icon: 'fa-check text-success',
                     rankSelected: false,
-                    significanceSelected: false,
-                    suitabilitySelected: false
+                    seoSelected: false,
                 },
                 {
                     name: 'Good',
                     value: '2',
                     bg: 'bg-green-500',
+                    icon: 'fa-warning text-primary',
                     rankSelected: false,
-                    significanceSelected: false,
-                    suitabilitySelected: false
+                    seoSelected: false,
                 },
                 {
                     name: 'Suitable',
                     value: '3',
                     bg: 'bg-yellow-700',
+                    icon: 'fa-warning text-warning',
                     rankSelected: false,
-                    significanceSelected: false,
-                    suitabilitySelected: false
+                    seoSelected: false,
                 },
                 {
                     name: 'Poor',
                     value: '4',
                     bg: 'bg-red-500',
+                    icon: 'fa-info-circle text-danger',
                     rankSelected: false,
-                    significanceSelected: false,
-                    suitabilitySelected: false
+                    seoSelected: false,
                 }
             ];
         }
@@ -87,13 +87,12 @@
 
             _.each(vm.activePageRanking, function(value, key) {
                 vm.activePageRanking[key].rankSelected = false;
-                vm.activePageRanking[key].significanceSelected = false;
-                vm.activePageRanking[key].suitabilitySelected = false;
+                vm.activePageRanking[key].seoSelected = false;
             });
         });
 
         // Init filter with best performance ranking
-        $scope.$on('initBestPagesManageFilter', function(e) {
+        $scope.$on('setupFilterForBestPages', function(e) {
             vm.pageCategoryPane = true;
             $timeout(function() {
                 if (vm.activePageRanking[3].rankSelected == true) {
@@ -107,7 +106,7 @@
         })
 
         // Init filter with least performance ranking
-        $scope.$on('initLeastPagesManageFilter', function(e) {
+        $scope.$on('setupFilterForLeastPages', function(e) {
             vm.pageCategoryPane = true;
             $timeout(function() {
                 if (vm.activePageRanking[0].rankSelected == true) {

@@ -6,11 +6,11 @@
         .controller('pagesManageController', pagesManageController)
 
     pagesManageController.$inject = [
-        '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog', '$localStorage',
+        '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog', '$localStorage', '$location',
         'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'pagesService', 'convertPagesManageDataFilter', 'convertPageDataFilter', 'convertPageKeywordsFilter'];
 
     function pagesManageController(
-        $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog, $localStorage,
+        $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog, $localStorage, $location,
         Notify, filterFilter, commonService, websitesService, keywordsService, pagesService, convertPagesManageDataFilter, convertPageDataFilter, convertPageKeywordsFilter) {
         /* jshint validthis:true */
         var vm = this;
@@ -20,7 +20,6 @@
         vm.currentPage = 1;
         vm.exportManageTable = exportManageTable;
         vm.filterOn = false;
-        vm.itemsByPage = [];
         vm.onAutoOptimisePage = onAutoOptimisePage
         vm.onExportCSV = onExportCSV
         vm.onGenerateTitle = onGenerateTitle
@@ -42,7 +41,7 @@
         vm.expandPageDetail = expandPageDetail
         vm.pagesExpandCollection = [];
         vm.pageViolationCollection = [];
-        vm.selectedLanguage = {};
+        vm.selectedLanguage = [];
         vm.languages = [];
         vm.resetViolationFilter = resetViolationFilter;
         vm.resetPageKeywordFilter = resetPageKeywordFilter;
@@ -50,6 +49,7 @@
         vm.expandViolationGrid = expandViolationGrid;
         vm.expandKeywordsGrid = expandKeywordsGrid;
         vm.showKeywordChart = showKeywordChart;
+        vm.openKeywordPage = openKeywordPage;
 
         activate();
 
@@ -57,6 +57,21 @@
 
         function activate() {
             getOwnSites();
+
+            // Init dropdown options for grids.
+            var dropdownOptions =  [
+                { label: '5', value: '5' },
+                { label: '10', value: '10' },
+                { label: '15', value: '15' },
+                { label: '20', value: '20' },
+                { label: 'All', value: '9999' }
+            ];
+            vm.itemsByPageForKeywordGrid = dropdownOptions;
+            vm.numberOfRowsForKeywordGrid = dropdownOptions[1];
+            vm.itemsByPageForViolationGrid = dropdownOptions;
+            vm.numberOfRowsForViolationGrid = dropdownOptions[1];
+            vm.itemsByPageForPageGrid = dropdownOptions;
+            vm.numberOfRowsForPageGrid = dropdownOptions[1];
         }
 
         // Save keyword to clipbaord
@@ -128,16 +143,22 @@
                 .then(function (response) {
                     vm.pagesList = convertPagesManageDataFilter(response.data);
 
-                    // Set value for number of row by page in dropdown.
-                    vm.itemsByPage =  [
-                        { label: '5', value: '5' },
-                        { label: '10', value: '10' },
-                        { label: '15', value: '15' },
-                        { label: '20', value: '20' },
-                        { label: 'All', value: vm.pagesList.length.toString()}
-                    ];
-                    vm.numberOfRows = vm.itemsByPage[1].value;
+                    setRoute();
                 });
+        }
+
+        // Define the behavior for sidebar menu.
+        function setRoute() {
+            switch($location.path()) {
+                case '/app/pages-manage/best':
+                    vm.showAdditionalFilter = true;
+                    $scope.$broadcast('setupFilterForBestPages');
+                    break;
+                case '/app/pages-manage/least':
+                    vm.showAdditionalFilter = true;
+                    $scope.$broadcast('setupFilterForLeastPages');
+                    break;
+            }
         }
 
         // Active auto optimise page
@@ -303,15 +324,6 @@
                 .getKeywords(keywordID)
                 .then(function (response) {
                     vm.pagesExpandCollection = convertPageKeywordsFilter(response.data);
-                    // Set value for number of row by page in dropdown.
-                    vm.detailItemsByPage =  [
-                        { label: '5', value: '5' },
-                        { label: '10', value: '10' },
-                        { label: '15', value: '15' },
-                        { label: '20', value: '20' },
-                        { label: 'All', value: vm.pagesExpandCollection.length.toString()}
-                    ];
-                    vm.detailNumberOfRows = vm.detailItemsByPage[1].value;
 
                     vm.showExpandAdditionalFilter = true;
                     vm.showPageKeywordFilterPane = true;
@@ -348,15 +360,6 @@
                 .getPageViolation(1)
                 .then(function (response) {
                     vm.pageViolationCollection = response.data;
-                    // Set value for number of row by page in dropdown.
-                    vm.violationItemsByPage =  [
-                        { label: '5', value: '5' },
-                        { label: '10', value: '10' },
-                        { label: '15', value: '15' },
-                        { label: '20', value: '20' },
-                        { label: 'All', value: vm.pageViolationCollection.length.toString()}
-                    ];
-                    vm.violationNumberOfRows = vm.violationItemsByPage[1].value;
                 });
         }
 
@@ -366,7 +369,7 @@
                 .getLanguages(siteId)
                 .then(function (response) {
                     vm.languages = response.data;
-                    vm.selectedLanguage = vm.languages[1];
+                    vm.selectedLanguage.push(vm.languages[1]);
                 });
         }
 
@@ -465,6 +468,26 @@
                 controller: 'pagesKeywordChartController',
                 controllerAs: 'pkcc',
                 templateUrl: 'app/components/pages/manage/templates/pagesKeywordChart.html',
+                targetEvent: event,
+            })
+            .then(function(answer) {
+                //
+            }, function() {
+                //
+            });
+
+            event.stopPropagation();
+        }
+
+        // Show Keywords Page on popup
+        function openKeywordPage(row, event) {
+            $mdDialog.show({
+                locals:{
+                    keywordData: row
+                },
+                controller: 'pagesKeywordPageController',
+                controllerAs: 'pkpc',
+                templateUrl: 'app/components/pages/manage/templates/pagesKeywordPage.html',
                 targetEvent: event,
             })
             .then(function(answer) {

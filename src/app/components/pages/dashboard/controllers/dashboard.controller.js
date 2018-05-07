@@ -36,7 +36,11 @@
 
         // Go to Pages Manage page with filter
         function goManagePage(filter) {
-            $state.go('app.pages-manage', {filter:filter});
+            if (filter == 'best') {
+                $state.go('app.pages-manage.best');
+            } else if(filter == 'least') {
+                $state.go('app.pages-manage.least');
+            }
         }
     }
 
