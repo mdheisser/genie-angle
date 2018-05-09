@@ -157,5 +157,89 @@
     }
 }
 md-dialog {
-    overflow: hidden;
+    // overflow: hidden;
+    overflow: visible;
+}
+#keywordSetting {
+    .bootstrap-select .dropdown-menu {
+        top: 27px;
+    }
+    .mda-list-item {
+        em {
+            width: 16px;
+        }
+        .setting-icon {
+            width: 50px;
+        }
+        md-switch {
+            height: 20px;
+            .md-container {
+                width: 16px;
+                margin: 6px 4px 0 0;
+            }
+        }
+        .max-assign-setting {
+            input {
+                height: 20px;
+                width: 50px;
+                text-align: right;
+            }
+        }
+    }
+    .mda-input-group {
+        input {
+            border: 1px solid #e2e2e2;
+            padding-left: 23px;
+            border-radius: 2px;
+        }
+        > .mda-input-group-addon {
+            top: 2px;
+            left: 4px;
+        }
+        .mda-form-control {
+            height: 25px;
+        }
+    }
+}
+#keywordCategories {
+    p {
+        font-size: 15px;
+        font-weight: bold;
+        color: #655a5a;
+    }
+}
+#keywordPerformance {
+    .progress {
+        background-color: #abe8b0;
+        .progress-bar {
+            color: black;
+            text-align: left;
+            padding-left: 5px;
+            span {
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+md-switch {
+    margin: 0;
+    .md-container {
+        cursor: pointer;
+        width: 28px;
+    }
+    .md-bar {
+        width: 16px;
+        height: 7px;
+    }
+    .md-thumb-container {
+        width: 5px;
+    }
+    .md-thumb {
+        height: 12px;
+        width: 12px;
+        .md-ripple-container {
+            display: none;
+        }
+    }
 }

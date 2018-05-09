@@ -34,7 +34,8 @@
                 "smart-table",
                 "ng-bootstrap-select",
                 "highcharts",
-                "highcharts-export"
+                "highcharts-export",
+                "ui.select"
             )
         })
         .state("app.pages-manage.best", {

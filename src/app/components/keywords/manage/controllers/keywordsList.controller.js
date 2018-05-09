@@ -62,6 +62,9 @@
         vm.savedExpandedRowId = null;
         vm.selectedKeywordCategory = null;
         vm.setManualPromotion = setManualPromotion;
+        vm.openPageInfo = openPageInfo;
+        vm.openKeywordModal = openKeywordModal;
+        vm.openKeywordViolationPopup = openKeywordViolationPopup;
 
         activate();
 
@@ -781,6 +784,66 @@
             //         detail.manual_promotion = false;
             //     }
             // }
+
+            event.stopPropagation();
+        }
+
+        // Open Page Info Popup
+        function openPageInfo(row, event) {
+            $mdDialog.show({
+                locals:{
+                    pageData: row
+                },
+                controller: 'keywordPageInfoController',
+                controllerAs: 'kpic',
+                templateUrl: 'app/components/keywords/manage/templates/keywordPageInfo.html',
+                targetEvent: event,
+            })
+            .then(function(answer) {
+                //
+            }, function() {
+                //
+            });
+
+            event.stopPropagation();
+        }
+
+        // Open KeywordsPopup
+        function openKeywordModal(row, event) {
+            $mdDialog.show({
+                locals:{
+                    pageData: row
+                },
+                controller: 'keywordPageKeywordController',
+                controllerAs: 'kpkc',
+                templateUrl: 'app/components/keywords/manage/templates/keywordPageKeyword.html',
+                targetEvent: event,
+            })
+            .then(function(answer) {
+                //
+            }, function() {
+                //
+            });
+
+            event.stopPropagation();
+        }
+
+        // Open Keyword Violation Popup
+        function openKeywordViolationPopup(row, event) {
+            $mdDialog.show({
+                locals:{
+                    pageData: row
+                },
+                controller: 'keywordPageViolationController',
+                controllerAs: 'kpvc',
+                templateUrl: 'app/components/keywords/manage/templates/keywordPageViolation.html',
+                targetEvent: event,
+            })
+            .then(function(answer) {
+                //
+            }, function() {
+                //
+            });
 
             event.stopPropagation();
         }

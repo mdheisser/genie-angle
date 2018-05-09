@@ -25,12 +25,18 @@
                     item.ranking = 4;
                 }
 
-                var assign = item.assignedState;
+                // Set filter option for assigned state.
+                if (item.assignedState == true) {
+                    item.keyword_assign = 'assign';
 
-                if (assign == true) {
-                    item.assign = 'assign';
+                    // Set filter option for system or manual assigned state.
+                    if (item.auto_assign == true) {
+                        item.assign_by = 'system';
+                    } else {
+                        item.assign_by = 'manual';
+                    }
                 } else {
-                    item.assign = 'not-assign';
+                    item.keyword_assign = 'not-assign';
                 }
 
                 item.selected = false;

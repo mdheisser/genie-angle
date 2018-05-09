@@ -2,7 +2,7 @@
     .mda-list-item(ng-click='pageMCtrl.openPageUrl(page, $event)')
         em.fa.fa-search.pull-left
         span.pull-left Launch URL/Page
-    .mda-list-item(ng-click='page.showActions = false;$event.stopPropagation();')
+    .mda-list-item(ng-click='page.showActions = false')
         em.fa.fa-expand.pull-left
         span.pull-left Expand Page Info
     .mda-list-item(ng-click='pageMCtrl.copyToClipboard(page, $event)')

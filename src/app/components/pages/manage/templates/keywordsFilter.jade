@@ -1,8 +1,8 @@
 div(ng-controller='pagesKeywordsFilterController as pkfc')
     .filter-title.bg-white
-        h5.m0.input-group(ng-click='pageMCtrl.showPageKeywordFilterPane=!pageMCtrl.showPageKeywordFilterPane') Additional Filters
+        h5.m0.input-group(ng-click='pkfc.showPageKeywordFilterPane=!pkfc.showPageKeywordFilterPane') Additional Filters
             em.fa.fa-caret-down
-    .category-body.shadow-z3(ng-if='pageMCtrl.showPageKeywordFilterPane')
+    .category-body.shadow-z3(ng-if='pkfc.showPageKeywordFilterPane')
         .filter-body.text-left
             .filter-category
                 a Category
@@ -10,19 +10,12 @@ div(ng-controller='pagesKeywordsFilterController as pkfc')
                     .mda-list-item(ng-repeat='pageCategory in pkfc.categoriesForFilter')
                         span.mda-checkbox.pull-left
                             input.category-option(type='checkbox',
-                                st-page-category-search='',
+                                st-filter-category='',
+                                filter-by='pageCategory.option',
                                 value='{{pageCategory.value}}',
                                 ng-model='pageCategory.categorySelected')
                             em.bg-indigo-500
                         span.pull-left {{pageCategory.name}}
-                    .mda-list-item
-                        span.mda-checkbox.pull-left
-                            input(type='checkbox',
-                                st-auto-assign-search='',
-                                assigned='pkfc.autoAssign',
-                                ng-model='pkfc.autoAssign')
-                            em.bg-indigo-500
-                        span.pull-left System Assigned
             .filter-ranking
                 table
                     tr

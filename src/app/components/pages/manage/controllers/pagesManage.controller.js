@@ -49,7 +49,7 @@
         vm.expandViolationGrid = expandViolationGrid;
         vm.expandKeywordsGrid = expandKeywordsGrid;
         vm.showKeywordChart = showKeywordChart;
-        vm.openKeywordPage = openKeywordPage;
+        vm.showKeywordSetting = showKeywordSetting;
 
         activate();
 
@@ -327,6 +327,9 @@
 
                     vm.showExpandAdditionalFilter = true;
                     vm.showPageKeywordFilterPane = true;
+
+                    // Set filter for assigned keywords.
+                    $scope.$broadcast('setupFilterForAssignedKeywords');
                 });
         }
 
@@ -480,14 +483,14 @@
         }
 
         // Show Keywords Page on popup
-        function openKeywordPage(row, event) {
+        function showKeywordSetting(row, event) {
             $mdDialog.show({
                 locals:{
                     keywordData: row
                 },
-                controller: 'pagesKeywordPageController',
-                controllerAs: 'pkpc',
-                templateUrl: 'app/components/pages/manage/templates/pagesKeywordPage.html',
+                controller: 'pagesKeywordSettingController',
+                controllerAs: 'pksc',
+                templateUrl: 'app/components/pages/manage/templates/pagesKeywordSetting.html',
                 targetEvent: event,
             })
             .then(function(answer) {
