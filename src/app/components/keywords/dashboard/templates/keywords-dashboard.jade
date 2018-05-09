@@ -68,8 +68,4 @@ h3.content-heading.text-bold
                         paneltool(tool-collapse, ng-init="keywords_dash_chart=false")
                     .panel-wrapper(uib-collapse="keywords_dash_chart")
                         .panel-body.pt0
-                            highchart(config='kdc.chartOptions')
-                            .chart-filter
-                                label.report-date.pull-left Report Date: {{ kdc.reportDate }}
-                                label.pull-right
-                                    select(selectpicker='', ng-model='kdc.selectedDay', ng-options='(day.name + " Days") for day in kdc.filterDays', ng-change='kdc.changeChartRange()')
+                            serp-chart(config='kdc.chartOptions')

@@ -35,6 +35,7 @@
                 "ng-bootstrap-select",
                 "highcharts",
                 "highcharts-export",
+                "highcharts-ng",
                 "ui.select"
             )
         })

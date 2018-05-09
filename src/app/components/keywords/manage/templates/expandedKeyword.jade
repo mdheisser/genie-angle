@@ -94,11 +94,7 @@
             paneltool(tool-collapse, ng-init="keywordRankingChart=false")
         .panel-wrapper(uib-collapse="keywordRankingChart")
             .panel-body
-                highchart(config='listc.chartOptions')
-                .chart-filter
-                    label.report-date.pull-left Report Date: {{ listc.reportDate }}
-                    label.pull-right.dropup
-                        select(selectpicker='', ng-model='listc.selectedDay', ng-options='(day.name + " Days") for day in listc.filterDays', ng-change='listc.changeChartRange()')
+                serp-chart(config='listc.chartOptions', height='300')
     #keywordAssignedPages.panel
         .panel-heading.sub-heading
             .panel-title Pages Assigned to Keyword: "{{ row.keyword }}"

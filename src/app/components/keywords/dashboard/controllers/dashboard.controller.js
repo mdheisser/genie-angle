@@ -13,13 +13,10 @@
 
         vm.changeDomains = changeDomains;
         vm.changeSite = changeSite;
-        vm.changeChartRange = changeChartRange;
-        vm.chartOptions = null;
+        vm.chartOptions = {};
         vm.domains = [];
-        vm.filterDays = [];
         vm.getDomains = getDomains;
         vm.goManagePage = goManagePage;
-        vm.reportDate = '1. 22.2018';
         vm.searchEngines = [];
         vm.selectDomain = selectDomain;
         vm.selectedSite = {}
@@ -37,52 +34,6 @@
 
         // initialize the controller
         function init() {
-            vm.filterDays = [{
-                    id: 1,
-                    name: '360'
-                },
-                {
-                    id: 2,
-                    name: '180'
-                },
-                {
-                    id: 3,
-                    name: '90'
-                },
-                {
-                    id: 4,
-                    name: '30'
-                }
-            ];
-            vm.selectedDay = vm.filterDays[0];
-
-            vm.chartOptions = {
-                chart: {
-                    height: 400
-                },
-                title: {
-                    text: 'Agreegated SERP Ranking For All Keywords',
-                    style: {
-                        fontSize: '15px'
-                    }
-                },
-                xAxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                },
-                yAxis: {
-                    title: {
-                        text: ''
-                    }
-                },
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                },
-                credits: {
-                    enabled: false
-                }
-            };
 
             vm.searchEngines = [{
                     name: 'Google',
@@ -200,92 +151,12 @@
         }
 
         function drawCharts() {
-
             vm.chartOptions.title.text = '<p>Agreegated SERP Ranking For All Keywords</p><br><p>' + vm.selectedSite.name + '</p>';
-
-            vm.chartOptions.series = [{
-                name: 'Google',
-                data: [29, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54],
-                zones: [{
-                    color: '#DB3236'
-                }],
-                color: '#DB3236'
-            }, {
-                name: 'Yahoo',
-                data: [39, 75, 16, 19, 174, 16, 235, 178, 276, 294, 195, 154],
-                zones: [{
-                    color: '#410093'
-                }],
-                color: '#410093'
-            }]
         }
 
         // Refresh the infomation when the site is changed.
         function changeSite() {
             drawCharts();
-        }
-
-        // Change the range on the chart
-        function changeChartRange() {
-            switch(vm.selectedDay.name) {
-                case '360' :
-                    vm.chartOptions.xAxis.categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                    drawCharts(); break;
-                case '180' :
-                    vm.chartOptions.xAxis.categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-                    vm.chartOptions.series = [{
-                        name: 'Google',
-                        data: [29, 71, 106, 129, 144, 176],
-                        zones: [{
-                            color: '#DB3236'
-                        }],
-                        color: '#DB3236'
-                    }, {
-                        name: 'Yahoo',
-                        data: [39, 75, 16, 19, 174, 16],
-                        zones: [{
-                            color: '#410093'
-                        }],
-                        color: '#410093'
-                    }];
-                    break;
-                case '90' :
-                    vm.chartOptions.xAxis.categories = ['Jan', 'Feb', 'Mar'];
-                    vm.chartOptions.series = [{
-                        name: 'Google',
-                        data: [29, 71, 106],
-                        zones: [{
-                            color: '#DB3236'
-                        }],
-                        color: '#DB3236'
-                    }, {
-                        name: 'Yahoo',
-                        data: [39, 75, 16],
-                        zones: [{
-                            color: '#410093'
-                        }],
-                        color: '#410093'
-                    }];
-                    break;
-                case '30' :
-                    vm.chartOptions.xAxis.categories = ['1', '5', '10', '15', '20', '25', '30'];
-                    vm.chartOptions.series = [{
-                        name: 'Google',
-                        data: [29, 71, 106, 129, 144, 176, 123],
-                        zones: [{
-                            color: '#DB3236'
-                        }],
-                        color: '#DB3236'
-                    }, {
-                        name: 'Yahoo',
-                        data: [39, 75, 16, 19, 174, 16, 78],
-                        zones: [{
-                            color: '#410093'
-                        }],
-                        color: '#410093'
-                    }];
-                    break;
-            }
         }
 
         // Detect the changing of the route.
