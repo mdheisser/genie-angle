@@ -235,7 +235,7 @@
 
         // Perform bulk action
         function performBulkAction(name) {
-            var selectedRows = filterFilter($scope.filteredCollection, {selected: true});
+            var selectedRows = filterFilter($scope.pageManage, {selected: true});
             var msgHtml = '';
 
             if(selectedRows.length <= 0) {
@@ -261,20 +261,20 @@
         $scope.$watch(function () {
             return vm.allRowsMarked;
         }, function (current, original) {
-            _($scope.filteredCollection).forEach(function (value, index) {
+            _($scope.pageManage).forEach(function (value, index) {
                 if (current === true) {
-                    $scope.filteredCollection[index].selected = true;
+                    $scope.pageManage[index].selected = true;
                 } else {
-                    $scope.filteredCollection[index].selected = false;
+                    $scope.pageManage[index].selected = false;
                 }
             });
         });
 
         // Set filter on/off switch status.
-        $scope.$watch('filteredCollection', function() {
-            if ($scope.filteredCollection != undefined) {
+        $scope.$watch('pageManage', function() {
+            if ($scope.pageManage != undefined) {
                 var original = vm.pagesList.length;
-                var filtered = $scope.filteredCollection.length;
+                var filtered = $scope.pageManage.length;
                 if(original != filtered) {
                     vm.filterOn = true;
                 } else {

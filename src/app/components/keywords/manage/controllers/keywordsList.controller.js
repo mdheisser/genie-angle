@@ -122,6 +122,20 @@
                 { name: 'AggregateRating', group: '' }
             ];
 
+            // Set dropdown options for pagination.
+            var dropdownOptions =  [
+                { label: '5', value: '5' },
+                { label: '10', value: '10' },
+                { label: '15', value: '15' },
+                { label: '20', value: '20' },
+                { label: 'All', value: '9999'}
+            ];
+
+            vm.itemsByPage = dropdownOptions;
+            vm.numberOfRows = dropdownOptions[1];
+            vm.detailItemsByPage =  dropdownOptions;
+            vm.detailNumberOfRows = dropdownOptions[1];
+
             getOwnSites();
             getLanguages();
         }
@@ -148,16 +162,6 @@
                         vm.rowCollection[vm.savedExpandedRowId - 1].expanded = true;
                     }
 
-                    // Set value for number of row by page in dropdown.
-                    vm.itemsByPage =  [
-                        { label: '5', value: '5' },
-                        { label: '10', value: '10' },
-                        { label: '15', value: '15' },
-                        { label: '20', value: '20' },
-                        { label: 'All', value: vm.rowCollection.length.toString()}
-                    ];
-
-                    vm.numberOfRows = vm.itemsByPage[1].value;
                     setRoute();
                 });
         }
@@ -191,7 +195,7 @@
 
         // Perform bulk action
         function performAction(name) {
-            var selectedRows = filterFilter($scope.filteredKeyCollection, {selected: true});
+            var selectedRows = filterFilter($scope.keywordManage, {selected: true});
             var msgHtml = '';
 
             if(selectedRows.length <= 0) {
@@ -229,20 +233,20 @@
         $scope.$watch(function () {
             return vm.allRowsMarked;
         }, function (current, original) {
-            _($scope.filteredKeyCollection).forEach(function (value, index) {
+            _($scope.keywordManage).forEach(function (value, index) {
                 if (current === true) {
-                    $scope.filteredKeyCollection[index].selected = true;
+                    $scope.keywordManage[index].selected = true;
                 } else {
-                    $scope.filteredKeyCollection[index].selected = false;
+                    $scope.keywordManage[index].selected = false;
                 }
             });
         });
 
         // Set filter on/off switch status.
-        $scope.$watch('filteredKeyCollection', function() {
-            if ($scope.filteredKeyCollection != undefined) {
+        $scope.$watch('keywordManage', function() {
+            if ($scope.keywordManage != undefined) {
                 var original = vm.rowCollection.length;
-                var filtered = $scope.filteredKeyCollection.length;
+                var filtered = $scope.keywordManage.length;
                 if(original != filtered) {
                     vm.filterOn = true;
                 } else {
@@ -452,15 +456,6 @@
                 .getKeywordDetail(keywordID)
                 .then(function (response) {
                     vm.keywordDetailCollection = convertPageDataFilter(response.data);
-                    // Set value for number of row by page in dropdown.
-                    vm.detailItemsByPage =  [
-                        { label: '5', value: '5' },
-                        { label: '10', value: '10' },
-                        { label: '15', value: '15' },
-                        { label: '20', value: '20' },
-                        { label: 'All', value: vm.keywordDetailCollection.length.toString()}
-                    ];
-                    vm.detailNumberOfRows = vm.detailItemsByPage[1].value;
 
                     vm.pageCategoryPane = true;
 

@@ -7,7 +7,7 @@ h3.content-heading.text-bold
             select(selectpicker='', data-live-search='true', ng-model='pageMCtrl.selectedSite', ng-options='site.name for site in pageMCtrl.sites')
     .panel-wrapper
         .panel-body
-            table.custom-table(st-table="pagesDisplayedCollection", st-safe-src='pageMCtrl.pagesList', st-set-filter="additionalFilter", st-filtered-collection)
+            table.custom-table(st-table="pagesDisplayedCollection", st-safe-src='pageMCtrl.pagesList', st-set-filter="additionalFilter", st-filtered-collection='pageManage')
                 thead.table-control
                     tr
                         td.text-right(colspan="7")

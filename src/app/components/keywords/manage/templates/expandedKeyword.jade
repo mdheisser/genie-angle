@@ -1,4 +1,4 @@
-.expanded-keyword.container-fluid
+.expanded-keyword
     .row.row-eq-height
         .col-md-6.col-lg-4
             #keywordSetting.panel
@@ -116,11 +116,11 @@
                                 .pull-left.pl.filter-title Filter
                                 .pull-left.ml
                                     md-switch.m0(ng-model='listc.detailFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.detailFilterOn',  st-reset='', ng-disabled='!listc.detailFilterOn', ng-click='listc.resetPageFilter()')
-                                .pull-right(st-pagination='', st-items-by-page="listc.detailNumberOfRows", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="listc.detailCurrentPage = newPage")
+                                .pull-right(st-pagination='', st-items-by-page="listc.detailNumberOfRows.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="listc.detailCurrentPage = newPage")
                                 .pull-right.display-rows
                                     label Display
                                     label
-                                        select(selectpicker='', ng-model="listc.detailNumberOfRows" ng-options='item.value as item.label for item in listc.detailItemsByPage')
+                                        select(selectpicker='', ng-model="listc.detailNumberOfRows" ng-options='item.label for item in listc.detailItemsByPage')
                                 .pull-right.mr(style='padding-top:2px;')
                                     span Export XLS
                                     em.fa.fa-file-excel-o
@@ -133,7 +133,7 @@
                             th.text-center Score
                     tbody
                         tr(ng-repeat="detail in detailDisplayedCollection", ng-class='{true: "bg-blue-100", false:""}[detail.assignedState]', ng-click='listc.onSelectKeywordDetail(detail, $event)')
-                            td.text-center {{ ((listc.detailCurrentPage-1) * listc.detailNumberOfRows) + $index + 1 }}
+                            td.text-center {{ ((listc.detailCurrentPage-1) * listc.detailNumberOfRows.value) + $index + 1 }}
                             td.keyword-col
                                 .pull-left.keyword-label
                                     span.m0 {{ detail.pageUrl }}

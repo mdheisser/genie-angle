@@ -17,8 +17,9 @@
 
         vm.cancel = cancel;
         vm.hide = hide;
-        vm.pageData = {};
         vm.currentPage = 1;
+        vm.pageViolationCollection = [];
+        vm.resetFilter = resetFilter;
 
         activate();
 
@@ -56,6 +57,24 @@
           $mdDialog.cancel();
         };
 
+        // Reset Keyword Fitler.
+        function resetFilter() {
+            if (vm.filterOn === true) {
+                $scope.$broadcast('resetViolationFilter');
+            }
+        }
+
+        $scope.$watch('keywordPageViolation', function() {
+            if ($scope.keywordPageViolation != undefined) {
+                var original = vm.pageViolationCollection.length;
+                var filtered = $scope.keywordPageViolation.length;
+                if(original != filtered) {
+                    vm.filterOn = true;
+                } else {
+                    vm.filterOn = false;
+                }
+            }
+        });
     }
 
 })();

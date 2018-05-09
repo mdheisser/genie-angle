@@ -4,7 +4,7 @@
         paneltool(tool-close, ng-click='kpkc.hide()')
     .panel-wrapper
         .panel-body
-            table.custom-table(st-table="displayedCollection", st-safe-src='kpkc.rowCollection', st-set-filter="additionalFilter", st-filtered-key-collection)
+            table.custom-table(st-table="displayedCollection", st-safe-src='kpkc.rowCollection', st-set-filter="additionalFilter", st-filtered-collection='keywordPageKeyword')
                 thead.table-control
                     tr
                         td.text-right(colspan="7")
@@ -40,22 +40,12 @@
                         th.text-center(st-sort="m", style='width:55px;')
                             i.glyphicon.socicon-bing
                         th.text-center(st-sort="activepages") Active Pages
-                        th.text-center.actions-col(ng-click="kpkc.showBulkAction=!kpkc.showBulkAction")
-                            label.mda-checkbox
-                                input(type='checkbox', ng-model='kpkc.allRowsMarked', ng-click='$event.stopPropagation()')
-                                em.bg-indigo-500
-                            i.fa.fa-caret-down
-                            overlay-popup#bulkActionsPopup(active='kpkc.showBulkAction', width='215')
-                                div(ng-include="'app/components/keywords/manage/templates/bulkActions.html'")
                 tbody
-                    tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='kpkc.expandKeywordDetail(row)')
+                    tr(st-select-row="row", st-select-mode="single", ng-repeat="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='kpkc.expandKeywordDetail(row)')
                         td.text-center {{ ((kpkc.currentPage-1) * kpkc.numberOfRows.value) + $index + 1 }}
                         td.keyword-col
                             .pull-left.keyword-label
                                 span.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.keyword }}
-                                i.fa.fa-caret-down.ml-sm(ng-click='kpkc.openKeywordActionPane(row, $event)')
-                                overlay-popup(active='row.showActions', width='185')
-                                    div(ng-include="'app/components/keywords/manage/templates/keywordActions.html'")
                             .pull-right.keyword-control
                                 em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='kpkc.onActiveMonitoredKeyword(row, $event)')
                                 label.m0.pull-right
@@ -79,12 +69,3 @@
                                 i.fa.fa-anchor(uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
                             .pull-left.soc-ranking.pl-sm(ng-if='row.category.forced')
                                 i.fa.fa-bookmark-o(uib-tooltip='Forcing Promotion Min {{row.forced_min}}, Max {{row.forced_max}}')
-                        td.text-center
-                            label.mda-checkbox
-                                input(type='checkbox', ng-model='row.selected', ng-click='$event.stopPropagation()')
-                                em.bg-indigo-500
-                    tr(ng-if="row.expanded", ng-repeat-end="")
-                        td(colspan='7')
-                            div(ng-include="'app/components/keywords/manage/templates/expandedKeyword.html'")
-                    tr.no-data-row.text-center(ng-if='displayedCollection.length < 6')
-                        td(colspan='7')

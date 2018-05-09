@@ -17,8 +17,9 @@
 
         vm.cancel = cancel;
         vm.hide = hide;
-        vm.pageData = {};
         vm.currentPage = 1;
+        vm.rowCollection = [];
+        vm.resetFilter = resetFilter;
 
         activate();
 
@@ -54,6 +55,25 @@
         function cancel() {
           $mdDialog.cancel();
         };
+
+        // Reset Keyword Fitler.
+        function resetFilter() {
+            if (vm.filterOn === true) {
+                $scope.$broadcast('resetFilter');
+            }
+        }
+
+        $scope.$watch('keywordPageKeyword', function() {
+            if ($scope.keywordPageKeyword != undefined) {
+                var original = vm.rowCollection.length;
+                var filtered = $scope.keywordPageKeyword.length;
+                if(original != filtered) {
+                    vm.filterOn = true;
+                } else {
+                    vm.filterOn = false;
+                }
+            }
+        });
 
     }
 

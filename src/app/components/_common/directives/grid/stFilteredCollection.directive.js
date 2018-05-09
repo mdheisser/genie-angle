@@ -18,7 +18,7 @@
 
         function link(scope, element, attr, table) {
             scope.$watch(table.getFilteredCollection, function(val){
-                scope.filteredCollection = val;
+                scope[attr.stFilteredCollection] = val;
             });
         }
     }
