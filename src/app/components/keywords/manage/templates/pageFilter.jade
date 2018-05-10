@@ -1,8 +1,8 @@
 div(ng-controller='pageFilterController as pfc')
     .filter-title.bg-white
-        h5.m0.input-group(ng-click='listc.pageCategoryPane=!listc.pageCategoryPane') Additional Filters
+        h5.m0.input-group(ng-click='pfc.pageCategoryPane=!pfc.pageCategoryPane') Additional Filters
             em.fa.fa-caret-down
-    .category-body.shadow-z3(ng-if='listc.pageCategoryPane')
+    .category-body.shadow-z3(ng-if='pfc.pageCategoryPane')
         .filter-body.text-left
             .filter-category
                 a Category
@@ -10,19 +10,13 @@ div(ng-controller='pageFilterController as pfc')
                     .mda-list-item(ng-repeat='pageCategory in pfc.categoriesForFilter')
                         span.mda-checkbox.pull-left
                             input.category-option(type='checkbox',
-                                st-page-category-search='',
+                                st-filter-category='',
+                                filter-by='pageCategory.option',
                                 value='{{pageCategory.value}}',
                                 ng-model='pageCategory.categorySelected')
                             em.bg-indigo-500
                         span.pull-left {{pageCategory.name}}
                     .mda-list-item
-                        span.mda-checkbox.pull-left
-                            input(type='checkbox',
-                                st-auto-assign-search='',
-                                assigned='pfc.autoAssign',
-                                ng-model='pfc.autoAssign')
-                            em.bg-indigo-500
-                        span.pull-left System Assigned Pages
             .filter-ranking
                 table
                     tr

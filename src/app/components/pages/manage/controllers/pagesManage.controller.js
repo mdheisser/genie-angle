@@ -7,11 +7,11 @@
 
     pagesManageController.$inject = [
         '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog', '$localStorage', '$location',
-        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'pagesService', 'convertPagesManageDataFilter', 'convertPageDataFilter', 'convertPageKeywordsFilter'];
+        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'convertPagesManageDataFilter', 'convertPageDataFilter', 'convertPageKeywordsFilter'];
 
     function pagesManageController(
         $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog, $localStorage, $location,
-        Notify, filterFilter, commonService, websitesService, keywordsService, pagesService, convertPagesManageDataFilter, convertPageDataFilter, convertPageKeywordsFilter) {
+        Notify, filterFilter, commonService, websitesService, keywordsService, convertPagesManageDataFilter, convertPageDataFilter, convertPageKeywordsFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -34,22 +34,12 @@
         vm.showAdditionalFilter = false;
         vm.sites = [];
 
-        vm.detailCurrentPage = 1;
-        vm.violationCurrentPage = 1;
         vm.getLanguages = getLanguages;
-        vm.expandFilterOn = false;
         vm.expandPageDetail = expandPageDetail
-        vm.pagesExpandCollection = [];
-        vm.pageViolationCollection = [];
         vm.selectedLanguage = [];
         vm.languages = [];
-        vm.resetViolationFilter = resetViolationFilter;
-        vm.resetPageKeywordFilter = resetPageKeywordFilter;
-        vm.onPageKeywordAction = onPageKeywordAction;
         vm.expandViolationGrid = expandViolationGrid;
         vm.expandKeywordsGrid = expandKeywordsGrid;
-        vm.showKeywordChart = showKeywordChart;
-        vm.showKeywordSetting = showKeywordSetting;
 
         activate();
 
@@ -66,10 +56,6 @@
                 { label: '20', value: '20' },
                 { label: 'All', value: '9999' }
             ];
-            vm.itemsByPageForKeywordGrid = dropdownOptions;
-            vm.numberOfRowsForKeywordGrid = dropdownOptions[1];
-            vm.itemsByPageForViolationGrid = dropdownOptions;
-            vm.numberOfRowsForViolationGrid = dropdownOptions[1];
             vm.itemsByPageForPageGrid = dropdownOptions;
             vm.numberOfRowsForPageGrid = dropdownOptions[1];
         }
@@ -313,24 +299,6 @@
                 $localStorage['panelState'] = angular.toJson(data);
             }
             vm.savedExpandedRowId = row.id;
-            getKeywordDetail(row);
-            getViolationData();
-        }
-
-        // Get selected keyword's detail information.
-        function getKeywordDetail(row) {
-            var keywordID = row.id;
-            keywordsService
-                .getKeywords(keywordID)
-                .then(function (response) {
-                    vm.pagesExpandCollection = convertPageKeywordsFilter(response.data);
-
-                    vm.showExpandAdditionalFilter = true;
-                    vm.showPageKeywordFilterPane = true;
-
-                    // Set filter for assigned keywords.
-                    $scope.$broadcast('setupFilterForAssignedKeywords');
-                });
         }
 
         // Expand violation grid
@@ -357,15 +325,6 @@
             event.stopPropagation();
         }
 
-        // Gey violation status for page
-        function getViolationData() {
-            pagesService
-                .getPageViolation(1)
-                .then(function (response) {
-                    vm.pageViolationCollection = response.data;
-                });
-        }
-
         // Gey available languages.
         function getLanguages(siteId) {
             websitesService
@@ -374,132 +333,6 @@
                     vm.languages = response.data;
                     vm.selectedLanguage.push(vm.languages[1]);
                 });
-        }
-
-        // Reset Page Fitler.
-        function resetPageKeywordFilter() {
-            if (vm.expandFilterOn === true) {
-                $scope.$broadcast('resetPageKeywordFilter');
-            }
-        }
-
-        // Set detail filter on/off switch status.
-        $scope.$watch(function() {
-            return localStorage.getItem('detailFilteredCollection');
-        }, function() {
-            var detailFilteredCollection = JSON.parse(localStorage.getItem('detailFilteredCollection'));
-            if (detailFilteredCollection != undefined) {
-                var original = vm.pagesExpandCollection.length;
-                var filtered = detailFilteredCollection.length;
-                if(original != filtered) {
-                    vm.expandFilterOn = true;
-                } else {
-                    vm.expandFilterOn = false;
-                }
-            }
-        });
-
-        // Reset Violation Fitler.
-        function resetViolationFilter() {
-            if (vm.violationFilterOn === true) {
-                $scope.$broadcast('resetViolationFilter');
-            }
-        }
-
-        // Set detail filter on/off switch status.
-        $scope.$watch(function() {
-            return localStorage.getItem('filteredViolations');
-        }, function() {
-            var filteredViolations = JSON.parse(localStorage.getItem('filteredViolations'));
-            if (filteredViolations != undefined) {
-                var original = vm.pageViolationCollection.length;
-                var filtered = filteredViolations.length;
-                if(original != filtered) {
-                    vm.violationFilterOn = true;
-                } else {
-                    vm.violationFilterOn = false;
-                }
-            }
-        });
-
-        // Remove or Add keyword to page
-        function onPageKeywordAction(detail, ev) {
-            if(detail.assignedState === true) {
-                var confirm = $mdDialog.confirm()
-                    .title('UnAssign Keyword From This Page?')
-                    .cancel('NO')
-                    .ok('YES')
-                    .targetEvent(ev);
-
-                $mdDialog.show(confirm).then(function() {
-                    var msgHtml = 'KeyWord UnAssigned from the Page' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
-                    Notify.alert(
-                        msgHtml,
-                        {status: 'success', pos: 'bottom-center'}
-                    );
-                    detail.assignedState = false;
-                }, function() {
-                    console.log('no');
-                });
-            } else {
-                var confirm = $mdDialog.confirm()
-                    .title('Assign Keyword To This Page?')
-                    .content('')
-                    .cancel('NO')
-                    .ok('YES')
-                    .targetEvent(ev);
-
-                $mdDialog.show(confirm).then(function() {
-                    var msgHtml = 'KeyWord Assigned to the Page' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
-                    Notify.alert(
-                        msgHtml,
-                        {status: 'success', pos: 'bottom-center'}
-                    );
-                    detail.assignedState = true;
-                }, function() {
-                    console.log('no');
-                });
-            }
-        }
-
-        // Show Keywords chart on popup
-        function showKeywordChart(row, event) {
-            $mdDialog.show({
-                locals:{
-                    keywordData: row
-                },
-                controller: 'pagesKeywordChartController',
-                controllerAs: 'pkcc',
-                templateUrl: 'app/components/pages/manage/templates/pagesKeywordChart.html',
-                targetEvent: event,
-            })
-            .then(function(answer) {
-                //
-            }, function() {
-                //
-            });
-
-            event.stopPropagation();
-        }
-
-        // Show Keywords Page on popup
-        function showKeywordSetting(row, event) {
-            $mdDialog.show({
-                locals:{
-                    keywordData: row
-                },
-                controller: 'pagesKeywordSettingController',
-                controllerAs: 'pksc',
-                templateUrl: 'app/components/pages/manage/templates/pagesKeywordSetting.html',
-                targetEvent: event,
-            })
-            .then(function(answer) {
-                //
-            }, function() {
-                //
-            });
-
-            event.stopPropagation();
         }
     }
 

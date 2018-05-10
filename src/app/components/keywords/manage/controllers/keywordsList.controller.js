@@ -44,24 +44,17 @@
         vm.detailCurrentPage = 1;
         vm.detailFilterOn = false;
         vm.detailAllRowsMarked = false;
-        vm.resetPageFilter = resetPageFilter;
         vm.expandKeywordDetail = expandKeywordDetail;
-        vm.keywordDetailCollection = [];
         vm.keywordCategories = [];
         vm.keywordCategoryGroup = keywordCategoryGroup;
         vm.languages = [];
         vm.onSelectKeywordDetail = onSelectKeywordDetail;
         vm.onSearchWithKeyword = onSearchWithKeyword;
-        vm.openPageActionPane = openPageActionPane;
-        vm.openPageKeywordPopup = openPageKeywordPopup;
         vm.openPageUrl = openPageUrl;
         vm.removeKeyword = removeKeyword;
         vm.savedExpandedRowId = null;
         vm.selectedKeywordCategory = null;
         vm.setManualPromotion = setManualPromotion;
-        vm.openPageInfo = openPageInfo;
-        vm.openKeywordModal = openKeywordModal;
-        vm.openKeywordViolationPopup = openKeywordViolationPopup;
 
         activate();
 
@@ -446,21 +439,6 @@
                 $localStorage['panelState'] = angular.toJson(data);
             }
             vm.savedExpandedRowId = row.id;
-            getKeywordDetail(row);
-        }
-
-        // Get selected keyword's detail information.
-        function getKeywordDetail(row) {
-            var keywordID = row.id;
-            keywordsService
-                .getKeywordDetail(keywordID)
-                .then(function (response) {
-                    vm.keywordDetailCollection = convertPageDataFilter(response.data);
-
-                    vm.pageCategoryPane = true;
-
-                    drawCharts();
-                });
         }
 
         // Group for keyword category
@@ -548,30 +526,6 @@
             event.stopPropagation();
         }
 
-        // Open action pane for page url
-        function openPageActionPane(detail, event) {
-            _.each(vm.keywordDetailCollection, function(value, key) {
-                if (detail != value) {
-                    vm.keywordDetailCollection[key].showActions = false;
-                }
-            });
-            detail.showActions = !detail.showActions;
-
-            event.stopPropagation();
-        }
-
-        // Open popup for assigned pages
-        function openPageKeywordPopup(detail, event) {
-            _.each(vm.keywordDetailCollection, function(value, key) {
-                if (detail != value) {
-                    vm.keywordDetailCollection[key].showKeywordsPopup = false;
-                }
-            });
-            detail.showKeywordsPopup = !detail.showKeywordsPopup;
-
-            event.stopPropagation();
-        }
-
         // Search selected keyword on new tab.
         function openPageUrl(row, event) {
             var url = row.pageUrl;
@@ -581,29 +535,6 @@
             row.showKeywordsPopup = false;
             event.stopPropagation();
         }
-
-        // Reset Page Fitler.
-        function resetPageFilter() {
-            if (vm.detailFilterOn === true) {
-                $scope.$broadcast('resetPageFilter');
-            }
-        }
-
-        // Set detail filter on/off switch status.
-        $scope.$watch(function() {
-            return localStorage.getItem('detailFilteredCollection');
-        }, function() {
-            var detailFilteredCollection = JSON.parse(localStorage.getItem('detailFilteredCollection'));
-            if (detailFilteredCollection != undefined) {
-                var original = vm.keywordDetailCollection.length;
-                var filtered = detailFilteredCollection.length;
-                if(original != filtered) {
-                    vm.detailFilterOn = true;
-                } else {
-                    vm.detailFilterOn = false;
-                }
-            }
-        });
 
         // Remove selected keyword from system
         function removeKeyword(row, ev) {
@@ -645,66 +576,6 @@
             //         detail.manual_promotion = false;
             //     }
             // }
-
-            event.stopPropagation();
-        }
-
-        // Open Page Info Popup
-        function openPageInfo(row, event) {
-            $mdDialog.show({
-                locals:{
-                    pageData: row
-                },
-                controller: 'keywordPageInfoController',
-                controllerAs: 'kpic',
-                templateUrl: 'app/components/keywords/manage/templates/keywordPageInfo.html',
-                targetEvent: event,
-            })
-            .then(function(answer) {
-                //
-            }, function() {
-                //
-            });
-
-            event.stopPropagation();
-        }
-
-        // Open KeywordsPopup
-        function openKeywordModal(row, event) {
-            $mdDialog.show({
-                locals:{
-                    pageData: row
-                },
-                controller: 'keywordPageKeywordController',
-                controllerAs: 'kpkc',
-                templateUrl: 'app/components/keywords/manage/templates/keywordPageKeyword.html',
-                targetEvent: event,
-            })
-            .then(function(answer) {
-                //
-            }, function() {
-                //
-            });
-
-            event.stopPropagation();
-        }
-
-        // Open Keyword Violation Popup
-        function openKeywordViolationPopup(row, event) {
-            $mdDialog.show({
-                locals:{
-                    pageData: row
-                },
-                controller: 'keywordPageViolationController',
-                controllerAs: 'kpvc',
-                templateUrl: 'app/components/keywords/manage/templates/keywordPageViolation.html',
-                targetEvent: event,
-            })
-            .then(function(answer) {
-                //
-            }, function() {
-                //
-            });
 
             event.stopPropagation();
         }

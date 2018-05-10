@@ -21,10 +21,18 @@
                     item.assign = 'not-assign';
                 }
 
-                if (item.auto_keywords > 0) {
-                    item.auto_assign = true;
+                // Set filter option for assigned state.
+                if (item.assignedState == true) {
+                    item.page_assign = 'assign';
+
+                    // Set filter option for system or manual assigned state.
+                    if (item.auto_assign == true) {
+                        item.assign_by = 'system';
+                    } else {
+                        item.assign_by = 'manual';
+                    }
                 } else {
-                    item.auto_assign = false;
+                    item.page_assign = 'not-assign';
                 }
 
                 item.showActions = false;

@@ -1,4 +1,4 @@
-.expanded-keyword
+.expanded-keyword(ng-controller='keywordExpandController as kec')
     .row.row-eq-height
         .col-md-6.col-lg-4
             #keywordSetting.panel
@@ -101,26 +101,26 @@
             paneltool(tool-collapse, ng-init="keywordAssignedPages=false")
         .panel-wrapper(uib-collapse="keywordAssignedPages")
             .panel-body
-                table.custom-table(st-table="detailDisplayedCollection", st-safe-src='listc.keywordDetailCollection', st-set-filter="additionalFilter", st-detail-filtered-collection)
+                table.custom-table(st-table="detailDisplayedCollection", st-safe-src='kec.keywordDetailCollection', st-set-filter="additionalFilter", st-filtered-collection='keywordPage')
                     thead.table-control
                         tr
                             td.text-right(colspan="7")
                                 .pull-left.ml.mda-input-group
-                                    input#searchForpageUrl.mda-form-control(type='text', st-search='pageUrl', placeholder='Filter/Search', ng-click="listc.showDetailAdditionalFilter=true")
+                                    input#searchForpageUrl.mda-form-control(type='text', st-search='pageUrl', placeholder='Filter/Search', ng-click="kec.showDetailAdditionalFilter=true")
                                     span.mda-input-group-addon
                                         em.fa.fa-search
-                                    overlay-popup(active='listc.showDetailAdditionalFilter', width='450')
+                                    overlay-popup#keyword_page(active='kec.showDetailAdditionalFilter', width='450')
                                         div(ng-include="'app/components/keywords/manage/templates/pageFilter.html'")
                                 .pull-left
                                     fiter-condition(condition-for='pageUrl')
                                 .pull-left.pl.filter-title Filter
                                 .pull-left.ml
-                                    md-switch.m0(ng-model='listc.detailFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.detailFilterOn',  st-reset='', ng-disabled='!listc.detailFilterOn', ng-click='listc.resetPageFilter()')
-                                .pull-right(st-pagination='', st-items-by-page="listc.detailNumberOfRows.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="listc.detailCurrentPage = newPage")
+                                    md-switch.m0(ng-model='kec.detailFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='kec.detailFilterOn',  st-reset='', ng-disabled='!kec.detailFilterOn', ng-click='kec.resetPageFilter()')
+                                .pull-right(st-pagination='', st-items-by-page="kec.detailNumberOfRows.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="kec.detailCurrentPage = newPage")
                                 .pull-right.display-rows
                                     label Display
                                     label
-                                        select(selectpicker='', ng-model="listc.detailNumberOfRows" ng-options='item.label for item in listc.detailItemsByPage')
+                                        select(selectpicker='', ng-model="kec.detailNumberOfRows" ng-options='item.label for item in kec.detailItemsByPage')
                                 .pull-right.mr(style='padding-top:2px;')
                                     span Export XLS
                                     em.fa.fa-file-excel-o
@@ -132,25 +132,25 @@
                             th.text-center(st-sort="violate") SEO Violations
                             th.text-center Score
                     tbody
-                        tr(ng-repeat="detail in detailDisplayedCollection", ng-class='{true: "bg-blue-100", false:""}[detail.assignedState]', ng-click='listc.onSelectKeywordDetail(detail, $event)')
-                            td.text-center {{ ((listc.detailCurrentPage-1) * listc.detailNumberOfRows.value) + $index + 1 }}
+                        tr(ng-repeat="detail in detailDisplayedCollection", ng-class='{true: "bg-blue-100", false:""}[detail.assignedState]', ng-click='kec.onSelectKeywordDetail(detail, $event)')
+                            td.text-center {{ ((kec.detailCurrentPage-1) * kec.detailNumberOfRows.value) + $index + 1 }}
                             td.keyword-col
                                 .pull-left.keyword-label
                                     span.m0 {{ detail.pageUrl }}
-                                    i.fa.fa-caret-down.ml-sm(ng-click='listc.openPageActionPane(detail, $event)')
+                                    i.fa.fa-caret-down.ml-sm(ng-click='kec.openPageActionPane(detail, $event)')
                                     overlay-popup(active='detail.showActions', width='135')
                                         div(ng-include="'app/components/keywords/manage/templates/pageActions.html'")
                                 .pull-right.keyword-control
                                     label.m0.pull-right
-                                        md-switch(ng-model='detail.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[detail.category.promoted]}}', ng-click='listc.setManualPromotion(detail, $event)')
+                                        md-switch(ng-model='detail.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[detail.category.promoted]}}', ng-click='kec.setManualPromotion(detail, $event)')
                                     em.fa.fa-anchor.pull-right(ng-if='detail.category.default', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords', ng-click='$event.stopPropagation()')
                                     em.fa.fa-bookmark-o.pull-right(ng-if='detail.category.forced', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score', ng-click='$event.stopPropagation()')
                             td.text-center.page-keyword-col
                                 span(uib-tooltip='{{ detail.auto_keywords + detail.manual_keywords }} Keywords Assigned to Page, {{detail.manual_keywords}} Assigned Manually') {{ detail | pageKeywordNumber }}
-                                em.fa.fa-caret-down.text-grey(ng-click='listc.openPageKeywordPopup(detail, $event)')
+                                em.fa.fa-caret-down.text-grey(ng-click='kec.openPageKeywordPopup(detail, $event)')
                                 overlay-popup(active='detail.showKeywordsPopup', width='135')
                                     div(ng-include="'app/components/keywords/manage/templates/pageKeywordPopup.html'")
-                            td.text-center.seo-violation-col(ng-click='listc.openKeywordViolationPopup(detail, $event)')
+                            td.text-center.seo-violation-col(ng-click='kec.openKeywordViolationPopup(detail, $event)')
                                 em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-warning", 3:"fa-info-circle text-danger"}[detail.violate]')
                                 em.fa.fa-caret-down.text-grey
                             td.score-col

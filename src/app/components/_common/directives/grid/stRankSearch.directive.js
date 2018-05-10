@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('components.keywords')
+        .module('components.directives')
         .directive('stRankSearch', stRankSearch);
 
     stRankSearch.$inject = [];

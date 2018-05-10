@@ -5,9 +5,9 @@
         .module('components.keywords')
         .controller('pageFilterController', pageFilterController)
 
-    pageFilterController.$inject = ['$scope', 'filterFilter'];
+    pageFilterController.$inject = ['$scope', '$timeout'];
 
-    function pageFilterController($scope, filterFilter) {
+    function pageFilterController($scope, $timeout) {
         /* jshint validthis:true */
         var vm = this;
         vm.categoriesForFilter = [];
@@ -21,11 +21,19 @@
             vm.categoriesForFilter = [{
                     name: 'Assigned Pages',
                     value: 'assign',
-                    categorySelected: true
+                    option: 'page_assign',
+                    categorySelected: false
                 },
                 {
-                    name: 'Not Assigned pages',
+                    name: 'Not Assigned Pages',
                     value: 'not-assign',
+                    option: 'page_assign',
+                    categorySelected: false
+                },
+                {
+                    name: 'System Assigned',
+                    value: 'system',
+                    option: 'assign_by',
                     categorySelected: false
                 }
             ];
@@ -66,14 +74,34 @@
 
         // Reset Filter selection.
         $scope.$on('resetPageFilter', function(e) {
-            vm.categoriesForFilter[0].categorySelected = false;
-            vm.categoriesForFilter[1].categorySelected = false;
+            initCategoryFilter();
 
             _.each(vm.activePageRanking, function(value, key) {
                 vm.activePageRanking[key].rankSelected = false;
                 vm.activePageRanking[key].significanceSelected = false;
                 vm.activePageRanking[key].suitabilitySelected = false;
             });
+        });
+
+        // Init filter options for category
+        function initCategoryFilter() {
+            _.each(vm.categoriesForFilter, function(value, key) {
+                vm.activePageRanking[key].categorySelected = false;
+            });
+        };
+
+        // Init filter with assigned page.
+        $scope.$on('setupFilterForAssignedPages', function(e) {
+
+            vm.pageCategoryPane = true;
+
+            initCategoryFilter();
+
+            $timeout(function() {
+                var el = document.querySelector('#keyword_page .filter-category .mda-list-item:first-child input.category-option');
+                angular.element(el).click();
+                vm.pageCategoryPane = false;
+            }, 500);
         });
     }
 
