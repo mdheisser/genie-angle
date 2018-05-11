@@ -51,7 +51,7 @@ h3.content-heading.text-bold
                             overlay-popup#bulkActionsPopup(active='listc.showBulkAction', width='215')
                                 div(ng-include="'app/components/keywords/manage/templates/bulkActions.html'")
                 tbody
-                    tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='listc.expandKeywordDetail(row)')
+                    tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded || row.category.default]', ng-click='listc.expandKeywordDetail(row)')
                         td.text-center {{ ((listc.currentPage-1) * listc.numberOfRows.value) + $index + 1 }}
                         td.keyword-col
                             .pull-left.keyword-label

@@ -7,11 +7,11 @@
 
     keywordPageKeywordController.$inject = [
         '$scope', '$mdDialog',
-        'keywordsService', 'pageData', 'convertTableDataFilter'];
+        'keywordsService', 'pageData', 'convertPageKeywordsFilter'];
 
     function keywordPageKeywordController(
         $scope, $mdDialog,
-        keywordsService, pageData, convertTableDataFilter) {
+        keywordsService, pageData, convertPageKeywordsFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -19,7 +19,7 @@
         vm.hide = hide;
         vm.currentPage = 1;
         vm.rowCollection = [];
-        vm.resetFilter = resetFilter;
+        vm.resetPageKeywordFilter = resetPageKeywordFilter;
 
         activate();
 
@@ -44,7 +44,10 @@
             keywordsService
                 .getKeywords(siteId)
                 .then(function (response) {
-                    vm.rowCollection = convertTableDataFilter(response.data);
+                    vm.rowCollection = convertPageKeywordsFilter(response.data);
+                    // Set filter for assigned keywords.
+                    vm.showExpandAdditionalFilter = true;
+                    $scope.$broadcast('setupFilterForAssignedKeywords');
                 });
         }
 
@@ -57,9 +60,9 @@
         };
 
         // Reset Keyword Fitler.
-        function resetFilter() {
+        function resetPageKeywordFilter() {
             if (vm.filterOn === true) {
-                $scope.$broadcast('resetFilter');
+                $scope.$broadcast('resetPageKeywordFilter');
             }
         }
 

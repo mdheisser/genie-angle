@@ -7,17 +7,20 @@
 
     pagesKeywordSettingController.$inject = [
         '$scope', '$mdDialog',
-        'websitesService', 'keywordData'];
+        'websitesService', 'keywordsService', 'keywordData', 'convertPageDataFilter'];
 
     function pagesKeywordSettingController(
         $scope, $mdDialog,
-        websitesService, keywordData) {
+        websitesService, keywordsService, keywordData, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
         vm.cancel = cancel;
         vm.hide = hide;
         vm.keywordData = {};
+        vm.currentPage = 1;
+        vm.keywordDetailCollection = [];
+        vm.resetPageFilter = resetPageFilter;
 
         activate();
 
@@ -49,7 +52,19 @@
                 { name: 'AggregateRating', group: '' }
             ];
 
+            // Init dropdown options for grids.
+            var dropdownOptions =  [
+                { label: '5', value: '5' },
+                { label: '10', value: '10' },
+                { label: '15', value: '15' },
+                { label: '20', value: '20' },
+                { label: 'All', value: '9999' }
+            ];
+            vm.itemsByPage = dropdownOptions;
+            vm.numberOfRows = dropdownOptions[1];
+
             getLanguages();
+            getKeywordDetail('111');
         }
 
         function hide() {
@@ -69,6 +84,39 @@
                 });
         }
 
+        // Get selected keyword's detail information.
+        function getKeywordDetail(keywordID) {
+            keywordsService
+                .getKeywordDetail(keywordID)
+                .then(function (response) {
+                    vm.keywordDetailCollection = convertPageDataFilter(response.data);
+
+                    vm.showDetailAdditionalFilter = true;
+
+                    // Set filter for assigned pages.
+                    $scope.$broadcast('setupFilterForAssignedPages');
+                });
+        }
+
+        // Reset Page Fitler.
+        function resetPageFilter() {
+            if (vm.detailFilterOn === true) {
+                $scope.$broadcast('resetPageFilter');
+            }
+        }
+
+        // Set detail filter on/off switch status.
+        $scope.$watch('pageKeywordPage', function() {
+            if ($scope.pageKeywordPage != undefined) {
+                var original = vm.keywordDetailCollection.length;
+                var filtered = $scope.pageKeywordPage.length;
+                if(original != filtered) {
+                    vm.detailFilterOn = true;
+                } else {
+                    vm.detailFilterOn = false;
+                }
+            }
+        });
     }
 
 })();

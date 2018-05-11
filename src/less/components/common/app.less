@@ -45,6 +45,9 @@
         margin-top: -21px;
     }
 }
+.panel-body.fixed-height {
+    min-height: 200px;
+}
 
 // bootstrap-select custom style
 .bootstrap-select {
@@ -156,5 +159,21 @@ serp-chart {
     }
     .bootstrap-select .dropdown-menu {
         top: auto;
+    }
+}
+
+// Same heigh row
+.row-eq-height {
+    @media only screen and (min-width: @md-width) {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display:         flex;
+        .panel {
+            height: 90%;
+            .panel-wrapper {
+                max-width: 350px;
+            }
+        }
     }
 }
