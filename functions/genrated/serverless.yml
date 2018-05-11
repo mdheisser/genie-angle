@@ -1,0 +1,217 @@
+service: serverless-hello-world
+provider:
+  name: aws
+  runtime: nodejs6.10
+functions:
+  helloWorld:
+    handler: handler.helloWorld
+    events:
+      - http:
+          path: hello-world
+          method: get
+          cors: true
+  0ad6-GetKeywords:
+    handler: handler.getKeywords
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keywords
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                siteId: true
+  00e1-GetKeyword-detail:
+    handler: handler.getKeyword-detail
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keyword-detail
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                keywordId: true
+  0d44-GetKeywordActive-default:
+    handler: handler.getKeywordActive-default
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keyword/active-default
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                keywordId: true
+  d59c-GetKeywordDeactive-default:
+    handler: handler.getKeywordDeactive-default
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keyword/deactive-default
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                keywordId: true
+  e6bf-GetKeywordActive-forced:
+    handler: handler.getKeywordActive-forced
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keyword/active-forced
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                keywordId: true
+  435d-GetKeywordDeactive-forced:
+    handler: handler.getKeywordDeactive-forced
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keyword/deactive-forced
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                keywordId: true
+  114d-GetKeywordActive-promoted:
+    handler: handler.getKeywordActive-promoted
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keyword/active-promoted
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                keywordId: true
+  fcaf-GetKeywordDeactive-promoted:
+    handler: handler.getKeywordDeactive-promoted
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keyword/deactive-promoted
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                keywordId: true
+  6fe8-GetKeywordActive-monitored:
+    handler: handler.getKeywordActive-monitored
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keyword/active-monitored
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                keywordId: true
+  c1ff-GetKeywordDeactive-monitored:
+    handler: handler.getKeywordDeactive-monitored
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keyword/deactive-monitored
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                keywordId: true
+  1f94-GetPages:
+    handler: handler.getPages
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /pages
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                siteId: true
+  dfc5-GetPageViolation:
+    handler: handler.getPageViolation
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /page/violation
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                pageId: true
+  f41a-PostAccountLogin:
+    handler: handler.postAccountLogin
+    events:
+      - http:
+          cors: true
+          method: post
+          path: /account/login
+          integration: lambda
+          request:
+            parameters: {}
+  b2b7-GetUsers:
+    handler: handler.getUsers
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /users
+          integration: lambda
+          request:
+            parameters: {}
+  c74f-GetUsersUserInfo:
+    handler: handler.getUsersUserInfo
+    events:
+      - http:
+          cors: true
+          method: get
+          path: '/users/userInfo/{id}'
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                id: true
+  c7ba-GetSites:
+    handler: handler.getSites
+    events:
+      - http:
+          cors: true
+          method: get
+          path: '/sites/{userId}'
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                userId: true
+  f47b-GetSitesCheckSite:
+    handler: handler.getSitesCheckSite
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /sites/checkSite
+  2773-PostSitesAddNew:
+    handler: handler.postSitesAddNew
+    events:
+      - http:
+          cors: true
+          method: post
+          path: /sites/addNew
+          integration: lambda
+          request:
+            parameters: {}
