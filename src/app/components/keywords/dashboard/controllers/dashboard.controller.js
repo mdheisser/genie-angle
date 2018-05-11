@@ -30,6 +30,7 @@
         function activate() {
             getOwnSites();
             init();
+            setRoute();
         }
 
         // initialize the controller
@@ -168,12 +169,18 @@
         function setRoute() {
             switch($location.path()) {
                 case '/app/keywords-dashboard/statistics':
+                    expandPanel('keywords_statistics');
+                    changeIcon('keywords_statistics');
                     flashHit('#keywords_statistics');
                     break;
                 case '/app/keywords-dashboard/engines':
+                    expandPanel('keywords_search_engine');
+                    changeIcon('keywords_search_engine');
                     flashHit('#keywords_search_engine');
                     break;
                 case '/app/keywords-dashboard/ranking':
+                    expandPanel('keywords_dash_chart');
+                    changeIcon('keywords_dash_chart');
                     flashHit('#keywords_dash_chart');
                     break;
             }
@@ -188,6 +195,24 @@
                     panel.removeClass('flashit');
                 }, 1000);
             }
+        }
+
+        // Expand panel
+        function expandPanel(id) {
+            var query = '#' + id + ' .panel-wrapper';
+            var panel = angular.element(document.querySelector(query));
+            panel.addClass('in');
+            panel.removeAttr('style');
+        }
+
+        // Change arrow icon
+        function changeIcon(id) {
+            var queryDown = '#' + id + ' .panel-heading em:nth-child(1)';
+            var queryUp = '#' + id + ' .panel-heading em:nth-child(2)';
+            var arrowDown = angular.element(document.querySelector(queryDown));
+            var arrowUp = angular.element(document.querySelector(queryUp));
+            arrowUp.removeClass('ng-hide');
+            arrowDown.addClass('ng-hide');
         }
 
         // Go to Keywords Manage page with filter

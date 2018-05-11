@@ -3,7 +3,7 @@
         .col-md-4
             #page_setting.panel
                 .panel-heading.sub-heading
-                    .panel-title Settings for Page: {{ page.pageUrl }}
+                    .panel-title Settings for Page
                     paneltool(tool-collapse, ng-init="page_setting=false")
                 .panel-wrapper(uib-collapse="page_setting")
                     .panel-body.p-sm
@@ -49,7 +49,7 @@
         .col-md-8
             #page_description.panel
                 .panel-heading.sub-heading
-                    .panel-title Page Title, Description: {{ page.pageUrl }}
+                    .panel-title Page Title, Description
                     paneltool(tool-collapse, ng-init="page_description=false")
                 .panel-wrapper(uib-collapse="page_description")
                     .panel-body.pt-sm
@@ -64,7 +64,7 @@
                             em.fa.fa-edit.pull-right
     #pages_assign_key.panel
         .panel-heading.sub-heading
-            .panel-title Keywords Assigned to Page: {{ page.pageUrl }}
+            .panel-title Keywords Assigned to Page
             paneltool(tool-collapse, ng-init='pages_assign_key=false')
         .panel-wrapper(uib-collapse="pages_assign_key")
             .panel-body
@@ -137,7 +137,7 @@
                                         i.fa.fa-bookmark-o(uib-tooltip='Forcing Promotion Min {{row.forced_min}}, Max {{row.forced_max}}')
     #pages_violation.panel.m0
         .panel-heading.sub-heading
-            .panel-title SEO Violation for Page: {{ page.pageUrl }}
+            .panel-title SEO Violation for Page
             paneltool(tool-collapse, ng-init='pages_violation=false')
         .panel-wrapper(uib-collapse="pages_violation")
             .panel-body

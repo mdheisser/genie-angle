@@ -135,9 +135,7 @@
                                     td.keyword-col
                                         .pull-left.keyword-label
                                             span.m0 {{ detail.pageUrl }}
-                                            i.fa.fa-caret-down.ml-sm(ng-click='pksc.openPageActionPane(detail, $event)')
-                                            overlay-popup(active='detail.showActions', width='135')
-                                                div(ng-include="'app/components/keywords/manage/templates/pageActions.html'")
+                                            i.fa.fa-caret-down.ml-sm.text-grey
                                         .pull-right.keyword-control
                                             label.m0.pull-right
                                                 md-switch(ng-model='detail.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[detail.category.promoted]}}', ng-click='pksc.setManualPromotion(detail, $event)')
@@ -145,9 +143,7 @@
                                             em.fa.fa-bookmark-o.pull-right(ng-if='detail.category.forced', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score', ng-click='$event.stopPropagation()')
                                     td.text-center.page-keyword-col
                                         span(uib-tooltip='{{ detail.auto_keywords + detail.manual_keywords }} Keywords Assigned to Page, {{detail.manual_keywords}} Assigned Manually') {{ detail | pageKeywordNumber }}
-                                        em.fa.fa-caret-down.text-grey(ng-click='pksc.openPageKeywordPopup(detail, $event)')
-                                        overlay-popup(active='detail.showKeywordsPopup', width='135')
-                                            div(ng-include="'app/components/keywords/manage/templates/pageKeywordPopup.html'")
+                                        em.fa.fa-caret-down.text-grey
                                     td.text-center.seo-violation-col(ng-click='pksc.openKeywordViolationPopup(detail, $event)')
                                         em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-warning", 3:"fa-info-circle text-danger"}[detail.violate]')
                                         em.fa.fa-caret-down.text-grey
