@@ -51,6 +51,9 @@
                 "highcharts-ng"
             )
         })
+        .state("app.keywords-manage.filter", {
+            url: "/filter"
+        })
         .state("app.keywords-manage.best", {
             url: "/best"
         })

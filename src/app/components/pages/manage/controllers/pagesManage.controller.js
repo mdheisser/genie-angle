@@ -6,11 +6,11 @@
         .controller('pagesManageController', pagesManageController)
 
     pagesManageController.$inject = [
-        '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog', '$localStorage', '$location',
+        '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog', '$localStorage', '$location', '$state',
         'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'convertPagesManageDataFilter', 'convertPageDataFilter', 'convertPageKeywordsFilter'];
 
     function pagesManageController(
-        $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog, $localStorage, $location,
+        $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog, $localStorage, $location, $state,
         Notify, filterFilter, commonService, websitesService, keywordsService, convertPagesManageDataFilter, convertPageDataFilter, convertPageKeywordsFilter) {
         /* jshint validthis:true */
         var vm = this;
@@ -263,6 +263,7 @@
                 var filtered = $scope.pageManage.length;
                 if(original != filtered) {
                     vm.filterOn = true;
+                    $state.go('app.pages-manage.filter');
                 } else {
                     vm.filterOn = false;
                 }
@@ -270,13 +271,10 @@
         });
 
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-            if (fromState.name == 'app.pages-dashboard' && toState.name == 'app.pages-manage' && toParams.filter != null) {
+            if (toState.name == 'app.pages-manage') {
                 vm.showAdditionalFilter = true;
-                if (toParams.filter == 'best') {
-                    $scope.$broadcast('initBestPagesManageFilter');
-                } else if (toParams.filter == 'least') {
-                    $scope.$broadcast('initLeastPagesManageFilter');
-                }
+                vm.filterOn = false;
+                $scope.$broadcast('resetPagesFilter');
             }
         })
 

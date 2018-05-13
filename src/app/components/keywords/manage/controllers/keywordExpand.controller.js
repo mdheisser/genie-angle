@@ -18,6 +18,7 @@
         vm.openKeywordViolationPopup = openKeywordViolationPopup;
         vm.openPageActionPane = openPageActionPane;
         vm.openPageKeywordPopup = openPageKeywordPopup;
+        vm.onSelectKeywordDetail = onSelectKeywordDetail;
 
         activate();
 
@@ -155,6 +156,46 @@
             detail.showKeywordsPopup = !detail.showKeywordsPopup;
 
             event.stopPropagation();
+        }
+
+        // Select/Deselect a page to be assigned keyword with confirmation dialog.
+        function onSelectKeywordDetail(detail, ev) {
+            if(detail.assignedState === true) {
+                var confirm = $mdDialog.confirm()
+                    .title('UnAssign Keyword From This Page?')
+                    .cancel('NO')
+                    .ok('YES')
+                    .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function() {
+                    var msgHtml = 'KeyWord UnAssigned from the Page' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+                    Notify.alert(
+                        msgHtml,
+                        {status: 'success', pos: 'bottom-center'}
+                    );
+                    detail.assignedState = false;
+                }, function() {
+                    console.log('no');
+                });
+            } else {
+                var confirm = $mdDialog.confirm()
+                    .title('Assign Keyword To This Page?')
+                    .content('')
+                    .cancel('NO')
+                    .ok('YES')
+                    .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function() {
+                    var msgHtml = 'KeyWord Assigned to the Page' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+                    Notify.alert(
+                        msgHtml,
+                        {status: 'success', pos: 'bottom-center'}
+                    );
+                    detail.assignedState = true;
+                }, function() {
+                    console.log('no');
+                });
+            }
         }
     }
 

@@ -5,9 +5,9 @@
         .module('components.keywords')
         .controller('keyDashController', keyDashController)
 
-    keyDashController.$inject = ['$scope', '$timeout', '$location', '$state', 'commonService', 'websitesService'];
+    keyDashController.$inject = ['$scope', '$timeout', '$location', '$state', '$localStorage', 'commonService', 'websitesService'];
 
-    function keyDashController($scope, $timeout, $location, $state, commonService, websitesService) {
+    function keyDashController($scope, $timeout, $location, $state, $localStorage, commonService, websitesService) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -84,6 +84,7 @@
                 }
             ];
             getDomains();
+            initPanles();
         }
 
         // Get social domains from web service.
@@ -213,6 +214,15 @@
             var arrowUp = angular.element(document.querySelector(queryUp));
             arrowUp.removeClass('ng-hide');
             arrowDown.addClass('ng-hide');
+        }
+
+        // init panles as expaned
+        function initPanles(id) {
+            var data = {};
+            data.keywords_statistics = false;
+            data.keywords_search_engine = false;
+            data.keywords_dash_chart = false;
+            $localStorage['panelState'] = angular.toJson(data);
         }
 
         // Go to Keywords Manage page with filter

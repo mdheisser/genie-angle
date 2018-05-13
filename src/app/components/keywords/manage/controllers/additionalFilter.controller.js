@@ -85,6 +85,7 @@
 
             initCategoryFilter();
             initPerformanceFilter();
+            vm.categoryPane = false;
         });
 
         // Initialize category filter

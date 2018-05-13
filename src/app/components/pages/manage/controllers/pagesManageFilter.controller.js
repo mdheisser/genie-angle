@@ -89,6 +89,8 @@
                 vm.activePageRanking[key].rankSelected = false;
                 vm.activePageRanking[key].seoSelected = false;
             });
+
+            vm.pageCategoryPane = false;
         });
 
         // Init filter with best performance ranking

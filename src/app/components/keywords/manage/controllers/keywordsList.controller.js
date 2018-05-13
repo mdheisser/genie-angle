@@ -6,12 +6,12 @@
         .controller('keywordsListController', keywordsListController)
 
     keywordsListController.$inject = [
-        '$rootScope', '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window', '$localStorage',
+        '$rootScope', '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window', '$localStorage', '$state',
         '$location', 'commonService', 'keywordsService', 'websitesService', 'Notify', 'filterFilter', 'convertTableDataFilter', 'convertPageDataFilter'
     ];
 
     function keywordsListController(
-        $rootScope, $scope, $timeout, $resource, $q, $mdDialog, $window, $localStorage,
+        $rootScope, $scope, $timeout, $resource, $q, $mdDialog, $window, $localStorage,  $state,
         $location, commonService, keywordsService, websitesService, Notify, filterFilter, convertTableDataFilter, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
@@ -48,13 +48,11 @@
         vm.keywordCategories = [];
         vm.keywordCategoryGroup = keywordCategoryGroup;
         vm.languages = [];
-        vm.onSelectKeywordDetail = onSelectKeywordDetail;
         vm.onSearchWithKeyword = onSearchWithKeyword;
         vm.openPageUrl = openPageUrl;
         vm.removeKeyword = removeKeyword;
         vm.savedExpandedRowId = null;
         vm.selectedKeywordCategory = null;
-        vm.setManualPromotion = setManualPromotion;
 
         activate();
 
@@ -242,6 +240,7 @@
                 var filtered = $scope.keywordManage.length;
                 if(original != filtered) {
                     vm.filterOn = true;
+                    $state.go('app.keywords-manage.filter');
                 } else {
                     vm.filterOn = false;
                 }
@@ -471,46 +470,6 @@
             });
         });
 
-        // Select/Deselect a page to be assigned keyword with confirmation dialog.
-        function onSelectKeywordDetail(detail, ev) {
-            if(detail.assignedState === true) {
-                var confirm = $mdDialog.confirm()
-                    .title('UnAssign Keyword From This Page?')
-                    .cancel('NO')
-                    .ok('YES')
-                    .targetEvent(ev);
-
-                $mdDialog.show(confirm).then(function() {
-                    var msgHtml = 'KeyWord UnAssigned from the Page' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
-                    Notify.alert(
-                        msgHtml,
-                        {status: 'success', pos: 'bottom-center'}
-                    );
-                    detail.assignedState = false;
-                }, function() {
-                    console.log('no');
-                });
-            } else {
-                var confirm = $mdDialog.confirm()
-                    .title('Assign Keyword To This Page?')
-                    .content('')
-                    .cancel('NO')
-                    .ok('YES')
-                    .targetEvent(ev);
-
-                $mdDialog.show(confirm).then(function() {
-                    var msgHtml = 'KeyWord Assigned to the Page' + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
-                    Notify.alert(
-                        msgHtml,
-                        {status: 'success', pos: 'bottom-center'}
-                    );
-                    detail.assignedState = true;
-                }, function() {
-                    console.log('no');
-                });
-            }
-        }
-
         // Search selected keyword on new tab.
         function onSearchWithKeyword(row, event) {
             var keyword = row.keyword;
@@ -559,28 +518,12 @@
             ev.stopPropagation();
         }
 
-        // Set the promotion for selected keyword manually
-        function setManualPromotion(detail, event) {
-            // var element = angular.element(event.target);
-            // var label = element.closest('label')
-            // var manual_promotion = detail.manual_promotion;
-
-            // if (detail.category.promoted === false) {
-            //     if(manual_promotion === false) {
-            //         label.find('md-switch .md-thumb').css('background-color', 'rgb(78, 83, 195)');
-            //         // To Do implement with api
-            //         detail.manual_promotion = true;
-            //     } else {
-            //         label.find('md-switch .md-thumb').css('background-color', '#FFF');
-            //         // To Do implement with api
-            //         detail.manual_promotion = false;
-            //     }
-            // }
-
-            event.stopPropagation();
-        }
-
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+            if (toState.name == 'app.keywords-manage') {
+                vm.showAdditionalFilter = true;
+                vm.filterOn = false;
+                $scope.$broadcast('resetFilter');
+            }
             if (toState.name == 'app.keywords-manage.default') {
                 vm.showAdditionalFilter = true;
                 $scope.$broadcast('setupFilterForDefaultKeywords');

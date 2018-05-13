@@ -39,6 +39,9 @@
                 "ui.select"
             )
         })
+        .state("app.pages-manage.filter", {
+            url: "/filter"
+        })
         .state("app.pages-manage.best", {
             url: "/best"
         })
