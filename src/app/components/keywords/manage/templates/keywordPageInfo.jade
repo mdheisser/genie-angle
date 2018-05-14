@@ -4,7 +4,7 @@
         paneltool(tool-close, ng-click='kpic.hide()')
     .panel-wrapper
         .panel-body
-            .row
+            .row.row-eq-height
                 .col-md-4
                     #page_setting.panel
                         .panel-heading.sub-heading
@@ -15,37 +15,35 @@
                                 .mda-list.p0
                                     .mda-list-item.mb-sm
                                         span.pull-left Launch Page URL
-                                        span.pull-right.fixed-width(ng-click='kpic.openPageUrl(page, $event)')
+                                        span.pull-right.fixed-width(ng-click='kpic.openPageUrl($event)')
                                             em.fa.fa-search
                                     .mda-list-item.mb-sm
                                         span.pull-left Copy to Clipboard
-                                        span.pull-right.fixed-width(ng-click='kpic.copyToClipboard(page, $event)')
+                                        span.pull-right.fixed-width(ng-click='kpic.copyToClipboard($event)')
                                             em.fa.fa-copy
                                     .mda-list-item.mb-sm
                                         span.pull-left Auto Optimise Page
                                         span.pull-right.fixed-width
-                                            md-switch(ng-model='page.category.promoted', aria-label='auto')
+                                            md-switch(ng-model='kpic.pageData.category.promoted', aria-label='auto')
                                     .mda-list-item.mb-sm(ng-click='kpic.showMaximumKeywordsPage=!kpic.showMaximumKeywordsPage')
                                         span.pull-left Maximum Keywords for Page
-                                        span.pull-right.fixed-width {{ page.forced_min }}/{{ page.forced_max }}
+                                        span.pull-right.fixed-width {{ kpic.pageData.forced_min }}/{{ kpic.pageData.forced_max }}
                                             em.fa.fa-caret-down
-                                        //- span.pull-right
-                                        //-     input.m0.p0.form-control(type='number', min='0', max='999', ng-model='page.max_keywords', style='height:20px;width:40px')
                                     .mda-list-item.pl(ng-if='kpic.showMaximumKeywordsPage')
                                         .max-assign-setting
                                             span.pull-left.mr-sm
                                                 small Keywords:&nbsp;Min
-                                            input.pull-left.m0.p0.form-control(type='number', min='0', max='{{page.forced_max}}', ng-model='page.forced_min')
+                                            input.pull-left.m0.p0.form-control(type='number', min='0', max='{{kpic.pageData.forced_max}}', ng-model='kpic.pageData.forced_min')
                                             span.pull-left.mr-sm.ml-sm
                                                 small Max
-                                            input.pull-left.m0.p0.form-control(type='number', min='0', max='7', ng-model='page.forced_max')
+                                            input.pull-left.m0.p0.form-control(type='number', min='0', max='7', ng-model='kpic.pageData.forced_max')
                                     .mda-list-item.mb-sm
                                         span.pull-left Refresh, Process Page
-                                        span.pull-right.fixed-width(ng-click='kpic.onRefreshPage(page);')
+                                        span.pull-right.fixed-width(ng-click='kpic.onRefreshPage();')
                                             em.fa.fa-refresh
                                     .mda-list-item.mb-sm
                                         span.pull-left Remove Page from SEOgenie
-                                        span.pull-right.fixed-width(ng-click='kpic.onRemoveFromSystem(page);')
+                                        span.pull-right.fixed-width(ng-click='kpic.onRemoveFromSystem();')
                                             em.fa.fa-trash-o
                                     .mda-list-item
                                         span.pull-left Page Languages
@@ -64,6 +62,6 @@
                                 div
                                     span.pull-left Auto Generate Title/Description
                                     .pull-left.pl
-                                        md-switch(ng-model='page.autotitle', aria-label='auto')
+                                        md-switch(ng-model='kpic.pageData.autotitle', aria-label='auto')
                                     span Generate
                                     em.fa.fa-edit.pull-right

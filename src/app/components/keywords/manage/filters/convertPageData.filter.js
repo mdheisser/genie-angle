@@ -38,6 +38,9 @@
                 item.showActions = false;
                 item.showKeywordsPopup = false;
 
+                item.forced_min = 1;
+                item.forced_max = 5;
+
                 output.push(item);
             });
 
