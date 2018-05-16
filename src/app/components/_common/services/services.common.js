@@ -9,19 +9,14 @@
 
     function commonService(REST) {
 
-        var getSites = function (userID) {
-            return REST.getSites();
-        };
-
-        var getPages = function (siteID) {
-            return REST.getPages({
-                siteId: siteID
+        var getUserSites = function (userID) {
+            return REST.getUserSites({
+                userId: userID
             });
         };
 
         return {
-            getSites: getSites,
-            getPages: getPages
+            getUserSites: getUserSites
         };
     }
 

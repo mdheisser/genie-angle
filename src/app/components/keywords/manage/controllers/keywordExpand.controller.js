@@ -5,14 +5,15 @@
         .module('components.keywords')
         .controller('keywordExpandController', keywordExpandController)
 
-    keywordExpandController.$inject = ['$scope', '$mdDialog', 'keywordsService', 'convertPageDataFilter'];
+    keywordExpandController.$inject = ['$scope', '$mdDialog', 'pagesService', 'convertPageDataFilter'];
 
-    function keywordExpandController($scope, $mdDialog, keywordsService, convertPageDataFilter) {
+    function keywordExpandController($scope, $mdDialog, pagesService, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
         vm.keywordDetailCollection = [];
         vm.detailCurrentPage = 1;
+        vm.resetPageFilter = resetPageFilter;
         vm.openPageInfo = openPageInfo;
         vm.openKeywordModal = openKeywordModal;
         vm.openKeywordViolationPopup = openKeywordViolationPopup;
@@ -41,8 +42,8 @@
 
         // Get selected keyword's detail information.
         function getKeywordDetail(keywordID) {
-            keywordsService
-                .getKeywordDetail(keywordID)
+            pagesService
+                .getPages(keywordID)
                 .then(function (response) {
                     vm.keywordDetailCollection = convertPageDataFilter(response.data);
 

@@ -7,11 +7,11 @@
 
     pagesManageController.$inject = [
         '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog', '$localStorage', '$location', '$state',
-        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'convertPagesManageDataFilter', 'convertPageDataFilter', 'convertPageKeywordsFilter'];
+        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'pagesService', 'convertPagesManageDataFilter', 'convertPageDataFilter', 'convertPageKeywordsFilter'];
 
     function pagesManageController(
         $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog, $localStorage, $location, $state,
-        Notify, filterFilter, commonService, websitesService, keywordsService, convertPagesManageDataFilter, convertPageDataFilter, convertPageKeywordsFilter) {
+        Notify, filterFilter, commonService, websitesService, keywordsService, pagesService, convertPagesManageDataFilter, convertPageDataFilter, convertPageKeywordsFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -46,7 +46,7 @@
         //////////////
 
         function activate() {
-            getOwnSites();
+            getOwnSites(1);
 
             // Init dropdown options for grids.
             var dropdownOptions =  [
@@ -110,10 +110,9 @@
         }
 
         // Get the user's sites from server.
-        function getOwnSites() {
-            var userId = '11111'; // To Do: Replace it with the authenticated user's id.
+        function getOwnSites(userId) {
             commonService
-                .getSites(userId)
+                .getUserSites(userId)
                 .then(function (response) {
                     vm.sites = response.data;
                     vm.selectedSite = vm.sites[0];
@@ -124,8 +123,8 @@
 
         // Get pages for User's Site
         function getPages(siteId) {
-            commonService
-                .getPages('1')
+            pagesService
+                .getPages(siteId)
                 .then(function (response) {
                     vm.pagesList = convertPagesManageDataFilter(response.data);
 

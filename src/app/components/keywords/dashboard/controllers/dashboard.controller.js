@@ -28,7 +28,7 @@
         //////////////
 
         function activate() {
-            getOwnSites();
+            getOwnSites(1);
             init();
             setRoute();
         }
@@ -142,9 +142,9 @@
         }
 
         // Get user's own site names.
-        function getOwnSites() {
+        function getOwnSites(userId) {
             commonService
-                .getSites()
+                .getUserSites(userId)
                 .then(function (response) {
                     vm.sites = response.data;
                     vm.selectedSite = vm.sites[0];

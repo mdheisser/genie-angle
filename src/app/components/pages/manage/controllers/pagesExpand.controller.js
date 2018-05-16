@@ -39,7 +39,7 @@
             vm.itemsByPageForViolationGrid = dropdownOptions;
             vm.numberOfRowsForViolationGrid = dropdownOptions[1];
 
-            getKeywordDetail('111');
+            getKeywordDetail('1');
             getViolationData();
         }
 

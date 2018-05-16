@@ -20,14 +20,13 @@
         //////////////
 
         function activate() {
-            getOwnSites();
+            getOwnSites(1);
         }
 
         // Get the user's sites from server.
-        function getOwnSites() {
-            var userId = '11111'; // To Do: Replace it with the authenticated user's id.
+        function getOwnSites(userId) {
             commonService
-                .getSites(userId)
+                .getUserSites(userId)
                 .then(function (response) {
                     vm.sites = response.data;
                     vm.selectedSite = vm.sites[0];

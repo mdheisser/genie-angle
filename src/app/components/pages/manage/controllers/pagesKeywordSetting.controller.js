@@ -7,11 +7,11 @@
 
     pagesKeywordSettingController.$inject = [
         '$scope', '$mdDialog',
-        'websitesService', 'keywordsService', 'keywordData', 'convertPageDataFilter'];
+        'websitesService', 'pagesService', 'keywordData', 'convertPageDataFilter'];
 
     function pagesKeywordSettingController(
         $scope, $mdDialog,
-        websitesService, keywordsService, keywordData, convertPageDataFilter) {
+        websitesService, pagesService, keywordData, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -86,8 +86,8 @@
 
         // Get selected keyword's detail information.
         function getKeywordDetail(keywordID) {
-            keywordsService
-                .getKeywordDetail(keywordID)
+            pagesService
+                .getPages(keywordID)
                 .then(function (response) {
                     vm.keywordDetailCollection = convertPageDataFilter(response.data);
 

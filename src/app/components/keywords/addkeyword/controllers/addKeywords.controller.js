@@ -20,13 +20,13 @@
         //////////////
 
         function activate() {
-            getOwnSites();
+            getOwnSites(1);
         }
 
         // Get user's own site names.
-        function getOwnSites() {
+        function getOwnSites(userID) {
             commonService
-                .getSites()
+                .getUserSites(userID)
                 .then(function (response) {
                     vm.sites = response.data;
                     vm.selectedSite = vm.sites[0];

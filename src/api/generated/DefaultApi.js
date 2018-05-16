@@ -111,7 +111,145 @@ angular.module('API', [])
             };
 
             /**
-             * Returns keywords from the system that the user has access to
+             * Login to the System
+             * @method
+             * @name API#postAccountLogin
+             * @param {object} parameters - method options and parameters
+             * @param {} parameters.body - Login Data
+             */
+            API.prototype.postAccountLogin = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/account/login';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['body'] !== undefined) {
+                    body = parameters['body'];
+                }
+
+                if (parameters['body'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: body'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Returns user's sites
+             * @method
+             * @name API#getUserSites
+             * @param {object} parameters - method options and parameters
+             * @param {string} parameters.userId - User id to return
+             */
+            API.prototype.getUserSites = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/sites';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['userId'] !== undefined) {
+                    queryParameters['userId'] = parameters['userId'];
+                }
+
+                if (parameters['userId'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: userId'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Add new Site to the System
+             * @method
+             * @name API#postSites
+             * @param {object} parameters - method options and parameters
+             * @param {} parameters.body - Site sata
+             */
+            API.prototype.postSites = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/sites';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['body'] !== undefined) {
+                    body = parameters['body'];
+                }
+
+                if (parameters['body'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: body'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Verify Site availability
+             * @method
+             * @name API#checkSite
+             * @param {object} parameters - method options and parameters
+             */
+            API.prototype.checkSite = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/sites/checkSite';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Returns all keywords from the system that the user has access to
              * @method
              * @name API#getKeywords
              * @param {object} parameters - method options and parameters
@@ -148,19 +286,19 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * Returns a keyword's detail information from the system that the user has access to
+             * Add new Keyword to the System
              * @method
-             * @name API#getKeywordDetail
+             * @name API#postKeywords
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.keywordId - keyword Id of needed keyword
+             * @param {} parameters.keyword - Keyword Data
              */
-            API.prototype.getKeywordDetail = function(parameters) {
+            API.prototype.postKeywords = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
                 var deferred = $q.defer();
                 var domain = this.domain,
-                    path = '/keyword-detail';
+                    path = '/keywords';
                 var body = {},
                     queryParameters = {},
                     headers = {},
@@ -169,35 +307,36 @@ angular.module('API', [])
                 headers['Accept'] = ['application/json'];
                 headers['Content-Type'] = ['application/json'];
 
-                if (parameters['keywordId'] !== undefined) {
-                    queryParameters['keywordId'] = parameters['keywordId'];
+                if (parameters['keyword'] !== undefined) {
+                    body = parameters['keyword'];
                 }
 
-                if (parameters['keywordId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: keywordId'));
+                if (parameters['keyword'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: keyword'));
                     return deferred.promise;
                 }
 
                 queryParameters = mergeQueryParams(parameters, queryParameters);
 
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
 
                 return deferred.promise;
             };
             /**
-             * Returns true if selected keyword is default, else return false
+             * Update Keyword
              * @method
-             * @name API#activeDefaultKeyword
+             * @name API#putKeywordsById
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.keywordId - keyword Id of needed keyword
+             * @param {string} parameters.id - Keyword id to return
+             * @param {} parameters.keyword - Keyword Data
              */
-            API.prototype.activeDefaultKeyword = function(parameters) {
+            API.prototype.putKeywordsById = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
                 var deferred = $q.defer();
                 var domain = this.domain,
-                    path = '/keyword/active-default';
+                    path = '/keywords/{id}';
                 var body = {},
                     queryParameters = {},
                     headers = {},
@@ -206,35 +345,42 @@ angular.module('API', [])
                 headers['Accept'] = ['application/json'];
                 headers['Content-Type'] = ['application/json'];
 
-                if (parameters['keywordId'] !== undefined) {
-                    queryParameters['keywordId'] = parameters['keywordId'];
+                path = path.replace('{id}', parameters['id']);
+
+                if (parameters['id'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: id'));
+                    return deferred.promise;
                 }
 
-                if (parameters['keywordId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: keywordId'));
+                if (parameters['keyword'] !== undefined) {
+                    body = parameters['keyword'];
+                }
+
+                if (parameters['keyword'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: keyword'));
                     return deferred.promise;
                 }
 
                 queryParameters = mergeQueryParams(parameters, queryParameters);
 
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+                this.request('PUT', domain + path, parameters, body, headers, queryParameters, form, deferred);
 
                 return deferred.promise;
             };
             /**
-             * Returns true if selected keyword is not default, else return false
+             * Delete Keyword
              * @method
-             * @name API#deactiveDefaultKeyword
+             * @name API#deleteKeywordsById
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.keywordId - keyword Id of needed keyword
+             * @param {string} parameters.id - Keyword id to return
              */
-            API.prototype.deactiveDefaultKeyword = function(parameters) {
+            API.prototype.deleteKeywordsById = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
                 var deferred = $q.defer();
                 var domain = this.domain,
-                    path = '/keyword/deactive-default';
+                    path = '/keywords/{id}';
                 var body = {},
                     queryParameters = {},
                     headers = {},
@@ -243,249 +389,25 @@ angular.module('API', [])
                 headers['Accept'] = ['application/json'];
                 headers['Content-Type'] = ['application/json'];
 
-                if (parameters['keywordId'] !== undefined) {
-                    queryParameters['keywordId'] = parameters['keywordId'];
-                }
+                path = path.replace('{id}', parameters['id']);
 
-                if (parameters['keywordId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: keywordId'));
+                if (parameters['id'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: id'));
                     return deferred.promise;
                 }
 
                 queryParameters = mergeQueryParams(parameters, queryParameters);
 
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+                this.request('DELETE', domain + path, parameters, body, headers, queryParameters, form, deferred);
 
                 return deferred.promise;
             };
             /**
-             * Returns true if selected keyword is forced, else return false
-             * @method
-             * @name API#activeForcedKeyword
-             * @param {object} parameters - method options and parameters
-             * @param {string} parameters.keywordId - keyword Id of needed keyword
-             */
-            API.prototype.activeForcedKeyword = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/keyword/active-forced';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                if (parameters['keywordId'] !== undefined) {
-                    queryParameters['keywordId'] = parameters['keywordId'];
-                }
-
-                if (parameters['keywordId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: keywordId'));
-                    return deferred.promise;
-                }
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Returns true if selected keyword is not forced, else return false
-             * @method
-             * @name API#deactiveForcedKeyword
-             * @param {object} parameters - method options and parameters
-             * @param {string} parameters.keywordId - keyword Id of needed keyword
-             */
-            API.prototype.deactiveForcedKeyword = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/keyword/deactive-forced';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                if (parameters['keywordId'] !== undefined) {
-                    queryParameters['keywordId'] = parameters['keywordId'];
-                }
-
-                if (parameters['keywordId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: keywordId'));
-                    return deferred.promise;
-                }
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Returns true if selected keyword is promoted, else return false
-             * @method
-             * @name API#activePromotedKeyword
-             * @param {object} parameters - method options and parameters
-             * @param {string} parameters.keywordId - keyword Id of needed keyword
-             */
-            API.prototype.activePromotedKeyword = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/keyword/active-promoted';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                if (parameters['keywordId'] !== undefined) {
-                    queryParameters['keywordId'] = parameters['keywordId'];
-                }
-
-                if (parameters['keywordId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: keywordId'));
-                    return deferred.promise;
-                }
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Returns true if selected keyword is not promoted, else return false
-             * @method
-             * @name API#deactivePromotedKeyword
-             * @param {object} parameters - method options and parameters
-             * @param {string} parameters.keywordId - keyword Id of needed keyword
-             */
-            API.prototype.deactivePromotedKeyword = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/keyword/deactive-promoted';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                if (parameters['keywordId'] !== undefined) {
-                    queryParameters['keywordId'] = parameters['keywordId'];
-                }
-
-                if (parameters['keywordId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: keywordId'));
-                    return deferred.promise;
-                }
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Returns true if selected keyword is monitored, else return false
-             * @method
-             * @name API#activeMonitoredKeyword
-             * @param {object} parameters - method options and parameters
-             * @param {string} parameters.keywordId - keyword Id of needed keyword
-             */
-            API.prototype.activeMonitoredKeyword = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/keyword/active-monitored';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                if (parameters['keywordId'] !== undefined) {
-                    queryParameters['keywordId'] = parameters['keywordId'];
-                }
-
-                if (parameters['keywordId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: keywordId'));
-                    return deferred.promise;
-                }
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Returns true if selected keyword is not monitored, else return false
-             * @method
-             * @name API#deactiveMonitoredKeyword
-             * @param {object} parameters - method options and parameters
-             * @param {string} parameters.keywordId - keyword Id of needed keyword
-             */
-            API.prototype.deactiveMonitoredKeyword = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/keyword/deactive-monitored';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                if (parameters['keywordId'] !== undefined) {
-                    queryParameters['keywordId'] = parameters['keywordId'];
-                }
-
-                if (parameters['keywordId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: keywordId'));
-                    return deferred.promise;
-                }
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Returns pages from the system that the user has access to
+             * Get pages of specific site
              * @method
              * @name API#getPages
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.siteId - Site Id of needed site
+             * @param {string} parameters.siteId - Page Data
              */
             API.prototype.getPages = function(parameters) {
                 if (parameters === undefined) {
@@ -518,6 +440,123 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
+             * Add new page to the System
+             * @method
+             * @name API#postPages
+             * @param {object} parameters - method options and parameters
+             * @param {} parameters.page - Page Data
+             */
+            API.prototype.postPages = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/pages';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['page'] !== undefined) {
+                    body = parameters['page'];
+                }
+
+                if (parameters['page'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: page'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Update Page
+             * @method
+             * @name API#putPagesByPageId
+             * @param {object} parameters - method options and parameters
+             * @param {} parameters.page - Keyword Data
+             * @param {string} parameters.pageId - Site Id of needed site
+             */
+            API.prototype.putPagesByPageId = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/pages/{pageId}';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['page'] !== undefined) {
+                    body = parameters['page'];
+                }
+
+                if (parameters['page'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: page'));
+                    return deferred.promise;
+                }
+
+                path = path.replace('{pageId}', parameters['pageId']);
+
+                if (parameters['pageId'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: pageId'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('PUT', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Delete Page from the system
+             * @method
+             * @name API#deletePagesByPageId
+             * @param {object} parameters - method options and parameters
+             * @param {string} parameters.pageId - Site Id of needed site
+             */
+            API.prototype.deletePagesByPageId = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/pages/{pageId}';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                path = path.replace('{pageId}', parameters['pageId']);
+
+                if (parameters['pageId'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: pageId'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('DELETE', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
              * Returns violation status of the page
              * @method
              * @name API#getPageViolation
@@ -530,7 +569,7 @@ angular.module('API', [])
                 }
                 var deferred = $q.defer();
                 var domain = this.domain,
-                    path = '/page/violation';
+                    path = '/page/{pageId}/violation';
                 var body = {},
                     queryParameters = {},
                     headers = {},
@@ -539,9 +578,7 @@ angular.module('API', [])
                 headers['Accept'] = ['application/json'];
                 headers['Content-Type'] = ['application/json'];
 
-                if (parameters['pageId'] !== undefined) {
-                    queryParameters['pageId'] = parameters['pageId'];
-                }
+                path = path.replace('{pageId}', parameters['pageId']);
 
                 if (parameters['pageId'] === undefined) {
                     deferred.reject(new Error('Missing required  parameter: pageId'));
@@ -551,43 +588,6 @@ angular.module('API', [])
                 queryParameters = mergeQueryParams(parameters, queryParameters);
 
                 this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Login to the System
-             * @method
-             * @name API#postAccountLogin
-             * @param {object} parameters - method options and parameters
-             * @param {} parameters.body - Login Data
-             */
-            API.prototype.postAccountLogin = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/account/login';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                if (parameters['body'] !== undefined) {
-                    body = parameters['body'];
-                }
-
-                if (parameters['body'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: body'));
-                    return deferred.promise;
-                }
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
 
                 return deferred.promise;
             };
@@ -631,7 +631,7 @@ angular.module('API', [])
                 }
                 var deferred = $q.defer();
                 var domain = this.domain,
-                    path = '/users/userInfo/{id}';
+                    path = '/users/{id}';
                 var body = {},
                     queryParameters = {},
                     headers = {},
@@ -650,132 +650,6 @@ angular.module('API', [])
                 queryParameters = mergeQueryParams(parameters, queryParameters);
 
                 this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Returns authenticated user's Sites
-             * @method
-             * @name API#getSites
-             * @param {object} parameters - method options and parameters
-             */
-            API.prototype.getSites = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/sites';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Verify Site availability
-             * @method
-             * @name API#checkSite
-             * @param {object} parameters - method options and parameters
-             */
-            API.prototype.checkSite = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/sites/checkSite';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Returns users Sites
-             * @method
-             * @name API#getUserSites
-             * @param {object} parameters - method options and parameters
-             * @param {string} parameters.userId - User id to return
-             */
-            API.prototype.getUserSites = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/sites/{userId}';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                path = path.replace('{userId}', parameters['userId']);
-
-                if (parameters['userId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: userId'));
-                    return deferred.promise;
-                }
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
-
-                return deferred.promise;
-            };
-            /**
-             * Add new Site to the System
-             * @method
-             * @name API#postSitesAddNew
-             * @param {object} parameters - method options and parameters
-             * @param {} parameters.body - Site sata
-             */
-            API.prototype.postSitesAddNew = function(parameters) {
-                if (parameters === undefined) {
-                    parameters = {};
-                }
-                var deferred = $q.defer();
-                var domain = this.domain,
-                    path = '/sites/addNew';
-                var body = {},
-                    queryParameters = {},
-                    headers = {},
-                    form = {};
-
-                headers['Accept'] = ['application/json'];
-                headers['Content-Type'] = ['application/json'];
-
-                if (parameters['body'] !== undefined) {
-                    body = parameters['body'];
-                }
-
-                if (parameters['body'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: body'));
-                    return deferred.promise;
-                }
-
-                queryParameters = mergeQueryParams(parameters, queryParameters);
-
-                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
 
                 return deferred.promise;
             };

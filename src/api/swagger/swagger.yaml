@@ -19,230 +19,6 @@ consumes:
 produces:
   - application/json
 paths:
-  /keywords:
-    get:
-      description: Returns keywords from the system that the user has access to
-      operationId: getKeywords
-      summary: Get pages for User's Site
-      produces:
-        - application/json
-      parameters:
-        - name: siteId
-          in: query
-          description: Site Id of needed site
-          required: true
-          type: string
-      responses:
-        '200':
-          description: A list of Keywords.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/keyword'
-  /keyword-detail:
-    get:
-      description: Returns a keyword's detail information from the system that the user has access to
-      operationId: getKeywordDetail
-      summary: Get keyword detail
-      produces:
-        - application/json
-      parameters:
-        - name: keywordId
-          in: query
-          description: keyword Id of needed keyword
-          required: true
-          type: string
-      responses:
-        '200':
-          description: A list of site pages.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/keyword-detail'
-  /keyword/active-default:
-    get:
-      description: Returns true if selected keyword is default, else return false
-      operationId: activeDefaultKeyword
-      summary: Default Keyword
-      produces:
-        - application/json
-      parameters:
-        - name: keywordId
-          in: query
-          description: keyword Id of needed keyword
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Default status.
-          schema:
-            $ref: '#/definitions/jsonObject'
-  /keyword/deactive-default:
-    get:
-      description: Returns true if selected keyword is not default, else return false
-      operationId: deactiveDefaultKeyword
-      summary: Deactive Default Keyword
-      produces:
-        - application/json
-      parameters:
-        - name: keywordId
-          in: query
-          description: keyword Id of needed keyword
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Default status.
-          schema:
-            $ref: '#/definitions/jsonObject'
-  /keyword/active-forced:
-    get:
-      description: Returns true if selected keyword is forced, else return false
-      operationId: activeForcedKeyword
-      summary: Forced Keyword
-      produces:
-        - application/json
-      parameters:
-        - name: keywordId
-          in: query
-          description: keyword Id of needed keyword
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Forced status.
-          schema:
-            $ref: '#/definitions/jsonObject'
-  /keyword/deactive-forced:
-    get:
-      description: Returns true if selected keyword is not forced, else return false
-      operationId: deactiveForcedKeyword
-      summary: Deactive Forced Keyword
-      produces:
-        - application/json
-      parameters:
-        - name: keywordId
-          in: query
-          description: keyword Id of needed keyword
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Forced status.
-          schema:
-            $ref: '#/definitions/jsonObject'
-  /keyword/active-promoted:
-    get:
-      description: Returns true if selected keyword is promoted, else return false
-      operationId: activePromotedKeyword
-      summary: Promote Keyword
-      produces:
-        - application/json
-      parameters:
-        - name: keywordId
-          in: query
-          description: keyword Id of needed keyword
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Promoted status.
-          schema:
-            $ref: '#/definitions/jsonObject'
-  /keyword/deactive-promoted:
-    get:
-      description: Returns true if selected keyword is not promoted, else return false
-      operationId: deactivePromotedKeyword
-      summary: Deactive Promoted Keyword
-      produces:
-        - application/json
-      parameters:
-        - name: keywordId
-          in: query
-          description: keyword Id of needed keyword
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Promoted status.
-          schema:
-            $ref: '#/definitions/jsonObject'
-  /keyword/active-monitored:
-    get:
-      description: Returns true if selected keyword is monitored, else return false
-      operationId: activeMonitoredKeyword
-      summary: Monitored Keyword
-      produces:
-        - application/json
-      parameters:
-        - name: keywordId
-          in: query
-          description: keyword Id of needed keyword
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Monitored status.
-          schema:
-            $ref: '#/definitions/jsonObject'
-  /keyword/deactive-monitored:
-    get:
-      description: Returns true if selected keyword is not monitored, else return false
-      operationId: deactiveMonitoredKeyword
-      summary: Deactive Monitored Keyword
-      produces:
-        - application/json
-      parameters:
-        - name: keywordId
-          in: query
-          description: keyword Id of needed keyword
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Monitored status.
-          schema:
-            $ref: '#/definitions/jsonObject'
-  /pages:
-    get:
-      description: Returns pages from the system that the user has access to
-      operationId: getPages
-      summary: Get pages for User's Site
-      produces:
-        - application/json
-      parameters:
-        - name: siteId
-          in: query
-          description: Site Id of needed site
-          required: true
-          type: string
-      responses:
-        '200':
-          description: A list of pages.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/page'
-  /page/violation:
-    get:
-      description: Returns violation status of the page
-      operationId: getPageViolation
-      summary: Get violations for page
-      produces:
-        - application/json
-      parameters:
-        - name: pageId
-          in: query
-          description: Page Id of needed page
-          required: true
-          type: string
-      responses:
-        '200':
-          description: A list of page violation.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/page'
   /account/login:
     post:
       description: Login to the System
@@ -263,6 +39,246 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/error'
+  /sites:
+    get:
+      description: Returns user's sites
+      operationId: getUserSites
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          in: query
+          description: User id to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Succesffully retrieved users sites
+          schema:
+            $ref: '#/definitions/site'
+        '400':
+          description: Invalid user Id supplied
+        '404':
+          description: No User with provided Id was found.
+    post:
+      description: Add new Site to the System
+      summary: Add Customer's Site to the System
+      parameters:
+        - in: body
+          name: body
+          description: Site sata
+          required: true
+          schema:
+            $ref: '#/definitions/site'
+      responses:
+        '200':
+          description: Successfully added new site
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /sites/checkSite:
+    get:
+      description: Verify Site availability
+      operationId: checkSite
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Site or page exist & returns proper response
+          schema:
+            $ref: '#/definitions/apiResponse'
+        '400':
+          description: No sites found.
+        '404':
+          description: No Sites Found.
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /keywords:
+    get:
+      description: Returns all keywords from the system that the user has access to
+      operationId: getKeywords
+      summary: Get all keywords for User's Site
+      produces:
+        - application/json
+      parameters:
+        - name: siteId
+          in: query
+          description: Site Id of needed site
+          required: true
+          type: string
+      responses:
+        '200':
+          description: A list of Keywords.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/keyword'
+    post:
+      description: Add new Keyword to the System
+      summary: Add new Keyword to the System
+      parameters:
+        - in: body
+          name: keyword
+          description: Keyword Data
+          required: true
+          schema:
+            $ref: '#/definitions/keyword'
+      responses:
+        '200':
+          description: Successfully added new keyword
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /keywords/{id}:
+    put:
+      description: Update Keyword
+      summary: Update Keyword
+      parameters:
+        - name: id
+          in: path
+          description: Keyword id to return
+          required: true
+          type: string
+        - in: body
+          name: keyword
+          description: Keyword Data
+          required: true
+          schema:
+            $ref: '#/definitions/keyword'
+      responses:
+        '200':
+          description: Successfully updated keyword
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Delete Keyword
+      summary: Delete Keyword
+      parameters:
+        - name: id
+          in: path
+          description: Keyword id to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successfully deleted keyword
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /pages:
+    get:
+      description: Get pages of specific site
+      summary: Get pages of specific site
+      operationId: getPages
+      parameters:
+        - name: siteId
+          in: query
+          description: Page Data
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successfully added new page
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/page'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    post:
+      description: Add new page to the System
+      summary: Add new page to the System
+      parameters:
+        - in: body
+          name: page
+          description: Page Data
+          required: true
+          schema:
+            $ref: '#/definitions/page'
+      responses:
+        '200':
+          description: Successfully added new page
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /pages/{pageId}:
+    parameters:
+        - name: pageId
+          in: path
+          description: Site Id of needed site
+          required: true
+          type: string
+    put:
+      description: Update Page
+      summary: Update Page
+      parameters:
+        - in: body
+          name: Page
+          description: Keyword Data
+          required: true
+          schema:
+            $ref: '#/definitions/page'
+      responses:
+        '200':
+          description: Successfully updated page
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Delete Page from the system
+      summary: Delete Page
+      responses:
+        '200':
+          description: Successfully deleted page
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /page/{pageId}/violation:
+    get:
+      description: Returns violation status of the page
+      operationId: getPageViolation
+      summary: Get violations for page
+      produces:
+        - application/json
+      parameters:
+        - name: pageId
+          in: path
+          description: Page Id of needed page
+          required: true
+          type: string
+      responses:
+        '200':
+          description: A list of page violation.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/violation'
   /users:
     get:
       description: Returns all System users
@@ -281,7 +297,7 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/error'
-  '/users/userInfo/{id}':
+  /users/{id}:
     get:
       description: Returns user basic info
       operationId: getUserInfoById
@@ -306,88 +322,74 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/error'
-  /sites:
-    get:
-      description: Returns authenticated user's Sites
-      operationId: getSites
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Succesffully retrieved users sites
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/site'
-        '400':
-          description: No sites found.
-        '404':
-          description: No Sites Found.
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/error'
-  /sites/checkSite:
-    get:
-      description: Verify Site availability
-      operationId: checkSite
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Site or page exist & returns proper response
-          schema:
-            $ref: '#/definitions/apiResponse'
-        '400':
-          description: No sites found.
-        '404':
-          description: No Sites Found.
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/error'
-  '/sites/{userId}':
-    get:
-      description: Returns users Sites
-      operationId: getUserSites
-      produces:
-        - application/json
-      parameters:
-        - name: userId
-          in: path
-          description: User id to return
-          required: true
-          type: string
-      responses:
-        '200':
-          description: Succesffully retrieved users sites
-          schema:
-            $ref: '#/definitions/site'
-        '400':
-          description: Invalid user Id supplied
-        '404':
-          description: No User with provided Id was found.
-  /sites/addNew:
-    post:
-      description: Add new Site to the System
-      summary: Add Customer's Site to the System
-      parameters:
-        - in: body
-          name: body
-          description: Site sata
-          required: true
-          schema:
-            $ref: '#/definitions/jsonObject'
-      responses:
-        '200':
-          description: Login Successfull
-          schema:
-            $ref: '#/definitions/apiResponse'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/error'
 definitions:
+  error:
+    type: object
+    required:
+      - message
+    properties:
+      code:
+        type: integer
+        format: int64
+      message:
+        type: string
+      fields:
+        type: array
+        items:
+          type: string
+  apiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+  url:
+    type: string
+  loginData:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+  site:
+    type: object
+    required:
+      - userId
+      - url
+      - name
+    properties:
+      userId:
+        type: string
+      url:
+        type: string
+      name:
+        type: string
+  keyword:
+    type: object
+    required:
+      - id
+      - text
+    properties:
+      id:
+        type: string
+      text:
+        type: string
+      isDefault:
+        type: boolean
+      isPromoted:
+        type: boolean
+      isMonitored:
+        type: boolean
+      isForced:
+        type: boolean
   page:
     type: object
     required:
@@ -413,8 +415,15 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/url'
-  url:
-    type: string
+  violation:
+    type: object
+    required:
+      - pageId
+    properties:
+      pageId:
+        type: string
+      status:
+        type: string
   user:
     type: object
     required:
@@ -431,78 +440,3 @@ definitions:
         type: string
       lastName:
         type: string
-  site:
-    type: object
-    required:
-      - userId
-      - url
-      - name
-    properties:
-      userId:
-        type: string
-      url:
-        type: string
-      name:
-        type: string
-  keyword:
-    type: object
-    required:
-      - id
-      - text
-      - type
-    properties:
-      id:
-        type: string
-      text:
-        type: string
-      type:
-        type: string
-  keyword-detail:
-    type: object
-    required:
-      - id
-      - text
-      - type
-    properties:
-      id:
-        type: string
-      text:
-        type: string
-      type:
-        type: string
-  loginData:
-    type: object
-    required:
-      - email
-      - password
-    properties:
-      email:
-        type: string
-      password:
-        type: string
-  error:
-    type: object
-    required:
-      - message
-    properties:
-      code:
-        type: integer
-        format: int64
-      message:
-        type: string
-      fields:
-        type: array
-        items:
-          type: string
-  apiResponse:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      type:
-        type: string
-      message:
-        type: string
-  jsonObject:
-    type: string

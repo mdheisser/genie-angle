@@ -9,6 +9,12 @@
 
     function pagesService(REST) {
 
+        var getPages = function (siteID) {
+            return REST.getPages({
+                siteId: siteID
+            });
+        };
+
         var getPageViolation = function (pageID) {
             return REST.getPageViolation({
                 pageId: pageID
@@ -16,6 +22,7 @@
         };
 
         return {
+            getPages: getPages,
             getPageViolation: getPageViolation
         };
     }

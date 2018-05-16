@@ -9,5 +9,5 @@
         {id: 7, status: 3, category: 'Performance', description: 'The length of the text Google sued over...', action: 'Shorten text to 66 characters...'},
         {id: 8, status: 4, category: 'SEO', description: 'Missing title and description...', action: 'Added...'}
     ];
-    server.add("/api/page/violation", payload, "GET", 200);
+    server.add("/api/page/1/violation", payload, "GET", 200);
 })(window.mockServer);
