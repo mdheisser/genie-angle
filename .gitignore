@@ -6,3 +6,4 @@ jspm_packages
 .serverless
 dist
 bower_components
+yarn-error.log

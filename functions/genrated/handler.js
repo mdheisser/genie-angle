@@ -1,23 +1,24 @@
-const others = require('./others.js');
+const auth = require('./auth.js');
+const sites = require('./sites.js');
+const keywords = require('./keywords.js');
+const pages = require('./pages.js');
+const users = require('./users.js');
 
 module.exports = {
-  getKeywords: others.getKeywords,
-  getKeyword-detail: others.getKeyword-detail,
-  getKeywordActive-default: others.getKeywordActive-default,
-  getKeywordDeactive-default: others.getKeywordDeactive-default,
-  getKeywordActive-forced: others.getKeywordActive-forced,
-  getKeywordDeactive-forced: others.getKeywordDeactive-forced,
-  getKeywordActive-promoted: others.getKeywordActive-promoted,
-  getKeywordDeactive-promoted: others.getKeywordDeactive-promoted,
-  getKeywordActive-monitored: others.getKeywordActive-monitored,
-  getKeywordDeactive-monitored: others.getKeywordDeactive-monitored,
-  getPages: others.getPages,
-  getPageViolation: others.getPageViolation,
-  postAccountLogin: others.postAccountLogin,
-  getUsers: others.getUsers,
-  getUsersUserInfo: others.getUsersUserInfo,
-  getSites: others.getSites,
-  getSitesCheckSite: others.getSitesCheckSite,
-  getSites: others.getSites,
-  postSitesAddNew: others.postSitesAddNew,
+  postAccountLogin: auth.postAccountLogin,
+  getSites: sites.getSites,
+  postSites: sites.postSites,
+  getSitesCheckSite: sites.getSitesCheckSite,
+  getKeywords: keywords.getKeywords,
+  postKeywords: keywords.postKeywords,
+  putKeywords: keywords.putKeywords,
+  deleteKeywords: keywords.deleteKeywords,
+  getPages: pages.getPages,
+  postPages: pages.postPages,
+  getPages: pages.getPages,
+  putPages: pages.putPages,
+  deletePages: pages.deletePages,
+  getPageViolation: pages.getPageViolation,
+  getUsers: users.getUsers,
+  getUsers: users.getUsers,
 };

@@ -13,14 +13,23 @@ host: locahost
 basePath: /api
 schemes:
   - https
-  - http
 consumes:
   - application/json
 produces:
   - application/json
+  
+tags:
+  - name: Auth
+  - name: Users
+  - name: Pages
+  - name: Keywords
+  - name: Sites
+
 paths:
   /account/login:
     post:
+      tags: 
+        - Auth
       description: Login to the System
       summary: Login to SEOgenie System
       parameters:
@@ -41,6 +50,8 @@ paths:
             $ref: '#/definitions/error'
   /sites:
     get:
+      tags: 
+        - Sites
       description: Returns user's sites
       operationId: getUserSites
       produces:
@@ -61,6 +72,8 @@ paths:
         '404':
           description: No User with provided Id was found.
     post:
+      tags: 
+        - Sites
       description: Add new Site to the System
       summary: Add Customer's Site to the System
       parameters:
@@ -81,6 +94,8 @@ paths:
             $ref: '#/definitions/error'
   /sites/checkSite:
     get:
+      tags: 
+        - Sites
       description: Verify Site availability
       operationId: checkSite
       produces:
@@ -100,6 +115,8 @@ paths:
             $ref: '#/definitions/error'
   /keywords:
     get:
+      tags: 
+        - Keywords
       description: Returns all keywords from the system that the user has access to
       operationId: getKeywords
       summary: Get all keywords for User's Site
@@ -119,6 +136,8 @@ paths:
             items:
               $ref: '#/definitions/keyword'
     post:
+      tags: 
+        - Keywords
       description: Add new Keyword to the System
       summary: Add new Keyword to the System
       parameters:
@@ -139,6 +158,8 @@ paths:
             $ref: '#/definitions/error'
   /keywords/{id}:
     put:
+      tags: 
+        - Keywords
       description: Update Keyword
       summary: Update Keyword
       parameters:
@@ -163,6 +184,8 @@ paths:
           schema:
             $ref: '#/definitions/error'
     delete:
+      tags: 
+        - Keywords
       description: Delete Keyword
       summary: Delete Keyword
       parameters:
@@ -182,6 +205,8 @@ paths:
             $ref: '#/definitions/error'
   /pages:
     get:
+      tags: 
+        - Pages
       description: Get pages of specific site
       summary: Get pages of specific site
       operationId: getPages
@@ -203,6 +228,8 @@ paths:
           schema:
             $ref: '#/definitions/error'
     post:
+      tags: 
+        - Pages
       description: Add new page to the System
       summary: Add new page to the System
       parameters:
@@ -221,17 +248,34 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/error'
+
   /pages/{pageId}:
-    parameters:
+    get:
+      description: fetch page data
+      tags: 
+        - Pages
+      parameters:
         - name: pageId
           in: path
           description: Site Id of needed site
           required: true
           type: string
+      responses:
+        '200':
+          description: Successfully updated page
+          schema:
+            $ref: '#/definitions/page'
     put:
+      tags: 
+        - Pages
       description: Update Page
       summary: Update Page
       parameters:
+        - name: pageId
+          in: path
+          description: Site Id of needed site
+          required: true
+          type: string
         - in: body
           name: Page
           description: Keyword Data
@@ -248,6 +292,14 @@ paths:
           schema:
             $ref: '#/definitions/error'
     delete:
+      tags: 
+        - Pages
+      parameters:
+        - name: pageId
+          in: path
+          description: Site Id of needed site
+          required: true
+          type: string
       description: Delete Page from the system
       summary: Delete Page
       responses:
@@ -261,6 +313,8 @@ paths:
             $ref: '#/definitions/error'
   /page/{pageId}/violation:
     get:
+      tags: 
+        - Pages
       description: Returns violation status of the page
       operationId: getPageViolation
       summary: Get violations for page
@@ -281,6 +335,8 @@ paths:
               $ref: '#/definitions/violation'
   /users:
     get:
+      tags: 
+        - Users
       description: Returns all System users
       operationId: getUsers
       produces:
@@ -299,6 +355,8 @@ paths:
             $ref: '#/definitions/error'
   /users/{id}:
     get:
+      tags: 
+        - Users
       description: Returns user basic info
       operationId: getUserInfoById
       produces:

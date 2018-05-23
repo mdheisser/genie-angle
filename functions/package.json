@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "swagger":"node ./node_modules/swagger-to-serverless/swagger-to-serverless.js ../src/api/swagger/swagger.yaml ./genrated/serverless.yml ./genrated/"
+    "swagger": "node ./node_modules/swagger-to-serverless/swagger-to-serverless.js ../src/api/swagger/swagger.yaml ./genrated/serverless.yml ./genrated/"
   },
-  "dependencies": {},
+  "dependencies": {
+    "del": "^3.0.0"
+  },
   "devDependencies": {
     "swagger-to-serverless": "^1.0.1"
   }

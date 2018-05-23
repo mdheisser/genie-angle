@@ -1,15 +1,43 @@
-service: serverless-hello-world
-provider:
-  name: aws
-  runtime: nodejs6.10
 functions:
-  helloWorld:
-    handler: handler.helloWorld
+  f41a-PostAccountLogin:
+    handler: handler.postAccountLogin
     events:
       - http:
-          path: hello-world
-          method: get
           cors: true
+          method: post
+          path: /account/login
+          integration: lambda
+          request:
+            parameters: {}
+  c7ba-GetSites:
+    handler: handler.getSites
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /sites
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                userId: true
+  2470-PostSites:
+    handler: handler.postSites
+    events:
+      - http:
+          cors: true
+          method: post
+          path: /sites
+          integration: lambda
+          request:
+            parameters: {}
+  f47b-GetSitesCheckSite:
+    handler: handler.getSitesCheckSite
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /sites/checkSite
   0ad6-GetKeywords:
     handler: handler.getKeywords
     events:
@@ -22,196 +50,116 @@ functions:
             parameters:
               querystrings:
                 siteId: true
-  00e1-GetKeyword-detail:
-    handler: handler.getKeyword-detail
+  b35b-PostKeywords:
+    handler: handler.postKeywords
     events:
       - http:
           cors: true
-          method: get
-          path: /keyword-detail
+          method: post
+          path: /keywords
           integration: lambda
           request:
-            parameters:
-              querystrings:
-                keywordId: true
-  0d44-GetKeywordActive-default:
-    handler: handler.getKeywordActive-default
+            parameters: {}
+  ca61-PutKeywords:
+    handler: handler.putKeywords
     events:
       - http:
           cors: true
-          method: get
-          path: /keyword/active-default
+          method: put
+          path: '/keywords/{id}'
           integration: lambda
           request:
             parameters:
-              querystrings:
-                keywordId: true
-  d59c-GetKeywordDeactive-default:
-    handler: handler.getKeywordDeactive-default
+              paths:
+                id: true
+  7af1-DeleteKeywords:
+    handler: handler.deleteKeywords
     events:
       - http:
           cors: true
-          method: get
-          path: /keyword/deactive-default
+          method: delete
+          path: '/keywords/{id}'
           integration: lambda
           request:
             parameters:
-              querystrings:
-                keywordId: true
-  e6bf-GetKeywordActive-forced:
-    handler: handler.getKeywordActive-forced
-    events:
-      - http:
-          cors: true
-          method: get
-          path: /keyword/active-forced
-          integration: lambda
-          request:
-            parameters:
-              querystrings:
-                keywordId: true
-  435d-GetKeywordDeactive-forced:
-    handler: handler.getKeywordDeactive-forced
-    events:
-      - http:
-          cors: true
-          method: get
-          path: /keyword/deactive-forced
-          integration: lambda
-          request:
-            parameters:
-              querystrings:
-                keywordId: true
-  114d-GetKeywordActive-promoted:
-    handler: handler.getKeywordActive-promoted
-    events:
-      - http:
-          cors: true
-          method: get
-          path: /keyword/active-promoted
-          integration: lambda
-          request:
-            parameters:
-              querystrings:
-                keywordId: true
-  fcaf-GetKeywordDeactive-promoted:
-    handler: handler.getKeywordDeactive-promoted
-    events:
-      - http:
-          cors: true
-          method: get
-          path: /keyword/deactive-promoted
-          integration: lambda
-          request:
-            parameters:
-              querystrings:
-                keywordId: true
-  6fe8-GetKeywordActive-monitored:
-    handler: handler.getKeywordActive-monitored
-    events:
-      - http:
-          cors: true
-          method: get
-          path: /keyword/active-monitored
-          integration: lambda
-          request:
-            parameters:
-              querystrings:
-                keywordId: true
-  c1ff-GetKeywordDeactive-monitored:
-    handler: handler.getKeywordDeactive-monitored
-    events:
-      - http:
-          cors: true
-          method: get
-          path: /keyword/deactive-monitored
-          integration: lambda
-          request:
-            parameters:
-              querystrings:
-                keywordId: true
+              paths:
+                id: true
   1f94-GetPages:
     handler: handler.getPages
     events:
       - http:
           cors: true
           method: get
-          path: /pages
+          path: '/pages/{pageId}'
           integration: lambda
           request:
             parameters:
               querystrings:
                 siteId: true
+              paths:
+                pageId: true
+  c5da-PostPages:
+    handler: handler.postPages
+    events:
+      - http:
+          cors: true
+          method: post
+          path: /pages
+          integration: lambda
+          request:
+            parameters: {}
+  5de4-ParametersPages:
+    handler: handler.parametersPages
+    events:
+      - http:
+          cors: true
+          method: parameters
+          path: '/pages/{pageId}'
+  df90-PutPages:
+    handler: handler.putPages
+    events:
+      - http:
+          cors: true
+          method: put
+          path: '/pages/{pageId}'
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                pageId: true
+  c8f5-DeletePages:
+    handler: handler.deletePages
+    events:
+      - http:
+          cors: true
+          method: delete
+          path: '/pages/{pageId}'
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                pageId: true
   dfc5-GetPageViolation:
     handler: handler.getPageViolation
     events:
       - http:
           cors: true
           method: get
-          path: /page/violation
+          path: '/page/{pageId}/violation'
           integration: lambda
           request:
             parameters:
-              querystrings:
+              paths:
                 pageId: true
-  f41a-PostAccountLogin:
-    handler: handler.postAccountLogin
-    events:
-      - http:
-          cors: true
-          method: post
-          path: /account/login
-          integration: lambda
-          request:
-            parameters: {}
   b2b7-GetUsers:
     handler: handler.getUsers
     events:
       - http:
           cors: true
           method: get
-          path: /users
-          integration: lambda
-          request:
-            parameters: {}
-  c74f-GetUsersUserInfo:
-    handler: handler.getUsersUserInfo
-    events:
-      - http:
-          cors: true
-          method: get
-          path: '/users/userInfo/{id}'
+          path: '/users/{id}'
           integration: lambda
           request:
             parameters:
               paths:
                 id: true
-  c7ba-GetSites:
-    handler: handler.getSites
-    events:
-      - http:
-          cors: true
-          method: get
-          path: '/sites/{userId}'
-          integration: lambda
-          request:
-            parameters:
-              paths:
-                userId: true
-  f47b-GetSitesCheckSite:
-    handler: handler.getSitesCheckSite
-    events:
-      - http:
-          cors: true
-          method: get
-          path: /sites/checkSite
-  2773-PostSitesAddNew:
-    handler: handler.postSitesAddNew
-    events:
-      - http:
-          cors: true
-          method: post
-          path: /sites/addNew
-          integration: lambda
-          request:
-            parameters: {}
