@@ -7,3 +7,4 @@ jspm_packages
 dist
 bower_components
 yarn-error.log
+functions/serverless/gen

@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "swagger": "node ./node_modules/swagger-to-serverless/swagger-to-serverless.js ../src/api/swagger/swagger.yaml ./genrated/serverless.yml ./genrated/"
+    "gen:clean":"node clean.js",
+    "gen": "yarn gen:clean && node ./node_modules/swagger-to-serverless/swagger-to-serverless.js ../src/api/swagger/swagger.yaml ./serverless/serverless.yml ./serverless/gen"
   },
   "dependencies": {
     "del": "^3.0.0"
