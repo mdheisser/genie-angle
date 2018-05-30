@@ -1,0 +1,177 @@
+service: serverless-rest-api-with-dynamodb
+frameworkVersion: '>=1.1.0 <2.0.0'
+provider:
+  name: aws
+  runtime: nodejs8.10
+  environment:
+    DYNAMODB_TABLE: '${self:service}-${opt:stage, self:provider.stage}'
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - 'dynamodb:Query'
+        - 'dynamodb:Scan'
+        - 'dynamodb:GetItem'
+        - 'dynamodb:PutItem'
+        - 'dynamodb:UpdateItem'
+        - 'dynamodb:DeleteItem'
+      Resource: >-
+        arn:aws:dynamodb:${opt:region,
+        self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}
+functions:
+  f41a-PostAccountLogin:
+    handler: handler.postAccountLogin
+    events:
+      - http:
+          cors: true
+          method: post
+          path: /account/login
+          integration: lambda
+          request:
+            parameters: {}
+  c7ba-GetSites:
+    handler: handler.getSites
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /sites
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                userId: true
+  2470-PostSites:
+    handler: handler.postSites
+    events:
+      - http:
+          cors: true
+          method: post
+          path: /sites
+          integration: lambda
+          request:
+            parameters: {}
+  f47b-GetSitesCheckSite:
+    handler: handler.getSitesCheckSite
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /sites/checkSite
+  0ad6-GetKeywords:
+    handler: handler.getKeywords
+    events:
+      - http:
+          cors: true
+          method: get
+          path: /keywords
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                siteId: true
+  b35b-PostKeywords:
+    handler: handler.postKeywords
+    events:
+      - http:
+          cors: true
+          method: post
+          path: /keywords
+          integration: lambda
+          request:
+            parameters: {}
+  ca61-PutKeywords:
+    handler: handler.putKeywords
+    events:
+      - http:
+          cors: true
+          method: put
+          path: '/keywords/{id}'
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                id: true
+  7af1-DeleteKeywords:
+    handler: handler.deleteKeywords
+    events:
+      - http:
+          cors: true
+          method: delete
+          path: '/keywords/{id}'
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                id: true
+  1f94-GetPages:
+    handler: handler.getPages
+    events:
+      - http:
+          cors: true
+          method: get
+          path: '/pages/{pageId}'
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                siteId: true
+              paths:
+                pageId: true
+  c5da-PostPages:
+    handler: handler.postPages
+    events:
+      - http:
+          cors: true
+          method: post
+          path: /pages
+          integration: lambda
+          request:
+            parameters: {}
+  df90-PutPages:
+    handler: handler.putPages
+    events:
+      - http:
+          cors: true
+          method: put
+          path: '/pages/{pageId}'
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                pageId: true
+  c8f5-DeletePages:
+    handler: handler.deletePages
+    events:
+      - http:
+          cors: true
+          method: delete
+          path: '/pages/{pageId}'
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                pageId: true
+  dfc5-GetPageViolation:
+    handler: handler.getPageViolation
+    events:
+      - http:
+          cors: true
+          method: get
+          path: '/page/{pageId}/violation'
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                pageId: true
+  b2b7-GetUsers:
+    handler: handler.getUsers
+    events:
+      - http:
+          cors: true
+          method: get
+          path: '/users/{id}'
+          integration: lambda
+          request:
+            parameters:
+              paths:
+                id: true

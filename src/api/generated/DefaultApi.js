@@ -477,12 +477,47 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
+             * fetch page data
+             * @method
+             * @name API#getPagesByPageId
+             * @param {object} parameters - method options and parameters
+             * @param {string} parameters.pageId - Site Id of needed site
+             */
+            API.prototype.getPagesByPageId = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/pages/{pageId}';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                path = path.replace('{pageId}', parameters['pageId']);
+
+                if (parameters['pageId'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: pageId'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
              * Update Page
              * @method
              * @name API#putPagesByPageId
              * @param {object} parameters - method options and parameters
-             * @param {} parameters.page - Keyword Data
              * @param {string} parameters.pageId - Site Id of needed site
+             * @param {} parameters.page - Keyword Data
              */
             API.prototype.putPagesByPageId = function(parameters) {
                 if (parameters === undefined) {
@@ -499,19 +534,19 @@ angular.module('API', [])
                 headers['Accept'] = ['application/json'];
                 headers['Content-Type'] = ['application/json'];
 
+                path = path.replace('{pageId}', parameters['pageId']);
+
+                if (parameters['pageId'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: pageId'));
+                    return deferred.promise;
+                }
+
                 if (parameters['page'] !== undefined) {
                     body = parameters['page'];
                 }
 
                 if (parameters['page'] === undefined) {
                     deferred.reject(new Error('Missing required  parameter: page'));
-                    return deferred.promise;
-                }
-
-                path = path.replace('{pageId}', parameters['pageId']);
-
-                if (parameters['pageId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: pageId'));
                     return deferred.promise;
                 }
 
