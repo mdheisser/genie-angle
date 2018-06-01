@@ -28,6 +28,26 @@ functions:
           integration: lambda
           request:
             parameters: {}
+  fba2-PostAccountRegister:
+    handler: handler.postAccountRegister
+    events:
+      - http:
+          cors: true
+          method: post
+          path: /account/register
+          integration: lambda
+          request:
+            parameters: {}
+  c19c-PostAccountConfirm:
+    handler: handler.postAccountConfirm
+    events:
+      - http:
+          cors: true
+          method: post
+          path: /account/confirm
+          integration: lambda
+          request:
+            parameters: {}
   c7ba-GetSites:
     handler: handler.getSites
     events:

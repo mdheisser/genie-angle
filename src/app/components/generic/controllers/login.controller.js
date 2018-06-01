@@ -5,9 +5,9 @@
         .module("components.generic")
         .controller("LoginFormController", LoginFormController);
 
-    LoginFormController.$inject = ["$http", "$state"];
+    LoginFormController.$inject = ["$http", "$state", "authService"];
 
-    function LoginFormController($http, $state) {
+    function LoginFormController($http, $state, authService) {
         var vm = this;
 
         activate();
@@ -19,26 +19,20 @@
             // place the message if something goes wrong
             vm.authMsg = "";
             vm.login = function() {
-                vm.authMsg = "";
-                $http
-                    .post("api/account/login", {
-                        email: vm.account.email,
-                        password: vm.account.password
-                    })
-                    .then(
-                        function(response) {
-                            // assumes if ok, response is an object with some data, if not, a string with error
-                            // customize according to your api
-                            if (!response.data.account) {
-                                vm.authMsg = "Incorrect credentials.";
-                            } else {
-                                $state.go('app.dashoard');
-                            }
-                        },
-                        function() {
-                            vm.authMsg = "Server Request Error";
+                $state.go('app.dashoard');
+                authService
+                    .getUserToken(vm.account.email, vm.account.password)
+                    .then(function (response) {
+                        console.log('*** Login Response ***')
+                        console.log(response.data);
+                        if (!response.data.result.accessToken) {
+                            vm.authMsg = "Incorrect credentials.";
+                        } else {
+                            $state.go('app.dashoard');
                         }
-                    );
+                    }, function (err) {
+                        vm.authMsg = "Server Request Error";
+                    });
             };
         }
     }

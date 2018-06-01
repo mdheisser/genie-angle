@@ -16,10 +16,10 @@
 		"keywordsService",
 		"$uibModal",
 		"toastr",
-		"components.services",
 		"$injector",
 		"editableOptions",
-		"editableThemes"
+		"editableThemes",
+		"REST"
 	];
 
 	function addSiteWizardController(
@@ -33,10 +33,10 @@
 		keywordsService,
 		$uibModal,
 		toastr,
-		API,
 		$injector,
 		editableOptions,
-		editableThemes
+		editableThemes,
+		REST
 	) {
 		var vm = this;
 		$scope.loading = true;

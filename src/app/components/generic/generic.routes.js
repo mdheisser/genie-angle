@@ -3,7 +3,7 @@
  * App routes and resources configuration
  =========================================================*/
 
-(function() {
+(function () {
     "use strict";
 
     angular.module("components.generic").config(routesConfig);
@@ -30,7 +30,7 @@
                 resolve: helper.resolveFor("modernizr", "icons"),
                 controller: [
                     "$rootScope",
-                    function($rootScope) {
+                    function ($rootScope) {
                         $rootScope.app.layout.isBoxed = false;
                     }
                 ]
@@ -75,6 +75,27 @@
                 url: "/maintenance",
                 title: "Maintenance",
                 templateUrl: helper.componentPath("generic", "maintenance")
-            });
+            }).state("app.eula", {
+                url: "/end-user-software-license-agreement",
+                templateUrl: "app/components/pages/templates/end-user-software-license-agreement.html",
+                resolve: helper.resolveFor("modernizr", "icons"),
+                controller: [
+                    "$rootScope",
+                    function ($rootScope) {
+                        $rootScope.app.layout.isBoxed = false;
+                    }
+                ]
+            })
+            .state("app.privacy-policy", {
+                url: "/privacy-policy",
+                templateUrl: "app/components/pages/templates/privacy-policy.html",
+                resolve: helper.resolveFor("modernizr", "icons"),
+                controller: [
+                    "$rootScope",
+                    function ($rootScope) {
+                        $rootScope.app.layout.isBoxed = false;
+                    }
+                ]
+            });;
     }
 })();

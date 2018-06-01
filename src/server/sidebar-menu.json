@@ -9,15 +9,29 @@
         "icon": "fa fa-tachometer"
     },
     {
+        "icon": "fa fa-folder",
+        "text": "Websites",
+        "sref": "app.websites",
+        "submenu": [{
+                "text": "Manage",
+                "sref": "app.websites"
+            },
+            {
+                "icon": "fa fa-plus",
+                "text": "Add Website",
+                "sref": "app.website-new"
+            }
+
+        ]
+    },
+    {
         "icon": "fa fa-key",
         "text": "Keywords",
         "sref": "app.keywords-dashboard",
-        "submenu": [
-            {
+        "submenu": [{
                 "text": "Dashboard",
                 "sref": "app.keywords-dashboard",
-                "submenu": [
-                    {
+                "submenu": [{
                         "text": "Statistics",
                         "sref": "app.keywords-dashboard.statistics"
                     },
@@ -34,12 +48,10 @@
             {
                 "text": "Manage",
                 "sref": "app.keywords-manage",
-                "submenu": [
-                    {
-                        "text": "Default",
-                        "sref": "app.keywords-manage.default"
-                    }
-                ]
+                "submenu": [{
+                    "text": "Default",
+                    "sref": "app.keywords-manage.default"
+                }]
             },
             {
                 "text": "Add Keywords",
@@ -51,8 +63,7 @@
         "icon": "fa fa-file-text-o",
         "text": "Pages",
         "sref": "app.pages-dashboard",
-        "submenu": [
-            {
+        "submenu": [{
                 "text": "Dashboard",
                 "sref": "app.pages-dashboard"
             },
@@ -61,10 +72,6 @@
                 "sref": "app.pages-manage"
             }
         ]
-    },
-    {
-        "icon": "fa fa-plus",
-        "text": "Add Website",
-        "sref": "app.websites_new"
     }
+    
 ]

@@ -6,6 +6,8 @@ const users = require('./users.js');
 
 module.exports = {
   postAccountLogin: auth.postAccountLogin,
+  postAccountRegister: auth.postAccountRegister,
+  postAccountConfirm: auth.postAccountConfirm,
   getSites: sites.getSites,
   postSites: sites.postSites,
   getSitesCheckSite: sites.getSitesCheckSite,

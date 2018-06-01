@@ -113,11 +113,11 @@ angular.module('API', [])
             /**
              * Login to the System
              * @method
-             * @name API#postAccountLogin
+             * @name API#getUserToken
              * @param {object} parameters - method options and parameters
-             * @param {} parameters.body - Login Data
+             * @param {} parameters.credential - Login Data
              */
-            API.prototype.postAccountLogin = function(parameters) {
+            API.prototype.getUserToken = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -132,12 +132,86 @@ angular.module('API', [])
                 headers['Accept'] = ['application/json'];
                 headers['Content-Type'] = ['application/json'];
 
-                if (parameters['body'] !== undefined) {
-                    body = parameters['body'];
+                if (parameters['credential'] !== undefined) {
+                    body = parameters['credential'];
                 }
 
-                if (parameters['body'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: body'));
+                if (parameters['credential'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: credential'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Register new account to the System
+             * @method
+             * @name API#registerUser
+             * @param {object} parameters - method options and parameters
+             * @param {} parameters.credential - Register Data
+             */
+            API.prototype.registerUser = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/account/register';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['credential'] !== undefined) {
+                    body = parameters['credential'];
+                }
+
+                if (parameters['credential'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: credential'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Send confirmation code
+             * @method
+             * @name API#confirmRegister
+             * @param {object} parameters - method options and parameters
+             * @param {} parameters.confirmData - Confirmation Data
+             */
+            API.prototype.confirmRegister = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/account/confirm';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['confirmData'] !== undefined) {
+                    body = parameters['confirmData'];
+                }
+
+                if (parameters['confirmData'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: confirmData'));
                     return deferred.promise;
                 }
 

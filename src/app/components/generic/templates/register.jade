@@ -1,39 +1,48 @@
-.register
+.register(ng-show='!regCtrl.showConfirmForm')
 	p.text-center.pv Signup to 
 		img(src="/app/img/logo.png")
-		form.form-validate.mb-lg(role='form',name="reg.registerForm", ng-submit="reg.register()")
+		form.form-validate.mb-lg(role='form',name="regCtrl.registerForm", ng-submit="regCtrl.register()")
 			.form-group.has-feedback
 				label.text-muted Your email 
-				input.form-control(type='email',name="account_email",placeholder='Enter email',ng-model="reg.account.email" validator="required,email")
+				input.form-control(type='email',name="account_email",placeholder='Enter email',ng-model="regCtrl.account.email" validator="required,email")
 				span.fa.fa-envelope.form-control-feedback.text-muted
 			.form-group.has-feedback
 				label.text-muted Password
-				input#id-password.form-control(type='password',name="account_password",placeholder='Enter password',ng-model="reg.register.password",validator="required")
+				input#id-password.form-control(type='password',name="account_password",placeholder='Enter password',ng-model="regCtrl.account.password",validator="required")
 				span.fa.fa-lock.form-control-feedback.text-muted
 			.clearfix
 				.checkbox.c-checkbox.pull-left.mt0
 					label
-						input(type='checkbox',required='',name="account_agreed",ng-model="reg.account.agreed",validator="required")
+						input(type='checkbox',required='',name="account_agreed",ng-model="regCtrl.account.agreed",validator="required")
 						span.fa.fa-check 
 						| I agree with the 
 						a(href="#") Terms &amp; Privacy
-						.text-danger(ng-show="reg.registerForm.account_agreed.$dirty && reg.registerForm.account_agreed.$error.required",class="invalid") You must agree the terms
+						.text-danger(ng-show="regCtrl.registerForm.account_agreed.$dirty && regCtrl.registerForm.account_agreed.$error.required",class="invalid") You must agree the terms
 
-			button.btn.btn-block.btn-primary.mt-lg(type='submit',validation-submit="reg.registerForm") CREATE ACCOUNT
+			button.btn.btn-block.btn-primary.mt-lg(type='submit',validation-submit="regCtrl.registerForm", ng-click="regCtrl.register()") CREATE ACCOUNT
 	.social.text-center.pv
-		a.btn.btn-primary.btn-lg.md-ink-ripple.btn-danger.btn-googleplus(ng-click="reg.register()")
+		a.btn.btn-primary.btn-lg.md-ink-ripple.btn-danger.btn-googleplus(ng-click="regCtrl.register()")
 			md-tooltip Signup with Google
 			i.fa.fa-google-plus.text-lg
-		a.btn.btn-primary.btn-lg.md-ink-ripple.btn-facebook(ng-click="reg.register()")
+		a.btn.btn-primary.btn-lg.md-ink-ripple.btn-facebook(ng-click="regCtrl.register()")
 			md-tooltip Signup with Facebook
 			i.fa.fa-facebook.text-lg
-		a.btn.btn-purple.btn-lg.md-ink-ripple.btn-yahoo(ng-click="reg.register()")
+		a.btn.btn-purple.btn-lg.md-ink-ripple.btn-yahoo(ng-click="regCtrl.register()")
 			md-tooltip Signup with Yahoo
 			i.fa.fa-yahoo.text-lg
-		a.btn.btn-primary.btn-lg.md-ink-ripple.btn-info.btn-twitter(ng-click="reg.register()")
+		a.btn.btn-primary.btn-lg.md-ink-ripple.btn-info.btn-twitter(ng-click="regCtrl.register()")
 			md-tooltip Signup with Twitter
 			i.fa.fa-twitter.text-lg
 
-		.alert.alert-danger.text-center(ng-show='reg.authMsg') {{reg.authMsg}}
+		.alert.alert-danger.text-center(ng-show='regCtrl.authMsg') {{regCtrl.authMsg}}
 	p.pt-lg.text-center Have an account?
 			a(ui-sref="page.auth.login").mt.mb-sm.btn-block.btn-lg.btn.btn-primary.btn-outline Login
+.register(ng-show='regCtrl.showConfirmForm')
+	p.text-center.pv
+		img(src="/app/img/logo.png")
+		form.form-validate.mb-lg(role='form',name="regCtrl.confirmationForm", ng-submit="regCtrl.confirm()")
+			.form-group.has-feedback
+				label.text-muted Confirmation Code
+				input.form-control(type='text',name="confirmCode",placeholder='Enter code',ng-model="regCtrl.confirmCode" validator="required")
+				span.fa.fa-envelope.form-control-feedback.text-muted
+			button.btn.btn-block.btn-primary.mt-lg(type='submit',validation-submit="regCtrl.confirmationForm", ng-click="regCtrl.confirm()") Send

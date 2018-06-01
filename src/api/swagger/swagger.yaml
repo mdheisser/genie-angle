@@ -32,18 +32,65 @@ paths:
         - Auth
       description: Login to the System
       summary: Login to SEOgenie System
+      operationId: getUserToken
       parameters:
         - in: body
-          name: body
+          name: credential
           description: Login Data
           required: true
           schema:
-            $ref: '#/definitions/loginData'
+            $ref: '#/definitions/credential'
       responses:
         '200':
           description: Login Successfull
           schema:
-            $ref: '#/definitions/apiResponse'
+            $ref: '#/definitions/loginResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /account/register:
+    post:
+      tags: 
+        - Auth
+      description: Register new account to the System
+      summary: Register new account to SEOgenie System
+      operationId: registerUser
+      parameters:
+        - in: body
+          name: credential
+          description: Register Data
+          required: true
+          schema:
+            $ref: '#/definitions/credential'
+      responses:
+        '200':
+          description: Signup Successfull
+          schema:
+            $ref: '#/definitions/loginResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /account/confirm:
+    post:
+      tags: 
+        - Auth
+      description: Send confirmation code
+      summary: Send confirmation code
+      operationId: confirmRegister
+      parameters:
+        - name: confirmData
+          in: body
+          description: Confirmation Data
+          required: true
+          schema:
+            $ref: '#/definitions/confirmData'
+      responses:
+        '200':
+          description: Signup Successfull
+          schema:
+            $ref: '#/definitions/loginResponse'
         default:
           description: Error
           schema:
@@ -407,15 +454,32 @@ definitions:
         type: string
   url:
     type: string
-  loginData:
+  credential:
     type: object
     required:
-      - email
+      - username
       - password
     properties:
-      email:
+      username:
         type: string
       password:
+        type: string
+  loginResponse:
+    type: object
+    required:
+      - result
+    properties:
+      result:
+        type: object
+  confirmData:
+    type: object
+    required:
+      - username
+      - code
+    properties:
+      username:
+        type: string
+      code:
         type: string
   site:
     type: object

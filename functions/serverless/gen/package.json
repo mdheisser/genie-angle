@@ -11,5 +11,8 @@
   "dependencies": {
     "amazon-cognito-identity-js-node": "0.0.3",
     "aws-sdk": "^2.248.1"
+  },
+  "devDependencies": {
+    "serverless-offline": "^3.25.0"
   }
 }

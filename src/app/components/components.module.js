@@ -5,11 +5,12 @@
     "use strict";
 
     angular.module("app.components", [
-        "components.dashboard",
-        "components.services",
-        "components.generic",
-        "components.keywords",
         "components.common",
+        "components.generic",
+        "components.services",
+        "components.dashboard",
+        "components.websites",
+        "components.keywords",
         "components.pages"
     ]);
 })();

@@ -1,7 +1,8 @@
-(function(angular) {
+(function (angular) {
     "use strict";
-
-    angular.module("components.websites").config(routesConfig);
+    angular
+        .module("components.websites")
+        .config(routesConfig);
 
     routesConfig.$inject = [
         "$stateProvider",
@@ -16,8 +17,7 @@
         $urlRouterProvider,
         helper
     ) {
-        // Single Page Routes
-        // -----------------------------------
+        // helper.componentPath("
         var base = "app/components/websites/templates/";
 
         $stateProvider
@@ -27,13 +27,14 @@
                 resolve: helper.resolveFor("modernizr", "icons", "loaders.css"),
                 controller: [
                     "$rootScope",
-                    function($rootScope) {
+                    function ($rootScope) {
                         $rootScope.app.layout.isBoxed = false;
                     }
                 ]
             })
-            .state("app.websites_new", {
+            .state("app.website-new", {
                 url: "/websites/new",
+                title: "Add Website",
                 templateUrl: base + "add-site-wizard.html",
                 resolve: helper.resolveFor(
                     "modernizr",
@@ -47,29 +48,7 @@
                 ),
                 controller: [
                     "$rootScope",
-                    function($rootScope) {
-                        $rootScope.app.layout.isBoxed = false;
-                    }
-                ]
-            })
-            .state("app.eula", {
-                url: "/end-user-software-license-agreement",
-                templateUrl: "app/components/pages/templates/end-user-software-license-agreement.html",
-                resolve: helper.resolveFor("modernizr", "icons"),
-                controller: [
-                    "$rootScope",
-                    function($rootScope) {
-                        $rootScope.app.layout.isBoxed = false;
-                    }
-                ]
-            })
-            .state("app.privacy-policy", {
-                url: "/privacy-policy",
-                templateUrl: "app/components/pages/templates/privacy-policy.html",
-                resolve: helper.resolveFor("modernizr", "icons"),
-                controller: [
-                    "$rootScope",
-                    function($rootScope) {
+                    function ($rootScope) {
                         $rootScope.app.layout.isBoxed = false;
                     }
                 ]
