@@ -420,13 +420,13 @@
 
 		vm.getTemplate = function (name) {
 			if (name === "general")
-				return "app/components/websites/templates/wizard-step-general.html";
+				return "app/components/websites/addwebsite/templates/wizard-step-general.html";
 			if (name === "keywords")
-				return "app/components/websites/templates/wizard-step-keywords.html";
+				return "app/components/websites/addwebsite/templates/wizard-step-keywords.html";
 			if (name === "confirmation")
-				return "app/components/websites/templates/wizard-step-confirmation.html";
+				return "app/components/websites/addwebsite/templates/wizard-step-confirmation.html";
 			if (name === "wizard-general-internal")
-				return "app/components/websites/templates/wizard-general-internal.html";
+				return "app/components/websites/addwebsite/templates/wizard-general-internal.html";
 			return "app/components/pages/templates/404.html";
 		};
 

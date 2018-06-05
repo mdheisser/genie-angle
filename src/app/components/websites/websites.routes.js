@@ -17,13 +17,10 @@
         $urlRouterProvider,
         helper
     ) {
-        // helper.componentPath("
-        var base = "app/components/websites/templates/";
-
         $stateProvider
             .state("app.websites", {
                 url: "/websites",
-                templateUrl: base + "websites.html",
+                templateUrl: helper.componentPath("websites/list", "websites"),
                 resolve: helper.resolveFor("modernizr", "icons", "loaders.css", "ng-bootstrap-select", "smart-table"),
                 controller: [
                     "$rootScope",
@@ -35,7 +32,7 @@
             .state("app.website-new", {
                 url: "/websites/new",
                 title: "Add Website",
-                templateUrl: base + "add-site-wizard.html",
+                templateUrl: helper.componentPath("websites/addwebsite", "add-site-wizard"),
                 resolve: helper.resolveFor(
                     "modernizr",
                     "icons",
