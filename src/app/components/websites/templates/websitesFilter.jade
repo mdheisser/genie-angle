@@ -1,0 +1,48 @@
+div(ng-controller='websiteFilterController as wfCtrl')
+    .filter-title.bg-white
+        h5.m0.input-group(ng-click='wfCtrl.categoryPane=!wfCtrl.categoryPane') Additional Filters
+            em.fa.fa-caret-down
+    .category-body.shadow-z3(ng-if='wfCtrl.categoryPane')
+        .filter-body.text-left
+            .filter-category
+                a Category
+                .mda-list
+                    .mda-list-item(ng-repeat='category in wfCtrl.categoriesForFilter')
+                        span.mda-checkbox.pull-left
+                            input.category-option(type='checkbox',
+                                st-category-search='',
+                                value='{{category.value}}',
+                                ng-model='category.selected')
+                            em.bg-indigo-500
+                        span.pull-left {{category.name}}
+            .filter-ranking
+                table
+                    tr
+                        td
+                            a Status
+                        td
+                            p SiteMap
+                        td
+                            p Health
+                    tr(ng-repeat='item in wfCtrl.activePageRanking')
+                        td
+                            span.pull-left {{item.name}}
+                            span.mda-checkbox.pull-right
+                                input(type='checkbox', checked='', onclick='return false;')
+                                em.empty(ng-class='item.bg')
+                        td.text-center
+                            label.mda-checkbox
+                                input.ranking-option(type='checkbox',
+                                    st-rank-search='',
+                                    rank-type='ranking',
+                                    value='{{item.value}}',
+                                    ng-model='item.rankSelected')
+                                em.bg-indigo-500
+                        td.text-left
+                            label.mda-checkbox
+                                input.significance-option(type='checkbox',
+                                    st-rank-search='',
+                                    rank-type='significance',
+                                    value='{{item.value}}',
+                                    ng-model='item.significanceSelected')
+                                em.bg-indigo-500

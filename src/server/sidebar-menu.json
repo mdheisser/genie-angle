@@ -13,7 +13,7 @@
         "text": "Websites",
         "sref": "app.websites",
         "submenu": [{
-                "text": "Manage",
+                "text": "List",
                 "sref": "app.websites"
             },
             {
@@ -21,7 +21,6 @@
                 "text": "Add Website",
                 "sref": "app.website-new"
             }
-
         ]
     },
     {

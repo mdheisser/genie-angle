@@ -24,7 +24,7 @@
             .state("app.websites", {
                 url: "/websites",
                 templateUrl: base + "websites.html",
-                resolve: helper.resolveFor("modernizr", "icons", "loaders.css"),
+                resolve: helper.resolveFor("modernizr", "icons", "loaders.css", "ng-bootstrap-select", "smart-table"),
                 controller: [
                     "$rootScope",
                     function ($rootScope) {
