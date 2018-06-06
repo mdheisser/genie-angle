@@ -20,19 +20,19 @@
             vm.authMsg = "";
             vm.login = function() {
                 $state.go('app.dashoard');
-                authService
-                    .getUserToken(vm.account.email, vm.account.password)
-                    .then(function (response) {
-                        console.log('*** Login Response ***')
-                        console.log(response.data);
-                        if (!response.data.result.accessToken) {
-                            vm.authMsg = "Incorrect credentials.";
-                        } else {
-                            $state.go('app.dashoard');
-                        }
-                    }, function (err) {
-                        vm.authMsg = "Server Request Error";
-                    });
+                // authService
+                //     .getUserToken(vm.account.email, vm.account.password)
+                //     .then(function (response) {
+                //         console.log('*** Login Response ***')
+                //         console.log(response.data);
+                //         if (!response.data.result.accessToken) {
+                //             vm.authMsg = "Incorrect credentials.";
+                //         } else {
+                //             $state.go('app.dashoard');
+                //         }
+                //     }, function (err) {
+                //         vm.authMsg = "Server Request Error";
+                //     });
             };
         }
     }

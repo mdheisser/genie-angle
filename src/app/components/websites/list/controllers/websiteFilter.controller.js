@@ -5,13 +5,13 @@
         .module('components.keywords')
         .controller('websiteFilterController', websiteFilterController)
 
-    websiteFilterController.$inject = ['$scope', '$timeout'];
+    websiteFilterController.$inject = ['$scope'];
 
-    function websiteFilterController($scope, $timeout) {
+    function websiteFilterController($scope) {
         /* jshint validthis:true */
         var vm = this;
 
-        vm.activePageRanking = [];
+        vm.rankFilters = [];
         vm.categoriesForFilter = [];
 
         activate();
@@ -21,45 +21,44 @@
         function activate() {
             vm.categoriesForFilter = [{
                     name: 'Active Sites',
-                    value: 'default',
+                    value: 'active',
+                    option: 'websiteActive',
                     selected: false
                 },
                 {
                     name: 'Non Active Sites',
-                    value: 'promoted',
+                    value: 'deactive',
+                    option: 'websiteActive',
                     selected: false
                 }
             ];
 
-            vm.activePageRanking = [{
+            vm.rankFilters = [{
                     name: 'Good',
-                    value: '3',
+                    value: 3,
                     bg: 'bg-green-500',
                     rankSelected: false,
                     significanceSelected: false,
-                    suitabilitySelected: false
                 },
                 {
                     name: 'Suitable',
-                    value: '2',
+                    value: 2,
                     bg: 'bg-yellow-700',
                     rankSelected: false,
                     significanceSelected: false,
-                    suitabilitySelected: false
                 },
                 {
                     name: 'Poor',
-                    value: '1',
+                    value: 1,
                     bg: 'bg-red-500',
                     rankSelected: false,
                     significanceSelected: false,
-                    suitabilitySelected: false
                 }
             ];
         }
 
         // Reset Filter selection.
-        $scope.$on('resetFilter', function(e) {
+        $scope.$on('resetWebsiteFilter', function(e) {
 
             initCategoryFilter();
             initPerformanceFilter();
@@ -75,10 +74,9 @@
 
         // Initialize performance filter
         function initPerformanceFilter() {
-            _.each(vm.activePageRanking, function(value, key) {
-                vm.activePageRanking[key].rankSelected = false;
-                vm.activePageRanking[key].significanceSelected = false;
-                vm.activePageRanking[key].suitabilitySelected = false;
+            _.each(vm.rankFilters, function(value, key) {
+                vm.rankFilters[key].rankSelected = false;
+                vm.rankFilters[key].significanceSelected = false;
             });
         }
     }

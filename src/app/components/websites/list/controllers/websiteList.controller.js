@@ -5,13 +5,16 @@
         .module('components.websites')
         .controller('websiteListController', websiteListController)
 
-    websiteListController.$inject = ['commonService'];
+    websiteListController.$inject = ['$scope', '$filter', 'Notify', 'commonService'];
 
-    function websiteListController(commonService) {
+    function websiteListController($scope, $filter, Notify, commonService) {
         /* jshint validthis:true */
         var vm = this;
 
         vm.currentPage = 1;
+        vm.rowCollection = [];
+        vm.resetWebsiteFilter = resetWebsiteFilter;
+        vm.performBulkAction = performBulkAction;
 
         activate();
 
@@ -33,10 +36,60 @@
             commonService
                 .getUserSites('1')
                 .then(function(resp) {
-                    vm.rowCollection = resp.data;
+                    var convertor = $filter('convertWebsiteData');
+                    vm.rowCollection = convertor(resp.data);
                 });
         }
 
+        // Reset Pages Fitler.
+        function resetWebsiteFilter() {
+            if (vm.filterOn === true) {
+                $scope.$broadcast('resetWebsiteFilter');
+            }
+        }
+
+        // Set filter on/off switch status.
+        $scope.$watch('websiteList', function() {
+            if ($scope.websiteList != undefined) {
+                var original = vm.rowCollection.length;
+                var filtered = $scope.websiteList.length;
+                if(original != filtered) {
+                    vm.filterOn = true;
+                } else {
+                    vm.filterOn = false;
+                }
+            }
+        });
+
+        // Mark/Unmark all rows
+        $scope.$watch(function () {
+            return vm.allRowsMarked;
+        }, function (current, original) {
+            _($scope.websiteList).forEach(function (value, index) {
+                if (current === true) {
+                    $scope.websiteList[index].selected = true;
+                } else {
+                    $scope.websiteList[index].selected = false;
+                }
+            });
+        });
+
+        // Perform bulk action
+        function performBulkAction(name) {
+            var selectedRows = $filter('filter')($scope.websiteList, {selected: true});
+            var msgHtml = '';
+
+            if(selectedRows.length <= 0) {
+                msgHtml = 'Nothing selected!'
+            } else {
+                msgHtml = selectedRows.length + ' Records: ' + name + '<a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+            }
+
+            Notify.alert(
+                msgHtml,
+                {status: 'success', pos: 'top-right'}
+            );
+        }
     }
 
 })(angular);

@@ -10,11 +10,14 @@ div(ng-controller='websiteFilterController as wfCtrl')
                     .mda-list-item(ng-repeat='category in wfCtrl.categoriesForFilter')
                         span.mda-checkbox.pull-left
                             input.category-option(type='checkbox',
-                                st-category-search='',
+                                st-filter-category,
+                                filter-by='category.option',
                                 value='{{category.value}}',
                                 ng-model='category.selected')
                             em.bg-indigo-500
                         span.pull-left {{category.name}}
+                    //- .mda-list-item Report Date
+                    //-     select(selectpicker='', ng-model="wlCtrl.numberOfRows", ng-options='item.label for item in wlCtrl.itemsByPage')
             .filter-ranking
                 table
                     tr
@@ -24,7 +27,7 @@ div(ng-controller='websiteFilterController as wfCtrl')
                             p SiteMap
                         td
                             p Health
-                    tr(ng-repeat='item in wfCtrl.activePageRanking')
+                    tr(ng-repeat='item in wfCtrl.rankFilters')
                         td
                             span.pull-left {{item.name}}
                             span.mda-checkbox.pull-right
@@ -32,17 +35,17 @@ div(ng-controller='websiteFilterController as wfCtrl')
                                 em.empty(ng-class='item.bg')
                         td.text-center
                             label.mda-checkbox
-                                input.ranking-option(type='checkbox',
+                                input.sitemap-option(type='checkbox',
                                     st-rank-search='',
-                                    rank-type='ranking',
+                                    rank-type='sitemap',
                                     value='{{item.value}}',
                                     ng-model='item.rankSelected')
                                 em.bg-indigo-500
                         td.text-left
                             label.mda-checkbox
-                                input.significance-option(type='checkbox',
+                                input.health-option(type='checkbox',
                                     st-rank-search='',
-                                    rank-type='significance',
+                                    rank-type='health',
                                     value='{{item.value}}',
                                     ng-model='item.significanceSelected')
                                 em.bg-indigo-500
