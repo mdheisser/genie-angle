@@ -1,6 +1,6 @@
 h3.content-heading
-    | Websites
-    small List of User's Sites & Applications integrated into the System
+    | Manage/Websites List
+    small Manage your account Websites
 #websites_list.panel(ng-controller='websiteListController as wlCtrl')
     .panel-wrapper
         .panel-body
@@ -57,7 +57,7 @@ h3.content-heading
                         td.text-center {{ ((wlCtrl.currentPage-1) * wlCtrl.numberOfRows.value) + $index + 1 }}
                         td.keyword-col
                             .pull-left.keyword-label
-                                span.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.name }}
+                                span.m0(data-toggle='tooltip', title='{{row.keyword}}', ng-click='wlCtrl.openWebsiteUrl(row, $event)') {{ row.name }}
                                 //- i.fa.fa-caret-down.ml-sm(ng-click='wlCtrl.openKeywordActionPane(row, $event)')
                                 //- overlay-popup(active='row.showActions', width='185')
                                 //-     div(ng-include="'app/components/keywords/manage/templates/keywordActions.html'")
@@ -66,13 +66,13 @@ h3.content-heading
                                 label.m0.pull-right
                                     md-switch(ng-model='row.active', aria-label='auto', uib-tooltip='{{{true:"Website ON", false:"Website OFF"}[row.active]}}', ng-change='wlCtrl.onActivePromotedKeyword(row)', ng-click='$event.stopPropagation()')
                         td.text-center.text-warning
-                            i.fa.fa-angle-double-down(uib-tooltip='')
+                            i.fa.fa-angle-double-down(uib-tooltip='Google.com. SERP Ranking: Page {{row.pages}}, Position {{row.g}}')
                                 span.font-roboto.ml-sm {{ row.g }}
                         td.text-center.text-danger
-                            i.fa.fa-angle-double-up(uib-tooltip='')
+                            i.fa.fa-angle-double-up(uib-tooltip='Yahoo.UK. SERP Ranking: Page {{row.pages}}, Position {{row.y}}')
                                 span.font-roboto.ml-sm {{ row.y }}
                         td.text-center.text-success
-                            span.font-roboto.ml-sm(uib-tooltip='') {{ row.b }}
+                            span.font-roboto.ml-sm(uib-tooltip='Bing.UK. SERP Ranking: Page {{row.pages}}, Position {{row.b}}') {{ row.b }}
                         td.text-center
                             span(uib-tooltip='Date last report was generated') {{ row.date }}
                         td.text-center
@@ -86,7 +86,7 @@ h3.content-heading
                         td.progress-col
                             .color-box(uib-tooltip='{{{1:"SITEMAP DOES NOT EXIST", 2:"SOME ISSUE WITH SITEMAP", 3:"SITEMAP OK"}[row.sitemap]}}', ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500"}[row.sitemap]')
                         td.progress-col
-                            .color-box(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500"}[row.health]')
+                            .color-box(uib-tooltip='{{{1:"Critical Action Needed", 2:"Some Attention Needed", 3:"No Action Requierd"}[row.health]}}', ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500"}[row.health]')
                         td.text-center
                             label.mda-checkbox
                                 input(type='checkbox', ng-model='row.selected', ng-click='$event.stopPropagation()')

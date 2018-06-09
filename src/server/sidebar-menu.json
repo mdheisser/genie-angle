@@ -13,7 +13,7 @@
         "text": "Websites",
         "sref": "app.websites",
         "submenu": [{
-                "text": "List",
+                "text": "Manage",
                 "sref": "app.websites"
             },
             {

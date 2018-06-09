@@ -5,9 +5,9 @@
         .module('components.websites')
         .controller('websiteListController', websiteListController)
 
-    websiteListController.$inject = ['$scope', '$filter', 'Notify', 'commonService'];
+    websiteListController.$inject = ['$scope', '$filter', '$window', 'Notify', 'commonService'];
 
-    function websiteListController($scope, $filter, Notify, commonService) {
+    function websiteListController($scope, $filter, $window, Notify, commonService) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -15,6 +15,7 @@
         vm.rowCollection = [];
         vm.resetWebsiteFilter = resetWebsiteFilter;
         vm.performBulkAction = performBulkAction;
+        vm.openWebsiteUrl = openWebsiteUrl;
 
         activate();
 
@@ -89,6 +90,13 @@
                 msgHtml,
                 {status: 'success', pos: 'top-right'}
             );
+        }
+
+        // Open website on new tab.
+        function openWebsiteUrl(row, event) {
+            var url = 'http://' + row.name;
+            $window.open(url, '_blank');
+            event.stopPropagation();
         }
     }
 
