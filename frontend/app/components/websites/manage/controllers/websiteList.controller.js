@@ -5,9 +5,9 @@
         .module('components.websites')
         .controller('websiteListController', websiteListController)
 
-    websiteListController.$inject = ['$scope', '$filter', '$window', 'Notify', 'commonService'];
+    websiteListController.$inject = ['$scope', '$filter', '$window', '$location', 'Notify', 'commonService'];
 
-    function websiteListController($scope, $filter, $window, Notify, commonService) {
+    function websiteListController($scope, $filter, $window, $location, Notify, commonService) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -39,7 +39,22 @@
                 .then(function(resp) {
                     var convertor = $filter('convertWebsiteData');
                     vm.rowCollection = convertor(resp.data);
+                    setRoute();
                 });
+        }
+
+        // Define the behavior for sidebar menu.
+        function setRoute() {
+            switch($location.path()) {
+                case '/app/websites-manage/best':
+                    vm.showAdditionalFilter = true;
+                    $scope.$broadcast('setupFilterForBestWebsites'); 
+                    break;
+                case '/app/websites-manage/least':
+                    vm.showAdditionalFilter = true;
+                    $scope.$broadcast('setupFilterForLeastWebsites');
+                    break;
+            }
         }
 
         // Reset Pages Fitler.

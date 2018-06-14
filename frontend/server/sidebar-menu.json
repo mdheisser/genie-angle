@@ -11,10 +11,14 @@
     {
         "icon": "fa fa-folder",
         "text": "Websites",
-        "sref": "app.websites",
+        "sref": "app.websites-dashboard",
         "submenu": [{
+                "text": "Dashboard",
+                "sref": "app.websites-dashboard"
+            },
+            {
                 "text": "Manage",
-                "sref": "app.websites"
+                "sref": "app.websites-manage"
             },
             {
                 "icon": "fa fa-plus",

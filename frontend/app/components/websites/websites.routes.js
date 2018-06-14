@@ -18,16 +18,21 @@
         helper
     ) {
         $stateProvider
-            .state("app.websites", {
-                url: "/websites",
-                templateUrl: helper.componentPath("websites/list", "websites"),
-                resolve: helper.resolveFor("modernizr", "icons", "loaders.css", "ng-bootstrap-select", "smart-table"),
-                controller: [
-                    "$rootScope",
-                    function ($rootScope) {
-                        $rootScope.app.layout.isBoxed = false;
-                    }
-                ]
+            .state("app.websites-dashboard", {
+                url: "/websites-dashboard",
+                templateUrl: helper.componentPath("websites/dashboard", "websites-dashboard"),
+                resolve: helper.resolveFor("ng-bootstrap-select")
+            })
+            .state("app.websites-manage", {
+                url: "/websites-manage",
+                templateUrl: helper.componentPath("websites/manage", "websites"),
+                resolve: helper.resolveFor("ng-bootstrap-select", "smart-table")
+            })
+            .state("app.websites-manage.best", {
+                url: "/best"
+            })
+            .state("app.websites-manage.least", {
+                url: "/least"
             })
             .state("app.website-new", {
                 url: "/websites/new",

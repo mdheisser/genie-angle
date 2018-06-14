@@ -1,7 +1,7 @@
 h3.content-heading
     | Manage/Websites List
     small Manage your account Websites
-#websites_list.panel(ng-controller='websiteListController as wlCtrl')
+#websites_manage.panel(ng-controller='websiteListController as wlCtrl')
     .panel-wrapper
         .panel-body
             table.custom-table(st-table="displayedCollection", st-safe-src='wlCtrl.rowCollection', st-set-filter="additionalFilter", st-filtered-collection='websiteList')
@@ -14,8 +14,8 @@ h3.content-heading
                                 input#searchForname.mda-form-control(type='text', st-search='name', placeholder='Filter/Search', ng-click="wlCtrl.showAdditionalFilter=true")
                                 span.mda-input-group-addon
                                     em.fa.fa-search
-                                overlay-popup#websites_list_filter(active='wlCtrl.showAdditionalFilter', width='350')
-                                    div(ng-include="'app/components/websites/list/templates/websitesFilter.html'")
+                                overlay-popup#websites_manage_filter(active='wlCtrl.showAdditionalFilter', width='350')
+                                    div(ng-include="'app/components/websites/manage/templates/websitesFilter.html'")
                             .pull-left
                                 fiter-condition(condition-for='name')
                             .pull-left.pl.filter-title Filter
@@ -50,7 +50,7 @@ h3.content-heading
                                 input(type='checkbox', ng-model='wlCtrl.allRowsMarked', ng-click='$event.stopPropagation()')
                                 em.bg-indigo-500
                             i.fa.fa-caret-down
-                            overlay-popup#websites_list_bulk_action(active='wlCtrl.showBulkAction', width='160')
+                            overlay-popup#websites_manage_bulk_action(active='wlCtrl.showBulkAction', width='160')
                                 div(ng-include="'app/components/websites/list/templates/bulkActions.html'")
                 tbody
                     tr(st-select-row="row", st-select-mode="single", ng-repeat="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='wlCtrl.expandKeywordDetail(row)')

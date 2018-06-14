@@ -5,9 +5,9 @@
         .module('components.keywords')
         .controller('websiteFilterController', websiteFilterController)
 
-    websiteFilterController.$inject = ['$scope'];
+    websiteFilterController.$inject = ['$scope', '$timeout'];
 
-    function websiteFilterController($scope) {
+    function websiteFilterController($scope, $timeout) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -79,6 +79,34 @@
                 vm.rankFilters[key].significanceSelected = false;
             });
         }
+
+         // Setup the filter with best performance websites
+        $scope.$on('setupFilterForBestWebsites', function(e) {
+
+            vm.categoryPane = true;
+
+            initPerformanceFilter();
+
+            $timeout(function() {
+                var el = document.querySelector('#websites_manage_filter .filter-ranking input.health-option:first-child');
+                angular.element(el).click();
+                vm.categoryPane = false;
+            }, 500);
+        });
+
+        // Setup the filter with least performance websites
+        $scope.$on('setupFilterForLeastWebsites', function(e) {
+
+            vm.categoryPane = true;
+
+            initPerformanceFilter();
+
+            $timeout(function() {
+                var el = document.querySelector('#websites_manage_filter .filter-ranking tr:last-child input.health-option');
+                angular.element(el).click();
+                vm.categoryPane = false;
+            }, 500);
+        });
     }
 
 })(angular);
