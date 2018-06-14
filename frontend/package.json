@@ -8,13 +8,14 @@
         "dev": "gulp serve",
         "dev:api": "./node_modules/.bin/swagger project edit",
         "demo": "gulp build --mock",
-        "build": "gulp build"
+        "build": "gulp build",
+        "aws:gen": "sls swagger --output aws"
     },
     "devDependencies": {
-        "codeceptjs": "^1.1.5",
         "bower": "^1.8.2",
         "bower-npm-resolver": "0.7.0",
         "browser-sync": "2.18.8",
+        "codeceptjs": "^1.1.5",
         "del": "2.2.2",
         "express": "4.15.2",
         "gulp": "^3.9.1",
@@ -51,10 +52,8 @@
         "less-plugin-glob": "^2.0.1",
         "marked": "0.3.6",
         "swagger": "^0.7.5",
-        "swagger-editor": "^3.2.5",
         "through2": "2.0.3",
         "uuid": "^3.1.0",
         "yargs": "7.0.2"
-    },
-    "dependencies": {}
+    }
 }

@@ -4,8 +4,8 @@
 # “command” is your build command.
 
 [build]
-  base    = "src"
-  publish = "dist"
+  base    = "frontend"
+  publish = "frontend/dist"
   command = "npm run demo"
 
 # Production context: All deploys to the main

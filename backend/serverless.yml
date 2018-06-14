@@ -1,0 +1,117 @@
+service: aws-nodejs
+provider:
+  name: aws
+  runtime: nodejs8.10
+plugins:
+  - serverless_framework_swagger_integration
+custom:
+  swagger_file: api/swagger/swagger.yaml
+functions:
+  postAccountLogin:
+    handler: aws/auth/postAccountLogin.main
+    events:
+      - http:
+          method: post
+          path: /account/login
+  postAccountRegister:
+    handler: aws/auth/postAccountRegister.main
+    events:
+      - http:
+          method: post
+          path: /account/register
+  postAccountConfirm:
+    handler: aws/auth/postAccountConfirm.main
+    events:
+      - http:
+          method: post
+          path: /account/confirm
+  getSites:
+    handler: aws/sites/getSites.main
+    events:
+      - http:
+          method: get
+          path: /sites
+  postSites:
+    handler: aws/sites/postSites.main
+    events:
+      - http:
+          method: post
+          path: /sites
+  getSitesCheckSite:
+    handler: aws/sites/getSitesCheckSite.main
+    events:
+      - http:
+          method: get
+          path: /sites/checkSite
+  getKeywords:
+    handler: aws/keywords/getKeywords.main
+    events:
+      - http:
+          method: get
+          path: /keywords
+  postKeywords:
+    handler: aws/keywords/postKeywords.main
+    events:
+      - http:
+          method: post
+          path: /keywords
+  putKeywordsId:
+    handler: aws/keywords/putKeywordsId.main
+    events:
+      - http:
+          method: put
+          path: '/keywords/{id}'
+  deleteKeywordsId:
+    handler: aws/keywords/deleteKeywordsId.main
+    events:
+      - http:
+          method: delete
+          path: '/keywords/{id}'
+  getPages:
+    handler: aws/pages/getPages.main
+    events:
+      - http:
+          method: get
+          path: /pages
+  postPages:
+    handler: aws/pages/postPages.main
+    events:
+      - http:
+          method: post
+          path: /pages
+  getPagesPageId:
+    handler: aws/pages/getPagesPageId.main
+    events:
+      - http:
+          method: get
+          path: '/pages/{pageId}'
+  putPagesPageId:
+    handler: aws/pages/putPagesPageId.main
+    events:
+      - http:
+          method: put
+          path: '/pages/{pageId}'
+  deletePagesPageId:
+    handler: aws/pages/deletePagesPageId.main
+    events:
+      - http:
+          method: delete
+          path: '/pages/{pageId}'
+  getPagePageIdViolation:
+    handler: aws/pages/getPagePageIdViolation.main
+    events:
+      - http:
+          method: get
+          path: '/page/{pageId}/violation'
+  getUsers:
+    handler: aws/users/getUsers.main
+    events:
+      - http:
+          method: get
+          path: /users
+  getUsersId:
+    handler: aws/users/getUsersId.main
+    events:
+      - http:
+          method: get
+          path: '/users/{id}'

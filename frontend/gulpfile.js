@@ -30,10 +30,10 @@ var config = {
 
 // MAIN PATHS
 var dir = {
-    dist: "../dist",
-    mock: "./api/rest",
-    rest: "./api/generated",
-    swagger: "./api/swagger/swagger.yaml"
+    dist: "./dist",
+    mock: "../backend/rest",
+    rest: "../backend/generated",
+    swagger: "../backend/swagger/swagger.yaml"
 };
 
 var paths = {

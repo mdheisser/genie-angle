@@ -1,0 +1,16 @@
+{
+    "name": "seogenie",
+    "version": "1.0.0",
+    "description": "SEOgenie",
+    "author": "@seo_genie_team",
+    "private": true,
+    "scripts": {
+        "dev:api": "./node_modules/.bin/swagger project edit",
+        "aws:gen": "sls swagger --output aws"
+    },
+    "devDependencies": {
+        "swagger-editor": "^3.2.5",
+        "serverless_framework_swagger_integration": "^1.1.0"
+
+    }
+}

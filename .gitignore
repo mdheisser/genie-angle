@@ -7,3 +7,10 @@ jspm_packages
 dist
 bower_components
 yarn-error.log
+
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
