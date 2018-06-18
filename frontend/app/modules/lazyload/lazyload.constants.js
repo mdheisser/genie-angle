@@ -7,7 +7,7 @@
 			// jQuery based and standalone scripts
 			scripts: {
 				'modernizr': ['vendor/modernizr/modernizr.custom.js'],
-				'icons': ['vendor/fontawesome/css/font-awesome.min.css',
+				'icons': ['vendor/Font-Awesome/css/font-awesome.min.css',
 					'vendor/simple-line-icons/css/simple-line-icons.css'
 				],
 				'weather-icons': ['vendor/weather-icons/css/weather-icons.min.css',

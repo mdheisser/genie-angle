@@ -31,9 +31,9 @@ var config = {
 // MAIN PATHS
 var dir = {
     dist: "./dist",
-    mock: "../backend/rest",
-    rest: "../backend/generated",
-    swagger: "../backend/swagger/swagger.yaml"
+    swagger: "../backend/api/swagger/swagger.yaml",
+    rest: "../backend/api/swagger/generated",
+    mock: "../backend/api/mocks"
 };
 
 var paths = {

@@ -1,4 +1,15 @@
 #websites_dashboard {
+    .row-eq-height {
+        @media only screen and (min-width: @custom-992) {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display:         flex;
+            .panel {
+                height: 90%;
+            }
+        }
+    }
     #websites_statistics .list-group-item {
         padding: 6px !important;
     }

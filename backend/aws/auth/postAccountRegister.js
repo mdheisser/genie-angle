@@ -1,27 +1,27 @@
-import cognito from './common/cognito.js'
+const cognito = require('./common/cognito.js')(),
+  response = require('../_common/response');
 
 module.exports.main = (event, context, callback) => {
   var attributeList = [];
+  let body = JSON.parse(event.body);
+
   var dataEmail = {
     Name: 'email',
-    Value: event.body.username
+    Value: body.username
   };
 
   var attributeEmail = new cognito.AWS.CognitoIdentityServiceProvider.CognitoUserAttribute(dataEmail);
 
   attributeList.push(dataEmail);
+  attributeList.push(attributeEmail);
 
-  userPool.signUp(event.body.username, event.body.password, attributeList, null, function (err, result) {
+  cognito.userPool.signUp(body.username, body.password, attributeList, null, function (err, result) {
     if (err) {
-      callback(null, {
-        result: err
-      });
+      response.fail(err, callback);
       return;
     }
     var cognitoUser = result.user;
-    callback(null, {
-      result: cognitoUser
-    });
+    response.ok(cognitoUser, callback);
   });
 
 };

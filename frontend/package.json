@@ -6,10 +6,8 @@
     "private": true,
     "scripts": {
         "dev": "gulp serve",
-        "dev:api": "./node_modules/.bin/swagger project edit",
         "demo": "gulp build --mock",
-        "build": "gulp build",
-        "aws:gen": "sls swagger --output aws"
+        "build": "gulp build"
     },
     "devDependencies": {
         "bower": "^1.8.2",
@@ -52,6 +50,7 @@
         "less-plugin-glob": "^2.0.1",
         "marked": "0.3.6",
         "swagger": "^0.7.5",
+        "swagger-editor": "^3.2.5",
         "through2": "2.0.3",
         "uuid": "^3.1.0",
         "yargs": "7.0.2"

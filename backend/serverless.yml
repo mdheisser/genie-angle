@@ -2,10 +2,20 @@ service: aws-nodejs
 provider:
   name: aws
   runtime: nodejs8.10
+package:
+  exclude:
+    - generated/**
+    - rest/**
+    - swagger/**
+    - tests/**
 plugins:
   - serverless_framework_swagger_integration
+  - serverless-offline
+
 custom:
-  swagger_file: api/swagger/swagger.yaml
+  swagger_file: api/swagger.yaml
+  serverless-offline:
+    port: 4000
 functions:
   postAccountLogin:
     handler: aws/auth/postAccountLogin.main

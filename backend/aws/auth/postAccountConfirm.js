@@ -1,22 +1,20 @@
-import cognito from './common/cognito.js'
+const cognito = require('./common/cognito.js')(),
+  response = require('../_common/response');
 
 module.exports.main = (event, context, callback) => {
+  let body = JSON.parse(event.body);
   //User
   const userParams = {
     Pool: userPool,
-    Username: event.body.username,
+    Username: body.username,
   };
   var cognitoUser = new cognito.AWS.CognitoIdentityServiceProvider.CognitoUser(userParams);
 
-  cognitoUser.confirmRegistration(event.body.code, true, function (err, result) {
+  cognitoUser.confirmRegistration(body.code, true, function (err, result) {
     if (err) {
-      callback(null, {
-        result: err
-      });
+      response.fail(err, callback);
       return;
     }
-    callback(null, {
-      result: result
-    });
+    response.ok(result, callback, MFACODE);
   });
 };
