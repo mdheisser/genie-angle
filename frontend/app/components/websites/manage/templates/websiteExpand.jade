@@ -1,0 +1,226 @@
+.expanded-page(ng-controller='websiteExpandController as weCtrl')
+    .row.row-eq-height
+        .col-md-6
+            #website_setting.panel
+                .panel-heading.sub-heading
+                    .panel-title Settings for Website: {{ row.name }}
+                    paneltool(tool-collapse, ng-init="website_setting=false")
+                .panel-wrapper(uib-collapse="website_setting")
+                    .panel-body.p-sm
+                        .mda-list.p0
+                            .mda-list-item.mb-sm
+                                span.pull-left Optimise Website
+                                span.pull-right.fixed-width
+                                    md-switch(ng-model='page.category.promoted', aria-label='auto')
+                            .mda-list-item.mb-sm
+                                span.pull-left Maximum Keywords Per Page 1/7
+                                span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
+                                    em.fa.fa-refresh
+                            .mda-list-item.mb-sm
+                                span.pull-left Default Keywords
+                                span.pull-right.fixed-width
+                                    md-switch(ng-model='page.category.promoted', aria-label='auto')
+                            .mda-list-item.mb-sm
+                                span.pull-left Attention Status
+                                span.pull-right.fixed-width
+                                    md-switch(ng-model='page.category.promoted', aria-label='auto')
+                            .mda-list-item.mb-sm
+                                span.pull-left Site Creation Date : 01.03.2016
+                                span.pull-right.fixed-width(ng-click='weCtrl.onRemoveFromSystem(page);')
+                                    em.fa.fa-trash-o
+                            .mda-list-item.mb-sm
+                                span.pull-left Site Domain : 
+                                    a(href='#') {{ row.name }}
+                            .mda-list-item.mb-sm
+                                span.pull-left Site Domain Alias : 
+                                    a(href='#') {{ row.name }}
+                            .mda-list-item
+                                span.pull-left Website Primary Language
+                                span.pull-right
+                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", data-size="6", ng-model='weCtrl.selectedLanguage', ng-options='language.name for language in weCtrl.languages', multiple, data-max-options="3")
+                            .mda-list-item.mb-sm
+                                span.pull-left Launch Page URL
+                                span.pull-right.fixed-width(ng-click='weCtrl.openPageUrl(page, $event)')
+                                    em.fa.fa-search
+                            .mda-list-item.mb-sm
+                                span.pull-left Copy to Clipboard
+                                span.pull-right.fixed-width(ng-click='weCtrl.copyToClipboard(page, $event)')
+                                    em.fa.fa-copy
+        .col-md-6
+            #website_sitemap.panel
+                .panel-heading.sub-heading
+                    .panel-title XML SiteMap for Website : {{ row.name }}
+                    paneltool(tool-collapse, ng-init="website_sitemap=false")
+                .panel-wrapper(uib-collapse="website_sitemap")
+                    .panel-body.p-sm
+                        .mda-list.p0
+                            .mda-list-item.mb-sm
+                                .pull-left
+                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", ng-model='weCtrl.seViews[0].selectedEngine', ng-change="weCtrl.changeDomains(weCtrl.seViews[0])")
+                                        option(ng-repeat='engine in weCtrl.seViews[0].engines', data-icon='{{engine.icon}}') {{ engine.name }}
+                                .pull-left.p-sm
+                                    .color-box.bg-green-500(style='width:15px;height:18px;')
+                                .pull-left.pt-sm.text-success 84 / 81
+                                span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
+                                    em.fa.fa-refresh
+                            .mda-list-item.mb-sm
+                                .pull-left
+                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", ng-model='weCtrl.seViews[1].selectedEngine', ng-change="kdc.changeDomains(weCtrl.seViews[1])")
+                                        option(ng-repeat='engine in weCtrl.seViews[1].engines', data-icon='{{engine.icon}}') {{ engine.name }}
+                                .pull-left.p-sm
+                                    .color-box.bg-red-500(style='width:15px;height:18px;')
+                                .pull-left.pt-sm.text-danger 44 / 70
+                                span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
+                                    em.fa.fa-refresh
+                            .mda-list-item.mb-sm
+                                .pull-left
+                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", ng-model='weCtrl.seViews[2].selectedEngine', ng-change="kdc.changeDomains(weCtrl.seViews[2])")
+                                        option(ng-repeat='engine in weCtrl.seViews[2].engines', data-icon='{{engine.icon}}') {{ engine.name }}
+                                .pull-left.p-sm
+                                    .color-box.bg-yellow-700(style='width:15px;height:18px;')
+                                .pull-left.pt-sm.text-warning 34 / 11
+                                span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
+                                    em.fa.fa-refresh
+                            .mda-list-item.mb-sm
+                                span.pull-left Publish SiteMap now to All Search Engine
+                                span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
+                                    em.fa.fa-refresh
+                            .mda-list-item.mb-sm
+                                span.pull-left Name:Location : 
+                                    a(href='#') sitemap.xml
+                                .pull-left.pl
+                                    .color-box.bg-green-500(style='width:15px;height:18px;')
+                                span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
+                                    em.fa.fa-edit
+                            .mda-list-item.mb-sm
+                                span.pull-left SEOgenie Automatic SiteMap
+                                span.pull-right.fixed-width
+                                    md-switch(ng-model='page.category.promoted', aria-label='auto')
+    #pages_assign_key.panel
+        .panel-heading.sub-heading
+            .panel-title Keywords for Website : {{ row.name }}
+            paneltool(tool-collapse, ng-init='pages_assign_key=false')
+        .panel-wrapper(uib-collapse="pages_assign_key")
+            .panel-body
+                .container-fluid
+                    table.custom-table(st-table="pagesExpansionCollection", st-safe-src='weCtrl.pagesExpandCollection', st-set-filter="additionalFilter", st-filtered-collection='pageKeyword')
+                        thead.table-control
+                            tr
+                                td.text-right(colspan="7")
+                                    a.pull-left.btn.btn-primary.btn-outline.btn-oval.btn-xs(href='/#/app/keywords-add')
+                                        i.fa.fa-plus
+                                    .pull-left.ml.mda-input-group
+                                        input#searchForkeyword.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="weCtrl.showExpandAdditionalFilter=true")
+                                        span.mda-input-group-addon
+                                            em.fa.fa-search
+                                        overlay-popup#pages_expand_filter(active='weCtrl.showExpandAdditionalFilter', width='450')
+                                            div(ng-include="'app/components/pages/manage/templates/keywordsFilter.html'")
+                                    .pull-left
+                                        fiter-condition(condition-for='keyword')
+                                    .pull-left.pl.filter-title Filter
+                                    .pull-left.ml
+                                        md-switch.m0(ng-model='weCtrl.expandFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='weCtrl.expandFilterOn',  st-reset='', ng-disabled='!weCtrl.expandFilterOn', ng-click='weCtrl.resetPageKeywordFilter()')
+                                    .pull-right(st-pagination='', st-items-by-page="weCtrl.numberOfRowsForKeywordGrid.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="weCtrl.detailCurrentPage = newPage")
+                                    .pull-right.display-rows
+                                        label Display
+                                        label
+                                            select(selectpicker='', ng-model="weCtrl.numberOfRowsForKeywordGrid", ng-options='item.label for item in weCtrl.itemsByPageForKeywordGrid')
+                                    .pull-right.mr(style='padding-top:2px;', ng-click='weCtrl.exportPageKeywordTable()')
+                                        span Export
+                                        em.fa.fa-file-excel-o
+                        thead
+                            tr
+                                th.text-center.row-index #
+                                th(st-sort="keyword") Keywords
+                                th.text-center(st-sort="g", style='width:55px;')
+                                    i.glyphicon.socicon-google
+                                th.text-center(st-sort="y", style='width:55px;')
+                                    i.glyphicon.socicon-yahoo
+                                th.text-center(st-sort="m", style='width:55px;')
+                                    i.glyphicon.socicon-bing
+                                th.text-center(st-sort="activepages", style='width:140px;') Active Pages
+                        tbody
+                            tr(st-select-row="row", st-select-mode="single", ng-repeat="row in pagesExpansionCollection", ng-class='{true: "bg-blue-100", false:""}[row.assignedState]', ng-click='weCtrl.onPageKeywordAction(row, $event)')
+                                td.text-center {{ ((weCtrl.detailCurrentPage-1) * weCtrl.numberOfRowsForKeywordGrid.value) + $index + 1 }}
+                                td.keyword-col
+                                    .pull-left.keyword-label
+                                        span.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.keyword }}
+                                        i.fa.fa-caret-down.ml-sm(ng-click="weCtrl.showKeywordSetting(row, $event)")
+                                    .pull-right.keyword-control
+                                        em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='weCtrl.showKeywordChart(row, $event)')
+                                        label.m0.pull-right
+                                            md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)', ng-click='$event.stopPropagation()')
+                                td.text-center.text-warning
+                                    i.fa.fa-angle-double-down(uib-tooltip='Google.com. SERP Ranking: Page {{row.activepages}}, Position {{row.g}}')
+                                        span.font-roboto.ml-sm {{ row.g }}
+                                td.text-center.text-danger
+                                    i.fa.fa-angle-double-up(uib-tooltip='Yahoo.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.y}}')
+                                        span.font-roboto.ml-sm {{ row.y }}
+                                td.text-center.text-success
+                                    span.font-roboto.ml-sm(uib-tooltip='Bing.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.m}}') {{ row.m }}
+                                td.progress-col.pl-sm
+                                    .pull-left.text-center.pr-sm
+                                        span.mr-sm(uib-tooltip='Keyword Assigned to {{row.activepages}} Pages') {{ row.activepages }}
+                                    .color-bar.pull-left
+                                        .flex(uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}", ng-class='row.g | rankingFilter')
+                                        .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.significance]', uib-tooltip="Significance: 34%")
+                                        .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.suitability]', uib-tooltip="Suitability: 68%")
+                                    .pull-left.pl-sm(ng-if='row.category.default')
+                                        i.fa.fa-anchor(uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
+                                    .pull-left.soc-ranking.pl-sm(ng-if='row.category.forced')
+                                        i.fa.fa-bookmark-o(uib-tooltip='Forcing Promotion Min {{row.forced_min}}, Max {{row.forced_max}}')
+    #website_pages.panel
+        .panel-heading.sub-heading
+            .panel-title Pages for Website : {{ row.name }}
+            paneltool(tool-collapse, ng-init="website_pages=false")
+        .panel-wrapper(uib-collapse="website_pages")
+            .panel-body
+                website-pages
+    #pages_violation.panel.m0
+        .panel-heading.sub-heading
+            .panel-title SEO Violation for Website : {{ row.name }}
+            paneltool(tool-collapse, ng-init='pages_violation=false')
+        .panel-wrapper(uib-collapse="pages_violation")
+            .panel-body
+                .container-fluid
+                    table.custom-table(st-table="pageViolationCollection", st-safe-src='weCtrl.pageViolationCollection', st-set-filter="additionalFilter", st-filtered-collection='pageViolation')
+                        thead.table-control
+                            tr
+                                td.text-right(colspan="7")
+                                    .pull-left.mda-input-group
+                                        input#searchFordescription.mda-form-control(type='text', st-search='description', placeholder='Filter/Search', ng-click="weCtrl.showViolationFilter=true")
+                                        span.mda-input-group-addon
+                                            em.fa.fa-search
+                                        overlay-popup(active='weCtrl.showViolationFilter', width='177')
+                                            div(ng-include="'app/components/pages/manage/templates/violationFilter.html'")
+                                    .pull-left
+                                        fiter-condition(condition-for='description')
+                                    .pull-left.pl.filter-title Filter
+                                    .pull-left.ml
+                                        md-switch.m0(ng-model='weCtrl.violationFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='weCtrl.violationFilterOn',  st-reset='', ng-disabled='!weCtrl.violationFilterOn', ng-click='weCtrl.resetViolationFilter()')
+                                    .pull-right(st-pagination='', st-items-by-page="weCtrl.numberOfRowsForViolationGrid.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="weCtrl.violationCurrentPage = newPage")
+                                    .pull-right.display-rows
+                                        label Display
+                                        label
+                                            select(selectpicker='', ng-model="weCtrl.numberOfRowsForViolationGrid", ng-options='item.label for item in weCtrl.itemsByPageForViolationGrid')
+                                    .pull-right.mr(style='padding-top:2px;', ng-click='weCtrl.exportPageViolationTable()')
+                                        span Export
+                                        em.fa.fa-file-excel-o
+                        thead
+                            tr
+                                th.text-center.row-index #
+                                th(st-sort='status') Violation Status
+                                th(st-sort="category") Category
+                                th(st-sort="description") Description
+                                th(st-sort="action") Recommendation/Actions
+                        tbody
+                            tr(st-select-row="row", st-select-mode="single", ng-repeat="row in pageViolationCollection")
+                                td.text-center.p-sm {{ ((weCtrl.violationCurrentPage-1) * weCtrl.numberOfRowsForViolationGrid.value) + $index + 1 }}
+                                td.p-sm
+                                    span.pull-left {{ row.status | pageViolationStatus }}
+                                    em.pull-right.fa(ng-class='{1:"fa-info-circle text-danger", 2:"fa-warning text-warning", 3:"fa-warning text-primary", 4:"fa-check text-success"}[row.status]')
+                                td.p-sm {{ row.category }}
+                                td.p-sm {{ row.description }}
+                                td.p-sm
+                                    span.pull-left {{ row.action }}
+                                    em.pull-right.fa.fa-wrench.text-success

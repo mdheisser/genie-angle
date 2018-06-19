@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('components.keywords')
+        .module('components.websites')
         .controller('websiteFilterController', websiteFilterController)
 
     websiteFilterController.$inject = ['$scope', '$timeout'];

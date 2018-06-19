@@ -12,10 +12,11 @@
         var vm = this;
 
         vm.currentPage = 1;
-        vm.rowCollection = [];
+        vm.websitesList = [];
         vm.resetWebsiteFilter = resetWebsiteFilter;
         vm.performBulkAction = performBulkAction;
         vm.openWebsiteUrl = openWebsiteUrl;
+        vm.expandWebsiteDetail = expandWebsiteDetail;
 
         activate();
 
@@ -38,7 +39,7 @@
                 .getUserSites('1')
                 .then(function(resp) {
                     var convertor = $filter('convertWebsiteData');
-                    vm.rowCollection = convertor(resp.data);
+                    vm.websitesList = convertor(resp.data);
                     setRoute();
                 });
         }
@@ -67,7 +68,7 @@
         // Set filter on/off switch status.
         $scope.$watch('websiteList', function() {
             if ($scope.websiteList != undefined) {
-                var original = vm.rowCollection.length;
+                var original = vm.websitesList.length;
                 var filtered = $scope.websiteList.length;
                 if(original != filtered) {
                     vm.filterOn = true;
@@ -112,6 +113,17 @@
             var url = 'http://' + row.name;
             $window.open(url, '_blank');
             event.stopPropagation();
+        }
+
+                // Expand Keyword Detail Page
+        function expandWebsiteDetail(row, state) {
+            _.each(vm.websitesList, function(value, key) {
+                if (row != value) {
+                    vm.websitesList[key].expanded = false;
+                }
+            });
+            row.expanded = !row.expanded;
+            vm.savedExpandedRowId = row.id;
         }
     }
 

@@ -4,7 +4,7 @@ h3.content-heading
 #websites_manage.panel(ng-controller='websiteListController as wlCtrl')
     .panel-wrapper
         .panel-body
-            table.custom-table(st-table="displayedCollection", st-safe-src='wlCtrl.rowCollection', st-set-filter="additionalFilter", st-filtered-collection='websiteList')
+            table.custom-table(st-table="displayedCollection", st-safe-src='wlCtrl.websitesList', st-set-filter="additionalFilter", st-filtered-collection='websiteList')
                 thead.table-control
                     tr
                         td.text-right(colspan="12")
@@ -51,9 +51,9 @@ h3.content-heading
                                 em.bg-indigo-500
                             i.fa.fa-caret-down
                             overlay-popup#websites_manage_bulk_action(active='wlCtrl.showBulkAction', width='160')
-                                div(ng-include="'app/components/websites/list/templates/bulkActions.html'")
+                                div(ng-include="'app/components/websites/manage/templates/bulkActions.html'")
                 tbody
-                    tr(st-select-row="row", st-select-mode="single", ng-repeat="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='wlCtrl.expandKeywordDetail(row)')
+                    tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='wlCtrl.expandWebsiteDetail(row)')
                         td.text-center {{ ((wlCtrl.currentPage-1) * wlCtrl.numberOfRows.value) + $index + 1 }}
                         td.keyword-col
                             .pull-left.keyword-label
@@ -91,3 +91,6 @@ h3.content-heading
                             label.mda-checkbox
                                 input(type='checkbox', ng-model='row.selected', ng-click='$event.stopPropagation()')
                                 em.bg-indigo-500
+                    tr(ng-if="row.expanded", ng-repeat-end="")
+                            td(colspan='12')
+                                website-expand
