@@ -13,6 +13,7 @@
 
         vm.pagesExpandCollection = [];
         vm.pageViolationCollection = [];
+        vm.selectedLanguage = [];
         vm.detailCurrentPage = 1;
         vm.violationCurrentPage = 1;
         vm.resetPageKeywordFilter = resetPageKeywordFilter;

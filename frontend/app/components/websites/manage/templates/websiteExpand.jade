@@ -6,24 +6,28 @@
                     .panel-title Settings for Website: {{ row.name }}
                     paneltool(tool-collapse, ng-init="website_setting=false")
                 .panel-wrapper(uib-collapse="website_setting")
-                    .panel-body.p-sm
+                    .panel-body.p
                         .mda-list.p0
                             .mda-list-item.mb-sm
                                 span.pull-left Optimise Website
                                 span.pull-right.fixed-width
-                                    md-switch(ng-model='page.category.promoted', aria-label='auto')
+                                    md-switch(ng-model='row.optimise', aria-label='auto')
                             .mda-list-item.mb-sm
                                 span.pull-left Maximum Keywords Per Page 1/7
                                 span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
                                     em.fa.fa-refresh
                             .mda-list-item.mb-sm
                                 span.pull-left Default Keywords
+                                    em.fa.fa-caret-down(ng-click='weCtrl.showDefaultKeyword=!weCtrl.showDefaultKeyword')
+                                    overlay-popup(active='weCtrl.showDefaultKeyword',  width='150')
+                                        .shadow-z3.bg-white.p-sm
+                                            | Show Default Keyword
                                 span.pull-right.fixed-width
-                                    md-switch(ng-model='page.category.promoted', aria-label='auto')
+                                    md-switch(ng-model='row.default', aria-label='auto')
                             .mda-list-item.mb-sm
                                 span.pull-left Attention Status
                                 span.pull-right.fixed-width
-                                    md-switch(ng-model='page.category.promoted', aria-label='auto')
+                                    md-switch(ng-model='row.attention', aria-label='auto')
                             .mda-list-item.mb-sm
                                 span.pull-left Site Creation Date : 01.03.2016
                                 span.pull-right.fixed-width(ng-click='weCtrl.onRemoveFromSystem(page);')
@@ -31,9 +35,17 @@
                             .mda-list-item.mb-sm
                                 span.pull-left Site Domain : 
                                     a(href='#') {{ row.name }}
+                                    em.fa.fa-caret-down(ng-click='weCtrl.showDomainLaunchAction=!weCtrl.showDomainLaunchAction')
+                                    overlay-popup(active='weCtrl.showDomainLaunchAction',  width='140')
+                                        .shadow-z3.bg-white.p-sm
+                                            | Launch Website URL
                             .mda-list-item.mb-sm
                                 span.pull-left Site Domain Alias : 
                                     a(href='#') {{ row.name }}
+                                    em.fa.fa-caret-down(ng-click='weCtrl.showUrlLaunchAction=!weCtrl.showUrlLaunchAction')
+                                    overlay-popup(active='weCtrl.showUrlLaunchAction',  width='140')
+                                        .shadow-z3.bg-white.p-sm
+                                            | Launch Website URL
                             .mda-list-item
                                 span.pull-left Website Primary Language
                                 span.pull-right
@@ -93,9 +105,10 @@
                                 span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
                                     em.fa.fa-edit
                             .mda-list-item.mb-sm
-                                span.pull-left SEOgenie Automatic SiteMap
+                                span.pull-left
+                                    u SEOgenie Automatic SiteMap
                                 span.pull-right.fixed-width
-                                    md-switch(ng-model='page.category.promoted', aria-label='auto')
+                                    md-switch(ng-model='page.autositemap', aria-label='auto')
     #pages_assign_key.panel
         .panel-heading.sub-heading
             .panel-title Keywords for Website : {{ row.name }}

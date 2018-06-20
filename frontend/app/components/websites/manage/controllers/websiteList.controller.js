@@ -5,9 +5,9 @@
         .module('components.websites')
         .controller('websiteListController', websiteListController)
 
-    websiteListController.$inject = ['$scope', '$filter', '$window', '$location', 'Notify', 'commonService'];
+    websiteListController.$inject = ['$scope', '$filter', '$window', '$localStorage', '$location', 'Notify', 'commonService'];
 
-    function websiteListController($scope, $filter, $window, $location, Notify, commonService) {
+    function websiteListController($scope, $filter, $window, $localStorage, $location, Notify, commonService) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -124,6 +124,14 @@
             });
             row.expanded = !row.expanded;
             vm.savedExpandedRowId = row.id;
+
+            var data = {};
+            data.website_setting = false;
+            data.website_sitemap = false;
+            data.pages_assign_key = true;
+            data.website_pages = true;
+            data.pages_violation = true;
+            $localStorage['panelState'] = angular.toJson(data);
         }
     }
 
