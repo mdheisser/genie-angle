@@ -6,7 +6,7 @@
                     .panel-title Settings for Website: {{ row.name }}
                     paneltool(tool-collapse, ng-init="website_setting=false")
                 .panel-wrapper(uib-collapse="website_setting")
-                    .panel-body.p
+                    .panel-body
                         .mda-list.p0
                             .mda-list-item.mb-sm
                                 span.pull-left Optimise Website
@@ -19,7 +19,7 @@
                             .mda-list-item.mb-sm
                                 span.pull-left Default Keywords
                                     em.fa.fa-caret-down(ng-click='weCtrl.showDefaultKeyword=!weCtrl.showDefaultKeyword')
-                                    overlay-popup(active='weCtrl.showDefaultKeyword',  width='150')
+                                    overlay-popup(active='weCtrl.showDefaultKeyword',  width='150', ng-click='pages_assign_key=false')
                                         .shadow-z3.bg-white.p-sm
                                             | Show Default Keyword
                                 span.pull-right.fixed-width
@@ -34,17 +34,17 @@
                                     em.fa.fa-trash-o
                             .mda-list-item.mb-sm
                                 span.pull-left Site Domain : 
-                                    a(href='#') {{ row.name }}
+                                    a {{ row.name }}
                                     em.fa.fa-caret-down(ng-click='weCtrl.showDomainLaunchAction=!weCtrl.showDomainLaunchAction')
                                     overlay-popup(active='weCtrl.showDomainLaunchAction',  width='140')
-                                        .shadow-z3.bg-white.p-sm
+                                        .shadow-z3.bg-white.p-sm(ng-click='wlCtrl.openWebsiteUrl(row, $event)')
                                             | Launch Website URL
                             .mda-list-item.mb-sm
                                 span.pull-left Site Domain Alias : 
-                                    a(href='#') {{ row.name }}
+                                    a {{ row.name }}
                                     em.fa.fa-caret-down(ng-click='weCtrl.showUrlLaunchAction=!weCtrl.showUrlLaunchAction')
                                     overlay-popup(active='weCtrl.showUrlLaunchAction',  width='140')
-                                        .shadow-z3.bg-white.p-sm
+                                        .shadow-z3.bg-white.p-sm(ng-click='wlCtrl.openWebsiteUrl(row, $event)')
                                             | Launch Website URL
                             .mda-list-item
                                 span.pull-left Website Primary Language
@@ -64,7 +64,7 @@
                     .panel-title XML SiteMap for Website : {{ row.name }}
                     paneltool(tool-collapse, ng-init="website_sitemap=false")
                 .panel-wrapper(uib-collapse="website_sitemap")
-                    .panel-body.p-sm
+                    .panel-body
                         .mda-list.p0
                             .mda-list-item.mb-sm
                                 .pull-left
@@ -158,7 +158,7 @@
                                 td.keyword-col
                                     .pull-left.keyword-label
                                         span.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.keyword }}
-                                        i.fa.fa-caret-down.ml-sm(ng-click="weCtrl.showKeywordSetting(row, $event)")
+                                        //- i.fa.fa-caret-down.ml-sm(ng-click="weCtrl.showKeywordSetting(row, $event)")
                                     .pull-right.keyword-control
                                         em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='weCtrl.showKeywordChart(row, $event)')
                                         label.m0.pull-right
