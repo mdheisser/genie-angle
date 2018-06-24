@@ -5,9 +5,9 @@
         .module('components.websites')
         .controller('websiteListController', websiteListController)
 
-    websiteListController.$inject = ['$scope', '$filter', '$window', '$localStorage', '$location', 'Notify', 'commonService'];
+    websiteListController.$inject = ['$scope', '$filter', '$window', '$localStorage', '$location', '$mdDialog', 'Notify', 'commonService'];
 
-    function websiteListController($scope, $filter, $window, $localStorage, $location, Notify, commonService) {
+    function websiteListController($scope, $filter, $window, $localStorage, $location, $mdDialog, Notify, commonService) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -17,6 +17,8 @@
         vm.performBulkAction = performBulkAction;
         vm.openWebsiteUrl = openWebsiteUrl;
         vm.expandWebsiteDetail = expandWebsiteDetail;
+        vm.openRankingGraph = openRankingGraph;
+        vm.generateReport = generateReport;
 
         activate();
 
@@ -115,8 +117,8 @@
             event.stopPropagation();
         }
 
-                // Expand Keyword Detail Page
-        function expandWebsiteDetail(row, state) {
+        // Expand Keyword Detail Page
+        function expandWebsiteDetail(row, e, focus) {
             _.each(vm.websitesList, function(value, key) {
                 if (row != value) {
                     vm.websitesList[key].expanded = false;
@@ -125,14 +127,64 @@
             row.expanded = !row.expanded;
             vm.savedExpandedRowId = row.id;
 
-            var data = {};
-            data.website_setting = false;
-            data.website_sitemap = false;
-            data.pages_assign_key = true;
-            data.website_pages = true;
-            data.pages_violation = true;
-            $localStorage['panelState'] = angular.toJson(data);
+            if (row.expanded == true) {
+                var data = {};
+                data.website_setting = false;
+                data.website_sitemap = false;
+                data.pages_assign_key = true;
+                data.website_pages = true;
+                data.pages_violation = true;
+
+                if (focus == 1) {
+                    data.website_setting = true;
+                    data.website_sitemap = true;
+                    data.pages_violation = false;
+                }
+                if (focus == 2) {
+                    data.website_setting = true;
+                    data.website_sitemap = true;
+                    data.pages_assign_key = false;
+                }
+                if (focus == 3) {
+                    data.website_setting = true;
+                    data.website_sitemap = true;
+                    data.website_pages = false;
+                }
+                $localStorage['panelState'] = angular.toJson(data);
+            }
+
+            e.stopPropagation();
         }
+
+        // Show Keywords chart on popup
+        function openRankingGraph(row, event) {
+            $mdDialog.show({
+                locals:{
+                    keywordData: row
+                },
+                controller: 'pagesKeywordChartController',
+                controllerAs: 'pkcc',
+                templateUrl: 'app/components/pages/manage/templates/pagesKeywordChart.html',
+                targetEvent: event,
+            })
+            .then(function(answer) {
+                //
+            }, function() {
+                //
+            });
+
+            event.stopPropagation();
+        }
+
+        // Generate Report
+        function generateReport(e) {
+            Notify.alert(
+                'Generated Report',
+                {status: 'success', pos: 'top-right'}
+            );
+            e.stopPropagation();
+        }
+
     }
 
 })(angular);

@@ -26,7 +26,13 @@
             .state("app.websites-manage", {
                 url: "/websites-manage",
                 templateUrl: helper.componentPath("websites/manage", "websites"),
-                resolve: helper.resolveFor("ng-bootstrap-select", "smart-table")
+                resolve: helper.resolveFor(
+                    "ng-bootstrap-select",
+                    "smart-table",
+                    "highcharts",
+                    "highcharts-export",
+                    "highcharts-ng"
+                )
             })
             .state("app.websites-manage.best", {
                 url: "/best"

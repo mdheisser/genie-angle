@@ -1,4 +1,7 @@
-.expanded-page {
+.expanded-website {
+    padding: 10px 15px 10px 10px;
+    border-left: 5px solid #BBDEFB;
+    font-size: 13px;
     .row-eq-height {
         @media only screen and (min-width: @custom-992) {
             display: -webkit-box;
@@ -8,6 +11,9 @@
             .panel {
                 height: 95%;
             }
+        }
+        .panel-wrapper {
+            max-width: 350px;
         }
     }
     .panel-body {
@@ -21,6 +27,11 @@
     #website_setting.panel {
         .mda-list-item .fixed-width {
             width: 30px;
+        }
+        .max-assign-setting input {
+            height: 20px;
+            width: 50px;
+            text-align: right;
         }
         overlay-popup {
             transform: translateX(125px);

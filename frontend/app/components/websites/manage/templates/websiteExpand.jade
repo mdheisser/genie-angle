@@ -1,4 +1,4 @@
-.expanded-page(ng-controller='websiteExpandController as weCtrl')
+.expanded-website(ng-controller='websiteExpandController as weCtrl')
     .row.row-eq-height
         .col-md-6
             #website_setting.panel
@@ -13,9 +13,18 @@
                                 span.pull-right.fixed-width
                                     md-switch(ng-model='row.optimise', aria-label='auto')
                             .mda-list-item.mb-sm
-                                span.pull-left Maximum Keywords Per Page 1/7
+                                span.pull-left Maximum Keywords Per Page {{row.keyword_min}}/{{row.keyword_max}}
+                                    em.fa.fa-caret-down(ng-click='weCtrl.showMaximumKeywordByPage=!weCtrl.showMaximumKeywordByPage')
                                 span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
                                     em.fa.fa-refresh
+                            .mda-list-item.pl(ng-if='weCtrl.showMaximumKeywordByPage')
+                                .max-assign-setting
+                                    span.pull-left.mr-sm
+                                        small Keywords:&nbsp;Min
+                                    input.pull-left.m0.p0.form-control(type='number', min='0', max='{{row.keyword_max}}', ng-model='row.keyword_min')
+                                    span.pull-left.mr-sm.ml-sm
+                                        small Max
+                                    input.pull-left.m0.p0.form-control(type='number', min='0', max='7', ng-model='row.keyword_max')
                             .mda-list-item.mb-sm
                                 span.pull-left Default Keywords
                                     em.fa.fa-caret-down(ng-click='weCtrl.showDefaultKeyword=!weCtrl.showDefaultKeyword')
@@ -26,6 +35,7 @@
                                     md-switch(ng-model='row.default', aria-label='auto')
                             .mda-list-item.mb-sm
                                 span.pull-left Attention Status
+                                    em.fa.fa-caret-down
                                 span.pull-right.fixed-width
                                     md-switch(ng-model='row.attention', aria-label='auto')
                             .mda-list-item.mb-sm
