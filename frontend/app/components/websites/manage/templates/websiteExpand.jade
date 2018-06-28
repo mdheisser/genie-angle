@@ -77,27 +77,27 @@
                     .panel-body
                         .mda-list.p0
                             .mda-list-item.mb-sm
-                                .pull-left
-                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", ng-model='weCtrl.seViews[0].selectedEngine', ng-change="weCtrl.changeDomains(weCtrl.seViews[0])")
-                                        option(ng-repeat='engine in weCtrl.seViews[0].engines', data-icon='{{engine.icon}}') {{ engine.name }}
+                                .pull-left.soc-rank
+                                    span.glyphicon.socicon-google
+                                    span Google
                                 .pull-left.p-sm
                                     .color-box.bg-green-500(style='width:15px;height:18px;')
                                 .pull-left.pt-sm.text-success 84 / 81
                                 span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
                                     em.fa.fa-refresh
                             .mda-list-item.mb-sm
-                                .pull-left
-                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", ng-model='weCtrl.seViews[1].selectedEngine', ng-change="kdc.changeDomains(weCtrl.seViews[1])")
-                                        option(ng-repeat='engine in weCtrl.seViews[1].engines', data-icon='{{engine.icon}}') {{ engine.name }}
+                                .pull-left.soc-rank
+                                    span.glyphicon.socicon-yahoo
+                                    span Yahoo
                                 .pull-left.p-sm
                                     .color-box.bg-red-500(style='width:15px;height:18px;')
                                 .pull-left.pt-sm.text-danger 44 / 70
                                 span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
                                     em.fa.fa-refresh
                             .mda-list-item.mb-sm
-                                .pull-left
-                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", ng-model='weCtrl.seViews[2].selectedEngine', ng-change="kdc.changeDomains(weCtrl.seViews[2])")
-                                        option(ng-repeat='engine in weCtrl.seViews[2].engines', data-icon='{{engine.icon}}') {{ engine.name }}
+                                .pull-left.soc-rank
+                                    span.glyphicon.socicon-bing
+                                    span Bing
                                 .pull-left.p-sm
                                     .color-box.bg-yellow-700(style='width:15px;height:18px;')
                                 .pull-left.pt-sm.text-warning 34 / 11
@@ -109,7 +109,7 @@
                                     em.fa.fa-refresh
                             .mda-list-item.mb-sm
                                 span.pull-left Name:Location : 
-                                    a(href='#') sitemap.xml
+                                    a(href='https://xmlsitemapgenerator.org/help/example-xml-sitemap.xml', target='_blank') sitemap.xml
                                 .pull-left.pl
                                     .color-box.bg-green-500(style='width:15px;height:18px;')
                                 span.pull-right.fixed-width(ng-click='weCtrl.onRefreshPage(page);')
