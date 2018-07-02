@@ -52,7 +52,8 @@
                     "flag-icons",
                     "loaders.css",
                     'xeditable',
-                    'spinkit'
+                    'spinkit',
+                    'ng-bootstrap-select'
                 ),
                 controller: [
                     "$rootScope",
