@@ -17,6 +17,10 @@
                 "sref": "app.websites-dashboard"
             },
             {
+                "text": "Settings",
+                "sref": "app.websites-settings"
+            },
+            {
                 "text": "Manage",
                 "sref": "app.websites-manage"
             },

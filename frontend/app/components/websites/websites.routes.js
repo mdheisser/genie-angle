@@ -23,6 +23,13 @@
                 templateUrl: helper.componentPath("websites/dashboard", "websites-dashboard"),
                 resolve: helper.resolveFor("ng-bootstrap-select")
             })
+            .state("app.websites-settings", {
+                url: "/websites-settings",
+                templateUrl: helper.componentPath("websites/settings", "websites-settings"),
+                resolve: helper.resolveFor(
+                    'smart-table',
+                    'ng-bootstrap-select')
+            })
             .state("app.websites-manage", {
                 url: "/websites-manage",
                 templateUrl: helper.componentPath("websites/manage", "websites"),
