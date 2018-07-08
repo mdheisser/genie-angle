@@ -5,10 +5,10 @@ h3.content-heading.text-bold
         .panel-title 
             | Auto Assign/Distribute Keywords Settings to Pages
         paneltool(tool-collapse, ng-init="websites_settings=false")
-    .panel-wrapper
+    .panel-wrapper(uib-collapse="websites_settings")
         .panel-body
             p These settings allows you to automaticaly assign keywords to pages based on their Significance and Suitability ranking
-            select.websites(selectpicker='', ng-model='wsCtrl.selectedSite', ng-options='("Site http://" + site.name) for site in wsCtrl.sites')
+            select.websites(selectpicker='', data-live-search='true', ng-model='wsCtrl.selectedSite', ng-options='("Site http://" + site.name) for site in wsCtrl.sites')
             h5.text-underline.text-bold Assignment Parameters
             .row
                 .col-md-4.table-wrapper
