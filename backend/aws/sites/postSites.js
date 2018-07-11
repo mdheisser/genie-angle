@@ -1,10 +1,14 @@
+const connectToDatabase = require('../../db');
+const Site = require('../../models/Site');
+const response = require('../_common/response');
 
 module.exports.main = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      name: 'postSites'
-    }),
-  };
-  callback(null, response);
+  context.callbackWaitsForEmptyEventLoop = false;
+
+  connectToDatabase()
+    .then(() => {
+      Site.create(JSON.parse(event.body))
+        .then(sites => response.ok(sites, callback))
+        .catch(err => response.fail(err, callback))
+    });
 };

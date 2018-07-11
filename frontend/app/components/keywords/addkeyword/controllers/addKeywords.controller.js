@@ -4,16 +4,16 @@
     angular
         .module('components.keywords')
         .controller("addKeywordsCtrl", addKeywordsCtrl);
-    addKeywordsCtrl.$inject = ['$scope', 'Notify', 'commonService'];
+    addKeywordsCtrl.$inject = ['$scope', 'Notify', 'commonService', 'keywordsService'];
 
-    function addKeywordsCtrl($scope, Notify, commonService) {
+    function addKeywordsCtrl($scope, Notify, commonService, keywordsService) {
         /* jshint validthis:true */
         var vm = this;
 
         vm.selectedSite = {};
         vm.sites = [];
         vm.clearKeywords = clearKeywords;
-        vm.addKeywords = addKeywords;
+        vm.createKeyword = createKeyword;
 
         activate();
 
@@ -39,12 +39,19 @@
         }
 
         // Add Keywords
-        function addKeywords() {
-            var msgHtml = 'Added New Keywords <a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
-            Notify.alert(
-                msgHtml,
-                {status: 'success', pos: 'top-right'}
-            );
+        function createKeyword() {
+            var data = {
+                keyword: vm.keywords
+            }
+            keywordsService
+                .addKeyword(data)
+                .then(function (response) {
+                    var msgHtml = 'Added New Keywords <a style="text-decoration:none;float:right;"><strong>UNDO</strong></a>';
+                    Notify.alert(
+                        msgHtml,
+                        {status: 'success', pos: 'top-right'}
+                    );
+                });
         }
     }
 

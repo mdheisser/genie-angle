@@ -23,105 +23,123 @@ functions:
       - http:
           method: post
           path: /account/login
+          cors: true
   postAccountRegister:
     handler: aws/auth/postAccountRegister.main
     events:
       - http:
           method: post
           path: /account/register
+          cors: true
   postAccountConfirm:
     handler: aws/auth/postAccountConfirm.main
     events:
       - http:
           method: post
           path: /account/confirm
+          cors: true
   getSites:
     handler: aws/sites/getSites.main
     events:
       - http:
           method: get
           path: /sites
+          cors: true
   postSites:
     handler: aws/sites/postSites.main
     events:
       - http:
           method: post
           path: /sites
+          cors: true
   getSitesCheckSite:
     handler: aws/sites/getSitesCheckSite.main
     events:
       - http:
           method: get
           path: /sites/checkSite
+          cors: true
   getKeywords:
     handler: aws/keywords/getKeywords.main
     events:
       - http:
           method: get
           path: /keywords
+          cors: true
   postKeywords:
     handler: aws/keywords/postKeywords.main
     events:
       - http:
           method: post
           path: /keywords
+          cors: true
   putKeywordsId:
     handler: aws/keywords/putKeywordsId.main
     events:
       - http:
           method: put
           path: '/keywords/{id}'
+          cors: true
   deleteKeywordsId:
     handler: aws/keywords/deleteKeywordsId.main
     events:
       - http:
           method: delete
           path: '/keywords/{id}'
+          cors: true
   getPages:
     handler: aws/pages/getPages.main
     events:
       - http:
           method: get
           path: /pages
+          cors: true
   postPages:
     handler: aws/pages/postPages.main
     events:
       - http:
           method: post
           path: /pages
+          cors: true
   getPagesPageId:
     handler: aws/pages/getPagesPageId.main
     events:
       - http:
           method: get
           path: '/pages/{pageId}'
+          cors: true
   putPagesPageId:
     handler: aws/pages/putPagesPageId.main
     events:
       - http:
           method: put
           path: '/pages/{pageId}'
+          cors: true
   deletePagesPageId:
     handler: aws/pages/deletePagesPageId.main
     events:
       - http:
           method: delete
           path: '/pages/{pageId}'
+          cors: true
   getPagePageIdViolation:
     handler: aws/pages/getPagePageIdViolation.main
     events:
       - http:
           method: get
           path: '/page/{pageId}/violation'
+          cors: true
   getUsers:
     handler: aws/users/getUsers.main
     events:
       - http:
           method: get
           path: /users
+          cors: true
   getUsersId:
     handler: aws/users/getUsersId.main
     events:
       - http:
           method: get
           path: '/users/{id}'
+          cors: true

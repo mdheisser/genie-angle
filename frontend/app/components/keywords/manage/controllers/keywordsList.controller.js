@@ -138,8 +138,8 @@
                 .then(function (response) {
                     vm.sites = response.data;
                     vm.selectedSite = vm.sites[0];
-                    getKeywords(vm.selectedSite.id);
-                    getLanguages(vm.selectedSite.id);
+                    getKeywords(vm.selectedSite._id);
+                    getLanguages(vm.selectedSite._id);
                 });
         }
 
@@ -150,7 +150,9 @@
                     vm.rowCollection = convertTableDataFilter(response.data);
 
                     if(vm.savedExpandedRowId != null) {
-                        vm.rowCollection[vm.savedExpandedRowId - 1].expanded = true;
+                        vm.rowCollection.find(function(item) {
+                            item.expanded = item._id == vm.savedExpandedRowId ? true : false;
+                        });
                     }
 
                     setRoute();
@@ -251,7 +253,7 @@
         $scope.$watch(function() {
             return vm.selectedSite;
         }, function() {
-            getKeywords(vm.selectedSite.id);
+            getKeywords(vm.selectedSite._id);
         });
 
         // Save keyword to clipbaord
@@ -297,7 +299,7 @@
         // Active/Deactive default keyword.
         function onActiveDefaultKeyword(row) {
 
-            var keywordID = row.id;
+            var keywordID = row._id;
 
             if (row.category.default === true) {
                 keywordsService
@@ -321,7 +323,7 @@
         // Active/Deactive default keyword.
         function onActiveForcedKeyword(row) {
 
-            var keywordID = row.id;
+            var keywordID = row._id;
 
             if (row.category.forced === true) {
                 keywordsService
@@ -347,48 +349,55 @@
         // Active/Deactive promoted keyword.
         function onActivePromotedKeyword(row) {
 
-            var keywordID = row.id;
+            var keywordID = row._id;
+            var category = row.category;
 
             if (row.category.promoted === true) {
+                category.promoted = true;
+                category.monitored = true;
                 keywordsService
-                    .activePromotedKeyword(keywordID)
+                    .updateKeyword(keywordID, {category: category})
                     .then(function (response) {
-                        if (response.data.response === true) {
-                            row.category.monitored = true;
-                        }
+                        console.log('Activate promoted keyword!');
+                        console.log(response.data);
+                        getKeywords(vm.selectedSite._id);
                     });
             } else {
+                category.promoted = false;
                 keywordsService
-                    .deactivePromotedKeyword(keywordID)
+                    .updateKeyword(keywordID, {category: category})
                     .then(function (response) {
-                        if (response.data.response === true) {
-                            // getKeywords(vm.selectedSite.id);
-                        }
+                        console.log('Deactivate promoted keyword');
+                        console.log(response.data);
+                        getKeywords(vm.selectedSite._id);
                     });
             }
         }
 
-        // Active/Deactive promoted keyword.
+        // Active/Deactive monitored keyword.
         function onActiveMonitoredKeyword(row, event) {
 
-            var keywordID = row.id;
+            var keywordID = row._id;
+            var category = row.category;
 
             if (row.category.promoted === false) {
                 if (row.category.monitored === true) {
+                    category.monitored = false;
                     keywordsService
-                        .activeMonitoredKeyword(keywordID)
+                        .updateKeyword(keywordID, {category: category})
                         .then(function (response) {
-                            if (response.data.response === true) {
-                                row.category.monitored = false;
-                            }
+                            console.log('Activate monitored keyword!');
+                            console.log(response.data);
+                            getKeywords(vm.selectedSite._id);
                         });
                 } else {
+                    category.monitored = true;
                     keywordsService
-                        .deactiveMonitoredKeyword(keywordID)
+                        .updateKeyword(keywordID, {category: category})
                         .then(function (response) {
-                            if (response.data.response === true) {
-                                row.category.monitored = true;
-                            }
+                            console.log('Deactivate monitored keyword!');
+                            console.log(response.data);
+                            getKeywords(vm.selectedSite._id);
                         });
                 }
             }
@@ -437,7 +446,7 @@
                 data.keywordAssignedPages = false;
                 $localStorage['panelState'] = angular.toJson(data);
             }
-            vm.savedExpandedRowId = row.id;
+            vm.savedExpandedRowId = row._id;
         }
 
         // Group for keyword category

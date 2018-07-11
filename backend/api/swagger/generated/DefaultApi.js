@@ -362,11 +362,11 @@ angular.module('API', [])
             /**
              * Add new Keyword to the System
              * @method
-             * @name API#postKeywords
+             * @name API#createKeyword
              * @param {object} parameters - method options and parameters
              * @param {} parameters.keyword - Keyword Data
              */
-            API.prototype.postKeywords = function(parameters) {
+            API.prototype.createKeyword = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -399,12 +399,12 @@ angular.module('API', [])
             /**
              * Update Keyword
              * @method
-             * @name API#putKeywordsById
+             * @name API#updateKeyword
              * @param {object} parameters - method options and parameters
              * @param {string} parameters.id - Keyword id to return
              * @param {} parameters.keyword - Keyword Data
              */
-            API.prototype.putKeywordsById = function(parameters) {
+            API.prototype.updateKeyword = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }

@@ -5,7 +5,7 @@
     "author": "@seo_genie_team",
     "private": true,
     "scripts": {
-        "dev": "sls offline start",
+        "dev": "sls offline start --skipCacheInvalidation",
         "dev:api": "./node_modules/.bin/swagger project edit",
         "dev:gen": "sls swagger --output aws",
         "publish": "sudo sls publish ",
@@ -13,13 +13,15 @@
     },
     "dependencies": {
         "amazon-cognito-identity-js-node": "0.0.3",
-        "aws-sdk": "^2.248.1"
+        "aws-sdk": "^2.248.1",
+        "dotenv": "^6.0.0",
+        "mongoose": "^5.2.2"
     },
     "devDependencies": {
         "newman": "^3.9.4",
-        "swagger": "^0.7.5",
-        "swagger-editor": "^3.2.5",
+        "serverless-offline": "^3.25.4",
         "serverless_framework_swagger_integration": "^1.1.0",
-        "serverless-offline": "^3.25.4"
+        "swagger": "^0.7.5",
+        "swagger-editor": "^3.2.5"
     }
 }
