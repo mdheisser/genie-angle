@@ -53,12 +53,12 @@
                 .panel-wrapper(uib-collapse="keywordCategories")
                     .panel-body.pt-sm
                         p.mb-sm Properties
-                        ui-select(multiple='', ng-model='listc.selectedKeywordCategory', theme='bootstrap')
+                        ui-select(multiple='', ng-model='row.property', theme='bootstrap', ng-change="listc.changeKeywordProperty(row)")
                             ui-select-match(placeholder='Keyword Categories') {{$item.name}}
                             ui-select-choices(group-by='listc.keywordCategoryGroup', repeat='category in listc.keywordCategories | filter: {name: $select.search}')
                                 div(ng-bind-html='category.name | highlight: $select.search')
                         p.mt-sm.mb-sm Languages
-                        ui-select(multiple='', ng-model='listc.selectedLanguage', theme='bootstrap')
+                        ui-select(multiple='', ng-model='row.lang', theme='bootstrap', ng-change="listc.changeLanguage(row)")
                             ui-select-match(placeholder='Keyword Language Categories') {{$item.name}}
                             ui-select-choices(repeat='language in listc.languages | filter: {name: $select.search}')
                                 div(ng-bind-html='language.name | highlight: $select.search')

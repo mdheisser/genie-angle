@@ -28,6 +28,19 @@
                 item.selected = false;
                 item.expanded = false;
                 item.showActions = false;
+                item.forced_min = 1;
+                item.forced_max = 7;
+                item.auto_assign = false;
+                item.keyword = item.text;
+                item.g = item.googleRanking;
+                item.y = item.yahooRanking;
+                item.m = item.bingRanking;
+                item.category = {
+                    defalut: item.isDefault,
+                    promoted: item.isPromoted,
+                    monitored: item.isMonitored,
+                    forced: item.isForced
+                }
 
                 output.push(item);
             });

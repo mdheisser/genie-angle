@@ -477,6 +477,33 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
+             * Returns all keyword properties from the system that the user has access to
+             * @method
+             * @name API#getKeywordCategory
+             * @param {object} parameters - method options and parameters
+             */
+            API.prototype.getKeywordCategory = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/keywordCategory';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
              * Get pages of specific site
              * @method
              * @name API#getPages

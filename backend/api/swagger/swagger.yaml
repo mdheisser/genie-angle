@@ -252,6 +252,22 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/error'
+  /keywordCategory:
+    get:
+      tags: 
+        - Keywords
+      description: Returns all keyword properties from the system that the user has access to
+      operationId: getKeywordCategory
+      summary: Get all keyword properties for User's Site
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A list of Keyword Properties.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/keywordCategory'
   /pages:
     get:
       tags: 
@@ -506,6 +522,12 @@ definitions:
         type: string
       text:
         type: string
+      googleRanking:
+        type: number
+      yahooRanking:
+        type: number
+      bingRanking:
+        type: number
       isDefault:
         type: boolean
       isPromoted:
@@ -514,6 +536,25 @@ definitions:
         type: boolean
       isForced:
         type: boolean
+      significance:
+       type: number
+      suitability:
+       type: number
+      activePages:
+       type: number
+      isAssigned:
+        type: boolean
+      propertyId:
+        type: string
+  keywordCategory:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+      group:
+        type: string
   page:
     type: object
     required:

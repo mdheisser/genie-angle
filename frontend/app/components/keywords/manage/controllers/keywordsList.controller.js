@@ -53,6 +53,8 @@
         vm.removeKeyword = removeKeyword;
         vm.savedExpandedRowId = null;
         vm.selectedKeywordCategory = null;
+        vm.changeKeywordProperty = changeKeywordProperty;
+        vm.changeLanguage = changeLanguage;
 
         activate();
 
@@ -90,28 +92,29 @@
                 }
             ];
 
-            vm.keywordCategories = [
-                { name: 'CreativeWork', group: 'Creative works' },
-                { name: 'Book', group: 'Creative works' },
-                { name: 'Movie', group: 'Creative works' },
-                { name: 'MusicRecording', group: 'Creative works' },
-                { name: 'Recipe', group: 'Creative works' },
-                { name: 'TVSeries', group: 'Creative works' },
-                { name: 'AudioObject', group: 'Embedded non-text objects' },
-                { name: 'ImageObject', group: 'Embedded non-text objects' },
-                { name: 'VideoObject', group: 'Embedded non-text objects' },
-                { name: 'Event', group: '' },
-                { name: 'Organization', group: '' },
-                { name: 'Person', group: '' },
-                { name: 'Place', group: '' },
-                { name: 'LocalBusiness', group: '' },
-                { name: 'Restaurant', group: '' },
-                { name: 'Product', group: '' },
-                { name: 'Offer', group: '' },
-                { name: 'AggregateOffer', group: '' },
-                { name: 'Review', group: '' },
-                { name: 'AggregateRating', group: '' }
-            ];
+            // vm.keywordCategories = [
+            //     { name: 'CreativeWork', group: 'Creative works' },
+            //     { name: 'Book', group: 'Creative works' },
+            //     { name: 'Movie', group: 'Creative works' },
+            //     { name: 'MusicRecording', group: 'Creative works' },
+            //     { name: 'Recipe', group: 'Creative works' },
+            //     { name: 'TVSeries', group: 'Creative works' },
+            //     { name: 'AudioObject', group: 'Embedded non-text objects' },
+            //     { name: 'ImageObject', group: 'Embedded non-text objects' },
+            //     { name: 'VideoObject', group: 'Embedded non-text objects' },
+            //     { name: 'Event', group: '' },
+            //     { name: 'Organization', group: '' },
+            //     { name: 'Person', group: '' },
+            //     { name: 'Place', group: '' },
+            //     { name: 'LocalBusiness', group: '' },
+            //     { name: 'Restaurant', group: '' },
+            //     { name: 'Product', group: '' },
+            //     { name: 'Offer', group: '' },
+            //     { name: 'AggregateOffer', group: '' },
+            //     { name: 'Review', group: '' },
+            //     { name: 'AggregateRating', group: '' }
+            // ];
+            getKeywordProperties();
 
             // Set dropdown options for pagination.
             var dropdownOptions =  [
@@ -156,6 +159,41 @@
                     }
 
                     setRoute();
+                });
+        }
+
+        // Get keyword properties
+        function getKeywordProperties() {
+            keywordsService
+                .getKeywordCategory()
+                .then(function (response) {
+                    vm.keywordCategories = response.data;
+                });
+        }
+
+        function changeKeywordProperty(row) {
+            var keywordID = row._id;
+            var data = {
+                property: row.property
+            };
+            keywordsService
+                .updateKeyword(keywordID, data)
+                .then(function (response) {
+                    console.log('Updated categories for keyword!');
+                    console.log(response.data);
+                });
+        }
+
+        function changeLanguage(row) {
+            var keywordID = row._id;
+            var data = {
+                lang: row.lang
+            };
+            keywordsService
+                .updateKeyword(keywordID, data)
+                .then(function (response) {
+                    console.log('Updated languages for keyword!');
+                    console.log(response.data);
                 });
         }
 
@@ -350,22 +388,25 @@
         function onActivePromotedKeyword(row) {
 
             var keywordID = row._id;
-            var category = row.category;
 
             if (row.category.promoted === true) {
-                category.promoted = true;
-                category.monitored = true;
+                var data = {
+                    isPromoted: true,
+                    isMonitored: true
+                }
                 keywordsService
-                    .updateKeyword(keywordID, {category: category})
+                    .updateKeyword(keywordID, data)
                     .then(function (response) {
                         console.log('Activate promoted keyword!');
                         console.log(response.data);
                         getKeywords(vm.selectedSite._id);
                     });
             } else {
-                category.promoted = false;
+                var data = {
+                    isPromoted : false
+                }
                 keywordsService
-                    .updateKeyword(keywordID, {category: category})
+                    .updateKeyword(keywordID, data)
                     .then(function (response) {
                         console.log('Deactivate promoted keyword');
                         console.log(response.data);

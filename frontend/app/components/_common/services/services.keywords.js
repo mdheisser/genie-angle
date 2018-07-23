@@ -28,10 +28,15 @@
             });
         };
 
+        var getKeywordCategory = function () {
+            return REST.getKeywordCategory();
+        };
+
         return {
             getKeywords: getKeywords,
             createKeyword: createKeyword,
-            updateKeyword: updateKeyword
+            updateKeyword: updateKeyword,
+            getKeywordCategory: getKeywordCategory
         };
     }
 

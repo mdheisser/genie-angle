@@ -11,7 +11,6 @@ package:
 plugins:
   - serverless_framework_swagger_integration
   - serverless-offline
-
 custom:
   swagger_file: api/swagger.yaml
   serverless-offline:
@@ -86,6 +85,20 @@ functions:
       - http:
           method: delete
           path: '/keywords/{id}'
+          cors: true
+  getKeywordCategory:
+    handler: aws/keywordCategory/getKeywordCategory.main
+    events:
+      - http:
+          method: get
+          path: /keywordCategory
+          cors: true
+  postKeywordCategory:
+    handler: aws/keywordCategory/postKeywordCategory.main
+    events:
+      - http:
+          method: post
+          path: /keywordCategory
           cors: true
   getPages:
     handler: aws/pages/getPages.main

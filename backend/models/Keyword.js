@@ -1,21 +1,18 @@
 const mongoose = require('mongoose');
 const KeywordSchema = new mongoose.Schema({  
-  keyword: String,
-  g: Number,
-  y: Number,
-  m: Number,
-  category: {
-    default: Boolean,
-    promoted: Boolean,
-    monitored: Boolean,
-    forced: Boolean
-  },
+  text: String,
+  googleRanking: Number,
+  yahooRanking: Number,
+  bingRanking: Number,
+  isDefault: Boolean,
+  isPromoted: Boolean,
+  isMonitored: Boolean,
+  isForced: Boolean,
   significance: Number,
   suitability: Number,
-  activepages: Number,
-  forced_min: Number,
-  forced_max: Number,
-  assignedState: Boolean,
-  auto_assign: Boolean
+  activePages: Number,
+  isAssigned: Boolean,
+  property: Array,
+  lang: Array
 });
 module.exports = mongoose.model('Keyword', KeywordSchema);
