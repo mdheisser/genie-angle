@@ -7,9 +7,16 @@ module.exports.main = (event, context, callback) => {
 
   connectToDatabase()
     .then(() => {
-      console.log('Get all keywords');
-      Keyword.find()
-        .then(keywords => response.ok(keywords, callback))
-        .catch(err => response.fail(err, callback))
+        if (event.queryStringParameters) {
+            console.log('Get keywords of user own site');
+            Keyword.find({ "siteID" : event.queryStringParameters.siteId })
+                .then(keywords => response.ok(keywords, callback))
+                .catch(err => response.fail(err, callback))
+        } else {
+            console.log('Get All keywords');
+            Keyword.find()
+                .then(keywords => response.ok(keywords, callback))
+                .catch(err => response.fail(err, callback))
+        }
     });
 };

@@ -13,6 +13,7 @@ const KeywordSchema = new mongoose.Schema({
   activePages: Number,
   isAssigned: Boolean,
   property: Array,
-  lang: Array
+  lang: Array,
+  siteID: mongoose.Schema.Types.ObjectId
 });
 module.exports = mongoose.model('Keyword', KeywordSchema);

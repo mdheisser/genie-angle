@@ -544,7 +544,15 @@ definitions:
        type: number
       isAssigned:
         type: boolean
-      propertyId:
+      property:
+        type: array
+        items:
+          $ref: '#/definitions/keywordCategory'
+      lang:
+        type: array
+        items:
+          $ref: '#/definitions/language'
+      siteID:
         type: string
   keywordCategory:
     type: object
@@ -554,6 +562,15 @@ definitions:
       name:
         type: string
       group:
+        type: string
+  language:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+      languageCode:
         type: string
   page:
     type: object
