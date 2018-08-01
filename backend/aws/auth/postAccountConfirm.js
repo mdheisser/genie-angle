@@ -5,7 +5,7 @@ module.exports.main = (event, context, callback) => {
   let body = JSON.parse(event.body);
   //User
   const userParams = {
-    Pool: userPool,
+    Pool: cognito.userPool,
     Username: body.username,
   };
   var cognitoUser = new cognito.AWS.CognitoIdentityServiceProvider.CognitoUser(userParams);
@@ -15,6 +15,6 @@ module.exports.main = (event, context, callback) => {
       response.fail(err, callback);
       return;
     }
-    response.ok(result, callback, MFACODE);
+    response.ok(result, callback);
   });
 };

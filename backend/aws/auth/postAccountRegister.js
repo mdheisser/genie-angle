@@ -13,7 +13,6 @@ module.exports.main = (event, context, callback) => {
   var attributeEmail = new cognito.AWS.CognitoIdentityServiceProvider.CognitoUserAttribute(dataEmail);
 
   attributeList.push(dataEmail);
-  attributeList.push(attributeEmail);
 
   cognito.userPool.signUp(body.username, body.password, attributeList, null, function (err, result) {
     if (err) {

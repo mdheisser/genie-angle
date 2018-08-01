@@ -41,7 +41,7 @@
                     .then(function (response) {
                         console.log('*** Register Response ***')
                         console.log(response.data);
-                        if (!response.data.result.username) {
+                        if (!response.data.username) {
                             vm.authMsg = response.data.result.message;
                         } else {
                             vm.showConfirmForm = true;
@@ -63,7 +63,7 @@
             authService
                 .confirmRegister(vm.account.email, vm.confirmCode)
                 .then(function (response) {
-                    if (response.data.result == 'SUCCESS') {
+                    if (response.data == 'SUCCESS') {
                         $state.go('page.auth.login');
                     } else {
                         vm.authMsg = response.data.result.message;

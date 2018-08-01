@@ -20,8 +20,8 @@ module.exports.main = (event, context, callback) => {
   }
   let authenticationDetails = new cognito.AWS.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
   var responseFunctions = {
-    onSuccess: (result) => {
-      result.ok(result, callback);
+    onSuccess: (response) => {
+      result.ok(response, callback);
     },
     onFailure: (err) => {
       result.ok(err, callback, NOT_AUTORIZED);

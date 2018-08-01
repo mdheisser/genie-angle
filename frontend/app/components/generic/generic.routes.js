@@ -49,7 +49,7 @@
                 url: "/register",
                 title: "SEOgenie - Register",
                 templateUrl: helper.componentPath("generic", "register"),
-                controller: "RegisterFormController as vm"
+                controller: "RegisterFormController as regCtrl"
             })
             .state("page.auth.recover", {
                 url: "/recover",
