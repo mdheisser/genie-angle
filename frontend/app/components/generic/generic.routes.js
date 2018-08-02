@@ -54,7 +54,8 @@
             .state("page.auth.recover", {
                 url: "/recover",
                 title: "Recover",
-                templateUrl: helper.componentPath("generic", "recover")
+                templateUrl: helper.componentPath("generic", "recover"),
+                controller: "LoginFormController as vm"
             })
             .state("page.lock", {
                 url: "/lock",

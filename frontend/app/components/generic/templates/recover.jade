@@ -1,11 +1,27 @@
-p.text-center.pv Reset password for 
-	img(src="/app/img/logo.png", alt="")
-form(role='form', name="recoverForm")
-	p.text-justify Fill your mail to receive instructions on how to reset your password.
-		.form-group.has-feedback
-			input#Email.mb-lg.form-control(type='email', name="account_email" placeholder='Enter email', autocomplete="on", ng-model="login.account.email", validator="required,email")
-			span.fa.fa-envelope.form-control-feedback.text-muted
-button.btn.btn-danger.btn-block(type='submit',validation-submit="reg.registerForm") RESET
+div(ng-show='!vm.showConfirmPasswordForm')
+    p.text-center.pv Reset password for
+        img(src="/app/img/logo.png", alt="")
+    form(role='form', name="recoverForm", ng-submit="vm.forgotPassword()")
+        p.text-justify We sent verification code to your email.
+            .form-group.has-feedback
+                input#Email.mb-lg.form-control(type='email', name="account_email" placeholder='Enter email', autocomplete="on", ng-model="vm.login.account.email", validator="required,email")
+                span.fa.fa-envelope.form-control-feedback.text-muted
+    button.btn.btn-danger.btn-block(type='submit',validation-submit="recoverForm", ng-click="vm.forgotPassword()") NEXT
 
-p.pt-xl.text-center Remember your password?
-		a(ui-sref="page.auth.login").mt.mb-sm.btn-block.btn-lg.btn.btn-primary.btn-outline Login
+    p.pt-xl.text-center Remember your password?
+        a(ui-sref="page.auth.login").mt.mb-sm.btn-block.btn-lg.btn.btn-primary.btn-outline Login
+div(ng-show='vm.showConfirmPasswordForm')
+    p.text-center.pv Reset password for
+        img(src="/app/img/logo.png", alt="")
+    form(role='form', name="confirmPasswordForm", ng-submit="vm.confirmPassword()")
+        p.text-justify Please input verification code and new password.
+            .form-group.has-feedback
+                input.mb-lg.form-control(type='text', name="verification_code" placeholder='Enter verification code', ng-model="vm.verificationCode", validator="required")
+                span.fa.form-control-feedback.text-muted
+            .form-group.has-feedback
+                input.mb-lg.form-control(type='password', name="newPassword" placeholder='Enter new password', ng-model="vm.newPassword", validator="required")
+                span.fa.form-control-feedback.text-muted
+    button.btn.btn-danger.btn-block(type='submit',validation-submit="confirmPasswordForm", ng-click="vm.confirmPassword()") RESET
+
+    p.pt-xl.text-center Remember your password?
+        a(ui-sref="page.auth.login").mt.mb-sm.btn-block.btn-lg.btn.btn-primary.btn-outline Login

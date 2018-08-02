@@ -39,10 +39,32 @@
             });
         };
 
+        var forgotPassword = function (username) {
+            var forgotPasswordData = {
+                username: username
+            }
+            return REST.forgotPassword({
+                forgotPasswordData: forgotPasswordData
+            });
+        };
+
+        var confirmPassword = function (username, code, password) {
+            var confirmPasswordData = {
+                username: username,
+                verificationCode: code,
+                password: password
+            }
+            return REST.confirmPassword({
+                confirmPasswordData: confirmPasswordData
+            });
+        };
+
         return {
             getUserToken: getUserToken,
             registerUser: registerUser,
-            confirmRegister: confirmRegister
+            confirmRegister: confirmRegister,
+            forgotPassword: forgotPassword,
+            confirmPassword: confirmPassword
         };
     }
 

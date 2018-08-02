@@ -37,6 +37,20 @@ functions:
           method: post
           path: /account/confirm
           cors: true
+  postAccountForgotPassword:
+    handler: aws/auth/postAccountForgotPassword.main
+    events:
+      - http:
+          method: post
+          path: /account/forgotPassword
+          cors: true
+  postAccountConfirmPassword:
+    handler: aws/auth/postAccountConfirmPassword.main
+    events:
+      - http:
+          method: post
+          path: /account/confirmPassword
+          cors: true
   getSites:
     handler: aws/sites/getSites.main
     events:

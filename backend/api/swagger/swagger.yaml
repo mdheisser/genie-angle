@@ -85,10 +85,56 @@ paths:
           description: Confirmation Data
           required: true
           schema:
-            $ref: '#/definitions/confirmData'
+            $ref: '#/definitions/confirmEmailData'
       responses:
         '200':
           description: Signup Successfull
+          schema:
+            $ref: '#/definitions/loginResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /account/forgotPassword:
+    post:
+      tags:
+        - Auth
+      description: Send request for fogotten password
+      summary: Send request for fogotten password
+      operationId: forgotPassword
+      parameters:
+        - name: forgotPasswordData
+          in: body
+          description: forgot password data
+          required: true
+          schema:
+            $ref: '#/definitions/forgotPasswordData'
+      responses:
+        '200':
+          description: Send request successfully
+          schema:
+            $ref: '#/definitions/loginResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /account/confirmPassword:
+    post:
+      tags:
+        - Auth
+      description: Confirm Password
+      summary: Confirm Password
+      operationId: confirmPassword
+      parameters:
+        - name: confirmPasswordData
+          in: body
+          description: confirm password data
+          required: true
+          schema:
+            $ref: '#/definitions/confirmPasswordData'
+      responses:
+        '200':
+          description: Confirm email Successfull
           schema:
             $ref: '#/definitions/loginResponse'
         default:
@@ -489,7 +535,7 @@ definitions:
     properties:
       result:
         type: object
-  confirmData:
+  confirmEmailData:
     type: object
     required:
       - username
@@ -498,6 +544,26 @@ definitions:
       username:
         type: string
       code:
+        type: string
+  forgotPasswordData:
+    type: object
+    required:
+      - username
+    properties:
+      username:
+        type: string
+  confirmPasswordData:
+    type: object
+    required:
+      - username
+      - verificationCode
+      - password
+    properties:
+      username:
+        type: string
+      verificationCode:
+        type: string
+      password:
         type: string
   site:
     type: object

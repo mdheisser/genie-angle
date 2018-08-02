@@ -222,6 +222,80 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
+             * Send request for fogotten password
+             * @method
+             * @name API#forgotPassword
+             * @param {object} parameters - method options and parameters
+             * @param {} parameters.forgotPasswordData - forgot password data
+             */
+            API.prototype.forgotPassword = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/account/forgotPassword';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['forgotPasswordData'] !== undefined) {
+                    body = parameters['forgotPasswordData'];
+                }
+
+                if (parameters['forgotPasswordData'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: forgotPasswordData'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Confirm Password
+             * @method
+             * @name API#confirmPassword
+             * @param {object} parameters - method options and parameters
+             * @param {} parameters.confirmPasswordData - confirm password data
+             */
+            API.prototype.confirmPassword = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/account/confirmPassword';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['confirmPasswordData'] !== undefined) {
+                    body = parameters['confirmPasswordData'];
+                }
+
+                if (parameters['confirmPasswordData'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: confirmPasswordData'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
              * Returns user's sites
              * @method
              * @name API#getUserSites
