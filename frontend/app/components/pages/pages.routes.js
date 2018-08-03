@@ -24,7 +24,11 @@
             templateUrl: helper.componentPath("pages/dashboard", "pagesDashboard"),
             resolve: helper.resolveFor(
                 "ng-bootstrap-select"
-            )
+            ),
+            data: {
+                // Allow authenticated users
+                roles: ['@']
+            }
         })
         .state("app.pages-manage", {
             url: "/pages-manage",
@@ -37,7 +41,11 @@
                 "highcharts-export",
                 "highcharts-ng",
                 "ui.select"
-            )
+            ),
+            data: {
+                // Allow authenticated users
+                roles: ['@']
+            }
         })
         .state("app.pages-manage.filter", {
             url: "/filter"

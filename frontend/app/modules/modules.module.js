@@ -5,6 +5,7 @@
     "use strict";
 
     angular.module("app.modules", [
+        "app.auth",
         "app.core",
         "app.routes",
         "app.sidebar",

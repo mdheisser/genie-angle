@@ -5,9 +5,9 @@
 		.module('app.core')
 		.run(appRun);
 
-	appRun.$inject = ['$rootScope', '$state', '$stateParams', '$window', '$templateCache', 'Colors'];
+	appRun.$inject = ['$rootScope', '$state', '$stateParams', '$window', '$templateCache', 'Colors', 'auth'];
 
-	function appRun($rootScope, $state, $stateParams, $window, $templateCache, Colors) {
+	function appRun($rootScope, $state, $stateParams, $window, $templateCache, Colors, auth) {
 
 		// Set reference to access them from any scope
 		$rootScope.$state = $state;
@@ -61,6 +61,8 @@
 			document.title = title;
 			return title;
 		};
+
+		auth.initialize();
 
 	}
 

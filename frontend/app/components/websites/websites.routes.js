@@ -21,14 +21,22 @@
             .state("app.websites-dashboard", {
                 url: "/websites-dashboard",
                 templateUrl: helper.componentPath("websites/dashboard", "websites-dashboard"),
-                resolve: helper.resolveFor("ng-bootstrap-select")
+                resolve: helper.resolveFor("ng-bootstrap-select"),
+                data: {
+                    // Allow authenticated users
+                    roles: ['@']
+                }
             })
             .state("app.websites-settings", {
                 url: "/websites-settings",
                 templateUrl: helper.componentPath("websites/settings", "websites-settings"),
                 resolve: helper.resolveFor(
                     'smart-table',
-                    'ng-bootstrap-select')
+                    'ng-bootstrap-select'),
+                data: {
+                    // Allow authenticated users
+                    roles: ['@']
+                }
             })
             .state("app.websites-manage", {
                 url: "/websites-manage",
@@ -39,7 +47,11 @@
                     "highcharts",
                     "highcharts-export",
                     "highcharts-ng"
-                )
+                ),
+                data: {
+                    // Allow authenticated users
+                    roles: ['@']
+                }
             })
             .state("app.websites-manage.best", {
                 url: "/best"

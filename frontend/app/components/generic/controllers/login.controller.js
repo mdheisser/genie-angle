@@ -5,9 +5,9 @@
         .module("components.generic")
         .controller("LoginFormController", LoginFormController);
 
-    LoginFormController.$inject = ["$http", "$state", "authService"];
+    LoginFormController.$inject = ["$http", "$state", "authService", "auth"];
 
-    function LoginFormController($http, $state, authService) {
+    function LoginFormController($http, $state, authService, auth) {
         var vm = this;
 
         vm.login = login;
@@ -32,6 +32,11 @@
                 .then(function (response) {
                     console.log('*** Login Response ***')
                     console.log(response.data);
+                    var token = response.data.accessToken.jwtToken;
+                    var user = {
+                        name: 'Developer'
+                    };
+                    auth.login(token, user);
                     $state.go('app.dashoard');
                 }, function (err) {
                     if (err.body.data.statusCode == 400) {
@@ -44,7 +49,6 @@
 
         // Forgot password
         function forgotPassword() {
-            console.log(vm.login.account.email);
             authService
                 .forgotPassword(vm.login.account.email)
                 .then(function (response) {
@@ -62,7 +66,6 @@
 
         // Confirm password
         function confirmPassword() {
-            console.log(vm.login.account.email);
             authService
                 .confirmPassword(vm.login.account.email, vm.verificationCode, vm.newPassword)
                 .then(function (response) {

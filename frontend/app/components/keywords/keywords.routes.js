@@ -27,7 +27,11 @@
                 "highcharts",
                 "highcharts-export",
                 "highcharts-ng"
-            )
+            ),
+            data: {
+                // Allow authenticated users
+                roles: ['@']
+            }
         })
         .state("app.keywords-dashboard.statistics", {
             url: "/statistics"
@@ -49,7 +53,11 @@
                 "highcharts",
                 "highcharts-export",
                 "highcharts-ng"
-            )
+            ),
+            data: {
+                // Allow authenticated users
+                roles: ['@']
+            }
         })
         .state("app.keywords-manage.filter", {
             url: "/filter"
@@ -69,7 +77,11 @@
             templateUrl: helper.componentPath("keywords/addkeyword", "add-keywords"),
             resolve: helper.resolveFor(
                 "ng-bootstrap-select"
-            )
+            ),
+            data: {
+                // Allow authenticated users
+                roles: ['@']
+            }
         });
     }
 })(angular);

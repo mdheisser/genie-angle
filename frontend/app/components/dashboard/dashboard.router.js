@@ -23,7 +23,11 @@
             url: "/dashboard",
             title: "Welcome",
             templateUrl: helper.componentPath("dashboard"),
-            controller: "DashboardController as vm"
+            controller: "DashboardController as vm",
+            data: {
+                // Allow authenticated users
+                roles: ['@']
+            }
         });
     }
 })();
