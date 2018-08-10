@@ -7,11 +7,11 @@
 
     pagesManageController.$inject = [
         '$rootScope', '$scope', '$window', '$stateParams', '$timeout', '$mdDialog', '$localStorage', '$location', '$state',
-        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'pagesService', 'convertPagesManageDataFilter', 'convertPageDataFilter', 'convertPageKeywordsFilter'];
+        'Notify', 'filterFilter', 'commonService', 'websitesService', 'keywordsService', 'pagesService', 'convertPagesManageDataFilter', 'convertPageDataFilter'];
 
     function pagesManageController(
         $rootScope, $scope, $window, $stateParams, $timeout, $mdDialog, $localStorage, $location, $state,
-        Notify, filterFilter, commonService, websitesService, keywordsService, pagesService, convertPagesManageDataFilter, convertPageDataFilter, convertPageKeywordsFilter) {
+        Notify, filterFilter, commonService, websitesService, keywordsService, pagesService, convertPagesManageDataFilter, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 

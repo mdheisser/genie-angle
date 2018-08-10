@@ -2,12 +2,12 @@
     'use strict';
 
     angular
-        .module('components.pages')
-        .filter('convertPageKeywords', convertPageKeywords)
+        .module('components.keywords')
+        .filter('convertKeywordData', convertKeywordData)
 
-    convertPageKeywords.$inject = [];
+    convertKeywordData.$inject = [];
 
-    function convertPageKeywords() {
+    function convertKeywordData() {
 
         return function (input) {
             var output = [];
@@ -25,23 +25,22 @@
                     item.ranking = 4;
                 }
 
-                // Set filter option for assigned state.
-                if (item.assignedState == true) {
-                    item.keyword_assign = 'assign';
-
-                    // Set filter option for system or manual assigned state.
-                    if (item.auto_assign == true) {
-                        item.assign_by = 'system';
-                    } else {
-                        item.assign_by = 'manual';
-                    }
-                } else {
-                    item.keyword_assign = 'not-assign';
-                }
-
                 item.selected = false;
                 item.expanded = false;
                 item.showActions = false;
+                item.forced_min = 1;
+                item.forced_max = 7;
+                item.auto_assign = false;
+                item.keyword = item.text;
+                item.g = item.googleRanking;
+                item.y = item.yahooRanking;
+                item.m = item.bingRanking;
+                item.category = {
+                    defalut: item.isDefault,
+                    promoted: item.isPromoted,
+                    monitored: item.isMonitored,
+                    forced: item.isForced
+                }
 
                 output.push(item);
             });

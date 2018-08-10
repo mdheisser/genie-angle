@@ -5,9 +5,9 @@
         .module('components.pages')
         .controller('pagesExpandController', pagesExpandController)
 
-    pagesExpandController.$inject = ['$scope', '$mdDialog', 'keywordsService', 'pagesService', 'convertPageKeywordsFilter'];
+    pagesExpandController.$inject = ['$scope', '$mdDialog', 'keywordsService', 'pagesService', 'convertKeywordDataFilter'];
 
-    function pagesExpandController($scope, $mdDialog, keywordsService, pagesService, convertPageKeywordsFilter) {
+    function pagesExpandController($scope, $mdDialog, keywordsService, pagesService, convertKeywordDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -21,6 +21,7 @@
         vm.showKeywordChart = showKeywordChart;
         vm.showKeywordSetting = showKeywordSetting;
         vm.resetViolationFilter = resetViolationFilter;
+        vm.onActivePromotedKeyword = onActivePromotedKeyword;
 
         activate();
 
@@ -51,7 +52,7 @@
             pagesService
                 .getPageDetail(pageID)
                 .then(function (response) {
-                    vm.pagesExpandCollection = convertPageKeywordsFilter(response.data.autoKeywordIDs);
+                    vm.pagesExpandCollection = convertKeywordDataFilter(response.data.autoKeywordIDs);
                     vm.pageViolationCollection = response.data.violations;
                     vm.showExpandAdditionalFilter = true;
                     vm.showPageKeywordFilterPane = true;
@@ -180,6 +181,37 @@
                 }
             }
         });
+
+        // Active/Deactive promoted keyword.
+        function onActivePromotedKeyword(row) {
+
+            var keywordID = row._id;
+
+            if (row.category.promoted === true) {
+                var data = {
+                    isPromoted: true,
+                    isMonitored: true
+                }
+                keywordsService
+                    .updateKeyword(keywordID, data)
+                    .then(function (response) {
+                        console.log('Activate promoted keyword!');
+                        console.log(response.data);
+                        getKeywords(vm.selectedSite._id);
+                    });
+            } else {
+                var data = {
+                    isPromoted : false
+                }
+                keywordsService
+                    .updateKeyword(keywordID, data)
+                    .then(function (response) {
+                        console.log('Deactivate promoted keyword');
+                        console.log(response.data);
+                        getKeywords(vm.selectedSite._id);
+                    });
+            }
+        }
     }
 
 })(angular);

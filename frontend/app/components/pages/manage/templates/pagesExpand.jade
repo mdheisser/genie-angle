@@ -1,4 +1,4 @@
-.expanded-page(ng-controller='pagesExpandController as pec', ng-init='pec.init(page._id)')
+.expanded-page(ng-controller='pagesExpandController as peCtrl', ng-init='peCtrl.init(page._id)')
     .row
         .col-md-4
             #page_setting.panel
@@ -69,61 +69,61 @@
         .panel-wrapper(uib-collapse="pages_assign_key")
             .panel-body
                 .container-fluid
-                    table.custom-table(st-table="pagesExpansionCollection", st-safe-src='pec.pagesExpandCollection', st-set-filter="additionalFilter", st-filtered-collection='pageKeyword')
+                    table.custom-table(st-table="pagesExpansionCollection", st-safe-src='peCtrl.pagesExpandCollection', st-set-filter="additionalFilter", st-filtered-collection='pageKeyword')
                         thead.table-control
                             tr
                                 td.text-right(colspan="7")
                                     a.pull-left.btn.btn-primary.btn-outline.btn-oval.btn-xs(href='/#/app/keywords-add')
                                         i.fa.fa-plus
                                     .pull-left.ml.mda-input-group
-                                        input#searchForkeyword.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="pec.showExpandAdditionalFilter=true")
+                                        input#searchForkeyword.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="peCtrl.showExpandAdditionalFilter=true")
                                         span.mda-input-group-addon
                                             em.fa.fa-search
-                                        overlay-popup#pages_expand_filter(active='pec.showExpandAdditionalFilter', width='450')
+                                        overlay-popup#pages_expand_filter(active='peCtrl.showExpandAdditionalFilter', width='450')
                                             div(ng-include="'app/components/pages/manage/templates/keywordsFilter.html'")
                                     .pull-left
                                         fiter-condition(condition-for='keyword')
                                     .pull-left.pl.filter-title Filter
                                     .pull-left.ml
-                                        md-switch.m0(ng-model='pec.expandFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='pec.expandFilterOn',  st-reset='', ng-disabled='!pec.expandFilterOn', ng-click='pec.resetPageKeywordFilter()')
-                                    .pull-right(st-pagination='', st-items-by-page="pec.numberOfRowsForKeywordGrid.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pec.detailCurrentPage = newPage")
+                                        md-switch.m0(ng-model='peCtrl.expandFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='peCtrl.expandFilterOn',  st-reset='', ng-disabled='!peCtrl.expandFilterOn', ng-click='peCtrl.resetPageKeywordFilter()')
+                                    .pull-right(st-pagination='', st-items-by-page="peCtrl.numberOfRowsForKeywordGrid.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="peCtrl.detailCurrentPage = newPage")
                                     .pull-right.display-rows
                                         label Display
                                         label
-                                            select(selectpicker='', ng-model="pec.numberOfRowsForKeywordGrid", ng-options='item.label for item in pec.itemsByPageForKeywordGrid')
-                                    .pull-right.mr(style='padding-top:2px;', ng-click='pec.exportPageKeywordTable()')
+                                            select(selectpicker='', ng-model="peCtrl.numberOfRowsForKeywordGrid", ng-options='item.label for item in peCtrl.itemsByPageForKeywordGrid')
+                                    .pull-right.mr(style='padding-top:2px;', ng-click='peCtrl.exportPageKeywordTable()')
                                         span Export
                                         em.fa.fa-file-excel-o
                         thead
                             tr
                                 th.text-center.row-index #
                                 th(st-sort="text") Keywords
-                                th.text-center(st-sort="g", style='width:55px;')
+                                th.text-center(st-sort="googleRanking", style='width:55px;')
                                     i.glyphicon.socicon-google
-                                th.text-center(st-sort="y", style='width:55px;')
+                                th.text-center(st-sort="yahooRanking", style='width:55px;')
                                     i.glyphicon.socicon-yahoo
-                                th.text-center(st-sort="m", style='width:55px;')
+                                th.text-center(st-sort="bingRanking", style='width:55px;')
                                     i.glyphicon.socicon-bing
                                 th.text-center(st-sort="activepages", style='width:140px;') Active Pages
                         tbody
-                            tr(st-select-row="row", st-select-mode="single", ng-repeat="row in pagesExpansionCollection", ng-class='{true: "bg-blue-100", false:""}[row.assignedState]', ng-click='pec.onPageKeywordAction(row, $event)')
-                                td.text-center {{ ((pec.detailCurrentPage-1) * pec.numberOfRowsForKeywordGrid.value) + $index + 1 }}
+                            tr(st-select-row="row", st-select-mode="single", ng-repeat="row in pagesExpansionCollection", ng-class='{true: "bg-blue-100", false:""}[row.assignedState]', ng-click='peCtrl.onPageKeywordAction(row, $event)')
+                                td.text-center {{ ((peCtrl.detailCurrentPage-1) * peCtrl.numberOfRowsForKeywordGrid.value) + $index + 1 }}
                                 td.keyword-col
                                     .pull-left.keyword-label
                                         span.m0(data-toggle='tooltip', title='{{row.text}}') {{ row.text }}
-                                        i.fa.fa-caret-down.ml-sm(ng-click="pec.showKeywordSetting(row, $event)")
+                                        i.fa.fa-caret-down.ml-sm(ng-click="peCtrl.showKeywordSetting(row, $event)")
                                     .pull-right.keyword-control
-                                        em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='pec.showKeywordChart(row, $event)')
+                                        em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='peCtrl.showKeywordChart(row, $event)')
                                         label.m0.pull-right
-                                            md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)', ng-click='$event.stopPropagation()')
+                                            md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='peCtrl.onActivePromotedKeyword(row)', ng-click='$event.stopPropagation()')
                                 td.text-center.text-warning
-                                    i.fa.fa-angle-double-down(uib-tooltip='Google.com. SERP Ranking: Page {{row.activepages}}, Position {{row.g}}')
-                                        span.font-roboto.ml-sm {{ row.g }}
+                                    i.fa.fa-angle-double-down(uib-tooltip='Google.com. SERP Ranking: Page {{row.activepages}}, Position {{row.googleRanking}}')
+                                        span.font-roboto.ml-sm {{ row.googleRanking }}
                                 td.text-center.text-danger
-                                    i.fa.fa-angle-double-up(uib-tooltip='Yahoo.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.y}}')
-                                        span.font-roboto.ml-sm {{ row.y }}
+                                    i.fa.fa-angle-double-up(uib-tooltip='Yahoo.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.yahooRanking}}')
+                                        span.font-roboto.ml-sm {{ row.yahooRanking }}
                                 td.text-center.text-success
-                                    span.font-roboto.ml-sm(uib-tooltip='Bing.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.m}}') {{ row.m }}
+                                    span.font-roboto.ml-sm(uib-tooltip='Bing.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.bingRanking}}') {{ row.bingRanking }}
                                 td.progress-col.pl-sm
                                     .pull-left.text-center.pr-sm
                                         span.mr-sm(uib-tooltip='Keyword Assigned to {{row.activepages}} Pages') {{ row.activepages }}
@@ -142,27 +142,27 @@
         .panel-wrapper(uib-collapse="pages_violation")
             .panel-body
                 .container-fluid
-                    table.custom-table(st-table="pageViolationCollection", st-safe-src='pec.pageViolationCollection', st-set-filter="additionalFilter", st-filtered-collection='pageViolation')
+                    table.custom-table(st-table="pageViolationCollection", st-safe-src='peCtrl.pageViolationCollection', st-set-filter="additionalFilter", st-filtered-collection='pageViolation')
                         thead.table-control
                             tr
                                 td.text-right(colspan="7")
                                     .pull-left.mda-input-group
-                                        input#searchFordescription.mda-form-control(type='text', st-search='description', placeholder='Filter/Search', ng-click="pec.showViolationFilter=true")
+                                        input#searchFordescription.mda-form-control(type='text', st-search='description', placeholder='Filter/Search', ng-click="peCtrl.showViolationFilter=true")
                                         span.mda-input-group-addon
                                             em.fa.fa-search
-                                        overlay-popup(active='pec.showViolationFilter', width='177')
+                                        overlay-popup(active='peCtrl.showViolationFilter', width='177')
                                             div(ng-include="'app/components/pages/manage/templates/violationFilter.html'")
                                     .pull-left
                                         fiter-condition(condition-for='description')
                                     .pull-left.pl.filter-title Filter
                                     .pull-left.ml
-                                        md-switch.m0(ng-model='pec.violationFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='pec.violationFilterOn',  st-reset='', ng-disabled='!pec.violationFilterOn', ng-click='pec.resetViolationFilter()')
-                                    .pull-right(st-pagination='', st-items-by-page="pec.numberOfRowsForViolationGrid.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pec.violationCurrentPage = newPage")
+                                        md-switch.m0(ng-model='peCtrl.violationFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='peCtrl.violationFilterOn',  st-reset='', ng-disabled='!peCtrl.violationFilterOn', ng-click='peCtrl.resetViolationFilter()')
+                                    .pull-right(st-pagination='', st-items-by-page="peCtrl.numberOfRowsForViolationGrid.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="peCtrl.violationCurrentPage = newPage")
                                     .pull-right.display-rows
                                         label Display
                                         label
-                                            select(selectpicker='', ng-model="pec.numberOfRowsForViolationGrid", ng-options='item.label for item in pec.itemsByPageForViolationGrid')
-                                    .pull-right.mr(style='padding-top:2px;', ng-click='pec.exportPageViolationTable()')
+                                            select(selectpicker='', ng-model="peCtrl.numberOfRowsForViolationGrid", ng-options='item.label for item in peCtrl.itemsByPageForViolationGrid')
+                                    .pull-right.mr(style='padding-top:2px;', ng-click='peCtrl.exportPageViolationTable()')
                                         span Export
                                         em.fa.fa-file-excel-o
                         thead
@@ -174,7 +174,7 @@
                                 th(st-sort="action") Recommendation/Actions
                         tbody
                             tr(st-select-row="row", st-select-mode="single", ng-repeat="row in pageViolationCollection")
-                                td.text-center.p-sm {{ ((pec.violationCurrentPage-1) * pec.numberOfRowsForViolationGrid.value) + $index + 1 }}
+                                td.text-center.p-sm {{ ((peCtrl.violationCurrentPage-1) * peCtrl.numberOfRowsForViolationGrid.value) + $index + 1 }}
                                 td.p-sm
                                     span.pull-left {{ row.status | pageViolationStatus }}
                                     em.pull-right.fa(ng-class='{1:"fa-info-circle text-danger", 2:"fa-warning text-warning", 3:"fa-warning text-primary", 4:"fa-check text-success"}[row.status]')

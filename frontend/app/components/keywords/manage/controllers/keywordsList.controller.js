@@ -7,12 +7,12 @@
 
     keywordsListController.$inject = [
         '$rootScope', '$scope', '$timeout', '$resource', '$q', '$mdDialog', '$window', '$localStorage', '$state',
-        '$location', 'commonService', 'keywordsService', 'websitesService', 'Notify', 'filterFilter', 'convertTableDataFilter', 'convertPageDataFilter'
+        '$location', 'commonService', 'keywordsService', 'websitesService', 'Notify', 'filterFilter', 'convertKeywordDataFilter', 'convertPageDataFilter'
     ];
 
     function keywordsListController(
         $rootScope, $scope, $timeout, $resource, $q, $mdDialog, $window, $localStorage,  $state,
-        $location, commonService, keywordsService, websitesService, Notify, filterFilter, convertTableDataFilter, convertPageDataFilter) {
+        $location, commonService, keywordsService, websitesService, Notify, filterFilter, convertKeywordDataFilter, convertPageDataFilter) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -150,7 +150,7 @@
             keywordsService
                 .getKeywords(siteId)
                 .then(function (response) {
-                    vm.rowCollection = convertTableDataFilter(response.data);
+                    vm.rowCollection = convertKeywordDataFilter(response.data);
 
                     if(vm.savedExpandedRowId != null) {
                         vm.rowCollection.find(function(item) {

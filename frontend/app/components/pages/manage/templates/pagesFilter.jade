@@ -57,9 +57,9 @@ div(ng-controller='pagesManageFilterController as pmfc')
                         td.text-center
                             em.fa(ng-class='item.icon')
                             label.mda-checkbox
-                                input.violate-option(type='checkbox',
+                                input.violationState-option(type='checkbox',
                                     st-pages-rank-search='',
-                                    rank-type='violate',
+                                    rank-type='violationState',
                                     value='{{item.value}}',
                                     ng-model='item.seoSelected')
                                 em.bg-indigo-500
