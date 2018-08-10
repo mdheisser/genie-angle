@@ -37,7 +37,7 @@ h3.content-heading.text-bold
                         th.text-center.p-sm #
                         th(st-sort="pageUrl") Site Pages
                         th.text-center(st-sort="keywords", style="width:70px;") Keywords
-                        th.text-center(st-sort="violate", style="width:113px;") SEO Violations
+                        th.text-center(st-sort="violationState", style="width:113px;") SEO Violations
                         th.text-center Score
                         th.text-center.actions-col(ng-click="pageMCtrl.showBulkAction=!pageMCtrl.showBulkAction")
                             label.mda-checkbox
@@ -66,7 +66,7 @@ h3.content-heading.text-bold
                             overlay-popup(active='page.showKeywordsPopup', width='135')
                                 div(ng-include="'app/components/keywords/manage/templates/pageKeywordPopup.html'")
                         td.text-center(ng-click='pageMCtrl.expandViolationGrid(page, $event)')
-                            em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-primary", 3:"fa-warning text-warning", 4:"fa-info-circle text-danger"}[page.violate]')
+                            em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-primary", 3:"fa-warning text-warning", 4:"fa-info-circle text-danger"}[page.violationState]')
                             em.fa.fa-caret-down.text-grey
                         td.score-col.pl.pr
                             .color-bar

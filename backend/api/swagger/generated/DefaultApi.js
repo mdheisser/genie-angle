@@ -654,11 +654,11 @@ angular.module('API', [])
             /**
              * fetch page data
              * @method
-             * @name API#getPagesByPageId
+             * @name API#getPageDetail
              * @param {object} parameters - method options and parameters
              * @param {string} parameters.pageId - Site Id of needed site
              */
-            API.prototype.getPagesByPageId = function(parameters) {
+            API.prototype.getPageDetail = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -689,12 +689,12 @@ angular.module('API', [])
             /**
              * Update Page
              * @method
-             * @name API#putPagesByPageId
+             * @name API#updatePage
              * @param {object} parameters - method options and parameters
              * @param {string} parameters.pageId - Site Id of needed site
-             * @param {} parameters.page - Keyword Data
+             * @param {} parameters.page - Page Data
              */
-            API.prototype.putPagesByPageId = function(parameters) {
+            API.prototype.updatePage = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
@@ -767,19 +767,18 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * Returns violation status of the page
+             * Returns all violations
              * @method
-             * @name API#getPageViolation
+             * @name API#getAllViolations
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.pageId - Page Id of needed page
              */
-            API.prototype.getPageViolation = function(parameters) {
+            API.prototype.getAllViolations = function(parameters) {
                 if (parameters === undefined) {
                     parameters = {};
                 }
                 var deferred = $q.defer();
                 var domain = this.domain,
-                    path = '/page/{pageId}/violation';
+                    path = '/violations';
                 var body = {},
                     queryParameters = {},
                     headers = {},
@@ -788,16 +787,126 @@ angular.module('API', [])
                 headers['Accept'] = ['application/json'];
                 headers['Content-Type'] = ['application/json'];
 
-                path = path.replace('{pageId}', parameters['pageId']);
+                queryParameters = mergeQueryParams(parameters, queryParameters);
 
-                if (parameters['pageId'] === undefined) {
-                    deferred.reject(new Error('Missing required  parameter: pageId'));
+                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Add new violation to the System
+             * @method
+             * @name API#createViolation
+             * @param {object} parameters - method options and parameters
+             * @param {} parameters.violation - Violation Data
+             */
+            API.prototype.createViolation = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/violations';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                if (parameters['violation'] !== undefined) {
+                    body = parameters['violation'];
+                }
+
+                if (parameters['violation'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: violation'));
                     return deferred.promise;
                 }
 
                 queryParameters = mergeQueryParams(parameters, queryParameters);
 
-                this.request('GET', domain + path, parameters, body, headers, queryParameters, form, deferred);
+                this.request('POST', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Update Violation
+             * @method
+             * @name API#updateViolation
+             * @param {object} parameters - method options and parameters
+             * @param {string} parameters.id - violation id
+             * @param {} parameters.violation - Violation Data
+             */
+            API.prototype.updateViolation = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/violations/{id}';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                path = path.replace('{id}', parameters['id']);
+
+                if (parameters['id'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: id'));
+                    return deferred.promise;
+                }
+
+                if (parameters['violation'] !== undefined) {
+                    body = parameters['violation'];
+                }
+
+                if (parameters['violation'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: violation'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('PUT', domain + path, parameters, body, headers, queryParameters, form, deferred);
+
+                return deferred.promise;
+            };
+            /**
+             * Delete violation from the system
+             * @method
+             * @name API#deleteViolation
+             * @param {object} parameters - method options and parameters
+             * @param {string} parameters.id - violation id
+             */
+            API.prototype.deleteViolation = function(parameters) {
+                if (parameters === undefined) {
+                    parameters = {};
+                }
+                var deferred = $q.defer();
+                var domain = this.domain,
+                    path = '/violations/{id}';
+                var body = {},
+                    queryParameters = {},
+                    headers = {},
+                    form = {};
+
+                headers['Accept'] = ['application/json'];
+                headers['Content-Type'] = ['application/json'];
+
+                path = path.replace('{id}', parameters['id']);
+
+                if (parameters['id'] === undefined) {
+                    deferred.reject(new Error('Missing required  parameter: id'));
+                    return deferred.promise;
+                }
+
+                queryParameters = mergeQueryParams(parameters, queryParameters);
+
+                this.request('DELETE', domain + path, parameters, body, headers, queryParameters, form, deferred);
 
                 return deferred.promise;
             };

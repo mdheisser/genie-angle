@@ -40,6 +40,7 @@
         vm.languages = [];
         vm.expandViolationGrid = expandViolationGrid;
         vm.expandKeywordsGrid = expandKeywordsGrid;
+        vm.setManualPromotion = setManualPromotion;
 
         activate();
 
@@ -116,7 +117,7 @@
                 .then(function (response) {
                     vm.sites = response.data;
                     vm.selectedSite = vm.sites[0];
-                    getPages(vm.selectedSite.id);
+                    getPages(vm.selectedSite._id);
                     getLanguages(vm.selectedSite.id);
                 });
         }
@@ -127,7 +128,6 @@
                 .getPages(siteId)
                 .then(function (response) {
                     vm.pagesList = convertPagesManageDataFilter(response.data);
-
                     setRoute();
                 });
         }
@@ -330,6 +330,19 @@
                     vm.languages = response.data;
                     vm.selectedLanguage.push(vm.languages[1]);
                 });
+        }
+
+        // Set manual promotion for page
+        function setManualPromotion(page, event) {
+            var data = {
+                isPromoted: !page.category.promoted
+            }
+            pagesService
+                .updatePage(page._id, data)
+                .then(function (response) {
+                    console.log('Updated promotion state for page.');
+                });
+            event.stopPropagation();
         }
     }
 

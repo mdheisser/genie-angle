@@ -365,6 +365,7 @@ paths:
       description: fetch page data
       tags: 
         - Pages
+      operationId: getPageDetail
       parameters:
         - name: pageId
           in: path
@@ -381,6 +382,7 @@ paths:
         - Pages
       description: Update Page
       summary: Update Page
+      operationId: updatePage
       parameters:
         - name: pageId
           in: path
@@ -388,8 +390,8 @@ paths:
           required: true
           type: string
         - in: body
-          name: Page
-          description: Keyword Data
+          name: page
+          description: Page Data
           required: true
           schema:
             $ref: '#/definitions/page'
@@ -422,21 +424,15 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/error'
-  /page/{pageId}/violation:
+  /violations:
     get:
-      tags: 
-        - Pages
-      description: Returns violation status of the page
-      operationId: getPageViolation
-      summary: Get violations for page
+      tags:
+        - Violation
+      description: Returns all violations
+      operationId: getAllViolations
+      summary: Get all violations
       produces:
         - application/json
-      parameters:
-        - name: pageId
-          in: path
-          description: Page Id of needed page
-          required: true
-          type: string
       responses:
         '200':
           description: A list of page violation.
@@ -444,6 +440,77 @@ paths:
             type: array
             items:
               $ref: '#/definitions/violation'
+    post:
+      tags:
+        - Violation
+      description: Add new violation to the System
+      operationId: createViolation
+      summary: Add new violation to the System
+      parameters:
+        - in: body
+          name: violation
+          description: Violation Data
+          required: true
+          schema:
+            $ref: '#/definitions/violation'
+      responses:
+        '200':
+          description: Successfully added new violation
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /violations/{id}:
+    put:
+      tags:
+        - Violation
+      description: Update Violation
+      summary: Update Violation
+      operationId: updateViolation
+      parameters:
+        - name: id
+          in: path
+          description: violation id
+          required: true
+          type: string
+        - in: body
+          name: violation
+          description: Violation Data
+          required: true
+          schema:
+            $ref: '#/definitions/violation'
+      responses:
+        '200':
+          description: Successfully updated violation
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      tags:
+        - Violation
+      parameters:
+        - name: id
+          in: path
+          description: violation id
+          required: true
+          type: string
+      description: Delete violation from the system
+      summary: Delete violation
+      operationId: deleteViolation
+      responses:
+        '200':
+          description: Successfully deleted violation
+          schema:
+            $ref: '#/definitions/apiResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
   /users:
     get:
       tags: 
@@ -666,11 +733,15 @@ definitions:
   violation:
     type: object
     required:
-      - pageId
+      - status
     properties:
-      pageId:
-        type: string
       status:
+        type: number
+      category:
+        type: string
+      description:
+        type: string
+      action:
         type: string
   user:
     type: object

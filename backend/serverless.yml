@@ -149,12 +149,33 @@ functions:
           method: delete
           path: '/pages/{pageId}'
           cors: true
-  getPagePageIdViolation:
-    handler: aws/pages/getPagePageIdViolation.main
+  getViolations:
+    handler: aws/violations/getViolations.main
     events:
       - http:
           method: get
-          path: '/page/{pageId}/violation'
+          path: '/violations'
+          cors: true
+  postViolations:
+    handler: aws/violations/postViolations.main
+    events:
+      - http:
+          method: post
+          path: /violations
+          cors: true
+  putViolationsId:
+    handler: aws/violations/putViolationsId.main
+    events:
+      - http:
+          method: put
+          path: '/violations/{id}'
+          cors: true
+  deleteViolationsId:
+    handler: aws/violations/deleteViolationsId.main
+    events:
+      - http:
+          method: delete
+          path: '/violations/{id}'
           cors: true
   getUsers:
     handler: aws/users/getUsers.main

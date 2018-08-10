@@ -1,4 +1,4 @@
-.expanded-page(ng-controller='pagesExpandController as pec')
+.expanded-page(ng-controller='pagesExpandController as pec', ng-init='pec.init(page._id)')
     .row
         .col-md-4
             #page_setting.panel
@@ -53,9 +53,9 @@
                     paneltool(tool-collapse, ng-init="page_description=false")
                 .panel-wrapper(uib-collapse="page_description")
                     .panel-body.pt-sm
-                        a Herbal medicine | University of Maryland Medical Center
+                        a {{ page.title }}
                         p.m0 www.umm.deu >...> Complementary and Alternative Medicine Guide > Treatment
-                        p The most commonly used herbal supplements in the U.S. include: Echinacea (Echinacea purpurea and related species> St. John's wort(Hypericum perforatum) Ginkgo (Ginkgo biloba) Garlic (Allium sativum) Saw palmetto (Serrenoa repens) Ginseng (Panax ginseng or Asian ginseng) and Panax guinquefoluis or Amerian ginseng)
+                        p {{ page.description }}
                         div
                             span.pull-left Auto Generate Title/Description
                             .pull-left.pl
@@ -97,7 +97,7 @@
                         thead
                             tr
                                 th.text-center.row-index #
-                                th(st-sort="keyword") Keywords
+                                th(st-sort="text") Keywords
                                 th.text-center(st-sort="g", style='width:55px;')
                                     i.glyphicon.socicon-google
                                 th.text-center(st-sort="y", style='width:55px;')
@@ -110,7 +110,7 @@
                                 td.text-center {{ ((pec.detailCurrentPage-1) * pec.numberOfRowsForKeywordGrid.value) + $index + 1 }}
                                 td.keyword-col
                                     .pull-left.keyword-label
-                                        span.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.keyword }}
+                                        span.m0(data-toggle='tooltip', title='{{row.text}}') {{ row.text }}
                                         i.fa.fa-caret-down.ml-sm(ng-click="pec.showKeywordSetting(row, $event)")
                                     .pull-right.keyword-control
                                         em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='pec.showKeywordChart(row, $event)')

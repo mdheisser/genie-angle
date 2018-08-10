@@ -11,6 +11,7 @@
         /* jshint validthis:true */
         var vm = this;
 
+        vm.init = init;
         vm.pagesExpandCollection = [];
         vm.pageViolationCollection = [];
         vm.detailCurrentPage = 1;
@@ -38,32 +39,25 @@
             vm.numberOfRowsForKeywordGrid = dropdownOptions[1];
             vm.itemsByPageForViolationGrid = dropdownOptions;
             vm.numberOfRowsForViolationGrid = dropdownOptions[1];
+        }
 
-            getKeywordDetail('1');
-            getViolationData();
+        // Initialize
+        function init(pageID) {
+            getAssignedKeywords(pageID);
         }
 
         // Get selected keyword's detail information.
-        function getKeywordDetail(keywordID) {
-            keywordsService
-                .getKeywords(keywordID)
+        function getAssignedKeywords(pageID) {
+            pagesService
+                .getPageDetail(pageID)
                 .then(function (response) {
-                    vm.pagesExpandCollection = convertPageKeywordsFilter(response.data);
-
+                    vm.pagesExpandCollection = convertPageKeywordsFilter(response.data.autoKeywordIDs);
+                    vm.pageViolationCollection = response.data.violations;
                     vm.showExpandAdditionalFilter = true;
                     vm.showPageKeywordFilterPane = true;
 
                     // Set filter for assigned keywords.
                     $scope.$broadcast('setupFilterForAssignedKeywords');
-                });
-        }
-
-        // Gey violation status for page
-        function getViolationData() {
-            pagesService
-                .getPageViolation(1)
-                .then(function (response) {
-                    vm.pageViolationCollection = response.data;
                 });
         }
 
