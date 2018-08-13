@@ -9,7 +9,7 @@
         "dev:api": "./node_modules/.bin/swagger project edit",
         "dev:gen": "sls swagger --output aws",
         "publish": "sudo sls publish ",
-        "test": "newman run ./tests/**.** -e ./tests/env/dev-machine.postman_environment.json"
+        "test": "newman run ./tests/SEOgenieAPI.postman_collection.json -e ./tests/env/SEOgenieEnvironment.postman_environment.json"
     },
     "dependencies": {
         "amazon-cognito-identity-js-node": "0.0.3",

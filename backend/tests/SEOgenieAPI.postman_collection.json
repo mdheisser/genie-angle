@@ -1,0 +1,803 @@
+{
+	"id": "704e5507-e656-4d25-b895-eb9fbcf41a2f",
+	"name": "SEOgenieAPI",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [],
+	"folders_order": [
+		"a8842ed4-8356-41af-95e5-80c2542643a7",
+		"2024d071-a261-491c-afd5-53a98548ef15",
+		"7cd1183a-7865-4213-9ceb-25d0d0b84d3a",
+		"5027f8a6-9a8d-4cfe-be30-7467f96665f9",
+		"db9afeb8-5a8d-4232-b11d-5bdc6b7ffb64"
+	],
+	"folders": [
+		{
+			"id": "a8842ed4-8356-41af-95e5-80c2542643a7",
+			"name": "Account",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "704e5507-e656-4d25-b895-eb9fbcf41a2f",
+			"folder": null,
+			"order": [
+				"b86321ca-c19c-444a-bb6a-3f11b1e50d2d",
+				"c7682fe6-84e7-412f-991d-1a3c203f6e14",
+				"3d0cee4f-3dab-44e9-9cbc-46ef60745860",
+				"1c9fb98c-0cfa-4171-a30c-2e017d974b6c",
+				"81fd5e82-f3cc-4a2b-be69-a5e2731bb023"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "2024d071-a261-491c-afd5-53a98548ef15",
+			"name": "Keyword",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "704e5507-e656-4d25-b895-eb9fbcf41a2f",
+			"folder": null,
+			"order": [
+				"074debd9-f6a3-49dd-bb5e-f1ee8461d2bf",
+				"7ca21781-0e44-4d3e-adab-db00e835f213",
+				"172595e8-7f89-4805-bab7-fabf4f8a20c8",
+				"0768f5b7-2352-4275-af6e-21ef4c45a29e"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "5027f8a6-9a8d-4cfe-be30-7467f96665f9",
+			"name": "Page",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "704e5507-e656-4d25-b895-eb9fbcf41a2f",
+			"folder": null,
+			"order": [
+				"dfc329da-20a6-497d-9f19-2d06f9444a45",
+				"d98a8483-0a59-4b4b-bf9a-6188bd6d36c8",
+				"a67c3090-230f-4e14-8993-1ceb6a6e73d2",
+				"6b4f5d58-ee42-45b8-af63-781d002eb783",
+				"7cd0c5f4-993b-4c5f-a98d-a6b06d0f77a7"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "db9afeb8-5a8d-4232-b11d-5bdc6b7ffb64",
+			"name": "Violation",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "704e5507-e656-4d25-b895-eb9fbcf41a2f",
+			"folder": null,
+			"order": [
+				"41141e26-9a50-44fd-9d91-41c15a23887c",
+				"27cd23ca-9c71-42c4-b1f7-fe7f29b40515",
+				"f7571456-4f1a-40e7-9840-caf52df91648",
+				"f2fce18a-dd26-45c2-98a2-193b4298c5a0"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "7cd1183a-7865-4213-9ceb-25d0d0b84d3a",
+			"name": "Website",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "704e5507-e656-4d25-b895-eb9fbcf41a2f",
+			"folder": null,
+			"order": [
+				"66f8b0f4-75b1-49fb-9041-fc3469c46a30",
+				"15b13cf6-4ca8-401b-9331-c7aeb1d37942"
+			],
+			"folders_order": []
+		}
+	],
+	"requests": [
+		{
+			"id": "074debd9-f6a3-49dd-bb5e-f1ee8461d2bf",
+			"name": "Get All Keywords",
+			"url": "{{host_url}}/keywords",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db2c6c45-a827-4c39-9546-a63c550a559d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "2024d071-a261-491c-afd5-53a98548ef15",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "0768f5b7-2352-4275-af6e-21ef4c45a29e",
+			"name": "Update Keyword",
+			"url": "{{host_url}}/keywords/5b44bdaa510766678fca7854",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "14d1f5ef-727b-4140-be3b-541a3c5458e2",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "2024d071-a261-491c-afd5-53a98548ef15",
+			"rawModeData": "{\n\t\"keyword\": \"auto seo automation\",\n\t\"g\": 4,\n\t\"y\": 43,\n\t\"m\": 88,\n\t\"category\": {\n\t\t\"default\": false,\n\t  \t\"promoted\": false,\n\t  \t\"monitored\": false,\n\t  \t\"forced\": false\n\t},\n\t\"significance\": 1,\n\t\"suitability\": 2,\n\t\"activepages\": 6,\n\t\"forced_min\": 1,\n\t\"forced_max\": 3,\n\t\"assignedState\": false,\n\t\"auto_assign\": false\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "15b13cf6-4ca8-401b-9331-c7aeb1d37942",
+			"name": "Add new site",
+			"url": "{{host_url}}/sites",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "165967e1-c706-4d5b-8285-88f868e7a0d2",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "7cd1183a-7865-4213-9ceb-25d0d0b84d3a",
+			"rawModeData": "{\n\t\"name\": \"www.uee.com\",\n\t\"active\": true,\n\t\"g\": 4,\n\t\"y\": 43,\n\t\"b\": 102,\n\t\"date\": \"12/03/18\",\n\t\"violations\": [220, 350],\n\t\"keywords\": [220, 350],\n\t\"pages\": 220,\n\t\"sitemap\": 1,\n\t\"health\": 1\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "172595e8-7f89-4805-bab7-fabf4f8a20c8",
+			"name": "Delete Keyword",
+			"url": "{{host_url}}/keywords/5b463a2f0c28c54adfa88b2b",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "79c9b97d-4103-44a7-baac-d6bda382bf10",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "2024d071-a261-491c-afd5-53a98548ef15",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "1c9fb98c-0cfa-4171-a30c-2e017d974b6c",
+			"name": "Forgot Password",
+			"url": "{{host_url}}/account/forgotPassword",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "787d5d11-693a-44be-acd0-947a3afd4626",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "a8842ed4-8356-41af-95e5-80c2542643a7",
+			"rawModeData": "{\n\t\"username\": \"promr124@gmail.com\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "27cd23ca-9c71-42c4-b1f7-fe7f29b40515",
+			"name": "Create violation",
+			"url": "{{host_url}}/violations",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c339d26e-0d71-442f-9f2d-4393fa652c97",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "db9afeb8-5a8d-4232-b11d-5bdc6b7ffb64",
+			"rawModeData": "{\n\t\"status\": 2,\n\t\"category\": \"Performance\",\n\t\"description\": \"The length of the text Google is too long and may not be indexed...\",\n\t\"action\": \"Shorten text to 66 characters...\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "3d0cee4f-3dab-44e9-9cbc-46ef60745860",
+			"name": "Register Confirm",
+			"url": "{{host_url}}/account/confirm",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "noauth"
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e97d03c-8b87-4dcb-b3b3-26a0366daa7e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "a8842ed4-8356-41af-95e5-80c2542643a7",
+			"rawModeData": "{\n\t\"username\": \"promr124@gmail.com\",\n\t\"code\": \"400681\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "41141e26-9a50-44fd-9d91-41c15a23887c",
+			"name": "Get all violations",
+			"url": "{{host_url}}/violations",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b70b21f-1118-4dfc-a2ac-ae069166a1d9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "db9afeb8-5a8d-4232-b11d-5bdc6b7ffb64",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "66f8b0f4-75b1-49fb-9041-fc3469c46a30",
+			"name": "Get All Sites",
+			"url": "{{host_url}}/sites",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22dfb894-87aa-4c43-a555-7b5b36fe8743",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "7cd1183a-7865-4213-9ceb-25d0d0b84d3a",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "6b4f5d58-ee42-45b8-af63-781d002eb783",
+			"name": "Update page",
+			"url": "{{host_url}}/pages/5b6d06602dcea28b9d7b61e5",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3ecda5f6-4b81-444e-b527-b4ca3ec862dd",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "5027f8a6-9a8d-4cfe-be30-7467f96665f9",
+			"rawModeData": "{\n\t\"title\": \"Herbal medicine | University of Maryland Medical Center\",\n\t\"description\": \"The most commonly used herbal supplements in the U.S. include: Echinacea (Echinacea purpurea and related species> St. John's wort(Hypericum perforatum) Ginkgo (Ginkgo biloba) Garlic (Allium sativum) Saw palmetto (Serrenoa repens) Ginseng (Panax ginseng or Asian ginseng) and Panax guinquefoluis or Amerian ginseng)\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "7ca21781-0e44-4d3e-adab-db00e835f213",
+			"name": "Add new Keyword",
+			"url": "{{host_url}}/keywords",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "62bdf53f-cfe7-4300-b03e-e12a5048669b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "2024d071-a261-491c-afd5-53a98548ef15",
+			"rawModeData": "{\n\t\"text\": \"auto seo optimization\",\n\t\"googleRanking\": 4,\n\t\"yahooRanking\": 43,\n\t\"bingRanking\": 102,\n\t\"isDefault\": false,\n  \t\"isPromoted\": false,\n  \t\"isMonitored\": false,\n  \t\"isForced\": false,\n\t\"significance\": 1,\n\t\"suitability\": 2,\n\t\"activePages\": 6,\n\t\"isAssigned\": false,\n\t\"property\": [\"5b554c27879a77853b883a51\"],\n\t\"siteID\" : \"5b44c7d9f6aa9f8337f07947\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "7cd0c5f4-993b-4c5f-a98d-a6b06d0f77a7",
+			"name": "Get a page info",
+			"url": "{{host_url}}/pages/5b6d06602dcea28b9d7b61e5",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d4c3b2c-5a47-4b97-8bed-e68c24add512",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Violations value is array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(Array.isArray(jsonData.violations)).to.eql(true);",
+							"});",
+							"",
+							"pm.test(\"Automated keywords is array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(Array.isArray(jsonData.autoKeywordIDs)).to.eql(true);",
+							"});",
+							"",
+							"pm.test(\"Manual keywords is array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(Array.isArray(jsonData.manualKeywordIDs)).to.eql(true);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "5027f8a6-9a8d-4cfe-be30-7467f96665f9",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "81fd5e82-f3cc-4a2b-be69-a5e2731bb023",
+			"name": "Confirm Password",
+			"url": "{{host_url}}/account/confirmPassword",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "afa2611b-cf98-4dba-b90d-685b6cce3a48",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "a8842ed4-8356-41af-95e5-80c2542643a7",
+			"rawModeData": "{\n\t\"username\": \"promr124@gmail.com\",\n\t\"verificationCode\": \"965733\",\n\t\"password\": \"987654321\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "a67c3090-230f-4e14-8993-1ceb6a6e73d2",
+			"name": "Delete page",
+			"url": "{{host_url}}/pages/5b69b3b572ec36711b2271e4",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7dc4e67-61c8-4857-ba9e-2ec197115d9b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "5027f8a6-9a8d-4cfe-be30-7467f96665f9",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "b86321ca-c19c-444a-bb6a-3f11b1e50d2d",
+			"name": "Get user token",
+			"url": "{{host_url}}/account/login",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": ""
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11319c39-881b-41a6-9c8d-23ef1a9a2c4e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "a8842ed4-8356-41af-95e5-80c2542643a7",
+			"rawModeData": "{\n\t\"username\": \"promr124@gmail.com\",\n\t\"password\": \"987654321\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "c7682fe6-84e7-412f-991d-1a3c203f6e14",
+			"name": "Register",
+			"url": "{{host_url}}/account/register",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1975e3d3-729f-46a1-9fc2-a727fb9158d4",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "a8842ed4-8356-41af-95e5-80c2542643a7",
+			"rawModeData": "{\n\t\"username\": \"promr124@gmail.com\",\n\t\"password\": \"123456789\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "d98a8483-0a59-4b4b-bf9a-6188bd6d36c8",
+			"name": "Add new page",
+			"url": "{{host_url}}/pages",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92a97c58-f150-4494-ae8a-dede90912129",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "5027f8a6-9a8d-4cfe-be30-7467f96665f9",
+			"rawModeData": "{\n\t\"pageUrl\": \"http://www.umm.edu/health/medical/altmed/treatment/herbal-medicine\",\n\t\"isDefault\": true,\n\t\"isPromoted\": true,\n\t\"isMonitored\": true,\n\t\"isForced\": true,\n\t\"isAutoKeywords\": true,\n\t\"violations\": [\"5b6cff64b109627469100e4d\"],\n\t\"significance\": 2,\n\t\"suitability\": 3,\n\t\"siteID\": \"5b44c7d9f6aa9f8337f07947\",\n\t\"autoKeywordIDs\": [\"5b6bbb62f19b9d699f95f6e0\"],\n\t\"manualKeywordIDs\": [\"5b6bbb8ef19b9d5d3495f6e1\"],\n\t\"ranking\": 1,\n    \"description\": \"The most commonly used herbal supplements in the U.S. include: Echinacea (Echinacea purpurea and related species> St. John's wort(Hypericum perforatum) Ginkgo (Ginkgo biloba) Garlic (Allium sativum) Saw palmetto (Serrenoa repens) Ginseng (Panax ginseng or Asian ginseng) and Panax guinquefoluis or Amerian ginseng)\",\n    \"title\": \"Herbal medicine | University of Maryland Medical Center\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "dfc329da-20a6-497d-9f19-2d06f9444a45",
+			"name": "Get all pages",
+			"url": "{{host_url}}/pages?siteId=5b44c7d9f6aa9f8337f07947",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "siteId",
+					"value": "5b44c7d9f6aa9f8337f07947",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed98b51c-89b1-4b14-970f-008aee2548b6",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response value is array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(Array.isArray(jsonData)).to.eql(true);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "5027f8a6-9a8d-4cfe-be30-7467f96665f9",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "f2fce18a-dd26-45c2-98a2-193b4298c5a0",
+			"name": "Delete violation",
+			"url": "{{host_url}}/violations/5b6cfc1f0362007dfd141f56",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3644a670-ec46-496a-943b-73d0c65d616f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "db9afeb8-5a8d-4232-b11d-5bdc6b7ffb64",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "f7571456-4f1a-40e7-9840-caf52df91648",
+			"name": "Update violation",
+			"url": "{{host_url}}/violations/5b6cfc1f0362007dfd141f56",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c1a21f90-1664-48f2-b261-1543288d6b6f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": "db9afeb8-5a8d-4232-b11d-5bdc6b7ffb64",
+			"rawModeData": "{\n\t\"description\": \"The length of the text Google is too long and may not be indexed...\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}
