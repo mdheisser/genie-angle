@@ -10,12 +10,15 @@ module.exports = connectToDatabase = () => {
     }
 
     console.log('=> using new database connection');
-    return mongoose.connect(process.env.DB, {
-      auth: {
-        user: 'seogenie_dbo',
-        password: '4Y!j46JW5nxce'
-      }
-    })
+    // Using local db
+    return mongoose.connect(process.env.LocalDB)
+    // Using cloud db
+    // return mongoose.connect(process.env.DB, {
+    //   auth: {
+    //     user: 'seogenie_dbo',
+    //     password: '4Y!j46JW5nxce'
+    //   }
+    // })
         .then(db => { 
             isConnected = db.connections[0].readyState;
         });
