@@ -20,6 +20,8 @@
                     item.websiteActive = 'deactive';
                 }
 
+                item.date = new Date(item.date).toLocaleDateString("en-US");
+
                 item.keyword_min = 1;
                 item.keyword_max = 7;
                 output.push(item);
