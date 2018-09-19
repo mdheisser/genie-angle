@@ -2,3 +2,207 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+/* Common Style */
+.mt-1 {
+	margin-top: 5px !important;
+}
+.mt-2 {
+	margin-top: 10px !important;
+}
+.mt-3 {
+	margin-top: 15px !important;
+}
+.ml-3 {
+	margin-left: 15px !important;
+}
+.mr-2 {
+	margin-right: 10px !important;
+}
+.mr-3 {
+	margin-right: 15px !important;
+}
+.pl-3 {
+	padding-left: 15px !important;
+}
+.pr-3 {
+	padding-right: 15px !important;
+}
+.float-left {
+	float: left; !important;
+}
+.float-right {
+	float: right !important;
+}
+.border-b {
+	border-bottom: 1px solid #ddd !important;
+}
+.opacity-5 {
+	opacity: 0.5 !important;
+}
+.socicon-google {
+	color: red;
+}
+.socicon-bing {
+	color: yellow;
+}
+.socicon-yahoo {
+	color: blue;
+}
+
+ /* SEOgenie setup wizard */
+#seogenie_setup_wizard {
+	border: 1px solid #ddd;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+	background-color: #F1F6F9;
+	font-size: 15px;
+}
+#seogenie_setup_wizard p{
+	font-size: 14px;
+	line-height: 150%;
+}
+#seogenie_setup_wizard .steps .number {
+	display: none;
+}
+#seogenie_setup_wizard .steps i {
+	color: #81A5B8;
+}
+#seogenie_setup_wizard .steps .current i {
+	color: #34bb10;
+}
+#seogenie_setup_wizard .steps strong {
+	color: #81A5B8;
+}
+#seogenie_setup_wizard .steps .current strong {
+	color: #2f2a2a;
+}
+#seogenie_setup_wizard .steps > ul > li {
+	margin-bottom: 0;
+}
+#seogenie_setup_wizard .steps a {
+	background: transparent;
+	color: #000;
+	margin: 0;
+	border-radius: 0;
+	border-right: 1px solid #dad3d3;
+	border-bottom: 1px solid #dad3d3;
+}
+#seogenie_setup_wizard .steps .current a {
+	background: #fff;
+	border-left: 4px solid #34bb10;
+	border-right: none;
+}
+#seogenie_setup_wizard .steps .current a:focus {
+	box-shadow: none;
+}
+#seogenie_setup_wizard .steps {
+	width: 25%;
+}
+#seogenie_setup_wizard .content {
+	background: #fff;
+	margin: 0;
+	width: 75%;
+	border-radius: 0;
+}
+#seogenie_setup_wizard textarea {
+	width: 100%;
+}
+#seogenie_setup_wizard .step-title {
+	margin-bottom: 20px;
+}
+.arrow-button {
+	font-size: 16px;
+	font-family: Helvetica, Arial, sans-serif;
+	display: inline-block;
+	position: relative;
+	color: #888;
+	border: none;
+	background: none;
+	padding: 0;
+	cursor: pointer;
+	-webkit-filter: drop-shadow(1px 1px 1px rgba(50, 50, 50, 0.35));
+	-webkit-transform: translateZ(0);
+}
+.arrow-button .label {
+  display: inline-block;
+  height: 32px;
+  line-height: 29px;
+  padding: 3px 1.4em;
+  float: left;
+  background-color: #E7E7E9;
+  transition: all 0.2s;
+  color: #796868;
+}
+.arrow-button .btn-arrow {
+  display: block;
+  float: left;
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 12px solid #E7E7E9;
+  transition: all 0.2s;
+}
+.arrow-button:hover .label {
+  background-color: #c8d0cc;
+}
+.arrow-button:hover .btn-arrow {
+  border-left: 12px solid #c8d0cc;
+}
+.arrow-button:focus {
+  outline: 0 !important;
+}
+#seogenie_setup_wizard .input-tags {
+	position: relative;
+	width: calc(100% - 120px);
+}
+#seogenie_setup_wizard .input-tags input{
+	padding-left: 35px;
+}
+#seogenie_setup_wizard .input-tags img{
+    position: absolute;
+    top: 5px;
+    left: 8px;
+    opacity: 0.5;
+}
+#seogenie_setup_wizard .dropup .dropdown-menu {
+	bottom: 32px;
+}
+#seogenie_setup_wizard .add-keyword-group {
+	margin-top: 150px;
+}
+#seogenie_setup_wizard .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+	width: 100%;
+}
+/* Sitemap & submission section */
+#sitemap table {
+	width: 100%;
+}
+#sitemap td {
+	padding-top: 15px;
+}
+#sitemap .lcs_wrap {
+	margin-left: 40px;
+}
+#sitemap .lcs_wrap input {
+	display: none !important;
+}
+#sitemap .lcs_switch {
+	width: 40px;
+	height: 21px;
+}
+#sitemap .lcs_cursor {
+	top: 1px;
+    width: 19px;
+    height: 19px;
+}
+#sitemap .lcs_switch.lcs_on .lcs_cursor {
+	left: 20px;
+}
+#sitemap .lcs_label {
+	display: none;
+}
+#sitemap button {
+	margin-top: 20px;
+	padding: 7px 25px;
+}

@@ -73,6 +73,12 @@ class Seo_Genie_Admin {
 		 * class.
 		 */
 
+		wp_enqueue_style( 'fontawesome', plugin_dir_url( __FILE__ ) . 'css/font-awesome.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'social-icons', plugin_dir_url( __FILE__ ) . 'css/social-icons.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'jquery.steps', plugin_dir_url( __FILE__ ) . 'css/jquery.steps.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'bootstrap', plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'bootstrap.select', plugin_dir_url( __FILE__ ) . 'css/bootstrap-select.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'lc_switch', plugin_dir_url( __FILE__ ) . 'css/lc_switch.css', array(), $this->version, 'all' );
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/seo-genie-admin.css', array(), $this->version, 'all' );
 
 	}
@@ -96,8 +102,60 @@ class Seo_Genie_Admin {
 		 * class.
 		 */
 
+		wp_enqueue_script( 'jquery.steps', plugin_dir_url( __FILE__ ) . 'js/jquery.steps.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'bootstrap', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'bootstrap.select', plugin_dir_url( __FILE__ ) . 'js/bootstrap-select.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'lc_switch', plugin_dir_url( __FILE__ ) . 'js/lc_switch.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'engine.google', plugin_dir_url( __FILE__ ) . 'js/googleEngine.json', array( ), $this->version, false );
+		wp_localize_script('engine.google', 'engineGoogle', array( 'pluginsUrl' => plugins_url()));
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/seo-genie-admin.js', array( 'jquery' ), $this->version, false );
+	}
 
+	/**
+	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
+	 *
+	 * @since    1.0.0
+	 */
+
+	public function add_plugin_admin_menu() {
+
+	    /*
+	     * Add a settings page for this plugin to the Settings menu.
+	     *
+	     * NOTE:  Alternative menu locations are available via WordPress administration menu functions.
+	     *
+	     *        Administration Menus: http://codex.wordpress.org/Administration_Menus
+	     *
+	     */
+	    add_options_page( 'SEOgenie Options Functions Setup', 'SEOgenie', 'manage_options', $this->plugin_name, array($this, 'display_plugin_setup_page')
+	    );
+	}
+
+	/**
+	 * Add settings action link to the plugins page.
+	 *
+	 * @since    1.0.0
+	 */
+
+	public function add_action_links( $links ) {
+	    /*
+	    *  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
+	    */
+	   $settings_link = array(
+	    '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __('Settings', $this->plugin_name) . '</a>',
+	   );
+	   return array_merge(  $settings_link, $links );
+
+	}
+
+	/**
+	 * Render the settings page for this plugin.
+	 *
+	 * @since    1.0.0
+	 */
+
+	public function display_plugin_setup_page() {
+	    include_once( 'partials/seo-genie-admin-display.php' );
 	}
 
 }

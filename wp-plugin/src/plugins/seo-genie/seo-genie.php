@@ -8,7 +8,7 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://seogenie/dev-marko
+ * @link              http://seogenie/dev-talent
  * @since             1.0.0
  * @package           Seo_Genie
  *
@@ -17,8 +17,8 @@
  * Plugin URI:        http://seogenie/wp-plugin
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
- * Author:            Marko
- * Author URI:        http://seogenie/dev-marko
+ * Author:            Talent
+ * Author URI:        http://seogenie/dev-talent
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       seo-genie
