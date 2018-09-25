@@ -1,0 +1,64 @@
+h3.content-heading.text-bold
+    | Keywords
+#add_keywords.panel(ng-controller='addKeywordsCtrl as akc')
+    .panel-heading.custom-heading.flex-heading
+        .description Add&nbsp;Keywords
+        .panel-title
+            select(selectpicker='', data-live-search='true', ng-model='akc.selectedSite', ng-options='site.name for site in akc.sites')
+    .panel-wrapper(uib-collapse="add_keywords")
+        .panel-body.row-eq-height
+            .col-lg-6
+                #add_keywords_phase.panel
+                    .panel-heading.sub-heading
+                        .panel-title Add Keywords/Phrases
+                        paneltool(tool-collapse, ng-init='add_keywords_phase=false')
+                    .panel-wrapper(uib-collapse='add_keywords_phase')
+                        .panel-body
+                            a.pull-right(ng-click='akc.clearKeywords()') clear
+                            textarea(class="form-control", rows='5', ng-model='akc.keywords', ng-model-options='{ debounce: 1000 }')                
+                            em Pressing enter create a new line, each keyword/phrase can contain multiple words. You may also add Keywords separated by comma.
+                            .checkbox.c-checkbox
+                              label
+                                input(type='checkbox', value='')
+                                span.fa.fa-check
+                                |  Mark Added Keywords for Monitoring SERP Ranking 
+                                em.icon-question
+                            .checkbox.c-checkbox
+                              label
+                                input(type='checkbox', checked='', value='')
+                                span.fa.fa-check
+                                |   Mark Added Keywords for Promotion
+                                em.icon-question
+                            .checkbox.c-checkbox
+                              label
+                                input(type='checkbox', checked='', value='')
+                                span.fa.fa-check
+                                |   Process all Added Keywords Immediatly
+                                em.icon-question
+                            button.pull-right(type="button", class="btn btn-xs btn-primary ok-button btn-dialog", ng-class="{'disabled': isEmptyKeywordsInput() }", ng-disabled="isEmptyKeywordsInput()", ng-click='akc.createKeyword()')
+                                | Add
+            .col-lg-6
+                #add_keywords_package.panel
+                    .panel-heading.sub-heading
+                        .panel-title Subscription Package Utilization Limits
+                        paneltool(tool-collapse, ng-init='add_keywords_package=false')
+                    .panel-wrapper(uib-collapse='add_keywords_package')
+                        .panel-body
+                            .row.promoted-bar.ml0.mt-lg
+                                .col-sm-10.col-xs-9.pl0
+                                    uib-progressbar.progress-striped(type='danger', value='50')
+                                        span Promoted Keywords 50%
+                                .col-sm-1.col-xs-2.text-left.p0
+                                    p 250
+                                .col-sm-1.col-xs-1.p0
+                                    em.icon-question
+                            .row.monitored-bar.ml0.mt-lg.mb-lg
+                                .col-sm-10.col-xs-9.pl0
+                                    uib-progressbar.progress-striped(type='warning', value='71')
+                                        span Monitored Keywords 71%
+                                .col-sm-1.col-xs-2.text-left.p0
+                                    p 350
+                                .col-sm-1.col-xs-1.p0
+                                    em.icon-question
+                            a(href='', ng-click='upgradePackage()')
+                                | Upgrade Package

@@ -1,0 +1,195 @@
+table.custom-table {
+    width: 100%;
+    margin-bottom: 10px;
+    th, td {
+        border: 1px solid #696464;
+        cursor: pointer;
+    }
+    th {
+        padding: 2px;
+        background-color: #c6c7ca;
+        color: #3e3c3c;
+        i {
+            margin-top: 4px;
+        }
+        .md-select-value {
+            border: none;
+            width: 40px;
+            min-width: 40px;
+            span {
+                margin: 0;
+                width: 12px;
+                color: #3e3c3c;
+            }
+        }
+    }
+    td {
+        padding: 0;
+    }
+    .st-selected {
+        background: #BBDEFB !important;
+    }
+    .row-index {
+        width: 30px;
+    }
+    .no-data-row {
+        height: 200px;
+    }
+    thead.table-control {
+        td {
+            border: none;
+        }
+        .btn-oval {
+            padding: 1px 6px;
+        }
+        .mda-input-group {
+            input {
+                border: 1px solid #e2e2e2;
+                padding-left: 23px;
+                border-radius: 2px;
+            }
+            > .mda-input-group-addon {
+                top: 2px;
+                left: 4px;
+            }
+            .mda-form-control {
+                height: 25px;
+                width: 177px;
+            }
+        }
+        .filter-title {
+            padding-top: 2px;
+        }
+        .pagination {
+            margin: 0;
+        }
+        .pagination > li > a {
+            padding: 1px 7px;
+        }
+        .display-rows {
+            margin-right: 10px;
+            label {
+                font-weight: normal;
+            }
+        }
+        .bootstrap-select {
+            .btn {
+                padding: 1px 15px 1px 5px !important;
+            }
+            .caret {
+                right: 6px;
+            }
+        }
+        .dropdown-menu {
+            top: 23px;
+            >li>a {
+                padding: 3px 10px;
+            }
+        }
+        page-select input {
+            width: 20px;
+            padding: 0;
+            height: 20px;
+            border: none;
+        }
+        md-switch {
+            .md-container {
+                margin: 0;
+            }
+        }
+        md-switch.md-checked {
+            .md-bar {
+                background-color: rgb(158,158,158);
+            }
+            .md-thumb {
+                background-color: rgb(234, 57, 98);
+            }
+        }
+    }
+    th.actions-col {
+        position: relative;
+        width: 50px;
+        padding-left: 26px !important;
+        >label {
+            width: 0;
+            padding-left: 0;
+        }
+        >i {
+            margin-left: 4px;
+        }
+    }
+    td.keyword-col {
+        >label {
+            margin: 5px;
+        }
+        label {
+            font-weight: normal;
+        }
+        .keyword-label {
+            padding: 5px;
+            width: calc(~"100% - 60px");
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            overlay-popup {
+                top: auto;
+                left: auto;
+                transform: translate(-182px, 27px);
+            }
+        }
+        .keyword-control {
+            width: 60px;
+        }
+        md-switch {
+            margin: 0;
+            .md-container {
+                margin: 9px 0 0 0;
+            }
+        }
+        em {
+            padding: 9px 10px;
+            font-size: 14px;
+        }
+    }
+
+    .font-roboto {
+        font-family: "Roboto", sans-serif;
+    }
+    .color-bar {
+        display: flex;
+        width: 80px;
+        .flex {
+            height: 20px;
+        }
+    }
+    md-switch {
+        margin: 0;
+        .md-container {
+            cursor: pointer;
+            width: 28px;
+        }
+        .md-bar {
+            width: 16px;
+            height: 7px;
+        }
+        .md-thumb-container {
+            width: 5px;
+        }
+        .md-thumb {
+            height: 12px;
+            width: 12px;
+            .md-ripple-container {
+                display: none;
+            }
+        }
+    }
+    md-switch.md-checked .md-bar {
+        background-color: rgb(158,158,158);
+    }
+    .st-sort-ascent:before{
+        content: '\25B2';
+    }
+    .st-sort-descent:before{
+        content: '\25BC';
+    }
+}

@@ -1,0 +1,264 @@
+<div class="expanded-page" ng-controller="pagesExpandController as peCtrl" ng-init="peCtrl.init(page._id)">
+   <div class="row">
+      <div class="col-md-4">
+         <div class="panel" id="page_setting">
+            <div class="panel-heading sub-heading">
+               <div class="panel-title">Settings for Page</div>
+               <paneltool tool-collapse="tool-collapse" ng-init="page_setting=false"></paneltool>
+            </div>
+            <div class="panel-wrapper" uib-collapse="page_setting">
+               <div class="panel-body p-sm">
+                  <div class="mda-list p0">
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Launch Page URL</span>
+                        <span class="pull-right fixed-width" ng-click="pageMCtrl.openPageUrl(page, $event)">
+                           <em class="fa fa-search"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Copy to Clipboard</span>
+                        <span class="pull-right fixed-width" ng-click="pageMCtrl.copyToClipboard(page, $event)">
+                           <em class="fa fa-copy"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Auto Optimise Page</span>
+                        <span class="pull-right fixed-width">
+                           <md-switch ng-model="page.category.promoted" aria-label="auto"></md-switch>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm" ng-click="pageMCtrl.showMaximumKeywordsPage=!pageMCtrl.showMaximumKeywordsPage">
+                        <span class="pull-left">Maximum Keywords for Page</span>
+                        <span class="pull-right fixed-width">{{ page.forced_min }}/{{ page.forced_max }}
+                           <em class="fa fa-caret-down"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item pl" ng-if="pageMCtrl.showMaximumKeywordsPage">
+                        <div class="max-assign-setting">
+                           <span class="pull-left mr-sm">
+                              <small>Keywords:&nbsp;Min</small>
+                           </span>
+                           <input class="pull-left m0 p0 form-control" type="number" min="0" max="{{page.forced_max}}" ng-model="page.forced_min" />
+                           <span class="pull-left mr-sm ml-sm">
+                              <small>Max</small>
+                           </span>
+                           <input class="pull-left m0 p0 form-control" type="number" min="0" max="7" ng-model="page.forced_max" />
+                        </div>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Refresh, Process Page</span>
+                        <span class="pull-right fixed-width" ng-click="pageMCtrl.onRefreshPage(page);">
+                           <em class="fa fa-refresh"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Remove Page from SEOgenie</span>
+                        <span class="pull-right fixed-width" ng-click="pageMCtrl.onRemoveFromSystem(page);">
+                           <em class="fa fa-trash-o"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item">
+                        <span class="pull-left">Page Languages</span>
+                        <span class="pull-right">
+                           <select selectpicker="" data-live-search="true" data-dropup-auto="false" data-size="6" ng-model="pageMCtrl.selectedLanguage" ng-options="language.name for language in pageMCtrl.languages" multiple="multiple" data-max-options="3"></select>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-8">
+         <div class="panel" id="page_description">
+            <div class="panel-heading sub-heading">
+               <div class="panel-title">Page Title, Description</div>
+               <paneltool tool-collapse="tool-collapse" ng-init="page_description=false"></paneltool>
+            </div>
+            <div class="panel-wrapper" uib-collapse="page_description">
+               <div class="panel-body pt-sm"><a>{{ page.title }}</a>
+                  <p class="m0">www.umm.deu >...> Complementary and Alternative Medicine Guide > Treatment</p>
+                  <p>{{ page.description }}</p>
+                  <div>
+                     <span class="pull-left">Auto Generate Title/Description</span>
+                     <div class="pull-left pl">
+                        <md-switch ng-model="page.autotitle" aria-label="auto"></md-switch>
+                     </div>
+                     <span>Generate</span>
+                     <em class="fa fa-edit pull-right"></em>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="panel" id="pages_assign_key">
+      <div class="panel-heading sub-heading">
+         <div class="panel-title">Keywords Assigned to Page</div>
+         <paneltool tool-collapse="tool-collapse" ng-init="pages_assign_key=false"></paneltool>
+      </div>
+      <div class="panel-wrapper" uib-collapse="pages_assign_key">
+         <div class="panel-body">
+            <div class="container-fluid">
+               <table class="custom-table" st-table="pagesExpansionCollection" st-safe-src="peCtrl.pagesExpandCollection" st-set-filter="additionalFilter" st-filtered-collection="pageKeyword">
+                  <thead class="table-control">
+                     <tr>
+                        <td class="text-right" colspan="7"><a class="pull-left btn btn-primary btn-outline btn-oval btn-xs" href="/#/app/keywords-add"><i class="fa fa-plus"></i></a>
+                           <div class="pull-left ml mda-input-group">
+                              <input class="mda-form-control" id="searchForkeyword" type="text" st-search="keyword" placeholder="Filter/Search" ng-click="peCtrl.showExpandAdditionalFilter=true" />
+                              <span class="mda-input-group-addon">
+                                 <em class="fa fa-search"></em>
+                              </span>
+                              <overlay-popup id="pages_expand_filter" active="peCtrl.showExpandAdditionalFilter" width="450">
+                                 <div ng-include="'app/components/pages/manage/templates/keywordsFilter.html'"></div>
+                              </overlay-popup>
+                           </div>
+                           <div class="pull-left">
+                              <fiter-condition condition-for="keyword"></fiter-condition>
+                           </div>
+                           <div class="pull-left pl filter-title">Filter</div>
+                           <div class="pull-left ml">
+                              <md-switch class="m0" ng-model="peCtrl.expandFilterOn" aria-label="filter" uib-tooltip="Reset Filter" tooltip-enable="peCtrl.expandFilterOn" st-reset="" ng-disabled="!peCtrl.expandFilterOn" ng-click="peCtrl.resetPageKeywordFilter()"></md-switch>
+                           </div>
+                           <div class="pull-right" st-pagination="" st-items-by-page="peCtrl.numberOfRowsForKeywordGrid.value" st-template="app/components/_common/templates/pagination.custom.html" st-page-change="peCtrl.detailCurrentPage = newPage"></div>
+                           <div class="pull-right display-rows">
+                              <label>Display</label>
+                              <label>
+                                 <select selectpicker="" ng-model="peCtrl.numberOfRowsForKeywordGrid" ng-options="item.label for item in peCtrl.itemsByPageForKeywordGrid"></select>
+                              </label>
+                           </div>
+                           <div class="pull-right mr" style="padding-top:2px;" ng-click="peCtrl.exportPageKeywordTable()">
+                              <span>Export</span>
+                              <em class="fa fa-file-excel-o"></em>
+                           </div>
+                        </td>
+                     </tr>
+                  </thead>
+                  <thead>
+                     <tr>
+                        <th class="text-center row-index">#</th>
+                        <th st-sort="text">Keywords</th>
+                        <th class="text-center" st-sort="googleRanking" style="width:55px;"><i class="glyphicon socicon-google"></i>
+                        </th>
+                        <th class="text-center" st-sort="yahooRanking" style="width:55px;"><i class="glyphicon socicon-yahoo"></i>
+                        </th>
+                        <th class="text-center" st-sort="bingRanking" style="width:55px;"><i class="glyphicon socicon-bing"></i>
+                        </th>
+                        <th class="text-center" st-sort="activepages" style="width:140px;">Active Pages</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr st-select-row="row" st-select-mode="single" ng-repeat="row in pagesExpansionCollection" ng-class="{true: &quot;bg-blue-100&quot;, false:&quot;&quot;}[row.assignedState]" ng-click="peCtrl.onPageKeywordAction(row, $event)">
+                        <td class="text-center">{{ ((peCtrl.detailCurrentPage-1) * peCtrl.numberOfRowsForKeywordGrid.value) + $index + 1 }}</td>
+                        <td class="keyword-col">
+                           <div class="pull-left keyword-label">
+                              <span class="m0" data-toggle="tooltip" title="{{row.text}}">{{ row.text }}</span><i class="fa fa-caret-down ml-sm" ng-click="peCtrl.showKeywordSetting(row, $event)"></i>
+                           </div>
+                           <div class="pull-right keyword-control">
+                              <em class="fa fa-line-chart pull-right pl0" ng-class="{true:&quot;text-info&quot;, false:&quot;text-grey&quot;}[row.category.monitored]" uib-tooltip="{{{true:&quot;SERP Monitoring Active&quot;, false:&quot;SERP Monitoring Not Active&quot;}[row.category.monitored]}}"
+                              ng-click="peCtrl.showKeywordChart(row, $event)"></em>
+                              <label class="m0 pull-right">
+                                 <md-switch ng-model="row.category.promoted" aria-label="auto" uib-tooltip="{{{true:&quot;Keyword Auto-Promotion ON&quot;, false:&quot;Keyword Auto-Promotion OFF&quot;}[row.category.promoted]}}" ng-change="peCtrl.onActivePromotedKeyword(row)"
+                                 ng-click="$event.stopPropagation()"></md-switch>
+                              </label>
+                           </div>
+                        </td>
+                        <td class="text-center text-warning"><i class="fa fa-angle-double-down" uib-tooltip="Google.com. SERP Ranking: Page {{row.activepages}}, Position {{row.googleRanking}}"><span class="font-roboto ml-sm">{{ row.googleRanking }}</span></i>
+                        </td>
+                        <td class="text-center text-danger"><i class="fa fa-angle-double-up" uib-tooltip="Yahoo.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.yahooRanking}}"><span class="font-roboto ml-sm">{{ row.yahooRanking }}</span></i>
+                        </td>
+                        <td class="text-center text-success">
+                           <span class="font-roboto ml-sm" uib-tooltip="Bing.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.bingRanking}}">{{ row.bingRanking }}</span>
+                        </td>
+                        <td class="progress-col pl-sm">
+                           <div class="pull-left text-center pr-sm">
+                              <span class="mr-sm" uib-tooltip="Keyword Assigned to {{row.activepages}} Pages">{{ row.activepages }}</span>
+                           </div>
+                           <div class="color-bar pull-left">
+                              <div class="flex" uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}" ng-class="row.g | rankingFilter"></div>
+                              <div class="flex" ng-class="{1:&quot;bg-red-500&quot;, 2:&quot;bg-yellow-700&quot;, 3:&quot;bg-green-500&quot;, 4:&quot;bg-green-300&quot;}[row.significance]" uib-tooltip="Significance: 34%"></div>
+                              <div class="flex" ng-class="{1:&quot;bg-red-500&quot;, 2:&quot;bg-yellow-700&quot;, 3:&quot;bg-green-500&quot;, 4:&quot;bg-green-300&quot;}[row.suitability]" uib-tooltip="Suitability: 68%"></div>
+                           </div>
+                           <div class="pull-left pl-sm" ng-if="row.category.default"><i class="fa fa-anchor" uib-tooltip="Default Keyword, will appear on all Pages with no suitable Keywords"></i>
+                           </div>
+                           <div class="pull-left soc-ranking pl-sm" ng-if="row.category.forced"><i class="fa fa-bookmark-o" uib-tooltip="Forcing Promotion Min {{row.forced_min}}, Max {{row.forced_max}}"></i>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="panel m0" id="pages_violation">
+      <div class="panel-heading sub-heading">
+         <div class="panel-title">SEO Violation for Page</div>
+         <paneltool tool-collapse="tool-collapse" ng-init="pages_violation=false"></paneltool>
+      </div>
+      <div class="panel-wrapper" uib-collapse="pages_violation">
+         <div class="panel-body">
+            <div class="container-fluid">
+               <table class="custom-table" st-table="pageViolationCollection" st-safe-src="peCtrl.pageViolationCollection" st-set-filter="additionalFilter" st-filtered-collection="pageViolation">
+                  <thead class="table-control">
+                     <tr>
+                        <td class="text-right" colspan="7">
+                           <div class="pull-left mda-input-group">
+                              <input class="mda-form-control" id="searchFordescription" type="text" st-search="description" placeholder="Filter/Search" ng-click="peCtrl.showViolationFilter=true" />
+                              <span class="mda-input-group-addon">
+                                 <em class="fa fa-search"></em>
+                              </span>
+                              <overlay-popup active="peCtrl.showViolationFilter" width="177">
+                                 <div ng-include="'app/components/pages/manage/templates/violationFilter.html'"></div>
+                              </overlay-popup>
+                           </div>
+                           <div class="pull-left">
+                              <fiter-condition condition-for="description"></fiter-condition>
+                           </div>
+                           <div class="pull-left pl filter-title">Filter</div>
+                           <div class="pull-left ml">
+                              <md-switch class="m0" ng-model="peCtrl.violationFilterOn" aria-label="filter" uib-tooltip="Reset Filter" tooltip-enable="peCtrl.violationFilterOn" st-reset="" ng-disabled="!peCtrl.violationFilterOn" ng-click="peCtrl.resetViolationFilter()"></md-switch>
+                           </div>
+                           <div class="pull-right" st-pagination="" st-items-by-page="peCtrl.numberOfRowsForViolationGrid.value" st-template="app/components/_common/templates/pagination.custom.html" st-page-change="peCtrl.violationCurrentPage = newPage"></div>
+                           <div class="pull-right display-rows">
+                              <label>Display</label>
+                              <label>
+                                 <select selectpicker="" ng-model="peCtrl.numberOfRowsForViolationGrid" ng-options="item.label for item in peCtrl.itemsByPageForViolationGrid"></select>
+                              </label>
+                           </div>
+                           <div class="pull-right mr" style="padding-top:2px;" ng-click="peCtrl.exportPageViolationTable()">
+                              <span>Export</span>
+                              <em class="fa fa-file-excel-o"></em>
+                           </div>
+                        </td>
+                     </tr>
+                  </thead>
+                  <thead>
+                     <tr>
+                        <th class="text-center row-index">#</th>
+                        <th st-sort="status">Violation Status</th>
+                        <th st-sort="category">Category</th>
+                        <th st-sort="description">Description</th>
+                        <th st-sort="action">Recommendation/Actions</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr st-select-row="row" st-select-mode="single" ng-repeat="row in pageViolationCollection">
+                        <td class="text-center p-sm">{{ ((peCtrl.violationCurrentPage-1) * peCtrl.numberOfRowsForViolationGrid.value) + $index + 1 }}</td>
+                        <td class="p-sm">
+                           <span class="pull-left">{{ row.status | pageViolationStatus }}</span>
+                           <em class="pull-right fa" ng-class="{1:&quot;fa-info-circle text-danger&quot;, 2:&quot;fa-warning text-warning&quot;, 3:&quot;fa-warning text-primary&quot;, 4:&quot;fa-check text-success&quot;}[row.status]"></em>
+                        </td>
+                        <td class="p-sm">{{ row.category }}</td>
+                        <td class="p-sm">{{ row.description }}</td>
+                        <td class="p-sm">
+                           <span class="pull-left">{{ row.action }}</span>
+                           <em class="pull-right fa fa-wrench text-success"></em>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

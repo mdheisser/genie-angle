@@ -1,0 +1,75 @@
+h3.content-heading.text-bold
+    | Websites Settings
+#websites_settings.panel(ng-controller='websiteSettingsController as wsCtrl')
+    .panel-heading.sub-heading
+        .panel-title 
+            | Auto Assign/Distribute Keywords Settings to Pages
+        paneltool(tool-collapse, ng-init="websites_settings=false")
+    .panel-wrapper(uib-collapse="websites_settings")
+        .panel-body
+            p These settings allows you to automaticaly assign keywords to pages based on their Significance and Suitability ranking
+            select.websites(selectpicker='', data-live-search='true', ng-model='wsCtrl.selectedSite', ng-options='("Site http://" + site.name) for site in wsCtrl.sites')
+            h5.text-underline.text-bold Assignment Parameters
+            .row
+                .col-md-4.table-wrapper
+                    table(st-table)
+                        tr
+                            td.pb Significance
+                                small
+                                    em.icon-arrow-down
+                            td.pb Suitability
+                                small
+                                    em.icon-arrow-down
+                        tr(ng-repeat='item in wsCtrl.activePageRanking')
+                            td.pl.pr.pb-sm
+                                label.mda-checkbox.pull-left
+                                    input.ranking-option(type='checkbox',
+                                        st-rank-search='',
+                                        rank-type='ranking',
+                                        value='{{item.value}}',
+                                        ng-model='item.significanceSelected')
+                                    em.bg-indigo-500
+                                span.pull-left.mr {{item.name}}
+                                span.mda-checkbox.pull-right
+                                    input(type='checkbox', checked='', onclick='return false;')
+                                    em.empty(ng-class='item.bg')
+                            td.pl.pr.pb-sm
+                                label.mda-checkbox.pull-left
+                                    input.ranking-option(type='checkbox',
+                                        st-rank-search='',
+                                        rank-type='ranking',
+                                        value='{{item.value}}',
+                                        ng-model='item.suitabilitySelected')
+                                    em.bg-indigo-500
+                                span.pull-left.mr {{item.name}}
+                                span.mda-checkbox.pull-right
+                                    input(type='checkbox', checked='', onclick='return false;')
+                                    em.empty(ng-class='item.bg')
+                .col-md-8
+                    .mda-list.p0.mt
+                        .mda-list-item.mb-sm
+                            span.pull-left Overwrite manually asssigned Keywords:
+                            span.pull-right.fixed-width
+                                md-switch(ng-model='wsCtrl.overwrite', aria-label='auto')
+                        .mda-list-item.mb-sm
+                            span.pull-left
+                                p.m0 Apply Default Keywords to Pages without assignment:
+                                a.text-underline Default Keywords Settings
+                            span.pull-right.fixed-width
+                                md-switch(ng-model='wsCtrl.appliedDefaultKeywords', aria-label='auto')
+                        .mda-list-item
+                            span.pull-left Maximum number of Keywords per page:
+                            span.pull-right
+                                select(selectpicker='', ng-model='wsCtrl.maximumKeywordByPage')
+                                    option 1
+                                    option 2
+                                    option 3
+                                    option 4
+                                    option 5
+                                    option 6
+                                    option 7
+            a.text-underline.mt Reset to Default
+            .row.mt
+                .col-lg-6.col-md-6.text-right
+                    button.btn Save
+                    button.btn.btn-primary Distribute

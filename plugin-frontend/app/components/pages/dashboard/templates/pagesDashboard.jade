@@ -1,0 +1,71 @@
+h3.content-heading.text-bold
+    | Pages
+#pages_dashboard.container-fluid.panel.mb0(ng-controller='pagesDashboardController as pageDashCtrl')
+    .panel-heading.custom-heading.flex-heading
+        .description Dashboard
+        .panel-title
+            select(selectpicker='', data-live-search='true', ng-model='pageDashCtrl.selectedSite', ng-options='site.name for site in pageDashCtrl.sites')
+    .panel-wrapper
+        .panel-body.row.pb0.row-eq-height
+            .col-lg-6(style="display:flow-root;")
+                #statistics.panel
+                    .panel-heading.sub-heading
+                        .panel-title 
+                            | Statistics
+                            span.text-underline {{ pageDashCtrl.selectedSite.name }}
+                        paneltool(tool-collapse, ng-init="statistics=false")
+                    .panel-wrapper(uib-collapse="statistics")
+                        ul.list-group.m0
+                            li.list-group-item
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 534
+                                | Number of Pages Being Promoted
+                            li.list-group-item
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 4
+                                | Total number of Pages on website
+                            li.list-group-item
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 4
+                                | Average number of Keywords assigned to a Page
+                            li.list-group-item
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 77
+                                | Number of pages with SEO violations
+                            li.list-group-item
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 77
+                                a(ng-click='pageDashCtrl.goManagePage("best")') Best performing Pages
+                            li.list-group-item
+                                span.pull-right.text-center
+                                    span.badge.bg-info.text-center 77
+                                a(ng-click='pageDashCtrl.goManagePage("least")') Least performing Pages
+            .col-lg-6
+                #statistics1.panel
+                    .panel-heading.sub-heading
+                        .panel-title 
+                            | Status
+                            span.text-underline {{ pageDashCtrl.selectedSite.name }}
+                        paneltool(tool-collapse, ng-init="statistics1=false")
+                    .panel-wrapper(uib-collapse="statistics1")
+                        .panel-body
+                            .row.p-sm
+                                .col-xs-9
+                                    | SiteMap Active
+                                    em.fa.fa-check.text-success.mt-sm.ml-sm
+                                    a.ml(href='') Show
+                                .col-xs-3.p0
+                                    md-switch.m0.pull-left(ng-model='pageMCtrl.activeSiteMap', aria-label='filter')
+                            .row.p-sm
+                                .col-xs-9
+                                    | Robot TXT
+                                    em.fa.fa-check.text-success.mt-sm
+                                    a.ml(href='') Show
+                            .row.p-sm
+                                .col-xs-9 New Pages Automatically to SEOgenie System
+                                .col-xs-3.p0
+                                    md-switch.m0.pull-left(ng-model='pageMCtrl.autoNewPage', aria-label='filter')
+                            .row.p-sm
+                                .col-xs-9
+                                    | Last Report Date: 09-12-2017
+                                    em.fa.fa-check.text-success.mt-sm

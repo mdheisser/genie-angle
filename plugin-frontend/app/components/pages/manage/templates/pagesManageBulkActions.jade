@@ -1,0 +1,18 @@
+.bulk-actions.mda-list.bg-white
+    .mda-list-item
+        label.pull-left Bulk Actions
+    .mda-list-item(ng-click='pageMCtrl.performBulkAction("Remove from System")')
+        em.pull-left.fa.fa-trash-o
+        span.pull-left Remove from System
+    .mda-list-item(ng-click='pageMCtrl.performBulkAction("Refresh, Process")')
+        em.pull-left.fa.fa-refresh
+        span.pull-left Refresh, Process
+    .mda-list-item(ng-click='pageMCtrl.performBulkAction("Auto Optimise Page")')
+        em.pull-left.fa.fa-toggle-on
+        span.pull-left Auto Optimise Page
+    .mda-list-item(ng-click='pageMCtrl.performBulkAction("Generate Title/Description")')
+        em.pull-left.fa.fa-toggle-on
+        span.pull-left Generate Title/Description
+    .mda-list-item(ng-click='pageMCtrl.performBulkAction("Export CSV")')
+        em.pull-left.fa.fa-list
+        span.pull-left Export CSV

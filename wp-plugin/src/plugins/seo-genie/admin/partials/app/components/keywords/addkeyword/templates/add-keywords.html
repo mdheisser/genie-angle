@@ -1,0 +1,87 @@
+<h3 class="content-heading text-bold">Keywords</h3>
+<div class="panel" id="add_keywords" ng-controller="addKeywordsCtrl as akc">
+   <div class="panel-heading custom-heading flex-heading">
+      <div class="description">Add&nbsp;Keywords</div>
+      <div class="panel-title">
+         <select selectpicker="" data-live-search="true" ng-model="akc.selectedSite" ng-options="site.name for site in akc.sites"></select>
+      </div>
+   </div>
+   <div class="panel-wrapper" uib-collapse="add_keywords">
+      <div class="panel-body row-eq-height">
+         <div class="col-lg-6">
+            <div class="panel" id="add_keywords_phase">
+               <div class="panel-heading sub-heading">
+                  <div class="panel-title">Add Keywords/Phrases</div>
+                  <paneltool tool-collapse="tool-collapse" ng-init="add_keywords_phase=false"></paneltool>
+               </div>
+               <div class="panel-wrapper" uib-collapse="add_keywords_phase">
+                  <div class="panel-body"><a class="pull-right" ng-click="akc.clearKeywords()">clear</a>
+                     <textarea class="form-control" rows="5" ng-model="akc.keywords" ng-model-options="{ debounce: 1000 }"></textarea>
+                     <em>Pressing enter create a new line, each keyword/phrase can contain multiple words. You may also add Keywords separated by comma.</em>
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input type="checkbox" value="" />
+                           <span class="fa fa-check"></span>Mark Added Keywords for Monitoring SERP Ranking
+                           <em class="icon-question"></em>
+                        </label>
+                     </div>
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input type="checkbox" checked="" value="" />
+                           <span class="fa fa-check"></span>Mark Added Keywords for Promotion
+                           <em class="icon-question"></em>
+                        </label>
+                     </div>
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input type="checkbox" checked="" value="" />
+                           <span class="fa fa-check"></span>Process all Added Keywords Immediatly
+                           <em class="icon-question"></em>
+                        </label>
+                     </div>
+                     <button class="pull-right btn btn-xs btn-primary ok-button btn-dialog" type="button" ng-class="{'disabled': isEmptyKeywordsInput() }" ng-disabled="isEmptyKeywordsInput()" ng-click="akc.createKeyword()">Add</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="panel" id="add_keywords_package">
+               <div class="panel-heading sub-heading">
+                  <div class="panel-title">Subscription Package Utilization Limits</div>
+                  <paneltool tool-collapse="tool-collapse" ng-init="add_keywords_package=false"></paneltool>
+               </div>
+               <div class="panel-wrapper" uib-collapse="add_keywords_package">
+                  <div class="panel-body">
+                     <div class="row promoted-bar ml0 mt-lg">
+                        <div class="col-sm-10 col-xs-9 pl0">
+                           <uib-progressbar class="progress-striped" type="danger" value="50">
+                              <span>Promoted Keywords 50%</span>
+                           </uib-progressbar>
+                        </div>
+                        <div class="col-sm-1 col-xs-2 text-left p0">
+                           <p>250</p>
+                        </div>
+                        <div class="col-sm-1 col-xs-1 p0">
+                           <em class="icon-question"></em>
+                        </div>
+                     </div>
+                     <div class="row monitored-bar ml0 mt-lg mb-lg">
+                        <div class="col-sm-10 col-xs-9 pl0">
+                           <uib-progressbar class="progress-striped" type="warning" value="71">
+                              <span>Monitored Keywords 71%</span>
+                           </uib-progressbar>
+                        </div>
+                        <div class="col-sm-1 col-xs-2 text-left p0">
+                           <p>350</p>
+                        </div>
+                        <div class="col-sm-1 col-xs-1 p0">
+                           <em class="icon-question"></em>
+                        </div>
+                     </div><a href="" ng-click="upgradePackage()">Upgrade Package</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

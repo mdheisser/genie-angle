@@ -1,0 +1,59 @@
+div(ng-controller='additionalFilterController as afc')
+    .filter-title.bg-white
+        h5.m0.input-group(ng-click='afc.categoryPane=!afc.categoryPane') Additional Filters
+            em.fa.fa-caret-down
+    .category-body.shadow-z3(ng-if='afc.categoryPane')
+        .filter-body.text-left
+            .filter-category
+                a Category
+                .mda-list
+                    .mda-list-item(ng-repeat='category in afc.categoriesForFilter')
+                        em.fa.pull-left(ng-class='category.icon')
+                        span.mda-checkbox.pull-left
+                            input.category-option(type='checkbox',
+                                st-category-search='',
+                                value='{{category.value}}',
+                                ng-model='category.selected')
+                            em.bg-indigo-500
+                        span.pull-left {{category.name}}
+            .filter-ranking
+                table
+                    tr
+                        td
+                            a Performance
+                        td
+                            p Ranking
+                        td
+                            p Significance
+                        td
+                            p Suitability
+                    tr(ng-repeat='item in afc.activePageRanking')
+                        td
+                            span.pull-left {{item.name}}
+                            span.mda-checkbox.pull-right
+                                input(type='checkbox', checked='', onclick='return false;')
+                                em.empty(ng-class='item.bg')
+                        td.text-right
+                            label.mda-checkbox
+                                input.ranking-option(type='checkbox',
+                                    st-rank-search='',
+                                    rank-type='ranking',
+                                    value='{{item.value}}',
+                                    ng-model='item.rankSelected')
+                                em.bg-indigo-500
+                        td.text-center
+                            label.mda-checkbox
+                                input.significance-option(type='checkbox',
+                                    st-rank-search='',
+                                    rank-type='significance',
+                                    value='{{item.value}}',
+                                    ng-model='item.significanceSelected')
+                                em.bg-indigo-500
+                        td.text-left
+                            label.mda-checkbox
+                                input.suitability-option(type='checkbox',
+                                    st-rank-search='',
+                                    rank-type='suitability',
+                                    value='{{item.value}}',
+                                    ng-model='item.suitabilitySelected')
+                                em.bg-indigo-500

@@ -73,12 +73,18 @@ class Seo_Genie_Admin {
 		 * class.
 		 */
 
+		// Setup page style
 		wp_enqueue_style( 'fontawesome', plugin_dir_url( __FILE__ ) . 'css/font-awesome.min.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'social-icons', plugin_dir_url( __FILE__ ) . 'css/social-icons.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'jquery.steps', plugin_dir_url( __FILE__ ) . 'css/jquery.steps.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'bootstrap', plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'bootstrap.select', plugin_dir_url( __FILE__ ) . 'css/bootstrap-select.min.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'lc_switch', plugin_dir_url( __FILE__ ) . 'css/lc_switch.css', array(), $this->version, 'all' );
+
+		// Initial page style
+		wp_enqueue_style( 'angular.material', plugin_dir_url( __FILE__ ) . 'vendor/angular-material/angular-material.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'angular.app', plugin_dir_url( __FILE__ ) . 'app/css/app.css', array(), $this->version, 'all' );		
+
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/seo-genie-admin.css', array(), $this->version, 'all' );
 
 	}
@@ -109,6 +115,12 @@ class Seo_Genie_Admin {
 		wp_enqueue_script( 'engine.google', plugin_dir_url( __FILE__ ) . 'js/googleEngine.json', array( ), $this->version, false );
 		wp_localize_script('engine.google', 'engineGoogle', array( 'pluginsUrl' => plugins_url()));
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/seo-genie-admin.js', array( 'jquery' ), $this->version, false );
+
+		// Angular scripts
+		wp_enqueue_script( 'angular.basejs', plugin_dir_url( __FILE__ ) . 'app/js/base.js', array( ), $this->version, false );
+		wp_enqueue_script( 'angular.materialjs', plugin_dir_url( __FILE__ ) . 'vendor/angular-material/angular-material.js', array( ), $this->version, false );
+		wp_enqueue_script( 'angular.appjs', plugin_dir_url( __FILE__ ) . 'app/js/app.js', array( ), $this->version, false );
+
 	}
 
 	/**

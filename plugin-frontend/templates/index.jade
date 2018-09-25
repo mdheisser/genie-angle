@@ -1,0 +1,47 @@
+-
+  var uuid = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+  var rel = uuid();
+  var ver = (str) => `${str.toLowerCase()}?v=${rel}`;
+
+doctype html 
+html(lang="en", data-ng-app="seogenie")
+
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+
+    meta(name='description', content='{{app.description}}')
+    meta(name='keywords', content='app, responsive, angular, bootstrap, dashboard, admin')
+    link(rel='shortcut icon', href='/app/img/favicon.ico')
+
+    title(data-ng-bind="::pageTitle()") SEOgenie offers an advanced on-page SEO automation platform.
+    // Bootstrap styles
+    link(rel='stylesheet', href=ver('app/css/bootstrap.css'), data-ng-if="!app.layout.isRTL")
+    link(rel='stylesheet', href=ver('app/css/bootstrap-rtl.css'), data-ng-if="app.layout.isRTL")
+    // ngMaterial styles
+    link(rel='stylesheet', href=ver('vendor/angular-material/angular-material.css'))
+    // Application styles
+    link(rel='stylesheet', href=ver('app/css/app.css'), data-ng-if="!app.layout.isRTL")
+    link(rel='stylesheet', href=ver('app/css/app-rtl.css'), data-ng-if="app.layout.isRTL")
+    // Themes
+    link(rel='stylesheet', ng-href='{{app.layout.theme}}', data-ng-if="app.layout.theme")
+    // Panels
+    link(rel='stylesheet', ng-href='{{app.layout.panel}}', data-ng-if="app.layout.panel")
+    base(href='/')
+	
+  body(data-ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-boxed' : app.layout.isBoxed, 'layout-fs': app.useFullLayout, 'hidden-footer': app.hiddenFooter, 'layout-h': app.layout.horizontal, 'aside-float': app.layout.isFloat, 'offsidebar-open': app.offsidebarOpen, 'aside-toggled': app.asideToggled, 'aside-collapsed-text': app.layout.isCollapsedText}")
+	
+    div(data-preloader)
+
+    .wrapper(data-ui-view="", data-autoscroll='false')
+
+    script(src=ver('app/js/base.js'))
+    script(src=ver('vendor/angular-material/angular-material.js'))
+    script(src=ver('app/js/app.js'))
+    //- templates:js
+    //- endinject

@@ -1,0 +1,17 @@
+﻿#<IfModule mod_rewrite.c="">
+#	Options +FollowSymlinks
+#	RewriteEngine On
+#	RewriteBase /angularjs-website-folder/
+#	RewriteCond %{REQUEST_FILENAME} !-f
+#	RewriteCond %{REQUEST_FILENAME} !-d
+#	RewriteCond %{REQUEST_URI} !.*\.(css|js|html|png|jpg|jpeg|gif|txt)
+#	RewriteRule (.*) index.html [L]
+#</IfModule>
+RewriteEngine On
+Options FollowSymLinks
+
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /#/$1 [L]

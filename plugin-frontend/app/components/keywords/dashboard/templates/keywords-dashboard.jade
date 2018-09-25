@@ -1,0 +1,71 @@
+h3.content-heading.text-bold
+    | Keywords
+#keywords_dashboard.panel(ng-controller='keyDashController as kdc')
+    .panel-heading.flex-heading.custom-heading
+        .description Dashboard
+        .panel-title.dashboard-title
+            select(selectpicker='', data-live-search='true', ng-model='kdc.selectedSite', ng-options='site.name for site in kdc.sites', ng-change='kdc.changeSite()')
+    .panel-wrapper
+        .panel-body.row
+            .col-lg-5.col-sm-12
+                #keywords_statistics.panel
+                    .panel-heading.sub-heading
+                        .panel-title 
+                            | Statistics
+                            span.text-underline {{ kdc.selectedSite.name }}
+                        paneltool(tool-collapse, ng-init="keywords_statistics=false")
+                    .panel-wrapper(uib-collapse="keywords_statistics")
+                        .panel-body.p0
+                            ul.list-group.m0
+                                li.list-group-item
+                                    span.badge.bg-info.text-center 534
+                                    | Number of Active Keywords Being Promoted
+                                li.list-group-item
+                                    span.badge.bg-info.text-center 787
+                                    | Number of Active Keywords Being Monitored
+                                li.list-group-item
+                                    span.badge.bg-info.text-center 4
+                                    | Average number of Keywords assignd to a Page
+                                li.list-group-item
+                                    span.badge.bg-info.text-center 4
+                                    | Average Keywords Page Position
+                                li.list-group-item
+                                    span.badge.bg-info.text-center 87
+                                    a(ng-click='kdc.goManagePage("best")') Best performing Keywords
+                                li.list-group-item
+                                    span.badge.bg-info.text-center 47
+                                    a(ng-click='kdc.goManagePage("least")') Least performing keywords
+                #keywords_search_engine.panel
+                    .panel-heading.sub-heading
+                        .panel-title 
+                            | Search Engines to 
+                            span.text-underline {{ kdc.selectedSite.name }}
+                        paneltool(tool-collapse, ng-init="keywords_search_engine=false")
+                    .panel-wrapper(uib-collapse="keywords_search_engine")
+                        .panel-body.p-sm
+                            | Monitored Search Engine
+                            em.icon-question
+                            .row.serp-item(ng-repeat='item in kdc.seViews')
+                                .col-xs-4
+                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", ng-model='item.selectedEngine', ng-change="kdc.changeDomains(item)")
+                                        option(ng-repeat='engine in item.engines', data-icon='{{engine.icon}}') {{ engine.name }}
+                                .col-xs-7.p0
+                                    select(selectpicker='', data-live-search='true', data-dropup-auto="false", ng-model='item.selectedDomain', ng-options='(item.selectedEngine + domain.Name) for domain in item.domains', ng-change="kdc.selectDomain(item)", data-size="8")
+                                .col-xs-1.pl0
+                                    em.fa.fa-check(ng-if='item.domainSelected')
+                                    .spinner(ng-show='item.domainChecking')
+                                        .bounce1
+                                        .bounce2
+                                        .bounce3
+                            .comment
+                                em Please select up to 3 search engines to monitor your Keywords SERP ranking positions
+            .col-lg-7.col-sm-12
+                #keywords_dash_chart.panel
+                    .panel-heading.sub-heading
+                        .panel-title
+                            | SERP Ranking
+                            span.text-underline {{ kdc.selectedSite.name }}
+                        paneltool(tool-collapse, ng-init="keywords_dash_chart=false")
+                    .panel-wrapper(uib-collapse="keywords_dash_chart")
+                        .panel-body.pt0
+                            serp-chart(config='kdc.chartOptions')

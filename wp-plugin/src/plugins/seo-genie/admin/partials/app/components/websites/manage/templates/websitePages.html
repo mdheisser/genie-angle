@@ -1,0 +1,82 @@
+<table class="custom-table" ng-controller="websitePagesController as wpCtrl" st-table="detailDisplayedCollection" st-safe-src="wpCtrl.keywordDetailCollection" st-set-filter="additionalFilter" st-filtered-collection="keywordPage">
+   <thead class="table-control">
+      <tr>
+         <td class="text-right" colspan="7">
+            <div class="pull-left ml mda-input-group">
+               <input class="mda-form-control" id="searchForpageUrl" type="text" st-search="pageUrl" placeholder="Filter/Search" ng-click="wpCtrl.showDetailAdditionalFilter=true" />
+               <span class="mda-input-group-addon">
+                  <em class="fa fa-search"></em>
+               </span>
+               <overlay-popup id="keyword_page" active="wpCtrl.showDetailAdditionalFilter" width="450">
+                  <div ng-include="'app/components/keywords/manage/templates/pageFilter.html'"></div>
+               </overlay-popup>
+            </div>
+            <div class="pull-left">
+               <fiter-condition condition-for="pageUrl"></fiter-condition>
+            </div>
+            <div class="pull-left pl filter-title">Filter</div>
+            <div class="pull-left ml">
+               <md-switch class="m0" ng-model="wpCtrl.detailFilterOn" aria-label="filter" uib-tooltip="Reset Filter" tooltip-enable="wpCtrl.detailFilterOn" st-reset="" ng-disabled="!wpCtrl.detailFilterOn" ng-click="wpCtrl.resetPageFilter()"></md-switch>
+            </div>
+            <div class="pull-right" st-pagination="" st-items-by-page="wpCtrl.detailNumberOfRows.value" st-template="app/components/_common/templates/pagination.custom.html" st-page-change="wpCtrl.detailCurrentPage = newPage"></div>
+            <div class="pull-right display-rows">
+               <label>Display</label>
+               <label>
+                  <select selectpicker="" ng-model="wpCtrl.detailNumberOfRows" ng-options="item.label for item in wpCtrl.detailItemsByPage"></select>
+               </label>
+            </div>
+            <div class="pull-right mr" style="padding-top:2px;">
+               <span>Export XLS</span>
+               <em class="fa fa-file-excel-o"></em>
+            </div>
+         </td>
+      </tr>
+   </thead>
+   <thead>
+      <tr>
+         <th class="text-center row-index">#</th>
+         <th st-sort="pageUrl">Site Pages</th>
+         <th class="text-center" st-sort="keywords">Keywords</th>
+         <th class="text-center" st-sort="violate">SEO Violations</th>
+         <th class="text-center">Score</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr ng-repeat="detail in detailDisplayedCollection" ng-class="{true: &quot;bg-blue-100&quot;, false:&quot;&quot;}[detail.assignedState]" ng-click="wpCtrl.onSelectKeywordDetail(detail, $event)">
+         <td class="text-center">{{ ((wpCtrl.detailCurrentPage-1) * wpCtrl.detailNumberOfRows.value) + $index + 1 }}</td>
+         <td class="keyword-col">
+            <div class="pull-left keyword-label">
+               <span class="m0">{{ detail.pageUrl }}</span><i class="fa fa-caret-down ml-sm" ng-click="wpCtrl.openPageActionPane(detail, $event)"></i>
+               <overlay-popup active="detail.showActions" width="135">
+                  <div ng-include="'app/components/keywords/manage/templates/pageActions.html'"></div>
+               </overlay-popup>
+            </div>
+            <div class="pull-right keyword-control">
+               <label class="m0 pull-right">
+                  <md-switch ng-model="detail.category.promoted" aria-label="auto" uib-tooltip="{{{true:&quot;Keyword Auto-Promotion ON&quot;, false:&quot;Keyword Auto-Promotion OFF&quot;}[detail.category.promoted]}}" ng-click="wpCtrl.setManualPromotion(detail, $event)"></md-switch>
+               </label>
+               <em class="fa fa-anchor pull-right" ng-if="detail.category.default" uib-tooltip="Default Keyword, will appear on all Pages with no suitable Keywords" ng-click="$event.stopPropagation()"></em>
+               <em class="fa fa-bookmark-o pull-right" ng-if="detail.category.forced" uib-tooltip="Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score" ng-click="$event.stopPropagation()"></em>
+            </div>
+         </td>
+         <td class="text-center page-keyword-col">
+            <span uib-tooltip="{{ detail.auto_keywords + detail.manual_keywords }} Keywords Assigned to Page, {{detail.manual_keywords}} Assigned Manually">{{ detail | pageKeywordNumber }}</span>
+            <em class="fa fa-caret-down text-grey" ng-click="wpCtrl.openPageKeywordPopup(detail, $event)"></em>
+            <overlay-popup active="detail.showKeywordsPopup" width="135">
+               <div ng-include="'app/components/keywords/manage/templates/pageKeywordPopup.html'"></div>
+            </overlay-popup>
+         </td>
+         <td class="text-center seo-violation-col" ng-click="wpCtrl.openKeywordViolationPopup(detail, $event)">
+            <em class="fa" ng-class="{1:&quot;fa-check text-success&quot;, 2:&quot;fa-warning text-warning&quot;, 3:&quot;fa-info-circle text-danger&quot;}[detail.violate]"></em>
+            <em class="fa fa-caret-down text-grey"></em>
+         </td>
+         <td class="score-col">
+            <div class="color-bar">
+               <div class="flex" ng-class="{1:&quot;bg-red-500&quot;, 2:&quot;bg-yellow-700&quot;, 3:&quot;bg-green-500&quot;, 4:&quot;bg-green-300&quot;}[detail.ranking]" uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}"></div>
+               <div class="flex" ng-class="{1:&quot;bg-red-500&quot;, 2:&quot;bg-yellow-700&quot;, 3:&quot;bg-green-500&quot;, 4:&quot;bg-green-300&quot;}[detail.significance]" uib-tooltip="Significance: 34%"></div>
+               <div class="flex" ng-class="{1:&quot;bg-red-500&quot;, 2:&quot;bg-yellow-700&quot;, 3:&quot;bg-green-500&quot;, 4:&quot;bg-green-300&quot;}[detail.suitability]" uib-tooltip="Suitability: 68%"></div>
+            </div>
+         </td>
+      </tr>
+   </tbody>
+</table>

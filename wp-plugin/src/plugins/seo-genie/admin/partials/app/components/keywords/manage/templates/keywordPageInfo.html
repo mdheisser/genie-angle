@@ -1,0 +1,103 @@
+<div class="panel m0">
+   <div class="panel-heading sub-heading">
+      <div class="panel-title">Page Info for Keyword: {{ kpic.pageData.pageUrl }}</div>
+      <paneltool tool-close="tool-close" ng-click="kpic.hide()"></paneltool>
+   </div>
+   <div class="panel-wrapper">
+      <div class="panel-body">
+         <div class="row row-eq-height">
+            <div class="col-md-4">
+               <div class="panel" id="page_setting">
+                  <div class="panel-heading sub-heading">
+                     <div class="panel-title">Settings</div>
+                     <paneltool tool-collapse="tool-collapse" ng-init="page_setting=false"></paneltool>
+                  </div>
+                  <div class="panel-wrapper" uib-collapse="page_setting">
+                     <div class="panel-body p-sm">
+                        <div class="mda-list p0">
+                           <div class="mda-list-item mb-sm">
+                              <span class="pull-left">Launch Page URL</span>
+                              <span class="pull-right fixed-width" ng-click="kpic.openPageUrl($event)">
+                                 <em class="fa fa-search"></em>
+                              </span>
+                           </div>
+                           <div class="mda-list-item mb-sm">
+                              <span class="pull-left">Copy to Clipboard</span>
+                              <span class="pull-right fixed-width" ng-click="kpic.copyToClipboard($event)">
+                                 <em class="fa fa-copy"></em>
+                              </span>
+                           </div>
+                           <div class="mda-list-item mb-sm">
+                              <span class="pull-left">Auto Optimise Page</span>
+                              <span class="pull-right fixed-width">
+                                 <md-switch ng-model="kpic.pageData.category.promoted" aria-label="auto"></md-switch>
+                              </span>
+                           </div>
+                           <div class="mda-list-item mb-sm" ng-click="kpic.showMaximumKeywordsPage=!kpic.showMaximumKeywordsPage">
+                              <span class="pull-left">Maximum Keywords for Page</span>
+                              <span class="pull-right fixed-width">{{ kpic.pageData.forced_min }}/{{ kpic.pageData.forced_max }}
+                                 <em class="fa fa-caret-down"></em>
+                              </span>
+                           </div>
+                           <div class="mda-list-item pl" ng-if="kpic.showMaximumKeywordsPage">
+                              <div class="max-assign-setting">
+                                 <span class="pull-left mr-sm">
+                                    <small>Keywords:&nbsp;Min</small>
+                                 </span>
+                                 <input class="pull-left m0 p0 form-control" type="number" min="0" max="{{kpic.pageData.forced_max}}" ng-model="kpic.pageData.forced_min" />
+                                 <span class="pull-left mr-sm ml-sm">
+                                    <small>Max</small>
+                                 </span>
+                                 <input class="pull-left m0 p0 form-control" type="number" min="0" max="7" ng-model="kpic.pageData.forced_max" />
+                              </div>
+                           </div>
+                           <div class="mda-list-item mb-sm">
+                              <span class="pull-left">Refresh, Process Page</span>
+                              <span class="pull-right fixed-width" ng-click="kpic.onRefreshPage();">
+                                 <em class="fa fa-refresh"></em>
+                              </span>
+                           </div>
+                           <div class="mda-list-item mb-sm">
+                              <span class="pull-left">Remove Page from SEOgenie</span>
+                              <span class="pull-right fixed-width" ng-click="kpic.onRemoveFromSystem();">
+                                 <em class="fa fa-trash-o"></em>
+                              </span>
+                           </div>
+                           <div class="mda-list-item">
+                              <span class="pull-left">Page Languages</span>
+                              <span class="pull-right">
+                                 <select selectpicker="" data-live-search="true" data-dropup-auto="false" data-size="6" ng-model="kpic.selectedLanguage" ng-options="language.name for language in kpic.languages" multiple="multiple" data-max-options="3"></select>
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-8">
+               <div class="panel" id="page_description">
+                  <div class="panel-heading sub-heading">
+                     <div class="panel-title">Page Title, Description</div>
+                     <paneltool tool-collapse="tool-collapse" ng-init="page_description=false"></paneltool>
+                  </div>
+                  <div class="panel-wrapper" uib-collapse="page_description">
+                     <div class="panel-body pt-sm"><a>Herbal medicine | University of Maryland Medical Center</a>
+                        <p class="m0">www.umm.deu >...> Complementary and Alternative Medicine Guide > Treatment</p>
+                        <p>The most commonly used herbal supplements in the U.S. include: Echinacea (Echinacea purpurea and related species> St. John's wort(Hypericum perforatum) Ginkgo (Ginkgo biloba) Garlic (Allium sativum) Saw palmetto (Serrenoa repens)
+                           Ginseng (Panax ginseng or Asian ginseng) and Panax guinquefoluis or Amerian ginseng)</p>
+                        <div>
+                           <span class="pull-left">Auto Generate Title/Description</span>
+                           <div class="pull-left pl">
+                              <md-switch ng-model="kpic.pageData.autotitle" aria-label="auto"></md-switch>
+                           </div>
+                           <span>Generate</span>
+                           <em class="fa fa-edit pull-right"></em>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

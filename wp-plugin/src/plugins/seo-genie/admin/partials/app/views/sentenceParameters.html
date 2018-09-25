@@ -1,0 +1,25 @@
+<h3 class="content-heading">Sentence Structure Parameters
+   <small>Words used for sentence generation</small>
+</h3>
+<div class="panel panel-primary panel-dark" id="sentenceParametersPanel" ng-controller="sentenceParametersController as sp">
+   <div class="panel-heading">
+      <div class="panel-title">
+         <div class="btn-group" uib-dropdown="">
+            <button class="btn btn-default" id="split-button" type="button">Action</button>
+            <button class="btn btn-default" type="button" uib-dropdown-toggle="">
+               <span class="caret"></span>
+               <span class="sr-only">Split button!</span>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu="" role="menu" aria-labelledby="split-button">
+               <li role="menuitem"><a href="#"><i class="fa fa-trash"></i> Delete</a>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <paneltool tool-collapse="tool-collapse" tool-refresh="line back-and-forth grow"></paneltool>
+   </div>
+   <div class="panel-body" ng-include="'app/views/partials/parameters.html'"></div>
+   <div class="panel-footer"></div>
+   <span class="text-bold">Total: <i class="fa fa-sum"></i> =
+      <div class="label.label.label-info"></div>45</span>
+</div>

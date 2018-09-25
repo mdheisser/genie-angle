@@ -1,0 +1,6 @@
+.accordion-item(ng-click='active($event)')
+	.collapsed-body.text-center
+		em.fa.fa-grip.fa-rotate-90.collapse-icon(uib-tooltip="Collapse Panel")
+		.rotated-text(ng-if='!isActive()')
+			span.rotated-text__inner {{ name }}
+.item-body.smoothidden(ng-transclude="")

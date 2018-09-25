@@ -1,0 +1,69 @@
+<div class="panel m0">
+   <div class="panel-heading sub-heading">
+      <div class="panel-title">Page Info for Keyword: {{ kpvc.pageData.pageUrl }}</div>
+      <paneltool tool-close="tool-close" ng-click="kpvc.hide()"></paneltool>
+   </div>
+   <div class="panel-wrapper">
+      <div class="panel-body">
+         <table class="custom-table" st-table="pageViolationCollection" st-safe-src="kpvc.pageViolationCollection" st-set-filter="additionalFilter" st-filtered-collection="keywordPageViolation">
+            <thead class="table-control">
+               <tr>
+                  <td class="text-right" colspan="7">
+                     <div class="pull-left mda-input-group">
+                        <input class="mda-form-control" id="searchFordescription" type="text" st-search="description" placeholder="Filter/Search" ng-click="kpvc.showViolationFilter=true" />
+                        <span class="mda-input-group-addon">
+                           <em class="fa fa-search"></em>
+                        </span>
+                        <overlay-popup id="keyword_page_violation" active="kpvc.showViolationFilter" width="177">
+                           <div ng-include="'app/components/pages/manage/templates/violationFilter.html'"></div>
+                        </overlay-popup>
+                     </div>
+                     <div class="pull-left">
+                        <fiter-condition condition-for="description"></fiter-condition>
+                     </div>
+                     <div class="pull-left pl filter-title">Filter</div>
+                     <div class="pull-left ml">
+                        <md-switch class="m0" ng-model="kpvc.filterOn" aria-label="filter" uib-tooltip="Reset Filter" tooltip-enable="kpvc.filterOn" st-reset="" ng-disabled="!kpvc.filterOn" ng-click="kpvc.resetFilter()"></md-switch>
+                     </div>
+                     <div class="pull-right" st-pagination="" st-items-by-page="kpvc.numberOfRows.value" st-template="app/components/_common/templates/pagination.custom.html" st-page-change="kpvc.currentPage = newPage"></div>
+                     <div class="pull-right display-rows">
+                        <label>Display</label>
+                        <label>
+                           <select selectpicker="" ng-model="kpvc.numberOfRows" ng-options="item.label for item in kpvc.itemsByPage"></select>
+                        </label>
+                     </div>
+                     <div class="pull-right mr" style="padding-top:2px;" ng-click="kpvc.exportPageViolationTable()">
+                        <span>Export</span>
+                        <em class="fa fa-file-excel-o"></em>
+                     </div>
+                  </td>
+               </tr>
+            </thead>
+            <thead>
+               <tr>
+                  <th class="text-center row-index">#</th>
+                  <th st-sort="status">Violation Status</th>
+                  <th st-sort="category">Category</th>
+                  <th st-sort="description">Description</th>
+                  <th st-sort="action">Recommendation/Actions</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr st-select-row="row" st-select-mode="single" ng-repeat="row in pageViolationCollection">
+                  <td class="text-center p-sm">{{ ((kpvc.currentPage-1) * kpvc.numberOfRows.value) + $index + 1 }}</td>
+                  <td class="p-sm">
+                     <span class="pull-left">{{ row.status | pageViolationStatus }}</span>
+                     <em class="pull-right fa" ng-class="{1:&quot;fa-info-circle text-danger&quot;, 2:&quot;fa-warning text-warning&quot;, 3:&quot;fa-warning text-primary&quot;, 4:&quot;fa-check text-success&quot;}[row.status]"></em>
+                  </td>
+                  <td class="p-sm">{{ row.category }}</td>
+                  <td class="p-sm">{{ row.description }}</td>
+                  <td class="p-sm">
+                     <span class="pull-left">{{ row.action }}</span>
+                     <em class="pull-right fa fa-wrench text-success"></em>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>

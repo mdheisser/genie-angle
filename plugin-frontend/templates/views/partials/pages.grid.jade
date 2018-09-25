@@ -1,0 +1,126 @@
+table(class="table table-striped table-bordered table-hover", st-table="pc.pages")
+	colgroup
+		col(class="col-md-1")
+		col(class="col-md-3")
+		col(class="col-md-3")
+		col(class="col-md-1")
+		col(class="col-md-1")
+		col(class="col-md-1")
+		col(class="col-md-1")
+	thead
+		tr
+			th(class="text-center")
+				md-checkbox(id="pages-select-all", ng-model='kc.selectAll', class='page-select center', uib-popover="Select All" popover-trigger="'mouseenter'" popover-animation="true" popover-placement="top")
+			th(class="text-center")
+				div(class="text-bold name-col") 
+					| Name
+				i(class="material-icons search-icon")
+					| search
+			th(class=" text-center")
+				div(class="text-bold")
+					| Url
+				i(class="material-icons search-icon")
+					| search
+
+			th(class="text-center")
+				span(class="text-bold")
+					| Promoted Page
+			
+			th(class="text-center")
+				span(class="text-bold")
+					| Keyword/Title Assignment
+			th(class="text-center")
+				span(class="text-bold")
+					| Language
+			th(class="text-center")
+				span(class="text-bold")
+					| Assigned Keywords
+			th(class="text-center")
+				span(class="text-bold")
+					| Process Page
+
+	tbody
+		tr(ng-repeat-start="page in pc.pages")
+			td(class='text-center', style='vertical-align: baseline;')
+				md-checkbox(id="p_{{ $index }}", ng-model='page.selected', class='page-select', aria-label='select page')
+			<td>
+				<i class="material-icons details-arrow" uib-popover="Detailed View" popover-trigger="'mouseenter'" popover-animation="true" popover-placement="right" ng-show="!page.isDetailedView" ng-click="showDetailed(page)">keyboard_arrow_right</i>
+				<i class="material-icons details-arrow" ng-show="page.isDetailedView" ng-click="closeDetails(page)">keyboard_arrow_down</i> <div class="page-title">{{ page.name }}</div>
+			</td>
+			<td>
+				| {{ page.url[0] }}
+				<i class="fa fa-external-link-square"></i>
+			</td>
+
+			td(class='text-center')
+				label(class="switch switch-md", uib-popover="Enable Promotion Keywords for this Page by inserting relevant Keyword metadata into Page.", popover-trigger="'mouseenter'", popover-animation="true", popover-placement="right")
+					input(type="checkbox", checked="checked")
+					span
+			td(class='text-center')
+				label(class="switch switch-md keyword-switch", uib-popover="Allow System to automatically choose the most optimal Keywords for this Page." popover-trigger="'mouseenter'" popover-animation="true" popover-placement="right")
+					input(type="checkbox", checked="checked")
+					span
+				<i class="material-icons keyword-settings-icon">settings</i>
+			<td class="action text-center">
+				<div class="btn-group" uib-dropdown is-open="status.isopen">
+					<button id="single-button" type="button" class="btn btn-default btn-flat" uib-dropdown-toggle ng-disabled="disabled">
+						<span class="flag-icon flag-icon-gb"></span> <span>English </span><span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+						<li role="menuitem"><a href="#"><span class="flag-icon flag-icon-gb"></span> English</a></li>
+						<li role="menuitem"><a href="#"><span class="flag-icon flag-icon-ru"></span> Russian</a></li>
+					</ul>
+				</div>
+			</td>
+			<td>
+				<div class="btn-group" uib-dropdown is-open="false">
+					<button id="single-button" type="button" class="btn btn-default btn-flat" uib-dropdown-toggle ng-disabled="disabled">
+						<span class="">{{ page.promotedKeywordsCount }}</span><span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+						<li role="menuitem"><a href="#"><span class="flag-icon flag-icon-gb"></span> English</a></li>
+						<li role="menuitem"><a href="#"><span class="flag-icon flag-icon-ru"></span> Russian</a></li>
+					</ul>
+				</div>
+				<ui-knob value="page.significancePercent" options="page.significanceOptions" uib-popover="{{page.significancePercent}}%" popover-trigger="'mouseenter'"></ui-knob>
+			</td>
+			td(class="action text-center")
+				label(class="switch switch-md")
+					input(type="checkbox", checked="checked")
+					span
+		</tr>
+		<tr ng-if="page.isDetailedView" ng-repeat-end="">
+			<td colspan="8">
+				<div class="details-view top">
+					<div class="arrow" style="position: absolute"></div>
+					<h4 class="title">{{ page.name }}</h4>
+					<div class="content">
+						<p>
+							<a href="https://placeholder.com"><img src="http://via.placeholder.com/350x150"></a><br><small>Pellentesque ut diam velit, eget porttitor risus. Nullam posuere euismod volutpat. </small>
+						</p>
+					</div>
+				</div>
+
+			</td>
+		</tr>
+	</tbody>
+
+</table>
+<div class="row pagination-control">
+	<div class="form-group">
+		<div class="col-md-4" style="margin: 21px 0px;">
+			<label for="pages" class="text-bold">Show</label>
+			<div id="pages" class="btn-group" uib-dropdown is-open="pagesNumber.isopen">
+				<button id="page-numbers" type="button" class="btn btn-default btn-flat" uib-dropdown-toggle ng-disabled="disabled">
+					<span>10</span> <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+					<li role="menuitem"><a href="#">10</a></li>
+					<li role="menuitem"><a href="#">20</a></li>
+				</ul>
+			</div>
+		</div>
+		<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" boundary-links="true" rotate="false" num-pages="numPages" class="pagination pull-right" style="margin-right: 20px;"></ul>
+	</div>
+
+</div>

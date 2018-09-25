@@ -1,0 +1,94 @@
+<h3 class="content-heading text-bold">Websites Settings</h3>
+<div class="panel" id="websites_settings" ng-controller="websiteSettingsController as wsCtrl">
+   <div class="panel-heading sub-heading">
+      <div class="panel-title">Auto Assign/Distribute Keywords Settings to Pages</div>
+      <paneltool tool-collapse="tool-collapse" ng-init="websites_settings=false"></paneltool>
+   </div>
+   <div class="panel-wrapper" uib-collapse="websites_settings">
+      <div class="panel-body">
+         <p>These settings allows you to automaticaly assign keywords to pages based on their Significance and Suitability ranking</p>
+         <select class="websites" selectpicker="" data-live-search="true" ng-model="wsCtrl.selectedSite" ng-options="(&quot;Site http://&quot; + site.name) for site in wsCtrl.sites"></select>
+         <h5 class="text-underline text-bold">Assignment Parameters</h5>
+         <div class="row">
+            <div class="col-md-4 table-wrapper">
+               <table st-table="st-table">
+                  <tr>
+                     <td class="pb">Significance
+                        <small>
+                           <em class="icon-arrow-down"></em>
+                        </small>
+                     </td>
+                     <td class="pb">Suitability
+                        <small>
+                           <em class="icon-arrow-down"></em>
+                        </small>
+                     </td>
+                  </tr>
+                  <tr ng-repeat="item in wsCtrl.activePageRanking">
+                     <td class="pl pr pb-sm">
+                        <label class="mda-checkbox pull-left">
+                           <input class="ranking-option" type="checkbox" st-rank-search="" rank-type="ranking" value="{{item.value}}" ng-model="item.significanceSelected" />
+                           <em class="bg-indigo-500"></em>
+                        </label>
+                        <span class="pull-left mr">{{item.name}}</span>
+                        <span class="mda-checkbox pull-right">
+                           <input type="checkbox" checked="" onclick="return false;" />
+                           <em class="empty" ng-class="item.bg"></em>
+                        </span>
+                     </td>
+                     <td class="pl pr pb-sm">
+                        <label class="mda-checkbox pull-left">
+                           <input class="ranking-option" type="checkbox" st-rank-search="" rank-type="ranking" value="{{item.value}}" ng-model="item.suitabilitySelected" />
+                           <em class="bg-indigo-500"></em>
+                        </label>
+                        <span class="pull-left mr">{{item.name}}</span>
+                        <span class="mda-checkbox pull-right">
+                           <input type="checkbox" checked="" onclick="return false;" />
+                           <em class="empty" ng-class="item.bg"></em>
+                        </span>
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="col-md-8">
+               <div class="mda-list p0 mt">
+                  <div class="mda-list-item mb-sm">
+                     <span class="pull-left">Overwrite manually asssigned Keywords:</span>
+                     <span class="pull-right fixed-width">
+                        <md-switch ng-model="wsCtrl.overwrite" aria-label="auto"></md-switch>
+                     </span>
+                  </div>
+                  <div class="mda-list-item mb-sm">
+                     <span class="pull-left">
+                        <p class="m0">Apply Default Keywords to Pages without assignment:</p><a class="text-underline">Default Keywords Settings</a>
+                     </span>
+                     <span class="pull-right fixed-width">
+                        <md-switch ng-model="wsCtrl.appliedDefaultKeywords" aria-label="auto"></md-switch>
+                     </span>
+                  </div>
+                  <div class="mda-list-item">
+                     <span class="pull-left">Maximum number of Keywords per page:</span>
+                     <span class="pull-right">
+                        <select selectpicker="" ng-model="wsCtrl.maximumKeywordByPage">
+                           <option>1</option>
+                           <option>2</option>
+                           <option>3</option>
+                           <option>4</option>
+                           <option>5</option>
+                           <option>6</option>
+                           <option>7</option>
+                        </select>
+                     </span>
+                  </div>
+               </div>
+            </div>
+         </div><a class="text-underline mt">Reset to Default</a>
+         <div class="row mt">
+            <div class="col-lg-6 col-md-6 text-right">
+               <button class="btn">Save</button>
+               <button class="btn btn-primary">Distribute</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

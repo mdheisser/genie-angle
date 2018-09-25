@@ -1,0 +1,22 @@
+<div class="bulk-actions mda-list p0 shadow-z3 bg-white">
+   <div class="mda-list-item">
+      <label class="pull-left">Bulk Actions</label>
+   </div>
+   <div class="mda-list-item" ng-repeat="item in listc.bulkActions" ng-click="listc.performAction(item.label)" ng-class="item.class">
+      <em class="fa pull-left" ng-class="item.icon"></em>
+      <span class="pull-left">{{ item.label }}</span>
+      <span class="pull-right" ng-if="item.class!=undefined">{{listc.minForcedPromotion}}/{{listc.maxForcedPromotion}}</span>
+      <div class="container-fluid shadow-z3 p0" id="force-setting" ng-click="$event.stopPropagation()">
+         <div class="row m0">
+            <div class="col-xs-7 text-center p-sm">
+               <span>Pages: Min</span>
+               <input class="m0 p0 form-control" type="number" min="0" max="999" ng-model="listc.minForcedPromotion" />
+            </div>
+            <div class="col-xs-5 text-center p-sm">
+               <span>Max</span>
+               <input class="m0 p0 form-control" type="number" min="0" max="999" ng-model="listc.maxForcedPromotion" />
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

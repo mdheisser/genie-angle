@@ -1,0 +1,57 @@
+<div class="register" ng-show="!regCtrl.showConfirmForm">
+   <p class="text-center pv">Signup to
+      <img src="/app/img/logo.png" />
+      <form class="form-validate mb-lg" role="form" name="regCtrl.registerForm" ng-submit="regCtrl.register()">
+         <div class="form-group has-feedback">
+            <label class="text-muted">Your email</label>
+            <input class="form-control" type="email" name="account_email" placeholder="Enter email" ng-model="regCtrl.account.email" validator="required,email" />
+            <span class="fa fa-envelope form-control-feedback text-muted"></span>
+         </div>
+         <div class="form-group has-feedback">
+            <label class="text-muted">Password</label>
+            <input class="form-control" id="id-password" type="password" name="account_password" placeholder="Enter password" ng-model="regCtrl.account.password" validator="required" />
+            <span class="fa fa-lock form-control-feedback text-muted"></span>
+         </div>
+         <div class="clearfix">
+            <div class="checkbox c-checkbox pull-left mt0">
+               <label>
+                  <input type="checkbox" required="" name="account_agreed" ng-model="regCtrl.account.agreed" validator="required" />
+                  <span class="fa fa-check"></span>I agree with the <a href="#">Terms &amp; Privacy</a>
+                  <div class="text-danger invalid" ng-show="regCtrl.registerForm.account_agreed.$dirty &amp;&amp; regCtrl.registerForm.account_agreed.$error.required">You must agree the terms</div>
+               </label>
+            </div>
+         </div>
+         <button class="btn btn-block btn-primary mt-lg" type="submit" validation-submit="regCtrl.registerForm" ng-click="regCtrl.register()">CREATE ACCOUNT</button>
+      </form>
+   </p>
+   <div class="social text-center pv">
+      <a class="btn btn-primary btn-lg md-ink-ripple btn-danger btn-googleplus" ng-click="regCtrl.register()">
+         <md-tooltip>Signup with Google</md-tooltip><i class="fa fa-google-plus text-lg"></i>
+      </a>
+      <a class="btn btn-primary btn-lg md-ink-ripple btn-facebook" ng-click="regCtrl.register()">
+         <md-tooltip>Signup with Facebook</md-tooltip><i class="fa fa-facebook text-lg"></i>
+      </a>
+      <a class="btn btn-purple btn-lg md-ink-ripple btn-yahoo" ng-click="regCtrl.register()">
+         <md-tooltip>Signup with Yahoo</md-tooltip><i class="fa fa-yahoo text-lg"></i>
+      </a>
+      <a class="btn btn-primary btn-lg md-ink-ripple btn-info btn-twitter" ng-click="regCtrl.register()">
+         <md-tooltip>Signup with Twitter</md-tooltip><i class="fa fa-twitter text-lg"></i>
+      </a>
+      <div class="alert alert-danger text-center" ng-show="regCtrl.authMsg">{{regCtrl.authMsg}}</div>
+   </div>
+   <p class="pt-lg text-center">Have an account?<a class="mt mb-sm btn-block btn-lg btn btn-primary btn-outline" ui-sref="page.auth.login">Login</a>
+   </p>
+</div>
+<div class="register" ng-show="regCtrl.showConfirmForm">
+   <p class="text-center pv">
+      <img src="/app/img/logo.png" />
+      <form class="form-validate mb-lg" role="form" name="regCtrl.confirmationForm" ng-submit="regCtrl.confirm()">
+         <div class="form-group has-feedback">
+            <label class="text-muted">Confirmation Code</label>
+            <input class="form-control" type="text" name="confirmCode" placeholder="Enter code" ng-model="regCtrl.confirmCode" validator="required" />
+            <span class="fa fa-envelope form-control-feedback text-muted"></span>
+         </div>
+         <button class="btn btn-block btn-primary mt-lg" type="submit" validation-submit="regCtrl.confirmationForm" ng-click="regCtrl.confirm()">Send</button>
+      </form>
+   </p>
+</div>

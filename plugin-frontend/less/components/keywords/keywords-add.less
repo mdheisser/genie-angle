@@ -1,0 +1,46 @@
+// Add Keywords Panel
+#add_keywords {
+    .row-eq-height {
+        @media only screen and (min-width: @md-width) {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display:         flex;
+            .panel {
+                height: 100%;
+            }
+        }
+    }
+    .checkbox {
+        @media only screen and (max-width: @pad-width) {
+            label {
+                font-size: 12px;
+            }
+        }
+    }
+    .progress {
+        background-color: #F1BABA;
+        height: 25px;
+        margin-bottom: 0 !important;
+        .progress-bar {
+            color: black;
+            font-size: 13px;
+            @media only screen and (max-width: @mobile-width) {
+                font-size: 11px;
+            }
+            span {
+                white-space: nowrap;
+            }
+        }
+    }
+    .promoted-bar {
+        .progress {
+            background-color: #F1BABA;
+        }
+    }
+    .monitored-bar {
+        .progress {
+            background-color: #F9E4A3;
+        }
+    }
+}

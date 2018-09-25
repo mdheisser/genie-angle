@@ -1,0 +1,360 @@
+<div class="expanded-website" ng-controller="websiteExpandController as weCtrl">
+   <div class="row row-eq-height">
+      <div class="col-md-6">
+         <div class="panel" id="website_setting">
+            <div class="panel-heading sub-heading">
+               <div class="panel-title">Settings for Website: {{ row.name }}</div>
+               <paneltool tool-collapse="tool-collapse" ng-init="website_setting=false"></paneltool>
+            </div>
+            <div class="panel-wrapper" uib-collapse="website_setting">
+               <div class="panel-body">
+                  <div class="mda-list p0">
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Optimise Website</span>
+                        <span class="pull-right fixed-width">
+                           <md-switch ng-model="row.optimise" aria-label="auto"></md-switch>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Maximum Keywords Per Page {{row.keyword_min}}/{{row.keyword_max}}
+                           <em class="fa fa-caret-down" ng-click="weCtrl.showMaximumKeywordByPage=!weCtrl.showMaximumKeywordByPage"></em>
+                        </span>
+                        <span class="pull-right fixed-width" ng-click="weCtrl.onRefreshPage(page);">
+                           <em class="fa fa-refresh"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item pl" ng-if="weCtrl.showMaximumKeywordByPage">
+                        <div class="max-assign-setting">
+                           <span class="pull-left mr-sm">
+                              <small>Keywords:&nbsp;Min</small>
+                           </span>
+                           <input class="pull-left m0 p0 form-control" type="number" min="0" max="{{row.keyword_max}}" ng-model="row.keyword_min" />
+                           <span class="pull-left mr-sm ml-sm">
+                              <small>Max</small>
+                           </span>
+                           <input class="pull-left m0 p0 form-control" type="number" min="0" max="7" ng-model="row.keyword_max" />
+                        </div>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Default Keywords
+                           <em class="fa fa-caret-down" ng-click="weCtrl.showDefaultKeyword=!weCtrl.showDefaultKeyword"></em>
+                           <overlay-popup active="weCtrl.showDefaultKeyword" width="150" ng-click="pages_assign_key=false">
+                              <div class="shadow-z3 bg-white p-sm">Show Default Keyword</div>
+                           </overlay-popup>
+                        </span>
+                        <span class="pull-right fixed-width">
+                           <md-switch ng-model="row.default" aria-label="auto"></md-switch>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Attention Status
+                           <em class="fa fa-caret-down"></em>
+                        </span>
+                        <span class="pull-right fixed-width">
+                           <md-switch ng-model="row.attention" aria-label="auto"></md-switch>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Site Creation Date : 01.03.2016</span>
+                        <span class="pull-right fixed-width" ng-click="weCtrl.onRemoveFromSystem(page);">
+                           <em class="fa fa-trash-o"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Site Domain : <a>{{ row.name }}</a>
+                           <em class="fa fa-caret-down" ng-click="weCtrl.showDomainLaunchAction=!weCtrl.showDomainLaunchAction"></em>
+                           <overlay-popup active="weCtrl.showDomainLaunchAction" width="140">
+                              <div class="shadow-z3 bg-white p-sm" ng-click="wlCtrl.openWebsiteUrl(row, $event)">Launch Website URL</div>
+                           </overlay-popup>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Site Domain Alias : <a>{{ row.name }}</a>
+                           <em class="fa fa-caret-down" ng-click="weCtrl.showUrlLaunchAction=!weCtrl.showUrlLaunchAction"></em>
+                           <overlay-popup active="weCtrl.showUrlLaunchAction" width="140">
+                              <div class="shadow-z3 bg-white p-sm" ng-click="wlCtrl.openWebsiteUrl(row, $event)">Launch Website URL</div>
+                           </overlay-popup>
+                        </span>
+                     </div>
+                     <div class="mda-list-item">
+                        <span class="pull-left">Website Primary Language</span>
+                        <span class="pull-right">
+                           <select selectpicker="" data-live-search="true" data-dropup-auto="false" data-size="6" ng-model="weCtrl.selectedLanguage" ng-options="language.name for language in weCtrl.languages" multiple="multiple" data-max-options="3"></select>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Launch Page URL</span>
+                        <span class="pull-right fixed-width" ng-click="weCtrl.openPageUrl(page, $event)">
+                           <em class="fa fa-search"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Copy to Clipboard</span>
+                        <span class="pull-right fixed-width" ng-click="weCtrl.copyToClipboard(page, $event)">
+                           <em class="fa fa-copy"></em>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6">
+         <div class="panel" id="website_sitemap">
+            <div class="panel-heading sub-heading">
+               <div class="panel-title">XML SiteMap for Website : {{ row.name }}</div>
+               <paneltool tool-collapse="tool-collapse" ng-init="website_sitemap=false"></paneltool>
+            </div>
+            <div class="panel-wrapper" uib-collapse="website_sitemap">
+               <div class="panel-body">
+                  <div class="mda-list p0">
+                     <div class="mda-list-item mb-sm">
+                        <div class="pull-left soc-rank">
+                           <span class="glyphicon socicon-google"></span>
+                           <span>Google</span>
+                        </div>
+                        <div class="pull-left p-sm">
+                           <div class="color-box bg-green-500" style="width:15px;height:18px;"></div>
+                        </div>
+                        <div class="pull-left pt-sm text-success">84 / 81</div>
+                        <span class="pull-right fixed-width" ng-click="weCtrl.onRefreshPage(page);">
+                           <em class="fa fa-refresh"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <div class="pull-left soc-rank">
+                           <span class="glyphicon socicon-yahoo"></span>
+                           <span>Yahoo</span>
+                        </div>
+                        <div class="pull-left p-sm">
+                           <div class="color-box bg-red-500" style="width:15px;height:18px;"></div>
+                        </div>
+                        <div class="pull-left pt-sm text-danger">44 / 70</div>
+                        <span class="pull-right fixed-width" ng-click="weCtrl.onRefreshPage(page);">
+                           <em class="fa fa-refresh"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <div class="pull-left soc-rank">
+                           <span class="glyphicon socicon-bing"></span>
+                           <span>Bing</span>
+                        </div>
+                        <div class="pull-left p-sm">
+                           <div class="color-box bg-yellow-700" style="width:15px;height:18px;"></div>
+                        </div>
+                        <div class="pull-left pt-sm text-warning">34 / 11</div>
+                        <span class="pull-right fixed-width" ng-click="weCtrl.onRefreshPage(page);">
+                           <em class="fa fa-refresh"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Publish SiteMap now to All Search Engine</span>
+                        <span class="pull-right fixed-width" ng-click="weCtrl.onRefreshPage(page);">
+                           <em class="fa fa-refresh"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left">Name:Location : <a href="https://xmlsitemapgenerator.org/help/example-xml-sitemap.xml" target="_blank">sitemap.xml</a>
+                        </span>
+                        <div class="pull-left pl">
+                           <div class="color-box bg-green-500" style="width:15px;height:18px;"></div>
+                        </div>
+                        <span class="pull-right fixed-width" ng-click="weCtrl.onRefreshPage(page);">
+                           <em class="fa fa-edit"></em>
+                        </span>
+                     </div>
+                     <div class="mda-list-item mb-sm">
+                        <span class="pull-left"><u>SEOgenie Automatic SiteMap</u>
+                        </span>
+                        <span class="pull-right fixed-width">
+                           <md-switch ng-model="page.autositemap" aria-label="auto"></md-switch>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="panel" id="pages_assign_key">
+      <div class="panel-heading sub-heading">
+         <div class="panel-title">Keywords for Website : {{ row.name }}</div>
+         <paneltool tool-collapse="tool-collapse" ng-init="pages_assign_key=false"></paneltool>
+      </div>
+      <div class="panel-wrapper" uib-collapse="pages_assign_key">
+         <div class="panel-body">
+            <div class="container-fluid">
+               <table class="custom-table" st-table="pagesExpansionCollection" st-safe-src="weCtrl.pagesExpandCollection" st-set-filter="additionalFilter" st-filtered-collection="pageKeyword">
+                  <thead class="table-control">
+                     <tr>
+                        <td class="text-right" colspan="7"><a class="pull-left btn btn-primary btn-outline btn-oval btn-xs" href="/#/app/keywords-add"><i class="fa fa-plus"></i></a>
+                           <div class="pull-left ml mda-input-group">
+                              <input class="mda-form-control" id="searchForkeyword" type="text" st-search="keyword" placeholder="Filter/Search" ng-click="weCtrl.showExpandAdditionalFilter=true" />
+                              <span class="mda-input-group-addon">
+                                 <em class="fa fa-search"></em>
+                              </span>
+                              <overlay-popup id="pages_expand_filter" active="weCtrl.showExpandAdditionalFilter" width="450">
+                                 <div ng-include="'app/components/pages/manage/templates/keywordsFilter.html'"></div>
+                              </overlay-popup>
+                           </div>
+                           <div class="pull-left">
+                              <fiter-condition condition-for="keyword"></fiter-condition>
+                           </div>
+                           <div class="pull-left pl filter-title">Filter</div>
+                           <div class="pull-left ml">
+                              <md-switch class="m0" ng-model="weCtrl.expandFilterOn" aria-label="filter" uib-tooltip="Reset Filter" tooltip-enable="weCtrl.expandFilterOn" st-reset="" ng-disabled="!weCtrl.expandFilterOn" ng-click="weCtrl.resetPageKeywordFilter()"></md-switch>
+                           </div>
+                           <div class="pull-right" st-pagination="" st-items-by-page="weCtrl.numberOfRowsForKeywordGrid.value" st-template="app/components/_common/templates/pagination.custom.html" st-page-change="weCtrl.detailCurrentPage = newPage"></div>
+                           <div class="pull-right display-rows">
+                              <label>Display</label>
+                              <label>
+                                 <select selectpicker="" ng-model="weCtrl.numberOfRowsForKeywordGrid" ng-options="item.label for item in weCtrl.itemsByPageForKeywordGrid"></select>
+                              </label>
+                           </div>
+                           <div class="pull-right mr" style="padding-top:2px;" ng-click="weCtrl.exportPageKeywordTable()">
+                              <span>Export</span>
+                              <em class="fa fa-file-excel-o"></em>
+                           </div>
+                        </td>
+                     </tr>
+                  </thead>
+                  <thead>
+                     <tr>
+                        <th class="text-center row-index">#</th>
+                        <th st-sort="keyword">Keywords</th>
+                        <th class="text-center" st-sort="g" style="width:55px;"><i class="glyphicon socicon-google"></i>
+                        </th>
+                        <th class="text-center" st-sort="y" style="width:55px;"><i class="glyphicon socicon-yahoo"></i>
+                        </th>
+                        <th class="text-center" st-sort="m" style="width:55px;"><i class="glyphicon socicon-bing"></i>
+                        </th>
+                        <th class="text-center" st-sort="activepages" style="width:140px;">Active Pages</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr st-select-row="row" st-select-mode="single" ng-repeat="row in pagesExpansionCollection" ng-class="{true: &quot;bg-blue-100&quot;, false:&quot;&quot;}[row.assignedState]" ng-click="weCtrl.onPageKeywordAction(row, $event)">
+                        <td class="text-center">{{ ((weCtrl.detailCurrentPage-1) * weCtrl.numberOfRowsForKeywordGrid.value) + $index + 1 }}</td>
+                        <td class="keyword-col">
+                           <div class="pull-left keyword-label">
+                              <span class="m0" data-toggle="tooltip" title="{{row.keyword}}">{{ row.keyword }}</span>
+                           </div>
+                           <div class="pull-right keyword-control">
+                              <em class="fa fa-line-chart pull-right pl0" ng-class="{true:&quot;text-info&quot;, false:&quot;text-grey&quot;}[row.category.monitored]" uib-tooltip="{{{true:&quot;SERP Monitoring Active&quot;, false:&quot;SERP Monitoring Not Active&quot;}[row.category.monitored]}}"
+                              ng-click="weCtrl.showKeywordChart(row, $event)"></em>
+                              <label class="m0 pull-right">
+                                 <md-switch ng-model="row.category.promoted" aria-label="auto" uib-tooltip="{{{true:&quot;Keyword Auto-Promotion ON&quot;, false:&quot;Keyword Auto-Promotion OFF&quot;}[row.category.promoted]}}" ng-change="listc.onActivePromotedKeyword(row)"
+                                 ng-click="$event.stopPropagation()"></md-switch>
+                              </label>
+                           </div>
+                        </td>
+                        <td class="text-center text-warning"><i class="fa fa-angle-double-down" uib-tooltip="Google.com. SERP Ranking: Page {{row.activepages}}, Position {{row.g}}"><span class="font-roboto ml-sm">{{ row.g }}</span></i>
+                        </td>
+                        <td class="text-center text-danger"><i class="fa fa-angle-double-up" uib-tooltip="Yahoo.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.y}}"><span class="font-roboto ml-sm">{{ row.y }}</span></i>
+                        </td>
+                        <td class="text-center text-success">
+                           <span class="font-roboto ml-sm" uib-tooltip="Bing.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.m}}">{{ row.m }}</span>
+                        </td>
+                        <td class="progress-col pl-sm">
+                           <div class="pull-left text-center pr-sm">
+                              <span class="mr-sm" uib-tooltip="Keyword Assigned to {{row.activepages}} Pages">{{ row.activepages }}</span>
+                           </div>
+                           <div class="color-bar pull-left">
+                              <div class="flex" uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}" ng-class="row.g | rankingFilter"></div>
+                              <div class="flex" ng-class="{1:&quot;bg-red-500&quot;, 2:&quot;bg-yellow-700&quot;, 3:&quot;bg-green-500&quot;, 4:&quot;bg-green-300&quot;}[row.significance]" uib-tooltip="Significance: 34%"></div>
+                              <div class="flex" ng-class="{1:&quot;bg-red-500&quot;, 2:&quot;bg-yellow-700&quot;, 3:&quot;bg-green-500&quot;, 4:&quot;bg-green-300&quot;}[row.suitability]" uib-tooltip="Suitability: 68%"></div>
+                           </div>
+                           <div class="pull-left pl-sm" ng-if="row.category.default"><i class="fa fa-anchor" uib-tooltip="Default Keyword, will appear on all Pages with no suitable Keywords"></i>
+                           </div>
+                           <div class="pull-left soc-ranking pl-sm" ng-if="row.category.forced"><i class="fa fa-bookmark-o" uib-tooltip="Forcing Promotion Min {{row.forced_min}}, Max {{row.forced_max}}"></i>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="panel" id="website_pages">
+      <div class="panel-heading sub-heading">
+         <div class="panel-title">Pages for Website : {{ row.name }}</div>
+         <paneltool tool-collapse="tool-collapse" ng-init="website_pages=false"></paneltool>
+      </div>
+      <div class="panel-wrapper" uib-collapse="website_pages">
+         <div class="panel-body">
+            <website-pages></website-pages>
+         </div>
+      </div>
+   </div>
+   <div class="panel m0" id="pages_violation">
+      <div class="panel-heading sub-heading">
+         <div class="panel-title">SEO Violation for Website : {{ row.name }}</div>
+         <paneltool tool-collapse="tool-collapse" ng-init="pages_violation=false"></paneltool>
+      </div>
+      <div class="panel-wrapper" uib-collapse="pages_violation">
+         <div class="panel-body">
+            <div class="container-fluid">
+               <table class="custom-table" st-table="pageViolationCollection" st-safe-src="weCtrl.pageViolationCollection" st-set-filter="additionalFilter" st-filtered-collection="pageViolation">
+                  <thead class="table-control">
+                     <tr>
+                        <td class="text-right" colspan="7">
+                           <div class="pull-left mda-input-group">
+                              <input class="mda-form-control" id="searchFordescription" type="text" st-search="description" placeholder="Filter/Search" ng-click="weCtrl.showViolationFilter=true" />
+                              <span class="mda-input-group-addon">
+                                 <em class="fa fa-search"></em>
+                              </span>
+                              <overlay-popup active="weCtrl.showViolationFilter" width="177">
+                                 <div ng-include="'app/components/pages/manage/templates/violationFilter.html'"></div>
+                              </overlay-popup>
+                           </div>
+                           <div class="pull-left">
+                              <fiter-condition condition-for="description"></fiter-condition>
+                           </div>
+                           <div class="pull-left pl filter-title">Filter</div>
+                           <div class="pull-left ml">
+                              <md-switch class="m0" ng-model="weCtrl.violationFilterOn" aria-label="filter" uib-tooltip="Reset Filter" tooltip-enable="weCtrl.violationFilterOn" st-reset="" ng-disabled="!weCtrl.violationFilterOn" ng-click="weCtrl.resetViolationFilter()"></md-switch>
+                           </div>
+                           <div class="pull-right" st-pagination="" st-items-by-page="weCtrl.numberOfRowsForViolationGrid.value" st-template="app/components/_common/templates/pagination.custom.html" st-page-change="weCtrl.violationCurrentPage = newPage"></div>
+                           <div class="pull-right display-rows">
+                              <label>Display</label>
+                              <label>
+                                 <select selectpicker="" ng-model="weCtrl.numberOfRowsForViolationGrid" ng-options="item.label for item in weCtrl.itemsByPageForViolationGrid"></select>
+                              </label>
+                           </div>
+                           <div class="pull-right mr" style="padding-top:2px;" ng-click="weCtrl.exportPageViolationTable()">
+                              <span>Export</span>
+                              <em class="fa fa-file-excel-o"></em>
+                           </div>
+                        </td>
+                     </tr>
+                  </thead>
+                  <thead>
+                     <tr>
+                        <th class="text-center row-index">#</th>
+                        <th st-sort="status">Violation Status</th>
+                        <th st-sort="category">Category</th>
+                        <th st-sort="description">Description</th>
+                        <th st-sort="action">Recommendation/Actions</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr st-select-row="row" st-select-mode="single" ng-repeat="row in pageViolationCollection">
+                        <td class="text-center p-sm">{{ ((weCtrl.violationCurrentPage-1) * weCtrl.numberOfRowsForViolationGrid.value) + $index + 1 }}</td>
+                        <td class="p-sm">
+                           <span class="pull-left">{{ row.status | pageViolationStatus }}</span>
+                           <em class="pull-right fa" ng-class="{1:&quot;fa-info-circle text-danger&quot;, 2:&quot;fa-warning text-warning&quot;, 3:&quot;fa-warning text-primary&quot;, 4:&quot;fa-check text-success&quot;}[row.status]"></em>
+                        </td>
+                        <td class="p-sm">{{ row.category }}</td>
+                        <td class="p-sm">{{ row.description }}</td>
+                        <td class="p-sm">
+                           <span class="pull-left">{{ row.action }}</span>
+                           <em class="pull-right fa fa-wrench text-success"></em>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

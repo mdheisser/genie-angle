@@ -1,0 +1,5 @@
+highchart(config='config')
+.chart-filter
+    label.report-date.pull-left Report Date: {{ reportDate }}
+    label.pull-right.dropup
+        select(selectpicker='', ng-model='selectedRange', ng-options='(day.name + " Days") for day in chartRanges', ng-change='changeChartRange()')

@@ -1,0 +1,41 @@
+<div class="row sentences-wrapper col-lg-11" id="descriptor-wrapper">
+   <h3>Generated Title</h3>
+   <div class="row row-border sentence-wrapper" ng-repeat="sentence in desc.sentences">
+      <div class="radio-wrapper">
+         <div class="radio c-radio sentence-radio">
+            <label>
+               <input type="radio" name="sentences" ng-model="sentence.id" ng-click="selectSentence(sentence)" />
+               <span class="fa fa-circle"></span>
+            </label>
+         </div>
+      </div>
+      <div class="sentence-draggable" ng-if="sentence.active &amp;&amp; !sentence.inlineEdit">
+         <div class="col-md-10" id="horizontal-container">
+            <div class="sortable-row" as-sortable="sortableOptions" data-ng-model="sentence.terms">
+               <div ng-repeat="item in sentence.terms" as-sortable-item="">
+                  <div as-sortable-item-handle="">
+                     <div class="phrase {{item.settings.cssClass}}">{{item.text}}</div>
+                  </div>
+               </div>
+            </div><i class="fa fa-pencil-square-o edit-sentence-tool" ng-click="editSentence(sentence)"></i>
+         </div>
+      </div>
+      <div class="sentence-draggable" ng-if="!sentence.active">
+         <div class="col-md-10">
+            <div class="sortable-row" data-ng-model="sentence.terms">
+               <div ng-repeat="item in sentence.terms">
+                  <span class="phrase" ng-class="{'is-keyword': item.isKeyword }"></span>{{item.text}}</div>
+            </div>
+         </div>
+      </div>
+      <div class="sentence-draggable" ng-if="sentence.active &amp;&amp; sentence.inlineEdit">
+         <div class="col-md-10">
+            <div class="input-group">
+               <div class="form-control" type="text" ng-model="sentence.inlineText" single-line="true" is-editing="true" content-editable="" edit-callback="sentenceEdited(text, elem)"></div>
+               <span class="input-group-btn">
+                  <button class="btn btn-green" busy-text="Saving..." type="button" ng-click="saveSentence(sentence)"></button>Save</span>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

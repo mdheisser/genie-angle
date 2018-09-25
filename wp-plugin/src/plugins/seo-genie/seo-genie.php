@@ -80,3 +80,12 @@ function run_seo_genie() {
 
 }
 run_seo_genie();
+
+// Add init setup notice after the plugin is activated
+add_action('admin_notices', 'seogenie_setup');
+function seogenie_setup(){
+    global $pagenow;
+    if ( $pagenow == 'plugins.php' ) {
+        include('setup.php');
+    }
+}

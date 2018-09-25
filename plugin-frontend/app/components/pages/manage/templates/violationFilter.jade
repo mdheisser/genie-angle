@@ -1,0 +1,34 @@
+div(ng-controller='pageViolationFilterController as pvfc')
+    .filter-title.bg-white
+        h5.m0.input-group(ng-click='pvfc.showFilterPane=!pvfc.showFilterPane') Additional Filters
+            em.fa.fa-caret-down
+    .category-body.shadow-z3.bg-white(ng-if='pvfc.showFilterPane')
+        .filter-body.text-left
+            .filter-category
+                a Category
+                .mda-list.p0
+                    .mda-list-item(ng-repeat='category in pvfc.categories')
+                        span.mda-checkbox.pull-left
+                            input.category-option(type='checkbox',
+                                st-violation-filter,
+                                filter-type='category',
+                                value='{{category.value}}',
+                                ng-model='category.selected')
+                            em.bg-indigo-500
+                        span.pull-left {{category.name}}
+            .filter-ranking
+                table
+                    tr
+                        td(colspan='2')
+                            a Violation
+                    tr(ng-repeat='item in pvfc.violations')
+                        td
+                            em.fa(ng-class='item.icon')
+                        td.text-right
+                            label.mda-checkbox
+                                input.status-option(type='checkbox',
+                                    st-violation-filter,
+                                    filter-type='status',
+                                    value='{{item.value}}',
+                                    ng-model='item.selected')
+                                em.bg-indigo-500

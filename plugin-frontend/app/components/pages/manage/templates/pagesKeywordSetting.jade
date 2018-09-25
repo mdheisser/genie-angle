@@ -1,0 +1,154 @@
+.panel.m0
+    .panel-heading.sub-heading
+        .panel-title Keywords for Page: {{ pksc.keywordData.keyword }}
+        paneltool(tool-close, ng-click='pksc.hide()')
+    .panel-wrapper
+        .panel-body
+            .row.row-eq-height
+                .col-md-6.col-lg-4
+                    #keywordSetting.panel
+                        .panel-heading.sub-heading
+                            .panel-title Settings
+                            paneltool(tool-collapse, ng-init="keywordSetting=false")
+                        .panel-wrapper(uib-collapse="keywordSetting")
+                            .panel-body.p-sm
+                                .mda-list.p0.mt.mb-lg
+                                    .mda-list-item
+                                        span.pull-left Promot: Auto Optimise
+                                            em.icon-question(uib-tooltip='Promot: Auto Optimise')
+                                        span.pull-right.setting-icon
+                                            md-switch.pull-left(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='pksc.onActivePromotedKeyword(row)')
+                                            span.pull-left(ng-if='row.category.promoted') ON
+                                            span.pull-left(ng-if='!row.category.promoted') OFF
+                                    .mda-list-item.mt
+                                        span.pull-left Monitor: SERP Ranking
+                                            em.icon-question(uib-tooltip='Monitor: SERP Ranking')
+                                        span.pull-right.setting-icon(ng-click='pksc.onActiveMonitoredKeyword(row, $event)')
+                                            em.fa.fa-line-chart(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}')
+                                            span(ng-if='row.category.monitored') ON
+                                            span(ng-if='!row.category.monitored') OFF
+                                    .mda-list-item.mt
+                                        span.pull-left Default Keyword
+                                            em.icon-question(uib-tooltip='Default Keyword')
+                                        span.pull-right.setting-icon(ng-click='pksc.onActiveDefaultKeyword(row)')
+                                            em.fa.fa-anchor(ng-class='{true:"text-info", false:"text-grey"}[row.category.default]', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
+                                            span(ng-if='row.category.default') ON
+                                            span(ng-if='!row.category.default') OFF
+                                    .mda-list-item.mt
+                                        span.pull-left Force Keyword Promotion
+                                            em.icon-question(uib-tooltip='Force Keyword Promotion')
+                                        span.pull-right.setting-icon(ng-click='pksc.onActiveForcedKeyword(row)')
+                                            em.fa.fa-bookmark-o(ng-class='{true:"text-info", false:"text-grey"}[row.category.forced]', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score')
+                                            span(ng-if='row.category.forced') ON
+                                            span(ng-if='!row.category.forced') OFF
+                                        span.pull-right.mr-sm(ng-if='row.category.forced') {{row.forced_min}}/{{row.forced_max}}
+                                    .mda-list-item.pl(ng-if='row.category.forced')
+                                        .max-assign-setting
+                                            span.pull-left.mr-sm
+                                                small Pages:&nbsp;Min
+                                            input.pull-left.m0.p0.form-control(type='number', min='0', max='{{row.forced_max}}', ng-model='row.forced_min')
+                                            span.pull-left.mr-sm.ml-sm
+                                                small Max
+                                            input.pull-left.m0.p0.form-control(type='number', min='0', max='9999', ng-model='row.forced_max')
+                .col-md-6.col-lg-4
+                    #keywordCategories.panel
+                        .panel-heading.sub-heading
+                            .panel-title Categories
+                            paneltool(tool-collapse, ng-init="keywordCategories=false")
+                        .panel-wrapper(uib-collapse="keywordCategories")
+                            .panel-body.pt-sm
+                                p.mb-sm Properties
+                                ui-select(multiple='', ng-model='pksc.selectedKeywordCategory', theme='bootstrap')
+                                    ui-select-match(placeholder='Keyword Categories') {{$item.name}}
+                                    ui-select-choices(group-by='pksc.keywordCategoryGroup', repeat='category in pksc.keywordCategories | filter: {name: $select.search}')
+                                        div(ng-bind-html='category.name | highlight: $select.search')
+                                p.mt-sm.mb-sm Languages
+                                ui-select(multiple='', ng-model='pksc.selectedLanguage', theme='bootstrap')
+                                    ui-select-match(placeholder='Keyword Language Categories') {{$item.name}}
+                                    ui-select-choices(repeat='language in pksc.languages | filter: {name: $select.search}')
+                                        div(ng-bind-html='language.name | highlight: $select.search')
+                .col-md-12.col-lg-4
+                    #keywordPerformance.panel
+                        .panel-heading.sub-heading
+                            .panel-title SEO Performance
+                            paneltool(tool-collapse, ng-init="keywordPerformance=false")
+                        .panel-wrapper(uib-collapse="keywordPerformance")
+                            .panel-body
+                                .row
+                                    .col-xs-11.p-sm
+                                        uib-progressbar.progress-striped.m0(type='success', value='82', uib-tooltip='Best Page SEO Suitability 82%')
+                                            span.text-black Best Page SEO Suitability 82%
+                                    .col-xs-1.p-sm
+                                        em.icon-question.pull-left.mt-sm(uib-tooltip='Keyword Suitability index ranks a specific Keyword/Keyphrase across all your website pages, checking its compatibility to SEO related factors of each page. A high Suitability rank means that this particular Keyword/Keyphrase has a high probability of being ranked high in relation to at least one web page. The displayed ranking is based on the last analysis report.', tooltip-placement='bottom')
+                                .row
+                                    .col-xs-11.p-sm
+                                        uib-progressbar.progress-striped.m0(type='success', value='72', uib-tooltip='Best Page CONTENT Significance 72%')
+                                            span.text-black Best Page CONTENT Significance 72%
+                                    .col-xs-1.p-sm
+                                        em.icon-question.pull-left.mt-sm(uib-tooltip='Keyword Significance index ranks a specific Keyword/Keyphrase across all your website pages, checking its relation to the webpage content/text. A high Significance rank means that this particular Keyword/Keyphrase is highly related to the topic, subject that the webpage text is discussing. The displayed ranking is based on the last analysis report.', tooltip-placement='bottom')
+                                .row
+                                    .col-xs-11.p-sm
+                                        uib-progressbar.progress-striped.m0(type='success', value='50', uib-tooltip='Best Rank Position {{row.g}}, Page {{row.activepages}}')
+                                            span.text-black Best Rank Position {{row.g}}, Page {{row.activepages}}
+                                    .col-xs-1.p-sm
+                                        em.icon-question.pull-left.mt-sm(uib-tooltip='Best page SERP ranking for the spesific Keyword', tooltip-placement='bottom')
+                                a.pull-left Additional info, Action!
+            #pages_keyword_setting_page.panel
+                .panel-heading.sub-heading
+                    .panel-title Pages Assigned to Keyword: "{{ pksc.keywordData.keyword }}"
+                    paneltool(tool-collapse, ng-init="pages_keyword_setting_page=false")
+                .panel-wrapper(uib-collapse="pages_keyword_setting_page")
+                    .panel-body.fixed-height
+                        table.custom-table(st-table="detailDisplayedCollection", st-safe-src='pksc.keywordDetailCollection', st-set-filter="additionalFilter", st-filtered-collection='pageKeywordPage')
+                            thead.table-control
+                                tr
+                                    td.text-right(colspan="7")
+                                        .pull-left.ml.mda-input-group
+                                            input#searchForpageUrl.mda-form-control(type='text', st-search='pageUrl', placeholder='Filter/Search', ng-click="pksc.showDetailAdditionalFilter=true")
+                                            span.mda-input-group-addon
+                                                em.fa.fa-search
+                                            overlay-popup#keyword_page(active='pksc.showDetailAdditionalFilter', width='450')
+                                                div(ng-include="'app/components/keywords/manage/templates/pageFilter.html'")
+                                        .pull-left
+                                            fiter-condition(condition-for='pageUrl')
+                                        .pull-left.pl.filter-title Filter
+                                        .pull-left.ml
+                                            md-switch.m0(ng-model='pksc.detailFilterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='pksc.detailFilterOn',  st-reset='', ng-disabled='!pksc.detailFilterOn', ng-click='pksc.resetPageFilter()')
+                                        .pull-right(st-pagination='', st-items-by-page="pksc.numberOfRows.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pksc.currentPage = newPage")
+                                        .pull-right.display-rows
+                                            label Display
+                                            label
+                                                select(selectpicker='', ng-model="pksc.numberOfRows" ng-options='item.label for item in pksc.itemsByPage')
+                                        .pull-right.mr(style='padding-top:2px;')
+                                            span Export XLS
+                                            em.fa.fa-file-excel-o
+                            thead
+                                tr
+                                    th.text-center.row-index #
+                                    th(st-sort="pageUrl") Site Pages
+                                    th.text-center(st-sort="keywords") Keywords
+                                    th.text-center(st-sort="violate") SEO Violations
+                                    th.text-center Score
+                            tbody
+                                tr(ng-repeat="detail in detailDisplayedCollection", ng-class='{true: "bg-blue-100", false:""}[detail.assignedState]', ng-click='pksc.onSelectKeywordDetail(detail, $event)')
+                                    td.text-center {{ ((pksc.currentPage-1) * pksc.numberOfRows.value) + $index + 1 }}
+                                    td.keyword-col
+                                        .pull-left.keyword-label
+                                            span.m0 {{ detail.pageUrl }}
+                                            i.fa.fa-caret-down.ml-sm.text-grey
+                                        .pull-right.keyword-control
+                                            label.m0.pull-right
+                                                md-switch(ng-model='detail.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[detail.category.promoted]}}', ng-click='pksc.setManualPromotion(detail, $event)')
+                                            em.fa.fa-anchor.pull-right(ng-if='detail.category.default', uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords', ng-click='$event.stopPropagation()')
+                                            em.fa.fa-bookmark-o.pull-right(ng-if='detail.category.forced', uib-tooltip='Force this Keyword Promotion and Assignment to Pages despite its poor Significance or Suitability score', ng-click='$event.stopPropagation()')
+                                    td.text-center.page-keyword-col
+                                        span(uib-tooltip='{{ detail.auto_keywords + detail.manual_keywords }} Keywords Assigned to Page, {{detail.manual_keywords}} Assigned Manually') {{ detail | pageKeywordNumber }}
+                                        em.fa.fa-caret-down.text-grey
+                                    td.text-center.seo-violation-col(ng-click='pksc.openKeywordViolationPopup(detail, $event)')
+                                        em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-warning", 3:"fa-info-circle text-danger"}[detail.violate]')
+                                        em.fa.fa-caret-down.text-grey
+                                    td.score-col
+                                        .color-bar
+                                            .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.ranking]', uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}")
+                                            .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.significance]', uib-tooltip="Significance: 34%")
+                                            .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[detail.suitability]', uib-tooltip="Suitability: 68%")

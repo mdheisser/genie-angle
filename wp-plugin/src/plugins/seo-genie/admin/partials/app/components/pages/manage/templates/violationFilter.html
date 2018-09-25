@@ -1,0 +1,41 @@
+<div ng-controller="pageViolationFilterController as pvfc">
+   <div class="filter-title bg-white">
+      <h5 class="m0 input-group" ng-click="pvfc.showFilterPane=!pvfc.showFilterPane">Additional Filters
+         <em class="fa fa-caret-down"></em>
+      </h5>
+   </div>
+   <div class="category-body shadow-z3 bg-white" ng-if="pvfc.showFilterPane">
+      <div class="filter-body text-left">
+         <div class="filter-category"><a>Category</a>
+            <div class="mda-list p0">
+               <div class="mda-list-item" ng-repeat="category in pvfc.categories">
+                  <span class="mda-checkbox pull-left">
+                     <input class="category-option" type="checkbox" st-violation-filter="st-violation-filter" filter-type="category" value="{{category.value}}" ng-model="category.selected" />
+                     <em class="bg-indigo-500"></em>
+                  </span>
+                  <span class="pull-left">{{category.name}}</span>
+               </div>
+            </div>
+         </div>
+         <div class="filter-ranking">
+            <table>
+               <tr>
+                  <td colspan="2"><a>Violation</a>
+                  </td>
+               </tr>
+               <tr ng-repeat="item in pvfc.violations">
+                  <td>
+                     <em class="fa" ng-class="item.icon"></em>
+                  </td>
+                  <td class="text-right">
+                     <label class="mda-checkbox">
+                        <input class="status-option" type="checkbox" st-violation-filter="st-violation-filter" filter-type="status" value="{{item.value}}" ng-model="item.selected" />
+                        <em class="bg-indigo-500"></em>
+                     </label>
+                  </td>
+               </tr>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>

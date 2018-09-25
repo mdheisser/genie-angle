@@ -1,0 +1,84 @@
+[{
+        "text": "Main Navigation",
+        "heading": "true",
+        "translate": "sidebar.heading.HEADER"
+    },
+    {
+        "text": "Dashboard",
+        "sref": "app.dashboard",
+        "icon": "fa fa-tachometer"
+    },
+    {
+        "icon": "fa fa-folder",
+        "text": "Websites",
+        "sref": "app.websites-dashboard",
+        "submenu": [{
+                "text": "Dashboard",
+                "sref": "app.websites-dashboard"
+            },
+            {
+                "text": "Settings",
+                "sref": "app.websites-settings"
+            },
+            {
+                "text": "Manage",
+                "sref": "app.websites-manage"
+            },
+            {
+                "icon": "fa fa-plus",
+                "text": "Add Website",
+                "sref": "app.website-new"
+            }
+        ]
+    },
+    {
+        "icon": "fa fa-key",
+        "text": "Keywords",
+        "sref": "app.keywords-dashboard",
+        "submenu": [{
+                "text": "Dashboard",
+                "sref": "app.keywords-dashboard",
+                "submenu": [{
+                        "text": "Statistics",
+                        "sref": "app.keywords-dashboard.statistics"
+                    },
+                    {
+                        "text": "Search Engines",
+                        "sref": "app.keywords-dashboard.engines"
+                    },
+                    {
+                        "text": "Ranking",
+                        "sref": "app.keywords-dashboard.ranking"
+                    }
+                ]
+            },
+            {
+                "text": "Manage",
+                "sref": "app.keywords-manage",
+                "submenu": [{
+                    "text": "Default",
+                    "sref": "app.keywords-manage.default"
+                }]
+            },
+            {
+                "text": "Add Keywords",
+                "sref": "app.keywords-add"
+            }
+        ]
+    },
+    {
+        "icon": "fa fa-file-text-o",
+        "text": "Pages",
+        "sref": "app.pages-dashboard",
+        "submenu": [{
+                "text": "Dashboard",
+                "sref": "app.pages-dashboard"
+            },
+            {
+                "text": "Manage",
+                "sref": "app.pages-manage"
+            }
+        ]
+    }
+    
+]

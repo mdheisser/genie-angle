@@ -1,0 +1,91 @@
+<h3 class="content-heading text-bold">Pages</h3>
+<div class="container-fluid panel mb0" id="pages_dashboard" ng-controller="pagesDashboardController as pageDashCtrl">
+   <div class="panel-heading custom-heading flex-heading">
+      <div class="description">Dashboard</div>
+      <div class="panel-title">
+         <select selectpicker="" data-live-search="true" ng-model="pageDashCtrl.selectedSite" ng-options="site.name for site in pageDashCtrl.sites"></select>
+      </div>
+   </div>
+   <div class="panel-wrapper">
+      <div class="panel-body row pb0 row-eq-height">
+         <div class="col-lg-6" style="display:flow-root;">
+            <div class="panel" id="statistics">
+               <div class="panel-heading sub-heading">
+                  <div class="panel-title">Statistics
+                     <span class="text-underline">{{ pageDashCtrl.selectedSite.name }}</span>
+                  </div>
+                  <paneltool tool-collapse="tool-collapse" ng-init="statistics=false"></paneltool>
+               </div>
+               <div class="panel-wrapper" uib-collapse="statistics">
+                  <ul class="list-group m0">
+                     <li class="list-group-item">
+                        <span class="pull-right text-center">
+                           <span class="badge bg-info text-center">534</span>
+                        </span>Number of Pages Being Promoted</li>
+                     <li class="list-group-item">
+                        <span class="pull-right text-center">
+                           <span class="badge bg-info text-center">4</span>
+                        </span>Total number of Pages on website</li>
+                     <li class="list-group-item">
+                        <span class="pull-right text-center">
+                           <span class="badge bg-info text-center">4</span>
+                        </span>Average number of Keywords assigned to a Page</li>
+                     <li class="list-group-item">
+                        <span class="pull-right text-center">
+                           <span class="badge bg-info text-center">77</span>
+                        </span>Number of pages with SEO violations</li>
+                     <li class="list-group-item">
+                        <span class="pull-right text-center">
+                           <span class="badge bg-info text-center">77</span>
+                        </span><a ng-click="pageDashCtrl.goManagePage(&quot;best&quot;)">Best performing Pages</a>
+                     </li>
+                     <li class="list-group-item">
+                        <span class="pull-right text-center">
+                           <span class="badge bg-info text-center">77</span>
+                        </span><a ng-click="pageDashCtrl.goManagePage(&quot;least&quot;)">Least performing Pages</a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="panel" id="statistics1">
+               <div class="panel-heading sub-heading">
+                  <div class="panel-title">Status
+                     <span class="text-underline">{{ pageDashCtrl.selectedSite.name }}</span>
+                  </div>
+                  <paneltool tool-collapse="tool-collapse" ng-init="statistics1=false"></paneltool>
+               </div>
+               <div class="panel-wrapper" uib-collapse="statistics1">
+                  <div class="panel-body">
+                     <div class="row p-sm">
+                        <div class="col-xs-9">SiteMap Active
+                           <em class="fa fa-check text-success mt-sm ml-sm"></em><a class="ml" href="">Show</a>
+                        </div>
+                        <div class="col-xs-3 p0">
+                           <md-switch class="m0 pull-left" ng-model="pageMCtrl.activeSiteMap" aria-label="filter"></md-switch>
+                        </div>
+                     </div>
+                     <div class="row p-sm">
+                        <div class="col-xs-9">Robot TXT
+                           <em class="fa fa-check text-success mt-sm"></em><a class="ml" href="">Show</a>
+                        </div>
+                     </div>
+                     <div class="row p-sm">
+                        <div class="col-xs-9">New Pages Automatically to SEOgenie System</div>
+                        <div class="col-xs-3 p0">
+                           <md-switch class="m0 pull-left" ng-model="pageMCtrl.autoNewPage" aria-label="filter"></md-switch>
+                        </div>
+                     </div>
+                     <div class="row p-sm">
+                        <div class="col-xs-9">Last Report Date: 09-12-2017
+                           <em class="fa fa-check text-success mt-sm"></em>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
