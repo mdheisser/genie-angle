@@ -1,0 +1,91 @@
+h3.content-heading.text-bold
+    | Keywords
+#keywords_manage.panel(ng-controller='keywordsListController as listc')
+    .panel-heading.custom-heading.flex-heading
+        .description Manage
+        .panel-title.dashboard-title
+            select(selectpicker='', data-live-search='true', ng-model='listc.selectedSite', ng-options='site.name for site in listc.sites')
+    .panel-wrapper
+        .panel-body
+            table.custom-table(st-table="displayedCollection", st-safe-src='listc.rowCollection', st-set-filter="additionalFilter", st-filtered-collection='keywordManage')
+                thead.table-control
+                    tr
+                        td.text-right(colspan="7")
+                            a.pull-left.btn.btn-primary.btn-outline.btn-oval.btn-xs(href='/#/app/keywords-add')
+                                i.fa.fa-plus
+                            .pull-left.ml.mda-input-group
+                                input#searchForkeyword.mda-form-control(type='text', st-search='keyword', placeholder='Filter/Search', ng-click="listc.showAdditionalFilter=true")
+                                span.mda-input-group-addon
+                                    em.fa.fa-search
+                                overlay-popup#keywords_manage_filter(active='listc.showAdditionalFilter', width='450')
+                                    div(ng-include="'app/components/keywords/manage/templates/additionalFilter.html'")
+                            .pull-left
+                                fiter-condition(condition-for='keyword')
+                            .pull-left.pl.filter-title Filter
+                            .pull-left.ml
+                                md-switch.m0(ng-model='listc.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='listc.filterOn',  st-reset='', ng-disabled='!listc.filterOn', ng-click='listc.resetFilter()')
+                            .pull-right(st-pagination='', st-items-by-page="listc.numberOfRows.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="listc.currentPage = newPage")
+                            .pull-right.display-rows
+                                label Display
+                                label
+                                    select(selectpicker='', ng-model="listc.numberOfRows", ng-options='item.label for item in listc.itemsByPage')
+                            .pull-right.mr(style='padding-top:2px;')
+                                span Export XLS
+                                em.fa.fa-file-excel-o
+                thead
+                    tr
+                        th.text-center.row-index #
+                        th(st-sort="keyword") Keywords
+                        th.text-center(st-sort="g", style='width:55px;')
+                            i.glyphicon.socicon-google
+                        th.text-center(st-sort="y", style='width:55px;')
+                            i.glyphicon.socicon-yahoo
+                        th.text-center(st-sort="m", style='width:55px;')
+                            i.glyphicon.socicon-bing
+                        th.text-center(st-sort="activepages") Active Pages
+                        th.text-center.actions-col(ng-click="listc.showBulkAction=!listc.showBulkAction")
+                            label.mda-checkbox
+                                input(type='checkbox', ng-model='listc.allRowsMarked', ng-click='$event.stopPropagation()')
+                                em.bg-indigo-500
+                            i.fa.fa-caret-down
+                            overlay-popup#bulkActionsPopup(active='listc.showBulkAction', width='215')
+                                div(ng-include="'app/components/keywords/manage/templates/bulkActions.html'")
+                tbody
+                    tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='listc.expandKeywordDetail(row)')
+                        td.text-center {{ ((listc.currentPage-1) * listc.numberOfRows.value) + $index + 1 }}
+                        td.keyword-col
+                            .pull-left.keyword-label
+                                span.m0(data-toggle='tooltip', title='{{row.keyword}}') {{ row.keyword }}
+                                i.fa.fa-caret-down.ml-sm(ng-click='listc.openKeywordActionPane(row, $event)')
+                                overlay-popup(active='row.showActions', width='185')
+                                    div(ng-include="'app/components/keywords/manage/templates/keywordActions.html'")
+                            .pull-right.keyword-control
+                                em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.category.monitored]', uib-tooltip='{{{true:"SERP Monitoring Active", false:"SERP Monitoring Not Active"}[row.category.monitored]}}', ng-click='listc.onActiveMonitoredKeyword(row, $event)')
+                                label.m0.pull-right
+                                    md-switch(ng-model='row.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Keyword Auto-Promotion ON", false:"Keyword Auto-Promotion OFF"}[row.category.promoted]}}', ng-change='listc.onActivePromotedKeyword(row)', ng-click='$event.stopPropagation()')
+                        td.text-center.text-warning
+                            i.fa.fa-angle-double-down(uib-tooltip='Google.com. SERP Ranking: Page {{row.activepages}}, Position {{row.g}}')
+                                span.font-roboto.ml-sm {{ row.g }}
+                        td.text-center.text-danger
+                            i.fa.fa-angle-double-up(uib-tooltip='Yahoo.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.y}}')
+                                span.font-roboto.ml-sm {{ row.y }}
+                        td.text-center.text-success
+                            span.font-roboto.ml-sm(uib-tooltip='Bing.UK. SERP Ranking: Page {{row.activepages}}, Position {{row.m}}') {{ row.m }}
+                        td.progress-col.pl-sm
+                            .pull-left.text-center.pr-sm
+                                span.mr-sm(uib-tooltip='Keyword Assigned to {{row.activepages}} Pages') {{ row.activepages }}
+                            .color-bar.pull-left
+                                .flex(uib-tooltip="SERP Ranking, Page {{row.activepages}}: Position {{row.g}}", ng-class='row.g | rankingFilter')
+                                .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.significance]', uib-tooltip="Significance: 34%")
+                                .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[row.suitability]', uib-tooltip="Suitability: 68%")
+                            .pull-left.pl-sm(ng-if='row.category.default')
+                                i.fa.fa-anchor(uib-tooltip='Default Keyword, will appear on all Pages with no suitable Keywords')
+                            .pull-left.soc-ranking.pl-sm(ng-if='row.category.forced')
+                                i.fa.fa-bookmark-o(uib-tooltip='Forcing Promotion Min {{row.forced_min}}, Max {{row.forced_max}}')
+                        td.text-center
+                            label.mda-checkbox
+                                input(type='checkbox', ng-model='row.selected', ng-click='$event.stopPropagation()')
+                                em.bg-indigo-500
+                    tr(ng-if="row.expanded", ng-repeat-end="")
+                        td(colspan='7')
+                            keyword-expand

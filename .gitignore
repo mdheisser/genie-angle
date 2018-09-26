@@ -14,4 +14,3 @@ jspm_packages
 
 # Serverless directories
 .serverless
-variables.env
