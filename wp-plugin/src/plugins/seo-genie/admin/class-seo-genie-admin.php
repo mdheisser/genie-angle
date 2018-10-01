@@ -82,8 +82,8 @@ class Seo_Genie_Admin {
 		wp_enqueue_style( 'lc_switch', plugin_dir_url( __FILE__ ) . 'css/lc_switch.css', array(), $this->version, 'all' );
 
 		// Initial page style
-		wp_enqueue_style( 'angular.material', plugin_dir_url( __FILE__ ) . 'vendor/angular-material/angular-material.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'angular.app', plugin_dir_url( __FILE__ ) . 'app/css/app.css', array(), $this->version, 'all' );		
+		wp_enqueue_style( 'angular.material', plugin_dir_url( __FILE__ ) . 'app/dist/vendor/angular-material/angular-material.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'angular.app', plugin_dir_url( __FILE__ ) . 'app/dist/app/css/app.css', array(), $this->version, 'all' );		
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/seo-genie-admin.css', array(), $this->version, 'all' );
 
@@ -113,14 +113,13 @@ class Seo_Genie_Admin {
 		wp_enqueue_script( 'bootstrap.select', plugin_dir_url( __FILE__ ) . 'js/bootstrap-select.min.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'lc_switch', plugin_dir_url( __FILE__ ) . 'js/lc_switch.min.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'engine.google', plugin_dir_url( __FILE__ ) . 'js/googleEngine.json', array( ), $this->version, false );
-		wp_localize_script('engine.google', 'engineGoogle', array( 'pluginsUrl' => plugins_url()));
+		wp_localize_script('engine.google', 'SEOgenie', array( 'pluginsUrl' => plugins_url() . '/seo-genie/'));
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/seo-genie-admin.js', array( 'jquery' ), $this->version, false );
 
 		// Angular scripts
-		wp_enqueue_script( 'angular.basejs', plugin_dir_url( __FILE__ ) . 'app/js/base.js', array( ), $this->version, false );
-		wp_enqueue_script( 'angular.materialjs', plugin_dir_url( __FILE__ ) . 'vendor/angular-material/angular-material.js', array( ), $this->version, false );
-		wp_enqueue_script( 'angular.appjs', plugin_dir_url( __FILE__ ) . 'app/js/app.js', array( ), $this->version, false );
-
+		wp_enqueue_script( 'angular', plugin_dir_url( __FILE__ ) . 'app/dist/app/js/base.js', array( ), $this->version, false );
+		wp_enqueue_script( 'angular.materialjs', plugin_dir_url( __FILE__ ) . 'app/dist/vendor/angular-material/angular-material.js', array( ), $this->version, false );
+		wp_enqueue_script( 'appjs', plugin_dir_url( __FILE__ ) . 'app/dist/app/js/app.js', array( ), $this->version, false );
 	}
 
 	/**

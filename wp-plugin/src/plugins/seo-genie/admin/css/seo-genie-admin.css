@@ -170,6 +170,7 @@
 }
 #seogenie_setup_wizard .dropup .dropdown-menu {
 	bottom: 32px;
+	top: inherit;
 }
 #seogenie_setup_wizard .add-keyword-group {
 	margin-top: 150px;

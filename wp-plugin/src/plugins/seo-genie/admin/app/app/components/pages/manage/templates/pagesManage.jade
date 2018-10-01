@@ -1,0 +1,82 @@
+h3.content-heading.text-bold
+    | Pages
+#pages_manage.container-fluid.panel.mb0(ng-controller='pagesManageController as pageMCtrl')
+    .panel-heading.custom-heading.flex-heading
+        .description Manage
+        .panel-title
+            select(selectpicker='', data-live-search='true', ng-model='pageMCtrl.selectedSite', ng-options='site.name for site in pageMCtrl.sites')
+    .panel-wrapper
+        .panel-body
+            table.custom-table(st-table="pagesDisplayedCollection", st-safe-src='pageMCtrl.pagesList', st-set-filter="additionalFilter", st-filtered-collection='pageManage')
+                thead.table-control
+                    tr
+                        td.text-right(colspan="7")
+                            a.pull-left.btn.btn-primary.btn-outline.btn-oval.btn-xs(href='')
+                                    i.fa.fa-plus
+                            .pull-left.ml.mda-input-group
+                                input#searchForpageUrl.mda-form-control(type='text', st-search='pageUrl', placeholder='Filter/Search', ng-click="pageMCtrl.showAdditionalFilter=true")
+                                span.mda-input-group-addon
+                                    em.fa.fa-search
+                                overlay-popup#pages_manage_filter(active='pageMCtrl.showAdditionalFilter', width='350')
+                                    div(ng-include="'app/components/pages/manage/templates/pagesFilter.html'")
+                            .pull-left
+                                fiter-condition(condition-for='pageUrl')
+                            .pull-left.pl.filter-title Filter
+                            .pull-left.ml
+                                md-switch.m0(ng-model='pageMCtrl.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='pageMCtrl.filterOn',  st-reset='', ng-disabled='!pageMCtrl.filterOn', ng-click='pageMCtrl.resetPagesFilter()')
+                            .pull-right(st-pagination='', st-items-by-page="pageMCtrl.numberOfRowsForPageGrid.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="pageMCtrl.currentPage = newPage")
+                            .pull-right.display-rows
+                                label Display
+                                label
+                                    select(selectpicker='', ng-model="pageMCtrl.numberOfRowsForPageGrid" ng-options='item.label for item in pageMCtrl.itemsByPageForPageGrid')
+                            .pull-right.mr(style='padding-top:2px;', ng-click='pageMCtrl.exportManageTable()')
+                                span Export
+                                em.fa.fa-file-excel-o
+                thead
+                    tr
+                        th.text-center.p-sm #
+                        th(st-sort="pageUrl") Site Pages
+                        th.text-center(st-sort="keywords", style="width:70px;") Keywords
+                        th.text-center(st-sort="violationState", style="width:113px;") SEO Violations
+                        th.text-center Score
+                        th.text-center.actions-col(ng-click="pageMCtrl.showBulkAction=!pageMCtrl.showBulkAction")
+                            label.mda-checkbox
+                                input(type='checkbox', ng-model='pageMCtrl.allRowsMarked', ng-click='$event.stopPropagation()')
+                                em.bg-indigo-500
+                            i.fa.fa-caret-down
+                            overlay-popup#pages_manage_actions(active='pageMCtrl.showBulkAction', width='206')
+                                div(ng-include="'app/components/pages/manage/templates/pagesManageBulkActions.html'")
+                tbody
+                    tr(ng-repeat-start="page in pagesDisplayedCollection", ng-click='pageMCtrl.expandPageDetail(page)', ng-class='{true: "bg-blue-100", false:""}[page.expanded]',)
+                        td.text-center {{ ((pageMCtrl.currentPage-1) * pageMCtrl.numberOfRowsForPageGrid.value) + $index + 1 }}
+                        td.keyword-col
+                            .pull-left.keyword-label
+                                span.m0 {{ page.pageUrl }}
+                                i.fa.fa-caret-down.ml-sm(ng-click='pageMCtrl.openPageActions(page, $event)')
+                                overlay-popup(active='page.showActions', width='206')
+                                    div(ng-include="'app/components/pages/manage/templates/pageActions.html'")
+                            .pull-right.keyword-control
+                                label.m0.pull-right
+                                    md-switch(ng-model='page.category.promoted', aria-label='auto', uib-tooltip='{{{true:"Page Auto-Promote ON", false:"Page Auto-Promote OFF"}[page.category.promoted]}}', ng-click='pageMCtrl.setManualPromotion(page, $event)')
+                        td.text-right.pr-sm(ng-click='pageMCtrl.expandKeywordsGrid(page, $event)')
+                            em.fa.fa-anchor.pl0.pr-sm(ng-if='page.category.default', uib-tooltip='', ng-click='$event.stopPropagation()', style='font-size:12px;')
+                            span(uib-tooltip='{{ page.auto_keywords + page.manual_keywords }} {{ page.category.default ? "Defalut" : "" }} Keywords Assigned to Page, {{page.manual_keywords}} Assigned Manually') {{ page.auto_keywords + page.manual_keywords }}
+                                small(ng-if='page.manual_keywords!=0') ({{ page.manual_keywords }})
+                            em.fa.fa-caret-down.text-grey(ng-click='pageMCtrl.openPageKeywordPopup(page, $event)')
+                            overlay-popup(active='page.showKeywordsPopup', width='135')
+                                div(ng-include="'app/components/keywords/manage/templates/pageKeywordPopup.html'")
+                        td.text-center(ng-click='pageMCtrl.expandViolationGrid(page, $event)')
+                            em.fa(ng-class='{1:"fa-check text-success", 2:"fa-warning text-primary", 3:"fa-warning text-warning", 4:"fa-info-circle text-danger"}[page.violationState]')
+                            em.fa.fa-caret-down.text-grey
+                        td.score-col.pl.pr
+                            .color-bar
+                                .flex(ng-class='{4:"bg-red-500", 3:"bg-yellow-700", 2:"bg-green-500", 1:"bg-green-300"}[page.ranking]', uib-tooltip="SERP Ranking, Page {{page.activepages}}: Position {{page.g}}")
+                                .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[page.significance]', uib-tooltip="Significance: 34%")
+                                .flex(ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500", 4:"bg-green-300"}[page.suitability]', uib-tooltip="Suitability: 68%")
+                        td.text-center
+                            label.mda-checkbox
+                                input(type='checkbox', ng-model='page.selected', ng-click='$event.stopPropagation()')
+                                em.bg-indigo-500
+                    tr(ng-if="page.expanded", ng-repeat-end="")
+                            td(colspan='7')
+                                pages-expand

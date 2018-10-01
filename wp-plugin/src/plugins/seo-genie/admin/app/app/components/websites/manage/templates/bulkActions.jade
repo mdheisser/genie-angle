@@ -1,0 +1,16 @@
+.bulk-actions.mda-list.bg-white
+    .mda-list-item
+        label.pull-left Bulk Actions
+    .mda-list-item(ng-click='wlCtrl.performBulkAction("Websites are disabled.")')
+        em.fa.pull-left
+        span.pull-left Disable/Suspend Site
+    .mda-list-item(ng-click='wlCtrl.performBulkAction("Websites are deleted.")')
+        em.fa.pull-left
+        span.pull-left Delete Site
+    .mda-list-item(ng-click='wlCtrl.performBulkAction("Websites are backup.")')
+        em.fa.pull-left
+        span.pull-left Backup Site
+            //- small (SEOgenie Data related to this site)
+    .mda-list-item(ng-click='wlCtrl.performBulkAction("Export CSV.")')
+        em.fa.pull-left
+        span.pull-left EXPORT XLS

@@ -21,7 +21,7 @@
 		<section>
 			<h4 class="step-title"><strong>SEO Genie Automatically and dynamically optimize your website Pages!</strong></h4>
 			<div style="overflow: auto;margin-bottom: 20px;">
-				<img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/jinie.png'; ?>" height='280' style='float: right;margin: 0 50px;'>
+				<img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/jinie.png'; ?>" height='280' style='float: right;margin: 0 50px;'>
 				<p><strong>SEOgenie utilize advanced artificial intelligence technology for automatic assignment (association) of the most effective Keywords (Phases) to the relevant website pages according to the Keyword significance and SEO promotion Suitability.</strong></p>
 				<p><strong>This unique technology creates and automatic match between the Keywords and the relevant page content and metadata components for effective on page SEO implementation.</strong></p>
 			</div>

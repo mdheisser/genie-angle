@@ -1,0 +1,65 @@
+div(ng-controller='pagesManageFilterController as pmfc')
+    .filter-title.bg-white.p-sm
+        h5.m0.input-group(ng-click='pmfc.pageCategoryPane=!pmfc.pageCategoryPane') Additional Filters
+            em.fa.fa-caret-down
+    .category-body.shadow-z3.bg-white(ng-if='pmfc.pageCategoryPane')
+        .filter-body.text-left(style="display:flex;")
+            .filter-category
+                a Category
+                .mda-list.p0
+                    .mda-list-item(ng-repeat='pageCategory in pmfc.assignedFilter')
+                        span.mda-checkbox.pull-left
+                            input.assigned-option(type='checkbox',
+                                st-pages-assign-search='',
+                                value='{{pageCategory.value}}',
+                                ng-model='pageCategory.categorySelected')
+                            em.bg-indigo-500
+                        span.pull-left {{pageCategory.name}}
+                    .mda-list-item(ng-repeat='pageCategory in pmfc.promotedFilter')
+                        span.mda-checkbox.pull-left
+                            input.promoted-option(type='checkbox',
+                                st-pages-promoted-search='',
+                                value='{{pageCategory.value}}',
+                                ng-model='pageCategory.categorySelected')
+                            em.bg-indigo-500
+                        span.pull-left {{pageCategory.name}}
+                    .mda-list-item
+                        span.mda-checkbox.pull-left
+                            input(type='checkbox',
+                                st-pages-auto-assign-search='',
+                                assigned='pmfc.autoAssign',
+                                ng-model='pmfc.autoAssign')
+                            em.bg-indigo-500
+                        span.pull-left System Assigned Pages
+            .filter-ranking
+                table
+                    tr
+                        td
+                            a Performance
+                        td
+                            p Ranking
+                        td.text-center
+                            p SEO
+                    tr(ng-repeat='item in pmfc.activePageRanking')
+                        td
+                            span.pull-left {{item.name}}
+                            span.mda-checkbox.pull-right
+                                input(type='checkbox', checked='', onclick='return false;')
+                                em.empty(ng-class='item.bg')
+                        td.text-right
+                            label.mda-checkbox
+                                input.ranking-option(type='checkbox',
+                                    st-pages-rank-search='',
+                                    rank-type='ranking',
+                                    value='{{item.value}}',
+                                    ng-model='item.rankSelected')
+                                em.bg-indigo-500
+                        td.text-center
+                            em.fa(ng-class='item.icon')
+                            label.mda-checkbox
+                                input.violationState-option(type='checkbox',
+                                    st-pages-rank-search='',
+                                    rank-type='violationState',
+                                    value='{{item.value}}',
+                                    ng-model='item.seoSelected')
+                                em.bg-indigo-500

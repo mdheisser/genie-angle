@@ -50,7 +50,7 @@
 		});
 
 		// Get google domaims
-		var url = engineGoogle.pluginsUrl + '/seo-genie/admin/js/googleEngine.json';
+		var url = SEOgenie.pluginsUrl + 'admin/js/googleEngine.json';
 		$.get(url, function(response) {
 			for (var key in response) {
 				$('#se_domains').append('<option>Google' + response[key].Name + '</option>');
@@ -69,7 +69,7 @@
 		// Get domains according to search engine
 		$('#search_gngine').change(function() {
 			var searchEngine = $(this).val()
-			var url = engineGoogle.pluginsUrl + '/seo-genie/admin/js/' + searchEngine + '.json';
+			var url = SEOgenie.pluginsUrl + 'admin/js/' + searchEngine + '.json';
 			$('#se_domains').empty();
 			$.get(url, function(response) {
 				for (var key in response) {

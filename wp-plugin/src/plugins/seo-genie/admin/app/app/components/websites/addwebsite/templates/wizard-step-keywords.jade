@@ -1,0 +1,73 @@
+﻿md-step(label="Keywords & Phrases", md-complete="waCtrl.stepData[1].data.completed", ng-disabled="waCtrl.stepProgress < 2")
+	md-step-body
+		form(name="keywordsStepForm", class='form-validate', role='form')
+			md-content(class="md-padding")
+					div(layout="row center" layout-xs="column")
+						div(flex='60', class='keywords-column', ng-if='waCtrl.isFreeText()')
+							label(for="add-keywords") Add keywords in separate lines.
+							br
+							i When finished press 'Next'
+							md-input
+								textarea(class="form-control", id='add-keywords', rows='10' cols='50', ng-model='waCtrl.keywordsInputText', ng-change='waCtrl.getKeywordsFromText()')
+							p.explanation-free-text Pressing enter create a new line, each keyword/phrase can contain multiple words. You may also add Keywords separated by comma.
+							md-button(class="md-default pull-right btn btn-default btn-outline", ng-click='waCtrl.clearInput()')
+								i(class="material-icons clear") 
+									| clear
+								div 
+									| Clear
+
+						div(flex='60', class='keywords-column', ng-if='waCtrl.isTabular()')
+							div(class='form-horizontal')
+								div(ng-repeat="keywordEntry in waCtrl.keywordsInput track by $index")
+										label.control-label.col-lg-1 {{$index+1}}.
+										div.col-lg-11.mb-sm
+											input.form-control(type='text', placeholder='Keyword or Phrase', name='keywordEntry_{{$index+1}}', validator='text', ng-model='keywordEntry', ng-change="waCtrl.updateKeyword($index, keywordEntry)")
+							
+								
+						div(flex='50', class='keywords-info-column')
+							p(class='text-underline') Package Utilization Limits:
+							p.float-left
+								| Promotion: 
+								span(class='text-bold') {{waCtrl.promotion}} 
+								|&nbsp;out of 
+								span(class='text-bold') {{waCtrl.totalPromotion}}
+							i(class="material-icons help-icon", uib-popover="The number of Keywords in the selected package for Automatic (On-Page) SEO Promotion", popover-trigger="'mouseenter'", popover-animation="true", popover-placement="right") help_outline
+
+							.clearfix
+
+							p.float-left
+								| Monitoring: 
+								span(class='text-bold') {{waCtrl.monitoring}} 
+								|&nbsp;out of 
+								span(class='text-bold') {{waCtrl.totalMonitoring}}
+							i(class="material-icons help-icon", uib-popover="The number of Keywords in the selected package for Automatic SERP position Monitoring", popover-trigger="'mouseenter'", popover-animation="true", popover-placement="right") help_outline
+
+							.clearfix.mb-lg
+
+							md-radio-group(ng-model="waCtrl.enteringMode", ng-change='waCtrl.changeEnterMode()')
+								md-radio-button(ng-repeat="mode in waCtrl.enterModes", ng-value="mode.value", aria-label="{{ mode.label }}") {{ mode.label }}
+							
+							.clearfix.mb-lg
+							
+							div(class="mb")
+								label(class="mda-checkbox")
+									input(type="checkbox", checked="", ng-model="waCtrl.stepData[1].data.isMonitored", aria-label="Monitor")
+									em.bg-blue-500
+									| Monitor
+
+							div(class="mb")
+								label(class="mda-checkbox")
+									input(type="checkbox", checked="", ng-model="waCtrl.stepData[1].data.isPromoted", aria-label="Promote")
+									em.bg-blue-500
+									| Promote
+
+			md-step-actions(layout="row")
+				div(flex='')
+					md-button(ng-click="waCtrl.moveToPreviousStep()")
+						| PREVIOUS
+
+				div(flex='', layout="row", layout-align="end top")
+					md-button(class="md-warn", ui-sref="app.websites")
+						| CANCEL
+					md-button(ng-disabled="waCtrl.showBusyText", ng-click="waCtrl.submitCurrentStep(waCtrl.stepData[1].data, waCtrl.isSkipKeywordsStep(), keywordsStepForm)", class="md-primary md-raised", validation-submit='keywordsStepForm')
+						| {{ !(waCtrl.isSkipKeywordsStep()) ? 'NEXT' : 'SKIP' }}

@@ -25,6 +25,17 @@ const uglify = require('gulp-uglify');
 const unzip = require('gulp-unzip');
 const zip = require('gulp-zip');
 
+var args = require("yargs").argv,
+    path = require("path"),
+    $ = require("gulp-load-plugins")(),
+    PluginError = $.util.PluginError,
+    install = require("gulp-install"),
+    reload = browserSync.reload,
+    gulpsync = $.sync(gulp),
+    rename = require('gulp-rename');
+    merge = require('merge-stream');
+    uuidv = require("uuid/v4");
+
 /* -------------------------------------------------------------------------------------------------
 Theme Name
 -------------------------------------------------------------------------------------------------- */
@@ -62,6 +73,142 @@ const headerJS = [
 const footerJS = [
 	'src/js/**'
 ];
+
+/* -------------------------------------------------------------------------------------------------
+MAIN PATHS For SEOgenie plugin
+-------------------------------------------------------------------------------------------------- */
+var config = {
+    // production mode (see build task)
+    isProduction: false,
+    // styles sourcemaps
+    useSourceMaps: true,
+    //    gulp --usecache
+    useCache: args.usecache,
+    //    gulp --mock
+    useMock: args.mock,
+    // ignore everything that begins with underscore
+    hidden_files: "**/_*.*",
+    ignored_files: "!**/_*.*",
+    taskLocation: "./gulp/",
+    devServer: {
+        port: 8080
+    }
+};
+
+var dir = {
+    dist: "./build/wordpress/wp-content/plugins/seo-genie/admin/app/dist",
+    swagger: " ../backend/api/swagger/swagger.yaml",
+    rest: "../backend/api/swagger/generated",
+    mock: "../backend/api/mocks"
+};
+
+var paths = {
+    dist: dir.dist,
+    app: dir.dist + "/app/",
+    markup: "src/plugins/seo-genie/admin/app/templates/",
+    styles: "src/plugins/seo-genie/admin/app/less/",
+    scripts: "src/plugins/seo-genie/admin/app/app/",
+    server: ["src/plugins/seo-genie/admin/app/server"],
+    static: ["src/plugins/seo-genie/admin/app/img", "src/plugins/seo-genie/admin/app/i18n"]
+};
+
+// VENDOR CONFIG
+var vendor = {
+    // vendor scripts required to start the app
+    base: {
+        source: require("./vendor.base.json"),
+        js: "base.js",
+        css: "base.css"
+    },
+    // vendor scripts to make the app work. Usually via lazy loading
+    app: {
+        source: require("./vendor.json"),
+        dest: paths.dist + "/vendor"
+    }
+};
+
+// SOURCES CONFIG
+var source = {
+    scripts: [
+        paths.scripts + "app.module.js",
+        // template modules
+        paths.scripts + "modules/**/*.module.js",
+        paths.scripts + "modules/**/*.js",
+        // custom modules
+        paths.scripts + "components/**/*module.js",
+        paths.scripts + "components/**/*.js"
+    ],
+    templates: {
+        index: [`${paths.markup}index.*`],
+        views: [
+            `${paths.markup}**/*.*`,
+            `${paths.scripts}**/*.jade`,
+            `!${paths.markup}index.*`
+        ]
+    },
+    styles: {
+        app: [paths.styles + "*.*"],
+        themes: [paths.styles + "themes/*", `${paths.scripts}**/*.less`],
+        watch: [
+            paths.styles + "**/*",
+            `${paths.scripts}**/*.less`,
+            "!" + paths.styles + "themes/*"
+        ]
+    },
+    swagger: {
+        src: dir.swagger,
+        dest: dir.rest
+    }
+};
+
+// BUILD TARGET CONFIG
+var build = {
+    scripts: paths.app + "js",
+    styles: paths.app + "css",
+    templates: {
+        index: paths.dist,
+        views: paths.app,
+        cache: paths.app + "js/" + "templates.js"
+    }
+};
+
+// PLUGINS OPTIONS
+var prettifyOpts = {
+    indent_char: " ",
+    indent_size: 3,
+    unformatted: ["a", "sub", "sup", "b", "i", "u", "pre", "code"]
+};
+
+var vendorUglifyOpts = {
+    mangle: {
+        except: ["$super"] // rickshaw requires this
+    }
+};
+
+var tplCacheOptions = {
+    root: "/app",
+    filename: "templates.js",
+    module: "app.core",
+    base: function (file) {
+        return file.path.split("templates")[1];
+    }
+};
+
+var injectOptions = {
+    name: "templates",
+    transform: function (filepath) {
+        return `script(src=\'${filepath.substr(
+      filepath.indexOf("app")
+    )}?v=${uuidv()}\')`;
+    }
+};
+
+var cssnanoOpts = {
+    safe: true,
+    discardUnused: false, // no remove @font-face
+    reduceIdents: false, // no change on @keyframes names
+    zindex: false // no change z-index
+};
 
 /* -------------------------------------------------------------------------------------------------
 Installation Tasks
@@ -135,6 +282,8 @@ gulp.task('build-dev', [
 	'header-scripts-dev',
 	'footer-scripts-dev',
 	'plugins-dev',
+	'vendor',
+	'assets',
 	'watch'
 
 ], () => {
@@ -229,8 +378,210 @@ gulp.task('watch', () => {
 		if (event.type === 'added') { 
 			gulp.start('disable-cron');
 		}
-	})
+	});
+	gulp.watch(source.scripts, ["scripts:app"]);
+    gulp.watch(source.swagger.src, ["vendor:swagger"]);
+    gulp.watch(source.styles.watch, ["styles:app", "styles:app:rtl"]);
+    gulp.watch(source.styles.themes, ["styles:themes"]);
+    gulp.watch(source.templates.views, ["templates:views"]);
+    gulp.watch(source.templates.index, ["templates:index"]);
+    gulp.watch(
+        paths.static,
+        gulpsync.sync(["assets:static:app:clean", "assets:static:app"])
+    );
 });
+
+// JS APP
+gulp.task(
+    "scripts:app",
+    getTask("scripts.app", {
+        config: config,
+        source: source,
+        build: build,
+        dir: dir
+    })
+);
+
+// VENDOR BUILD
+gulp.task("vendor:swagger", getTask("swagger", source.swagger));
+gulp.task("vendor", gulpsync.sync(["vendor:base", "vendor:app", "vendor:swagger"]));
+
+// Build the base script to start the application from vendor assets
+gulp.task(
+    "vendor:base",
+    getTask("vendor.base", {
+        config: config,
+        build: build,
+        vendor: vendor,
+        cssnanoOpts: cssnanoOpts
+    })
+);
+
+// copy file from bower folder into the app vendor folder
+gulp.task(
+    "vendor:app",
+    getTask("vendor.app", {
+        config: config,
+        build: build,
+        vendor: vendor,
+        cssnanoOpts: cssnanoOpts,
+        vendorUglifyOpts: vendorUglifyOpts
+    })
+);
+
+// APP LESS
+gulp.task(
+    "styles:app",
+    getTask("styles.app", {
+        config: config,
+        source: source,
+        build: build,
+        cssnanoOpts: cssnanoOpts
+    })
+);
+
+// APP RTL
+gulp.task(
+    "styles:app:rtl",
+    getTask("styles.app.rtl", {
+        config: config,
+        source: source,
+        build: build,
+        cssnanoOpts: cssnanoOpts
+    })
+);
+
+// LESS THEMES
+gulp.task("styles:themes", function () {
+    log("Building application theme styles..");
+    return gulp
+        .src(source.styles.themes)
+        .pipe($.less())
+        .on("error", handleError)
+        .pipe(gulp.dest(build.styles))
+        .pipe(
+            reload({
+                stream: true
+            })
+        );
+});
+
+// JADE
+gulp.task("templates:index", ["templates:views"], function () {
+    log("Building index..");
+
+    var tplscript = gulp.src(build.templates.cache, {
+        read: false
+    });
+    const printError = error =>
+        `<h1 style="color:#c00">Error</h1><pre style="text-align:left">${
+      error.message
+    }</pre>`;
+
+    return gulp
+        .src(source.templates.index)
+        .pipe($.if(config.useCache, $.inject(tplscript, injectOptions))) // inject the templates.js into index
+        .pipe($.pug())
+        .on("error", handleError)
+        .pipe($.htmlPrettify(prettifyOpts))
+        .pipe(gulp.dest(build.templates.index))
+        .pipe(
+            reload({
+                stream: true
+            })
+        );
+});
+
+// JADE
+gulp.task("templates:views", function () {
+    log("Building views.. " + (config.useCache ? "using cache" : ""));
+
+    if (config.useCache) {
+        return gulp
+            .src(source.templates.views)
+            .pipe($.pug())
+            .on("error", handleError)
+            .pipe($.angularTemplatecache(tplCacheOptions))
+            .pipe(
+                $.if(
+                    config.isProduction,
+                    $.uglify({
+                        preserveComments: "some",
+                        output: {
+                            max_line_len: 120000 // cached html can reach default limit easily
+                        }
+                    })
+                )
+            )
+            .pipe(gulp.dest(build.scripts))
+            .pipe(
+                reload({
+                    stream: true
+                })
+            );
+    } else {
+        return gulp
+            .src(source.templates.views)
+            .pipe(
+                $.if(!config.isProduction,
+                    $.changed(build.templates.views, {
+                        extension: ".html"
+                    })
+                )
+            )
+            .pipe($.pug())
+            .on("error", handleError)
+            .pipe($.htmlPrettify(prettifyOpts))
+            .pipe(gulp.dest(build.templates.views))
+            .pipe(
+                reload({
+                    stream: true
+                })
+            );
+    }
+});
+
+gulp.task("assets:static:app:clean", function (done) {
+    var oldStatic = paths.static.map(i => `${paths.app}${i}`);
+    del(oldStatic, {
+        force: true
+    }).then(function () {
+        done();
+    });
+});
+
+gulp.task("assets:static:app", function () {
+    // if (!paths.staticMapped) {
+    //     paths.static = paths.static.map(i => `${i}/**/*.*`);
+    //     paths.staticMapped = true;
+    // }
+    // gulp.src(paths.static[0], {base: 'src/plugins/seo-genie/admin/app/img/'})
+    //     .pipe(gulp.dest(paths.app + 'img/'));
+    // gulp.src(paths.static[1], {base: 'src/plugins/seo-genie/admin/app/i18n/'})
+    //     .pipe(gulp.dest(paths.app + 'i18n/'));
+});
+
+gulp.task("assets:static:serve", function () {
+    paths.server = paths.server.map(i => `${i}/**/*.*`);
+    gulp
+        .src(paths.server, {
+            base: "."
+        })
+        .pipe(rename({dirname: 'server'}))
+        .pipe(gulp.dest(paths.dist));
+});
+
+gulp.task("assets", [
+    "assets:static:app",
+    "assets:static:serve",
+    "scripts:app",
+    "styles:app",
+    "styles:app:rtl",
+    "styles:themes",
+    "templates:index",
+    "templates:views"
+]);
+
 
 /* -------------------------------------------------------------------------------------------------
 Production Tasks
@@ -344,6 +695,35 @@ gulp.task('backup', () => {
 			});
 	}
 });
+
+function done() {
+    log("************");
+    log("* All Done * You can start editing your code.");
+    log("************");
+}
+
+// Error handler
+function handleError(err) {
+    const printError = error =>
+        `<h1 style="color:#c00">Error</h1><pre style="text-align:left">${
+      error.message
+    }</pre>`;
+
+    browserSync.notify(printError(err), 25000);
+    log(err.toString());
+    this.emit("end");
+}
+
+// log to console using
+function log(msg) {
+    $.util.log($.util.colors.blue(msg));
+}
+
+//gulp.task('e2e:debug', getTask('e2e_debug', argv));
+function getTask(task, opts) {
+    opts = opts || {};
+    return require(config.taskLocation + task)(opts);
+}
 
 /* -------------------------------------------------------------------------------------------------
 End of all Tasks

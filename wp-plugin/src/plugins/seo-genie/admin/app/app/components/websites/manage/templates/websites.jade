@@ -1,0 +1,100 @@
+h3.content-heading
+    | Manage/Websites List
+    small Manage your account Websites
+#websites_manage.panel(ng-controller='websiteListController as wlCtrl')
+    .panel-wrapper
+        .panel-body
+            table.custom-table(st-table="displayedCollection", st-safe-src='wlCtrl.websitesList', st-set-filter="additionalFilter", st-filtered-collection='websiteList')
+                thead.table-control
+                    tr
+                        td.text-right(colspan="12")
+                            a.pull-left.btn.btn-primary.btn-outline.btn-oval.btn-xs(href='/#/app/websites/new')
+                                i.fa.fa-plus
+                            .pull-left.ml.mda-input-group
+                                input#searchForname.mda-form-control(type='text', st-search='name', placeholder='Filter/Search', ng-click="wlCtrl.showAdditionalFilter=true")
+                                span.mda-input-group-addon
+                                    em.fa.fa-search
+                                overlay-popup#websites_manage_filter(active='wlCtrl.showAdditionalFilter', width='350')
+                                    div(ng-include="'app/components/websites/manage/templates/websitesFilter.html'")
+                            .pull-left
+                                fiter-condition(condition-for='name')
+                            .pull-left.pl.filter-title Filter
+                            .pull-left.ml
+                                md-switch.m0(ng-model='wlCtrl.filterOn', aria-label='filter', uib-tooltip='Reset Filter', tooltip-enable='wlCtrl.filterOn',  st-reset='', ng-disabled='!wlCtrl.filterOn', ng-click='wlCtrl.resetWebsiteFilter()')
+                            .pull-right(st-pagination='', st-items-by-page="wlCtrl.numberOfRows.value", st-template="app/components/_common/templates/pagination.custom.html", st-page-change="wlCtrl.currentPage = newPage")
+                            .pull-right.display-rows
+                                label Display
+                                label
+                                    select(selectpicker='', ng-model="wlCtrl.numberOfRows", ng-options='item.label for item in wlCtrl.itemsByPage')
+                            .pull-right.mr(style='padding-top:2px;')
+                                span Export XLS
+                                em.fa.fa-file-excel-o
+                thead
+                    tr
+                        th.text-center.row-index #
+                        th(st-sort="name") Websites
+                        th.text-center(st-sort="g", style='width:55px;')
+                            i.glyphicon.socicon-google
+                        th.text-center(st-sort="y", style='width:55px;')
+                            i.glyphicon.socicon-yahoo
+                        th.text-center(st-sort="b", style='width:55px;')
+                            i.glyphicon.socicon-bing
+                        th.text-center(st-sort="date", style='width:90px;') Date
+                        th.text-center(style='width:100px;') SEO Violations
+                        th.text-center(style='width:90px;') Keywords
+                        th.text-center(st-sort="pages", style='width:60px;') Pages
+                        th.text-center(st-sort="sitemap") SiteMap
+                        th.text-center(st-sort="health") Health
+                        th.text-center.actions-col(ng-click="wlCtrl.showBulkAction=!wlCtrl.showBulkAction")
+                            label.mda-checkbox
+                                input(type='checkbox', ng-model='wlCtrl.allRowsMarked', ng-click='$event.stopPropagation()')
+                                em.bg-indigo-500
+                            i.fa.fa-caret-down
+                            overlay-popup#websites_manage_bulk_action(active='wlCtrl.showBulkAction', width='160')
+                                div(ng-include="'app/components/websites/manage/templates/bulkActions.html'")
+                tbody
+                    tr(st-select-row="row", st-select-mode="single", ng-repeat-start="row in displayedCollection", ng-class='{true: "bg-blue-100", false:""}[row.expanded]', ng-click='wlCtrl.expandWebsiteDetail(row, $event, 0)')
+                        td.text-center {{ ((wlCtrl.currentPage-1) * wlCtrl.numberOfRows.value) + $index + 1 }}
+                        td.keyword-col
+                            .pull-left.keyword-label
+                                span.m0(data-toggle='tooltip', title='{{row.keyword}}', ng-click='wlCtrl.openWebsiteUrl(row, $event)') {{ row.name }}
+                                i.fa.fa-caret-down.ml-sm(ng-click='wlCtrl.openKeywordActionPane(row, $event)')
+                                //- overlay-popup(active='row.showActions', width='185')
+                                //-     div(ng-include="'app/components/keywords/manage/templates/keywordActions.html'")
+                            .pull-right.keyword-control
+                                em.fa.fa-line-chart.pull-right.pl0(ng-class='{true:"text-info", false:"text-grey"}[row.active]', uib-tooltip='Aggregated SERP Ranking for all keywords in this site', ng-click='wlCtrl.openRankingGraph(row, $event)')
+                                label.m0.pull-right
+                                    md-switch(ng-model='row.active', aria-label='auto', uib-tooltip='{{{true:"Website ON", false:"Website OFF"}[row.active]}}', ng-change='wlCtrl.onActivePromotedKeyword(row)', ng-click='$event.stopPropagation()')
+                        td.text-center.text-warning
+                            i.fa.fa-angle-double-down(uib-tooltip='Google.com. SERP Ranking: Page {{row.pages}}, Position {{row.g}}')
+                                span.font-roboto.ml-sm {{ row.g }}
+                        td.text-center.text-danger
+                            i.fa.fa-angle-double-up(uib-tooltip='Yahoo.UK. SERP Ranking: Page {{row.pages}}, Position {{row.y}}')
+                                span.font-roboto.ml-sm {{ row.y }}
+                        td.text-center.text-success
+                            span.font-roboto.ml-sm(uib-tooltip='Bing.UK. SERP Ranking: Page {{row.pages}}, Position {{row.b}}') {{ row.b }}
+                        td.text-center
+                            span(uib-tooltip='Date last report was generated') {{ row.date }}
+                            em.fa.fa-refresh(ng-click='wlCtrl.generateReport($event)')
+                        td.text-center
+                            span.text-success(uib-tooltip='Resolved Violations') {{ row.violations[0] }} -
+                            span(uib-tooltip='Identified Violations') {{ row.violations[1] }}
+                            em.fa.fa-caret-down(ng-click='wlCtrl.expandWebsiteDetail(row, $event, 1)')
+                        td.text-center
+                            span(uib-tooltip='Promoted') {{ row.keywords[0] }} - 
+                            span(uib-tooltip='Monitored') {{ row.keywords[1] }}
+                            em.fa.fa-caret-down(ng-click='wlCtrl.expandWebsiteDetail(row, $event, 2)')
+                        td.text-center
+                            span(uib-tooltip='Number of pages identified by SEOgenie system in this website') {{ row.pages }}
+                            em.fa.fa-caret-down(ng-click='wlCtrl.expandWebsiteDetail(row, $event, 3)')
+                        td.progress-col
+                            .color-box(uib-tooltip='{{{1:"SITEMAP DOES NOT EXIST", 2:"SOME ISSUE WITH SITEMAP", 3:"SITEMAP OK"}[row.sitemap]}}', ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500"}[row.sitemap]')
+                        td.progress-col
+                            .color-box(uib-tooltip='{{{1:"Critical Action Needed", 2:"Some Attention Needed", 3:"No Action Requierd"}[row.health]}}', ng-class='{1:"bg-red-500", 2:"bg-yellow-700", 3:"bg-green-500"}[row.health]')
+                        td.text-center
+                            label.mda-checkbox
+                                input(type='checkbox', ng-model='row.selected', ng-click='$event.stopPropagation()')
+                                em.bg-indigo-500
+                    tr(ng-if="row.expanded", ng-repeat-end="")
+                            td(colspan='12')
+                                website-expand
