@@ -15,7 +15,7 @@
           var menuJson = 'server/sidebar-menu.json',
               menuURL  = menuJson + '?v=' + (new Date().getTime()); // jumps cache
 
-          onError = onError || function() { alert('Failure loading menu'); };
+          // onError = onError || function() { alert('Failure loading menu'); };
 
           $http
             .get(menuURL)

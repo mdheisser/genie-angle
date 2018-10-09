@@ -8,17 +8,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://seogenie/dev-talent
+ * @link              http://www.seo-genie.com
  * @since             1.0.0
  * @package           Seo_Genie
  *
  * @wordpress-plugin
  * Plugin Name:       SEOgenie
- * Plugin URI:        http://seogenie/wp-plugin
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Plugin URI:        http://www.seo-genie.com
+ * Description:       SEO Genie Automatically and dynamically optimize your website Pages
  * Version:           1.0.0
- * Author:            Talent
- * Author URI:        http://seogenie/dev-talent
+ * Author:            SEOgenie
+ * Author URI:        http://www.seo-genie.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       seo-genie
@@ -36,6 +36,14 @@ if ( ! defined( 'WPINC' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+
+if ( ! defined( 'WPSEO_FILE' ) ) {
+  define( 'SEOGENIE_FILE', __FILE__ );
+}
+
+if ( ! defined( 'WPSEO_PATH' ) ) {
+  define( 'SEOGENIE_PATH', plugin_dir_path( SEOGENIE_FILE ) );
+}
 
 /**
  * The code that runs during plugin activation.
@@ -80,12 +88,3 @@ function run_seo_genie() {
 
 }
 run_seo_genie();
-
-// Add init setup notice after the plugin is activated
-add_action('admin_notices', 'seogenie_setup');
-function seogenie_setup(){
-    global $pagenow;
-    if ( $pagenow == 'plugins.php' ) {
-        include('setup.php');
-    }
-}

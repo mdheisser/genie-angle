@@ -21,7 +21,7 @@
 		<section>
 			<h4 class="step-title"><strong>SEO Genie Automatically and dynamically optimize your website Pages!</strong></h4>
 			<div style="overflow: auto;margin-bottom: 20px;">
-				<img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/jinie.png'; ?>" height='280' style='float: right;margin: 0 50px;'>
+				<img src="<?php echo plugins_url() . '/seo-genie/public/images/jinie.png'; ?>" height='280' style='float: right;margin: 0 50px;'>
 				<p><strong>SEOgenie utilize advanced artificial intelligence technology for automatic assignment (association) of the most effective Keywords (Phases) to the relevant website pages according to the Keyword significance and SEO promotion Suitability.</strong></p>
 				<p><strong>This unique technology creates and automatic match between the Keywords and the relevant page content and metadata components for effective on page SEO implementation.</strong></p>
 			</div>
@@ -37,7 +37,7 @@
 					<div class="row mt-3 pl-3 pr-3">
 						<div class="input-tags">
 							<input type="text" class="float-left form-control" placeholder="Tags">
-							<img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/outline-label-24px.svg'; ?>">
+							<img src="<?php echo plugins_url() . '/seo-genie/public/images/outline-label-24px.svg'; ?>">
 						</div>
 						<button type="submit" class="arrow-button float-right"><span class="label">Add to list</span><span class="btn-arrow"></span></button>
 					</div>
@@ -58,13 +58,13 @@
 				<div class="col-md-5">
 					<div class="row border-b ml-3 mr-3">
 						<p class="float-left"><strong>Keywords to track</strong></p>
-						<img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/outline-delete-24px.svg'; ?>" class="float-right opacity-5">
-						<img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/outline-label-24px.svg'; ?>" class="float-right mr-2 opacity-5">
+						<img src="<?php echo plugins_url() . '/seo-genie/public/images/outline-delete-24px.svg'; ?>" class="float-right opacity-5">
+						<img src="<?php echo plugins_url() . '/seo-genie/public/images/outline-label-24px.svg'; ?>" class="float-right mr-2 opacity-5">
 					</div>
 					<div class="row border-b mt-2 ml-3 mr-3">
 						<p class="float-left">rank tracker</p>
-						<img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/outline-delete-24px.svg'; ?>" class="float-right opacity-5">
-						<img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/outline-label-24px.svg'; ?>" class="float-right mr-2 opacity-5">
+						<img src="<?php echo plugins_url() . '/seo-genie/public/images/outline-delete-24px.svg'; ?>" class="float-right opacity-5">
+						<img src="<?php echo plugins_url() . '/seo-genie/public/images/outline-label-24px.svg'; ?>" class="float-right mr-2 opacity-5">
 					</div>
 					<div class="row ml-3 mr-3 add-keyword-group">
 						<p>1 keyword x 3 locations = 3 tracked keywords</p>
@@ -81,17 +81,17 @@
 					<table>
 						<tr>
 							<td><i class="glyphicon socicon-google" style="font-size: 20px;"></i> Google</td>
-							<td><img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/green.png'; ?>" width=='20' height='25'> 84 / 81</td>
+							<td><img src="<?php echo plugins_url() . '/seo-genie/public/images/green.png'; ?>" width=='20' height='25'> 84 / 81</td>
 							<td><input type="checkbox" name="" class="lc-switch"></td>
 						</tr>
 						<tr>
 							<td><i class="glyphicon socicon-yahoo" style="font-size: 20px;"></i> Yahoo</td>
-							<td><img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/red.png'; ?>" width=='20' height='25'> 84 / 81</td>
+							<td><img src="<?php echo plugins_url() . '/seo-genie/public/images/red.png'; ?>" width=='20' height='25'> 84 / 81</td>
 							<td><input type="checkbox" name="" class="lc-switch"></td>
 						</tr>
 						<tr>
 							<td><i class="glyphicon socicon-bing" style="font-size: 20px;"></i> Bing</td>
-							<td><img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/yellow.png'; ?>" width=='20' height='25'> 84 / 81</td>
+							<td><img src="<?php echo plugins_url() . '/seo-genie/public/images/yellow.png'; ?>" width=='20' height='25'> 84 / 81</td>
 							<td><input type="checkbox" name="" class="lc-switch"></td>
 						</tr>
 						<tr>
@@ -101,7 +101,7 @@
 						<tr>
 							<td colspan="2">
 								Name: Location : <a href="#">sitemap.xml</a>
-								<img src="<?php echo plugin_dir_url( __FILE__ ) . 'public/images/green.png'; ?>" class='ml-2' width=='20' height='25'>
+								<img src="<?php echo plugins_url() . '/seo-genie/public/images/green.png'; ?>" class='ml-2' width=='20' height='25'>
 							</td>
 							<td><input type="checkbox" name="" class="lc-switch"></td>
 						</tr>

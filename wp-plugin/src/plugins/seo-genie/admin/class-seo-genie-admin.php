@@ -138,8 +138,6 @@ class Seo_Genie_Admin {
 	     *        Administration Menus: http://codex.wordpress.org/Administration_Menus
 	     *
 	     */
-	    add_options_page( 'SEOgenie Options Functions Setup', 'SEOgenie', 'manage_options', $this->plugin_name, array($this, 'display_plugin_setup_page')
-	    );
 	}
 
 	/**

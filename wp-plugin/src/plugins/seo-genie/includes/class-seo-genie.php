@@ -122,6 +122,11 @@ class Seo_Genie {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-seo-genie-public.php';
 
+		/**
+		 * The class responsible for defining all actions that occur in the menus of plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/menu/class-menu.php';
+
 		$this->loader = new Seo_Genie_Loader();
 
 	}
@@ -160,8 +165,8 @@ class Seo_Genie {
 		// Add menu item
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
 		// Add Settings link to the plugin
-		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' );
-		$this->loader->add_filter( 'plugin_action_links_' . $plugin_basename, $plugin_admin, 'add_action_links' );
+		// $plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' );
+		// $this->loader->add_filter( 'plugin_action_links_' . $plugin_basename, $plugin_admin, 'add_action_links' );
 	}
 
 	/**
@@ -187,6 +192,10 @@ class Seo_Genie {
 	 */
 	public function run() {
 		$this->loader->run();
+
+		// Initalize admin menus.
+		$menus = SEOgenie_Menu::getInstance();
+		$menus->initialize();
 	}
 
 	/**
