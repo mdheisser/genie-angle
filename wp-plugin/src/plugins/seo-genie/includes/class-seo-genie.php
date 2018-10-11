@@ -127,6 +127,11 @@ class Seo_Genie {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/menu/class-menu.php';
 
+		/**
+		 * The class responsible for adding columns to pages.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/filters/class-page-post-filter.php';
+
 		$this->loader = new Seo_Genie_Loader();
 
 	}
@@ -196,6 +201,9 @@ class Seo_Genie {
 		// Initalize admin menus.
 		$menus = SEOgenie_Menu::getInstance();
 		$menus->initialize();
+
+		// add columns to pages
+		new SEOgenie_Page_Post_Filter();
 	}
 
 	/**

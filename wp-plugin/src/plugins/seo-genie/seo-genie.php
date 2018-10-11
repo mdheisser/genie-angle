@@ -45,6 +45,8 @@ if ( ! defined( 'WPSEO_PATH' ) ) {
   define( 'SEOGENIE_PATH', plugin_dir_path( SEOGENIE_FILE ) );
 }
 
+define( 'SEOGENIE_API_URL', 'https://0prbazspmj.execute-api.us-east-1.amazonaws.com/dev/' );
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-seo-genie-activator.php
