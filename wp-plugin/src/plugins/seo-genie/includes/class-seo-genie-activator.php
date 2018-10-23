@@ -1,24 +1,15 @@
 <?php
 
 /**
- * Fired during plugin activation
- *
- * @link       http://seogenie/dev-marko
- * @since      1.0.0
- *
- * @package    Seo_Genie
- * @subpackage Seo_Genie/includes
- */
-
-/**
  * Fired during plugin activation.
  *
  * This class defines all code necessary to run during the plugin's activation.
  *
+ * @link       http://seo-genie.com
  * @since      1.0.0
  * @package    Seo_Genie
  * @subpackage Seo_Genie/includes
- * @author     Marko <markozzz37@gmail.com>
+ * @author     SEOgenie
  */
 class Seo_Genie_Activator {
 

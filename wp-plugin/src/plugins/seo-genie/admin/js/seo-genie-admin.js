@@ -59,7 +59,11 @@
 		});
 
 		$('#btn_setup_seogenie').click(function() {
-			$('#seogenie_setup_wizard').steps('next');
+			var url = '/wp-admin/admin-post.php?action=setup_seogenie';
+			console.log(url);
+			$.get(url, function(response) {
+				$('#seogenie_setup_wizard').steps('next');
+			});
 		});
 
 		$('#btn_add_keywords').click(function() {

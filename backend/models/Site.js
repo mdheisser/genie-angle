@@ -32,6 +32,7 @@ const SiteSchema = new mongoose.Schema({
   languageID: { type: mongoose.Schema.Types.ObjectId, ref: 'Language' },
   serverType: String,
   siteType: String,
+  userID : String,
   dateCreated: {
     type: Date,
     default: Date.now

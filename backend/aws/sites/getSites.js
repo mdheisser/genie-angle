@@ -7,9 +7,16 @@ module.exports.main = (event, context, callback) => {
 
   connectToDatabase()
     .then(() => {
-      console.log('Get all sites');
-      Site.find()
-        .then(sites => response.ok(sites, callback))
-        .catch(err => response.fail(err, callback))
+      if (event.queryStringParameters) {
+        console.log('Get user own sites');
+        Site.find({ "userID" : event.queryStringParameters.userId })
+          .then(sites => response.ok(sites, callback))
+          .catch(err => response.fail(err, callback))
+      } else {
+        console.log('Get all sites');
+        Site.find()
+          .then(sites => response.ok(sites, callback))
+          .catch(err => response.fail(err, callback))
+      }
     });
 };

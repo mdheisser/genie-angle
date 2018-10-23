@@ -137,6 +137,19 @@ class Seo_Genie {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/metabox/class-metabox.php';
 
+		/**
+		 * The class responsible for creating datbase tables.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-database-proxy.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/config/class-config-storage.php';
+
+		/**
+		 * The class responsible for setup seogenie system.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-seo-genie-setup.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-remote-request.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/ajax.php';
+
 		$this->loader = new Seo_Genie_Loader();
 
 	}
