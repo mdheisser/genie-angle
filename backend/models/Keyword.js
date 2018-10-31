@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const KeywordSchema = new mongoose.Schema({  
-  text: String,
+  text: { type: String, required: true, unique: true },
   googleRanking: Number,
   yahooRanking: Number,
   bingRanking: Number,
@@ -14,6 +14,6 @@ const KeywordSchema = new mongoose.Schema({
   isAssigned: Boolean,
   property: Array,
   lang: Array,
-  siteID: mongoose.Schema.Types.ObjectId
+  siteID: { type: mongoose.Schema.Types.ObjectId, required: true }
 });
 module.exports = mongoose.model('Keyword', KeywordSchema);

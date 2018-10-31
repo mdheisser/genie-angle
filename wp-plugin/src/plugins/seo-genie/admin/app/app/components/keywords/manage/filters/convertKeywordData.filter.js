@@ -31,6 +31,7 @@
                 item.forced_min = 1;
                 item.forced_max = 7;
                 item.auto_assign = false;
+                item.keyword = item.text;
                 // item.g = item.googleRanking;
                 // item.y = item.yahooRanking;
                 // item.m = item.bingRanking;

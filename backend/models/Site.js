@@ -7,7 +7,7 @@ const StatsEnginesYahoo = require('./StatsEnginesYahoo');
 const Language = require('./Language');
 
 const SiteSchema = new mongoose.Schema({
-  url: String,
+  url: { type: String, index: {unique: true, dropDups: true} },
   name: String,
   countKeywordsTotal: Number,
   countActiveKeywords: Number,
@@ -32,11 +32,8 @@ const SiteSchema = new mongoose.Schema({
   languageID: { type: mongoose.Schema.Types.ObjectId, ref: 'Language' },
   serverType: String,
   siteType: String,
-  userID : String,
-  dateCreated: {
-    type: Date,
-    default: Date.now
-  }
+  userID : { type: String, required: true },
+  dateCreated: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Site', SiteSchema);

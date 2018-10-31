@@ -21,7 +21,8 @@ class Seo_Genie_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-
+		$config_storage = new SEOgenie_Config_Storage();
+        $config_storage->initialize();
 	}
 
 }

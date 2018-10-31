@@ -136,14 +136,15 @@
 
         // Get user's own site names.
         function getOwnSites(userID) {
-            commonService
-                .getUserSites(userID)
-                .then(function (response) {
-                    vm.sites = response.data;
-                    vm.selectedSite = vm.sites[0];
-                    getKeywords(vm.selectedSite._id);
-                    getLanguages(vm.selectedSite._id);
-                });
+            // commonService
+            //     .getUserSites(userID)
+            //     .then(function (response) {
+            //         vm.sites = response.data;
+            //         vm.selectedSite = vm.sites[0];
+            //         getKeywords(vm.selectedSite._id);
+            //         getLanguages(vm.selectedSite._id);
+            //     });
+            getKeywords(SEOgenie.site_id);
         }
 
         function getKeywords(siteId) {

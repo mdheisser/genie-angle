@@ -18,6 +18,12 @@ class SEOgenie_Config_Storage {
     /** @var null|string Deprecated. */
     protected $table_prefix;
 
+    /** @var string */
+    protected $user_email;
+
+    /** @var uuid */
+    protected $user_pass;
+
     /**
      * Initializes the database table.
      *
@@ -29,15 +35,8 @@ class SEOgenie_Config_Storage {
         }
 
         $this->database_proxy = new SEOgenie_DB_Proxy( $GLOBALS['wpdb'], self::TABLE_NAME, true );
-    }
 
-    /**
-     * Returns the table name to use.
-     *
-     * @return string The table name.
-     */
-    public function get_table_name() {
-        return $this->database_proxy->get_table_name();
+        $this->generate_user();
     }
 
     /**
@@ -45,7 +44,7 @@ class SEOgenie_Config_Storage {
      *
      * @return boolean True if the table was created, false if something went wrong.
      */
-    public function install() {
+    public function initialize() {
         $this->database_proxy->create_table(
             array(
                 'id bigint(20) unsigned NOT NULL AUTO_INCREMENT',
@@ -56,38 +55,56 @@ class SEOgenie_Config_Storage {
                 'PRIMARY KEY (id)'
             )
         );
+
+        $this->create_option('owner_email', $this->user_email);
+        $this->create_option('owner_pass', $this->user_pass);
     }
 
     /**
-     * Inserts the owner credential into the database.
+     * Insert new option.
      *
      * @return void
      */
-    public function save_admin_credential($email, $pass) {
-        $query = "SELECT * FROM ". $this->database_proxy->get_table_name() . " WHERE option_name='owner_email'";
-        $saved_credential = $this->database_proxy->get_results($query);
+    public function create_option($name, $value) {
+        $query = "SELECT * FROM ". $this->database_proxy->get_table_name() . " WHERE option_name='" . $name . "'";
+        $saved_option = $this->database_proxy->get_results($query);
 
-        if (empty($saved_credential)) {
-            $protocol = array( 'http://', 'https://' );
-            $host = str_replace( $protocol, '', get_site_url() );
-            $user = $host . '@wordpress.plugin.com';
-            $password = wp_generate_uuid4();
-
+        if (empty($saved_option)) {
             $this->database_proxy->insert(
                 array(
-                    'option_name'  => 'owner_email',
-                    'option_value' => $email,
-                ),
-                array( '%s', '%s' )
-            );
-
-            $this->database_proxy->insert(
-                array(
-                    'option_name'  => 'owner_pass',
-                    'option_value' => $pass,
+                    'option_name'  => $name,
+                    'option_value' => $value,
                 ),
                 array( '%s', '%s' )
             );
         }
+    }
+
+    /**
+     * Get an option value.
+     *
+     * @return string $option_value
+     */
+    public function get_option_value($option_name) {
+        $query = "SELECT * FROM ". $this->database_proxy->get_table_name() . " WHERE option_name='" . $option_name . "'";
+        $saved_option = $this->database_proxy->get_results($query);
+
+        if (empty($saved_option)) {
+            return '';
+        } else {
+            return $saved_option[0]->option_value;
+        }
+    }
+
+    /**
+     * Generate user credential for seogenie system.
+     *
+     * @return void
+     */
+    protected function generate_user() {
+        $protocol = array( 'http://', 'https://' );
+        $host = str_replace( $protocol, '', get_site_url() );
+        $this->user_email = $host . '@wordpress.plugin.com';
+        $this->user_pass = wp_generate_uuid4();
     }
 }

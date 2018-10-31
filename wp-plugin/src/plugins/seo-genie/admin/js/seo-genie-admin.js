@@ -59,15 +59,33 @@
 		});
 
 		$('#btn_setup_seogenie').click(function() {
-			var url = '/wp-admin/admin-post.php?action=setup_seogenie';
-			console.log(url);
-			$.get(url, function(response) {
-				$('#seogenie_setup_wizard').steps('next');
+			var data = {
+				action: 'setup_seogenie'
+			}
+			$.post(SEOgenie.ajax_url, data, function(response) {
+				if (response == '1') {
+					console.log('The website was registered successfully.');
+					$('#seogenie_setup_wizard').steps('next');
+				} else {
+					console.log('The website could not be registered.');
+				}
 			});
 		});
 
+		// Add new keywords for website.
 		$('#btn_add_keywords').click(function() {
-			$('#seogenie_setup_wizard').steps('next');
+			var data = {
+				action: 'add_keyword',
+				keywords: $('#seogenie_setup_wizard textarea').val()
+			}
+			$.post(SEOgenie.ajax_url, data, function(response) {
+				if (response == '1') {
+					console.log('Keywords was added successfully.');
+					$('#seogenie_setup_wizard').steps('next');
+				} else {
+					console.log('Keywords could not be added.');
+				}
+			});
 		});
 
 		// Get domains according to search engine

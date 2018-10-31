@@ -113,8 +113,13 @@ class Seo_Genie_Admin {
 		wp_enqueue_script( 'bootstrap.select', plugin_dir_url( __FILE__ ) . 'js/bootstrap-select.min.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'lc_switch', plugin_dir_url( __FILE__ ) . 'js/lc_switch.min.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'engine.google', plugin_dir_url( __FILE__ ) . 'js/googleEngine.json', array( ), $this->version, false );
-		wp_localize_script('engine.google', 'SEOgenie', array( 'pluginsUrl' => plugins_url() . '/seo-genie/'));
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/seo-genie-admin.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script( $this->plugin_name, 'SEOgenie', array(
+			'pluginsUrl' => plugins_url() . '/seo-genie/',
+			'ajax_url'   => admin_url( 'admin-ajax.php' ),
+			'api_url'    => SEOGENIE_API_URL,
+			'site_id'    => $this->get_site_id()
+		));
 
 		// Angular scripts
 		wp_enqueue_script( 'angular', plugin_dir_url( __FILE__ ) . 'app/dist/app/js/base.js', array( ), $this->version, false );
@@ -130,14 +135,14 @@ class Seo_Genie_Admin {
 
 	public function add_plugin_admin_menu() {
 
-	    /*
-	     * Add a settings page for this plugin to the Settings menu.
-	     *
-	     * NOTE:  Alternative menu locations are available via WordPress administration menu functions.
-	     *
-	     *        Administration Menus: http://codex.wordpress.org/Administration_Menus
-	     *
-	     */
+		/*
+		 * Add a settings page for this plugin to the Settings menu.
+		 *
+		 * NOTE:  Alternative menu locations are available via WordPress administration menu functions.
+		 *
+		 *        Administration Menus: http://codex.wordpress.org/Administration_Menus
+		 *
+		 */
 	}
 
 	/**
@@ -147,11 +152,11 @@ class Seo_Genie_Admin {
 	 */
 
 	public function add_action_links( $links ) {
-	    /*
-	    *  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
-	    */
+		/*
+		*  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
+		*/
 	   $settings_link = array(
-	    '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __('Settings', $this->plugin_name) . '</a>',
+		'<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __('Settings', $this->plugin_name) . '</a>',
 	   );
 	   return array_merge(  $settings_link, $links );
 
@@ -164,7 +169,17 @@ class Seo_Genie_Admin {
 	 */
 
 	public function display_plugin_setup_page() {
-	    include_once( 'partials/seo-genie-admin-display.php' );
+		include_once( 'partials/seo-genie-admin-display.php' );
+	}
+
+	/**
+	 * Get site ID on seogenie system.
+	 *
+	 */
+
+	protected function get_site_id() {
+		$config_storage = new SEOgenie_Config_Storage();
+		return $config_storage->get_option_value('site_id');
 	}
 
 }

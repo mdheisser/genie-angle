@@ -16,14 +16,12 @@ class SEOgenie_Setup {
     /** @var uuid */
     protected $user_pass;
 
+    /** @var SEOgenie_Config_Storage */
+    protected $config_storage;
+
     public function __construct() {
 
         $this->generate_user();
-
-        // Create config table.
-        $config = new SEOgenie_Config_Storage();
-        $config->install();
-        $config->save_admin_credential($this->user_email, $this->user_pass);
     }
 
     /**
@@ -62,7 +60,7 @@ class SEOgenie_Setup {
 
         $request = new SEOgenie_Remote_Request( $endpoint );
         $request->set_body( json_encode($credential) );
-        $request->send();
+        $result = $request->send();
     }
 
     /**
@@ -77,8 +75,15 @@ class SEOgenie_Setup {
         );
         $endpoint = SEOGENIE_API_URL . 'sites';
 
-        $request = new SEOgenie_Remote_Request( $endpoint );
-        $request->set_body( json_encode($site) );
-        $request->send();
+        $response = wp_remote_post($endpoint, array('body' => json_encode($site)));
+        $data = json_decode( $response['body'] );
+
+        if (empty($data->message)) {
+            $config_storage = new SEOgenie_Config_Storage();
+            $config_storage->create_option('site_id', $data->_id);
+            die('1');
+        }
+
+        die('0');
     }
 }
