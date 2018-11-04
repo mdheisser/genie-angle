@@ -10,7 +10,7 @@
     function overlayPopup($window, $timeout) {
         var directive = {
             restrict: 'EA',
-            templateUrl: '/app/components/_common/directives/grid/overlayPopup.html',
+            templateUrl: SEOgenie.app_dist + '/app/components/_common/directives/grid/overlayPopup.html',
             scope: {
                 width: '@',
                 active: '='

@@ -41,6 +41,8 @@
         vm.textCopyState = 'Copy Keyword';
 
         vm.chartOptions = {};
+        vm.areaChartOptions = {};
+        vm.pieChartOptions = {};
         vm.detailCurrentPage = 1;
         vm.detailFilterOn = false;
         vm.detailAllRowsMarked = false;
@@ -61,6 +63,8 @@
         //////////////
 
         function activate() {
+            vm.bulkActionsTemplateUrl = SEOgenie.app_dist + 'app/components/keywords/manage/templates/bulkActions.html';
+            vm.keywordActionsTemplateUrl = SEOgenie.app_dist + 'app/components/keywords/manage/templates/keywordActions.html';
             vm.bulkActions = [{
                     label: 'Remove from System',
                     icon: 'fa-trash-o'
@@ -92,28 +96,6 @@
                 }
             ];
 
-            // vm.keywordCategories = [
-            //     { name: 'CreativeWork', group: 'Creative works' },
-            //     { name: 'Book', group: 'Creative works' },
-            //     { name: 'Movie', group: 'Creative works' },
-            //     { name: 'MusicRecording', group: 'Creative works' },
-            //     { name: 'Recipe', group: 'Creative works' },
-            //     { name: 'TVSeries', group: 'Creative works' },
-            //     { name: 'AudioObject', group: 'Embedded non-text objects' },
-            //     { name: 'ImageObject', group: 'Embedded non-text objects' },
-            //     { name: 'VideoObject', group: 'Embedded non-text objects' },
-            //     { name: 'Event', group: '' },
-            //     { name: 'Organization', group: '' },
-            //     { name: 'Person', group: '' },
-            //     { name: 'Place', group: '' },
-            //     { name: 'LocalBusiness', group: '' },
-            //     { name: 'Restaurant', group: '' },
-            //     { name: 'Product', group: '' },
-            //     { name: 'Offer', group: '' },
-            //     { name: 'AggregateOffer', group: '' },
-            //     { name: 'Review', group: '' },
-            //     { name: 'AggregateRating', group: '' }
-            // ];
             getKeywordProperties();
 
             // Set dropdown options for pagination.
@@ -129,6 +111,113 @@
             vm.numberOfRows = dropdownOptions[1];
             vm.detailItemsByPage =  dropdownOptions;
             vm.detailNumberOfRows = dropdownOptions[1];
+            vm.areaChartOptions = {
+                chart: {
+                    type: 'area'
+                },
+                title: {
+                    text: 'Traffic'
+                },
+                subtitle: {
+                    text: 'Last 30 days'
+                },
+                xAxis: {
+                    allowDecimals: false,
+                    labels: {
+                        formatter: function () {
+                            return this.value; // clean, unformatted number for year
+                        }
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Users'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return this.value / 1000 + 'k';
+                        }
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{point.y:,.0f}'
+                },
+                plotOptions: {
+                    area: {
+                        pointStart: 1940,
+                        marker: {
+                            enabled: false,
+                            symbol: 'circle',
+                            radius: 2,
+                            states: {
+                                hover: {
+                                    enabled: true
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Users',
+                    data: [
+                        null, null, null, null, null, 6, 11, 32, 110, 235,
+                        369, 640, 1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468,
+                        20434, 24126, 27387, 29459, 31056, 31982, 32040, 31233, 29224, 27342,
+                        26662, 26956, 27912, 28999, 28965, 27826, 25579, 25722, 24826, 24605,
+                        24304, 23464, 23708, 24099, 24357, 24237, 24401, 24344, 23586, 22380,
+                        21004, 17287, 14747, 13076, 12555, 12144, 11009, 10950, 10871, 10824,
+                        10577, 10527, 10475, 10421, 10358, 10295, 10104, 9914, 9620, 9326,
+                        5113, 5113, 4954, 4804, 4761, 4717, 4368, 4018
+                    ]
+                }]
+            };
+            vm.pieChartOptions = {
+                    chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Keywords positions'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Top 10',
+                        y: 75,
+                        sliced: true,
+                        selected: true
+                    }, {
+                        name: '10-20',
+                        y: 12.5
+                    }, {
+                        name: '20-30',
+                        y: 6.25
+                    }, {
+                        name: '30-100',
+                        y: 6.25
+                    }]
+                }]
+            };
 
             getOwnSites(1);
             getLanguages();

@@ -10,7 +10,7 @@
     function serpChart() {
         var directive = {
             restrict: 'EA',
-            templateUrl: '/app/components/_common/directives/chart/serpChart.html',
+            templateUrl: SEOgenie.app_dist + 'app/components/_common/directives/chart/serpChart.html',
             scope: {
                 config: '=',
                 height: '@'
@@ -33,7 +33,7 @@
                     height: scope.height
                 },
                 title: {
-                    text: '',
+                    text: 'Agreegated SERP Ranking For All Keywords',
                     style: {
                         fontSize: '15px'
                     }
