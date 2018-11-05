@@ -3,6 +3,7 @@
         .module("components.common", ['validation.rule',
             'components.services',
             'components.directives',
-            'components.filters'
+            'components.filters',
+            'components.factories'
         ]);
 })(angular);
