@@ -46,26 +46,12 @@ class SEOgenie_Metabox {
 
 	public static function html($post)
 	{
-		$value = get_post_meta($post->ID, '_seogenie_meta_key', true);
-		$title = get_the_title($post);
-		$link = get_permalink($post);
-		?>
-		<table>
-			<tr>
-				<td><strong>Page Tile </strong></td>
-				<td><?php echo $title; ?></td>
-			</tr>
-			<tr>
-				<td><strong>Page Link </strong></td>
-				<td><a href="<?php echo $link; ?>" target="_blank"><?php echo $link; ?></a></td>
-			</tr>
-		</table>
-		<!-- <label for="seogenie_field">Page Title</label> -->
-		<!-- <select name="seogenie_field" id="seogenie_field" class="postbox">
-			<option value="">Select something...</option>
-			<option value="something" <?php selected($value, 'something'); ?>>Something</option>
-			<option value="else" <?php selected($value, 'else'); ?>>Else</option>
-		</select> -->
-		<?php
+		$config_storage = new SEOgenie_Config_Storage();
+		$site_id = $config_storage->get_option_value('site_id');
+
+		$endpoint = SEOGENIE_API_URL . 'keywords?siteId=' . $site_id;
+		$response = wp_remote_get( $endpoint );
+		$keywords = json_decode( $response['body'] );
+		include_once( SEOGENIE_PATH . 'admin/views/tabs/page.php' );
 	}
 }

@@ -37,7 +37,7 @@ class SEOgenie_Page_Post_Filter {
 		// keywords column
 		if ( 'keywords' === $column ) {
 			$response = wp_remote_get( SEOGENIE_API_URL . 'pages/5b6d06602dcea28b9d7b61e5' );
-			if ( is_array( $response ) ) {
+			if ( !empty( $response['body']['message'] ) ) {
 				$body = json_decode($response['body'], true);
 				$autokeyword_ids_count = count($body['autoKeywordIDs']);
 				$manualkeyword_ids_count = count($body['manualKeywordIDs']);

@@ -114,6 +114,7 @@ class Seo_Genie_Admin {
 		wp_enqueue_script( 'lc_switch', plugin_dir_url( __FILE__ ) . 'js/lc_switch.min.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'engine.google', plugin_dir_url( __FILE__ ) . 'js/googleEngine.json', array( ), $this->version, false );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/seo-genie-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->name . '-metabox-tab', plugin_dir_url( __FILE__ ) . 'js/metabox-tab.js', array( 'jquery' ), $this->version, false );
 		wp_localize_script( $this->plugin_name, 'SEOgenie', array(
 			'pluginsUrl' => plugins_url() . '/seo-genie/',
 			'app_dist'   => plugins_url() . '/seo-genie/admin/app/dist/',
