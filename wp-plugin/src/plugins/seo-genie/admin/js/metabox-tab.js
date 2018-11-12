@@ -46,6 +46,9 @@
                 }
             });
         });
+
+        // Bootstrap select
+        $('.keyword-picker').selectpicker();
     });
  
 })( jQuery );

@@ -18,8 +18,22 @@
     <?php
     }
     ?>
-    <div class="inside">
-        <input type="text" name="">
-        <button class="btn btn-primary">Add</button>
+    <div class="inside" style="min-height: 300px">
+        <div class="row">
+            <div class="col-md-6">
+                <select class="keyword-picker" data-live-search="true" data-size="5">
+                    <?php
+                    foreach ($keywords as $key => $keyword) {
+                    ?>
+                        <option><?php echo $keyword->text; ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary">Add</button>
+            </div>
+        </div>
     </div>
 </div>
