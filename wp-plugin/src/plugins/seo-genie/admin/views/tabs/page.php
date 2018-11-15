@@ -3,7 +3,7 @@
         <?php
         foreach ($keywords as $key => $keyword) { 
         ?>
-            <a class="nav-tab" href="javascript:;"><?php echo $keyword->text; ?></a>
+            <a class="nav-tab" href="javascript:;"><?php echo $keyword->text; ?> <i class="fa fa-close keyword-remove"></i></a>
         <?php
         }
         ?>

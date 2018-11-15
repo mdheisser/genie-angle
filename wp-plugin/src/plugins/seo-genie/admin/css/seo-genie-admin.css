@@ -210,3 +210,11 @@
 	margin-top: 20px;
 	padding: 7px 25px;
 }
+
+/* Page metabox*/
+#page_keywords_navigation .nav-tab .keyword-remove {
+	visibility: hidden;
+}
+#page_keywords_navigation .nav-tab:hover .keyword-remove {
+	visibility: visible;
+}

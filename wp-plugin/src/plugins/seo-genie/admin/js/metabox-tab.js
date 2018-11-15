@@ -49,6 +49,11 @@
 
         // Bootstrap select
         $('.keyword-picker').selectpicker();
+
+        // Remove keyword
+        $('.keyword-remove').click(function (e) {
+            $(this).closest('.nav-tab').css('display', 'none');
+        });
     });
  
 })( jQuery );
