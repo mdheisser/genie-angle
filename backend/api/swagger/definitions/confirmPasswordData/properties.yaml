@@ -1,0 +1,6 @@
+username:
+  type: string
+verificationCode:
+  type: string
+password:
+  type: string

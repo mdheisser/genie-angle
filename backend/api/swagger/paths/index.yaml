@@ -1,0 +1,32 @@
+/account/login:
+  $ref: ./accountLogin\index.yaml
+/account/register:
+  $ref: ./accountRegister\index.yaml
+/account/confirm:
+  $ref: ./accountConfirm\index.yaml
+/account/forgotPassword:
+  $ref: ./accountForgotPassword\index.yaml
+/account/confirmPassword:
+  $ref: ./accountConfirmPassword\index.yaml
+/sites:
+  $ref: ./sites\index.yaml
+/sites/checkSite:
+  $ref: ./sitesCheckSite\index.yaml
+/keywords:
+  $ref: ./keywords\index.yaml
+'/keywords/{id}':
+  $ref: ./keywordsId\index.yaml
+/KeywordCategory:
+  $ref: ./keywordCategory\index.yaml
+/pages:
+  $ref: ./pages\index.yaml
+'/pages/{pageId}':
+  $ref: ./pagesPageId\index.yaml
+/violations:
+  $ref: ./violations\index.yaml
+'/violations/{id}':
+  $ref: ./violationsId\index.yaml
+/users:
+  $ref: ./users\index.yaml
+'/users/{id}':
+  $ref: ./usersId\index.yaml

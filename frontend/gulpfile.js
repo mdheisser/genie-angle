@@ -32,7 +32,7 @@ var config = {
 var dir = {
     dist: "./dist",
     swagger: "../backend/api/swagger/swagger.yaml",
-    rest: "../backend/api/swagger/generated",
+    rest: "../backend/api/auto_gen/angular",
     mock: "../backend/api/mocks"
 };
 

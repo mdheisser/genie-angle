@@ -218,3 +218,6 @@
 #page_keywords_navigation .nav-tab:hover .keyword-remove {
 	visibility: visible;
 }
+.highcharts-credits {
+	display: none;
+}

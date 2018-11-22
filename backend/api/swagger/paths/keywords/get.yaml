@@ -1,0 +1,20 @@
+tags:
+  - Keywords
+description: Returns all keywords from the system that the User has access to
+operationId: getKeywords
+summary: Get all keywords for User's Site
+produces:
+  - application/json
+parameters:
+  - name: siteId
+    in: query
+    description: Site Id of needed Site
+    required: true
+    type: string
+responses:
+  '200':
+    description: A list of Keywords.
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Keyword'

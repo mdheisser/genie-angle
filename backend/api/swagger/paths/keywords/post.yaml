@@ -1,0 +1,21 @@
+tags:
+  - Keywords
+description: Add new Keyword to the System
+operationId: createKeyword
+summary: Add new Keyword to the System
+parameters:
+  - in: body
+    name: Keyword
+    description: Keyword Data
+    required: true
+    schema:
+      $ref: '#/definitions/Keyword'
+responses:
+  '200':
+    description: Successfully added new Keyword
+    schema:
+      $ref: '#/definitions/Response'
+  default:
+    description: Error
+    schema:
+      $ref: '#/definitions/Error'

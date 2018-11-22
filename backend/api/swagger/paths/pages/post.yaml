@@ -1,0 +1,20 @@
+tags:
+  - Pages
+description: Add new Page to the System
+summary: Add new Page to the System
+parameters:
+  - in: body
+    name: Page
+    description: Page Data
+    required: true
+    schema:
+      $ref: '#/definitions/Page'
+responses:
+  '200':
+    description: Successfully added new Page
+    schema:
+      $ref: '#/definitions/Response'
+  default:
+    description: Error
+    schema:
+      $ref: '#/definitions/Error'

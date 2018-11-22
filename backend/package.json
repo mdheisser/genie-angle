@@ -8,20 +8,25 @@
         "dev": "sls offline start --skipCacheInvalidation",
         "dev:api": "./node_modules/.bin/swagger project edit",
         "dev:gen": "sls swagger --output aws",
-        "publish": "sudo sls publish ",
+        "publish": "sudo sls publish",
         "test": "newman run ./tests/SEOgenieAPI.postman_collection.json -e ./tests/env/SEOgenieEnvironment.postman_environment.json"
     },
     "dependencies": {
         "amazon-cognito-identity-js-node": "0.0.3",
-        "aws-sdk": "^2.248.1",
-        "dotenv": "^6.0.0",
-        "mongoose": "^5.2.2"
+        "aws-sdk": "^2.359.0",
+        "dotenv": "^6.1.0",
+        "mongoose": "^5.3.13",
+        "serverless": "^1.33.2",
+        "swagger-mongoose": "^1.1.2"
     },
     "devDependencies": {
-        "newman": "^3.9.4",
-        "serverless-offline": "^3.25.4",
+        "newman": "^4.2.2",
+        "serverless-offline": "^3.31.3",
         "serverless_framework_swagger_integration": "^1.1.0",
         "swagger": "^0.7.5",
-        "swagger-editor": "^3.2.5"
+        "multi-file-swagger": "^2.2.0",
+        "swagger-codegen": "^0.1.1",
+        "swagger-merger": "^1.4.3",
+        "swagger-split": "^1.0.2"
     }
 }

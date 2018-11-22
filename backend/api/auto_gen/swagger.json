@@ -1,0 +1,1538 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "SEOgenie Swagger",
+    "description": "SEOgenie REST Specification",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "name": "seogenie API Team"
+    },
+    "license": {
+      "name": "Private"
+    }
+  },
+  "host": "locahost",
+  "basePath": "/api",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Pages"
+    },
+    {
+      "name": "Keywords"
+    },
+    {
+      "name": "Sites"
+    }
+  ],
+  "paths": {
+    "/account/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Login to the System",
+        "summary": "Login to SEOgenie System",
+        "operationId": "getUserToken",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "credential",
+            "description": "Login Data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/credential"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successfull",
+            "schema": {
+              "$ref": "#/definitions/loginResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/account/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Register new account to the System",
+        "summary": "Register new account to SEOgenie System",
+        "operationId": "registerUser",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "credential",
+            "description": "Register Data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/credential"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Signup Successfull",
+            "schema": {
+              "$ref": "#/definitions/loginResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/account/confirm": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Send confirmation code",
+        "summary": "Send confirmation code",
+        "operationId": "confirmRegister",
+        "parameters": [
+          {
+            "name": "confirmData",
+            "in": "body",
+            "description": "Confirmation Data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/confirmEmailData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Signup Successfull",
+            "schema": {
+              "$ref": "#/definitions/loginResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/account/forgotPassword": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Send request for fogotten password",
+        "summary": "Send request for fogotten password",
+        "operationId": "forgotPassword",
+        "parameters": [
+          {
+            "name": "forgotPasswordData",
+            "in": "body",
+            "description": "forgot password data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/forgotPasswordData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Send request successfully",
+            "schema": {
+              "$ref": "#/definitions/loginResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/account/confirmPassword": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Confirm Password",
+        "summary": "Confirm Password",
+        "operationId": "confirmPassword",
+        "parameters": [
+          {
+            "name": "confirmPasswordData",
+            "in": "body",
+            "description": "confirm password data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/confirmPasswordData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirm email Successfull",
+            "schema": {
+              "$ref": "#/definitions/loginResponse"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/sites": {
+      "get": {
+        "tags": [
+          "Sites"
+        ],
+        "description": "Returns User's sites",
+        "operationId": "getUserSites",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "User id to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesffully retrieved users sites",
+            "schema": {
+              "$ref": "#/definitions/Site"
+            }
+          },
+          "400": {
+            "description": "Invalid User Id supplied"
+          },
+          "404": {
+            "description": "No User with provided Id was found."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Sites"
+        ],
+        "description": "Add new Site to the System",
+        "summary": "Add Customer's Site to the System",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Site sata",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Site"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully added new Site",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/sites/checkSite": {
+      "get": {
+        "tags": [
+          "Sites"
+        ],
+        "description": "Verify Site availability",
+        "operationId": "checkSite",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Site or Page exist & returns proper response",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "400": {
+            "description": "No sites found."
+          },
+          "404": {
+            "description": "No Sites Found."
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/keywords": {
+      "get": {
+        "tags": [
+          "Keywords"
+        ],
+        "description": "Returns all keywords from the system that the User has access to",
+        "operationId": "getKeywords",
+        "summary": "Get all keywords for User's Site",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "siteId",
+            "in": "query",
+            "description": "Site Id of needed Site",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Keywords.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Keyword"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Keywords"
+        ],
+        "description": "Add new Keyword to the System",
+        "operationId": "createKeyword",
+        "summary": "Add new Keyword to the System",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Keyword",
+            "description": "Keyword Data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Keyword"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully added new Keyword",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/keywords/{id}": {
+      "put": {
+        "tags": [
+          "Keywords"
+        ],
+        "description": "Update Keyword",
+        "operationId": "updateKeyword",
+        "summary": "Update Keyword",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Keyword id to return",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Keyword",
+            "description": "Keyword Data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Keyword"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated Keyword",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Keywords"
+        ],
+        "description": "Delete Keyword",
+        "summary": "Delete Keyword",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Keyword id to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted Keyword",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/KeywordCategory": {
+      "get": {
+        "tags": [
+          "Keywords"
+        ],
+        "description": "Returns all Keyword properties from the system that the User has access to",
+        "operationId": "getKeywordCategory",
+        "summary": "Get all Keyword properties for User's Site",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Keyword Properties.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/KeywordCategory"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pages": {
+      "get": {
+        "tags": [
+          "Pages"
+        ],
+        "description": "Get pages of specific Site",
+        "summary": "Get pages of specific Site",
+        "operationId": "getPages",
+        "parameters": [
+          {
+            "name": "siteId",
+            "in": "query",
+            "description": "Page Data",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully added new Page",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Page"
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Pages"
+        ],
+        "description": "Add new Page to the System",
+        "summary": "Add new Page to the System",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Page",
+            "description": "Page Data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully added new Page",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/pages/{pageId}": {
+      "get": {
+        "description": "fetch Page data",
+        "tags": [
+          "Pages"
+        ],
+        "operationId": "getPageDetail",
+        "parameters": [
+          {
+            "name": "pageId",
+            "in": "path",
+            "description": "Site Id of needed Site",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated Page",
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Pages"
+        ],
+        "description": "Update Page",
+        "summary": "Update Page",
+        "operationId": "updatePage",
+        "parameters": [
+          {
+            "name": "pageId",
+            "in": "path",
+            "description": "Site Id of needed Site",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Page",
+            "description": "Page Data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated Page",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pages"
+        ],
+        "parameters": [
+          {
+            "name": "pageId",
+            "in": "path",
+            "description": "Site Id of needed Site",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "description": "Delete Page from the system",
+        "summary": "Delete Page",
+        "responses": {
+          "200": {
+            "description": "Successfully deleted Page",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/violations": {
+      "get": {
+        "tags": [
+          "Violation"
+        ],
+        "description": "Returns all violations",
+        "operationId": "getAllViolations",
+        "summary": "Get all violations",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Page Violation.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Violation"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Violation"
+        ],
+        "description": "Add new Violation to the System",
+        "operationId": "createViolation",
+        "summary": "Add new Violation to the System",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Violation",
+            "description": "Violation Data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Violation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully added new Violation",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/violations/{id}": {
+      "put": {
+        "tags": [
+          "Violation"
+        ],
+        "description": "Update Violation",
+        "summary": "Update Violation",
+        "operationId": "updateViolation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Violation id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Violation",
+            "description": "Violation Data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Violation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated Violation",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Violation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Violation id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "description": "Delete Violation from the system",
+        "summary": "Delete Violation",
+        "operationId": "deleteViolation",
+        "responses": {
+          "200": {
+            "description": "Successfully deleted Violation",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Returns all System users",
+        "operationId": "getUsers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User info",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Returns User basic info",
+        "operationId": "getUserInfoById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesffully retrieved User info",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid User Id supplied"
+          },
+          "404": {
+            "description": "No User with provided Id was found."
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "URL": {
+      "type": "string"
+    },
+    "credential": {
+      "type": "object",
+      "required": [
+        "username",
+        "password"
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "loginResponse": {
+      "type": "object",
+      "required": [
+        "result"
+      ],
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      }
+    },
+    "confirmEmailData": {
+      "type": "object",
+      "required": [
+        "username",
+        "code"
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "forgotPasswordData": {
+      "type": "object",
+      "required": [
+        "username"
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "confirmPasswordData": {
+      "type": "object",
+      "required": [
+        "username",
+        "verificationCode",
+        "password"
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "verificationCode": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "required": [
+        "id",
+        "email",
+        "firstName",
+        "lastName"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "tempURL": {
+          "type": "string"
+        },
+        "echelon": {
+          "type": "number"
+        },
+        "parentCategoryID": {
+          "type": "string"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "Country": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "Keyword": {
+      "type": "object",
+      "required": [
+        "text",
+        "siteID"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "googleRanking": {
+          "type": "number"
+        },
+        "yahooRanking": {
+          "type": "number"
+        },
+        "bingRanking": {
+          "type": "number"
+        },
+        "isDefault": {
+          "type": "boolean"
+        },
+        "isPromoted": {
+          "type": "boolean"
+        },
+        "isMonitored": {
+          "type": "boolean"
+        },
+        "isForced": {
+          "type": "boolean"
+        },
+        "significance": {
+          "type": "number"
+        },
+        "suitability": {
+          "type": "number"
+        },
+        "activePages": {
+          "type": "number"
+        },
+        "isAssigned": {
+          "type": "boolean"
+        },
+        "property": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "lang": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "siteID": {
+          "type": "string"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "KeywordCategory": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "Language": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "languageCode": {
+          "type": "string"
+        },
+        "isGlobal": {
+          "type": "boolean"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "Page": {
+      "type": "object",
+      "properties": {
+        "pageUrl": {
+          "type": "string"
+        },
+        "isDefault": {
+          "type": "boolean"
+        },
+        "isPromoted": {
+          "type": "boolean"
+        },
+        "isMonitored": {
+          "type": "boolean"
+        },
+        "isForced": {
+          "type": "boolean"
+        },
+        "isAutoKeywords": {
+          "type": "boolean"
+        },
+        "violationState": {
+          "type": "number"
+        },
+        "violations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "significance": {
+          "type": "number"
+        },
+        "suitability": {
+          "type": "number"
+        },
+        "ranking": {
+          "type": "number"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "siteID": {
+          "type": "string"
+        },
+        "autoKeywordIDs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "manualKeywordIDs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "Site": {
+      "type": "object",
+      "required": [
+        "userID"
+      ],
+      "properties": {
+        "URL": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "countKeywordsTotal": {
+          "type": "number"
+        },
+        "countActiveKeywords": {
+          "type": "number"
+        },
+        "countMonitoredKeywords": {
+          "type": "number"
+        },
+        "countPagesTotal": {
+          "type": "number"
+        },
+        "countVisitors": {
+          "type": "number"
+        },
+        "countryID": {
+          "type": "string"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "isPaying": {
+          "type": "boolean"
+        },
+        "maxPages": {
+          "type": "number"
+        },
+        "maxKeywords": {
+          "type": "number"
+        },
+        "isLinkExchangeEnabled": {
+          "type": "boolean"
+        },
+        "isAutoAddingPages": {
+          "type": "boolean"
+        },
+        "maxKeywordsPerPage": {
+          "type": "number"
+        },
+        "statusCodes": {
+          "type": "string"
+        },
+        "aliasUrl": {
+          "type": "string"
+        },
+        "categoryID": {
+          "type": "string"
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "googleEngineID": {
+          "type": "string"
+        },
+        "bingEngineID": {
+          "type": "string"
+        },
+        "yahooEngineID": {
+          "type": "string"
+        },
+        "languageID": {
+          "type": "string"
+        },
+        "serverType": {
+          "type": "string"
+        },
+        "siteType": {
+          "type": "string"
+        },
+        "userID": {
+          "type": "string"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "SitesEnginesBing": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "queryURL": {
+          "type": "string"
+        },
+        "isValid": {
+          "type": "boolean"
+        },
+        "minValidLinksAmount": {
+          "type": "number"
+        },
+        "languageID": {
+          "type": "string"
+        },
+        "countryID": {
+          "type": "string"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateValidated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "SitesEnginesGoogle": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "queryURL": {
+          "type": "string"
+        },
+        "isValid": {
+          "type": "boolean"
+        },
+        "minValidLinksAmount": {
+          "type": "number"
+        },
+        "languageID": {
+          "type": "string"
+        },
+        "countryID": {
+          "type": "string"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateValidated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "SitesEnginesYahoo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "queryURL": {
+          "type": "string"
+        },
+        "isValid": {
+          "type": "boolean"
+        },
+        "minValidLinksAmount": {
+          "type": "number"
+        },
+        "languageID": {
+          "type": "string"
+        },
+        "countryID": {
+          "type": "string"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateValidated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "SitesEnginesYandex": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "queryURL": {
+          "type": "string"
+        },
+        "isValid": {
+          "type": "boolean"
+        },
+        "minValidLinksAmount": {
+          "type": "number"
+        },
+        "languageID": {
+          "type": "string"
+        },
+        "countryID": {
+          "type": "string"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateValidated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "StatsPosition": {
+      "type": "object",
+      "properties": {
+        "siteID": {
+          "type": "string"
+        },
+        "keywordID": {
+          "type": "string"
+        },
+        "googlePosition": {
+          "type": "number"
+        },
+        "yahooPosition": {
+          "type": "number"
+        },
+        "bingPosition": {
+          "type": "number"
+        },
+        "googleChange": {
+          "type": "number"
+        },
+        "yahooChange": {
+          "type": "number"
+        },
+        "bingChange": {
+          "type": "number"
+        },
+        "googleTotalAmount": {
+          "type": "number"
+        },
+        "yahooTotalAmount": {
+          "type": "number"
+        },
+        "bingTotalAmount": {
+          "type": "number"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "Violation": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number"
+        },
+        "category": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

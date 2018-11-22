@@ -1,0 +1,21 @@
+tags:
+  - Auth
+description: Login to the System
+summary: Login to SEOgenie System
+operationId: getUserToken
+parameters:
+  - in: body
+    name: credential
+    description: Login Data
+    required: true
+    schema:
+      $ref: '#/definitions/credential'
+responses:
+  '200':
+    description: Login Successfull
+    schema:
+      $ref: '#/definitions/loginResponse'
+  default:
+    description: Error
+    schema:
+      $ref: '#/definitions/Error'

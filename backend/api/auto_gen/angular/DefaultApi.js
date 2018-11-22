@@ -5,7 +5,7 @@ angular.module('API', [])
         'use strict';
 
         /**
-         * SEOgenie REST Specification 
+         * SEOgenie REST Specification
          * @class API
          * @param {(string|object)} [domainOrOptions] - The project domain or options object. If object, see the object's optional properties.
          * @param {string} [domainOrOptions.domain] - The project domain
@@ -296,7 +296,7 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * Returns user's sites
+             * Returns User's sites
              * @method
              * @name API#getUserSites
              * @param {object} parameters - method options and parameters
@@ -397,11 +397,11 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * Returns all keywords from the system that the user has access to
+             * Returns all keywords from the system that the User has access to
              * @method
              * @name API#getKeywords
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.siteId - Site Id of needed site
+             * @param {string} parameters.siteId - Site Id of needed Site
              */
             API.prototype.getKeywords = function(parameters) {
                 if (parameters === undefined) {
@@ -551,7 +551,7 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * Returns all keyword properties from the system that the user has access to
+             * Returns all Keyword properties from the system that the User has access to
              * @method
              * @name API#getKeywordCategory
              * @param {object} parameters - method options and parameters
@@ -562,7 +562,7 @@ angular.module('API', [])
                 }
                 var deferred = $q.defer();
                 var domain = this.domain,
-                    path = '/keywordCategory';
+                    path = '/KeywordCategory';
                 var body = {},
                     queryParameters = {},
                     headers = {},
@@ -578,7 +578,7 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * Get pages of specific site
+             * Get pages of specific Site
              * @method
              * @name API#getPages
              * @param {object} parameters - method options and parameters
@@ -615,7 +615,7 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * Add new page to the System
+             * Add new Page to the System
              * @method
              * @name API#postPages
              * @param {object} parameters - method options and parameters
@@ -652,11 +652,11 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * fetch page data
+             * fetch Page data
              * @method
              * @name API#getPageDetail
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.pageId - Site Id of needed site
+             * @param {string} parameters.pageId - Site Id of needed Site
              */
             API.prototype.getPageDetail = function(parameters) {
                 if (parameters === undefined) {
@@ -691,7 +691,7 @@ angular.module('API', [])
              * @method
              * @name API#updatePage
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.pageId - Site Id of needed site
+             * @param {string} parameters.pageId - Site Id of needed Site
              * @param {} parameters.page - Page Data
              */
             API.prototype.updatePage = function(parameters) {
@@ -736,7 +736,7 @@ angular.module('API', [])
              * @method
              * @name API#deletePagesByPageId
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.pageId - Site Id of needed site
+             * @param {string} parameters.pageId - Site Id of needed Site
              */
             API.prototype.deletePagesByPageId = function(parameters) {
                 if (parameters === undefined) {
@@ -794,7 +794,7 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * Add new violation to the System
+             * Add new Violation to the System
              * @method
              * @name API#createViolation
              * @param {object} parameters - method options and parameters
@@ -835,7 +835,7 @@ angular.module('API', [])
              * @method
              * @name API#updateViolation
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.id - violation id
+             * @param {string} parameters.id - Violation id
              * @param {} parameters.violation - Violation Data
              */
             API.prototype.updateViolation = function(parameters) {
@@ -876,11 +876,11 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * Delete violation from the system
+             * Delete Violation from the system
              * @method
              * @name API#deleteViolation
              * @param {object} parameters - method options and parameters
-             * @param {string} parameters.id - violation id
+             * @param {string} parameters.id - Violation id
              */
             API.prototype.deleteViolation = function(parameters) {
                 if (parameters === undefined) {
@@ -938,7 +938,7 @@ angular.module('API', [])
                 return deferred.promise;
             };
             /**
-             * Returns user basic info
+             * Returns User basic info
              * @method
              * @name API#getUserInfoById
              * @param {object} parameters - method options and parameters

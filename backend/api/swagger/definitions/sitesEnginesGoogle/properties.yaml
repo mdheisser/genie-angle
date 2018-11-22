@@ -1,0 +1,22 @@
+name:
+  type: string
+queryURL:
+  type: string
+isValid:
+  type: boolean
+minValidLinksAmount:
+  type: number
+languageID:
+  type: string
+countryID:
+  type: string
+dateCreated:
+  type: string
+  format: date-time
+dateValidated:
+  type: string
+  format: date-time
+_id:
+  type: string
+__v:
+  type: number

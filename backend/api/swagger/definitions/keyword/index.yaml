@@ -1,0 +1,6 @@
+type: object
+required:
+  - text
+  - siteID
+properties:
+  $ref: ./properties.yaml

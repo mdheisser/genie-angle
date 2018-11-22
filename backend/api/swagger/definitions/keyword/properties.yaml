@@ -1,0 +1,38 @@
+text:
+  type: string
+googleRanking:
+  type: number
+yahooRanking:
+  type: number
+bingRanking:
+  type: number
+isDefault:
+  type: boolean
+isPromoted:
+  type: boolean
+isMonitored:
+  type: boolean
+isForced:
+  type: boolean
+significance:
+  type: number
+suitability:
+  type: number
+activePages:
+  type: number
+isAssigned:
+  type: boolean
+property:
+  type: array
+  items:
+    type: object
+lang:
+  type: array
+  items:
+    type: object
+siteID:
+  type: string
+_id:
+  type: string
+__v:
+  type: number

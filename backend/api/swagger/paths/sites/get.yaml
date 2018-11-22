@@ -1,0 +1,21 @@
+tags:
+  - Sites
+description: Returns User's sites
+operationId: getUserSites
+produces:
+  - application/json
+parameters:
+  - name: userId
+    in: query
+    description: User id to return
+    required: true
+    type: string
+responses:
+  '200':
+    description: Succesffully retrieved users sites
+    schema:
+      $ref: '#/definitions/Site'
+  '400':
+    description: Invalid User Id supplied
+  '404':
+    description: No User with provided Id was found.

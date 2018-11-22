@@ -1,0 +1,61 @@
+URL:
+  type: string
+name:
+  type: string
+countKeywordsTotal:
+  type: number
+countActiveKeywords:
+  type: number
+countMonitoredKeywords:
+  type: number
+countPagesTotal:
+  type: number
+countVisitors:
+  type: number
+countryID:
+  type: string
+isDeleted:
+  type: boolean
+isPaying:
+  type: boolean
+maxPages:
+  type: number
+maxKeywords:
+  type: number
+isLinkExchangeEnabled:
+  type: boolean
+isAutoAddingPages:
+  type: boolean
+maxKeywordsPerPage:
+  type: number
+statusCodes:
+  type: string
+aliasUrl:
+  type: string
+categoryID:
+  type: string
+contacts:
+  type: array
+  items:
+    type: object
+googleEngineID:
+  type: string
+bingEngineID:
+  type: string
+yahooEngineID:
+  type: string
+languageID:
+  type: string
+serverType:
+  type: string
+siteType:
+  type: string
+userID:
+  type: string
+dateCreated:
+  type: string
+  format: date-time
+_id:
+  type: string
+__v:
+  type: number

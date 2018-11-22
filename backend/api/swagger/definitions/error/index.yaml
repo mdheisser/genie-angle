@@ -1,0 +1,5 @@
+type: object
+required:
+  - message
+properties:
+  $ref: ./properties.yaml

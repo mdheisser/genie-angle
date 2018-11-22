@@ -5,7 +5,7 @@
         .module("components.generic")
         .controller("AuthController", LoginFormController);
 
-    LoginFormController.$inject = ["$state"];
+    LoginFormController.$inject = ["$state","users"];
 
     function LoginFormController($state) {
         var vm = this;

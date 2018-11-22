@@ -1,0 +1,14 @@
+tags:
+  - Keywords
+description: Returns all Keyword properties from the system that the User has access to
+operationId: getKeywordCategory
+summary: Get all Keyword properties for User's Site
+produces:
+  - application/json
+responses:
+  '200':
+    description: A list of Keyword Properties.
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/KeywordCategory'

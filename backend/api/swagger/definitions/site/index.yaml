@@ -1,0 +1,5 @@
+type: object
+required:
+  - userID
+properties:
+  $ref: ./properties.yaml

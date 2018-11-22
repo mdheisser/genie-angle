@@ -1,0 +1,22 @@
+tags:
+  - Pages
+description: Get pages of specific Site
+summary: Get pages of specific Site
+operationId: getPages
+parameters:
+  - name: siteId
+    in: query
+    description: Page Data
+    required: true
+    type: string
+responses:
+  '200':
+    description: Successfully added new Page
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Page'
+  default:
+    description: Error
+    schema:
+      $ref: '#/definitions/Error'

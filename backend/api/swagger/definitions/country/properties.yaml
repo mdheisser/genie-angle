@@ -1,0 +1,11 @@
+name:
+  type: string
+code:
+  type: string
+dateCreated:
+  type: string
+  format: date-time
+_id:
+  type: string
+__v:
+  type: number

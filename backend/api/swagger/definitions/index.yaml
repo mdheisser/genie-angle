@@ -1,0 +1,44 @@
+Error:
+  $ref: ./error\index.yaml
+Response:
+  $ref: ./response\index.yaml
+URL:
+  $ref: ./url\index.yaml
+credential:
+  $ref: ./credential\index.yaml
+loginResponse:
+  $ref: ./loginResponse\index.yaml
+confirmEmailData:
+  $ref: ./confirmEmailData\index.yaml
+forgotPasswordData:
+  $ref: ./forgotPasswordData\index.yaml
+confirmPasswordData:
+  $ref: ./confirmPasswordData\index.yaml
+User:
+  $ref: ./user\index.yaml
+Category:
+  $ref: ./category\index.yaml
+Country:
+  $ref: ./country\index.yaml
+Keyword:
+  $ref: ./keyword\index.yaml
+KeywordCategory:
+  $ref: ./keywordCategory\index.yaml
+Language:
+  $ref: ./language\index.yaml
+Page:
+  $ref: ./page\index.yaml
+Site:
+  $ref: ./site\index.yaml
+SitesEnginesBing:
+  $ref: ./sitesEnginesBing\index.yaml
+SitesEnginesGoogle:
+  $ref: ./sitesEnginesGoogle\index.yaml
+SitesEnginesYahoo:
+  $ref: ./sitesEnginesYahoo\index.yaml
+SitesEnginesYandex:
+  $ref: ./sitesEnginesYandex\index.yaml
+StatsPosition:
+  $ref: ./statsPosition\index.yaml
+Violation:
+  $ref: ./violation\index.yaml

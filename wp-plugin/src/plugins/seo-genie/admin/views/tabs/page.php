@@ -7,18 +7,28 @@
         <?php
         }
         ?>
-        <a class="nav-tab nav-tab-active" href="javascript:;"><i class="fa fa-plus"></i> Add Keyword</a>
+        <a class="nav-tab" href="javascript:;"><i class="fa fa-plus"></i> Add Keyword</a>
     </h2>
     <?php
     foreach ($keywords as $key => $keyword) { 
     ?>
         <div class="inside hidden">
-            <p><?php echo $keyword->text; ?></p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="keyword_chart_line<?php echo $key;?>"></div>
+                </div>
+                <div class="col-md-4">
+                    <div id="keyword_chart_gauge<?php echo $key;?>"></div>
+                </div>
+                <div class="col-md-4">
+                    <div id="keyword_chart_series<?php echo $key;?>"></div>
+                </div>
+            </div>
         </div>
     <?php
     }
     ?>
-    <div class="inside" style="min-height: 300px">
+    <div class="inside hidden" style="min-height: 300px">
         <div class="row">
             <div class="col-md-6">
                 <select class="keyword-picker" data-live-search="true" data-size="5">
@@ -32,7 +42,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <button class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-primary">Add</button>
             </div>
         </div>
     </div>

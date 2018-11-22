@@ -1,0 +1,8 @@
+name:
+  type: string
+group:
+  type: string
+_id:
+  type: string
+__v:
+  type: number

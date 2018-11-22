@@ -1,0 +1,15 @@
+name:
+  type: string
+tempURL:
+  type: string
+echelon:
+  type: number
+parentCategoryID:
+  type: string
+dateCreated:
+  type: string
+  format: date-time
+_id:
+  type: string
+__v:
+  type: number

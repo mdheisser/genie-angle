@@ -1,5 +1,8 @@
-(function() {
+(function () {
     "use strict";
 
-    angular.module("components.generic", ["app.lazyload"]);
+    angular.module("components.generic", [
+        "app.lazyload",
+        "components.services"
+    ]);
 })();
