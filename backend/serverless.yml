@@ -154,7 +154,7 @@ functions:
     events:
       - http:
           method: get
-          path: '/violations'
+          path: /violations
           cors: true
   postViolations:
     handler: aws/violations/postViolations.main

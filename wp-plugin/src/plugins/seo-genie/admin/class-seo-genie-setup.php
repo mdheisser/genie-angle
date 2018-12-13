@@ -44,6 +44,7 @@ class SEOgenie_Setup {
     public function setup() {
         $this->register_user();
         $this->register_site();
+        $this->register_pages();
     }
 
     /**
@@ -85,5 +86,37 @@ class SEOgenie_Setup {
         }
 
         die('0');
+    }
+
+    /**
+     * Register all pages of website to seo genie system.
+     *
+     * @return void
+     */
+    protected function register_pages() {
+
+        $pages = array();
+        $post_status = array('publish', 'pending', 'draft', 'auto-draft', 'future', 'private', 'trash');
+
+        $posts_query = new WP_Query( array(
+            'post_type'         => "any",
+            'post_status'       => $post_status,
+            'posts_per_page'    => -1,
+            'offset'            => '',
+            'orderby'           => 'title',
+            'order'             => 'ASC'
+        ) );
+
+        while ( $posts_query->have_posts() ):
+
+            $posts_query->the_post();
+            $pages[] = get_permalink();
+
+        endwhile;
+
+        $page_service = new SEOgenie_Page_Service();
+        $response = $page_service->register_multi_pages($pages);
+
+        die('1');
     }
 }

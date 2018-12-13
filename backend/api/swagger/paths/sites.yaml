@@ -1,0 +1,43 @@
+get:
+  tags:
+    - Sites
+  description: Returns User's sites
+  operationId: getUserSites
+  produces:
+    - application/json
+  parameters:
+    - name: userId
+      in: query
+      description: User id to return
+      required: true
+      type: string
+  responses:
+    '200':
+      description: Succesffully retrieved users sites
+      schema:
+        $ref: '#/definitions/Site'
+    '400':
+      description: Invalid User Id supplied
+    '404':
+      description: No User with provided Id was found.
+post:
+  tags:
+    - Sites
+  description: Add new Site to the System
+  summary: Add Customer's Site to the System
+  parameters:
+    - in: body
+      name: body
+      description: Site sata
+      required: true
+      schema:
+        $ref: '#/definitions/Site'
+  responses:
+    '200':
+      description: Successfully added new Site
+      schema:
+        $ref: '#/definitions/Response'
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/Error'

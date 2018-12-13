@@ -1,0 +1,44 @@
+get:
+  tags:
+    - Pages
+  description: Get pages of specific Site
+  summary: Get pages of specific Site
+  operationId: getPages
+  parameters:
+    - name: siteId
+      in: query
+      description: Page Data
+      required: true
+      type: string
+  responses:
+    '200':
+      description: Successfully added new Page
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/Page'
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/Error'
+post:
+  tags:
+    - Pages
+  description: Add new Page to the System
+  summary: Add new Page to the System
+  parameters:
+    - in: body
+      name: Page
+      description: Page Data
+      required: true
+      schema:
+        $ref: '#/definitions/Page'
+  responses:
+    '200':
+      description: Successfully added new Page
+      schema:
+        $ref: '#/definitions/Response'
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/Error'

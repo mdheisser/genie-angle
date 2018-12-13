@@ -1,0 +1,63 @@
+get:
+  description: fetch Page data
+  tags:
+    - Pages
+  operationId: getPageDetail
+  parameters:
+    - name: pageId
+      in: path
+      description: Site Id of needed Site
+      required: true
+      type: string
+  responses:
+    '200':
+      description: Successfully updated Page
+      schema:
+        $ref: '#/definitions/Page'
+put:
+  tags:
+    - Pages
+  description: Update Page
+  summary: Update Page
+  operationId: updatePage
+  parameters:
+    - name: pageId
+      in: path
+      description: Site Id of needed Site
+      required: true
+      type: string
+    - in: body
+      name: Page
+      description: Page Data
+      required: true
+      schema:
+        $ref: '#/definitions/Page'
+  responses:
+    '200':
+      description: Successfully updated Page
+      schema:
+        $ref: '#/definitions/Response'
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/Error'
+delete:
+  tags:
+    - Pages
+  parameters:
+    - name: pageId
+      in: path
+      description: Site Id of needed Site
+      required: true
+      type: string
+  description: Delete Page from the system
+  summary: Delete Page
+  responses:
+    '200':
+      description: Successfully deleted Page
+      schema:
+        $ref: '#/definitions/Response'
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/Error'

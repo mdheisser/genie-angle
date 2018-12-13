@@ -1,5 +1,0 @@
-type: object
-required:
-  - username
-properties:
-  $ref: ./properties.yaml

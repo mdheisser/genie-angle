@@ -1,5 +1,0 @@
-type: object
-required:
-  - result
-properties:
-  $ref: ./properties.yaml

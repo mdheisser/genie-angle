@@ -46,12 +46,6 @@ class SEOgenie_Metabox {
 
 	public static function html($post)
 	{
-		$config_storage = new SEOgenie_Config_Storage();
-		$site_id = $config_storage->get_option_value('site_id');
-
-		$endpoint = SEOGENIE_API_URL . 'keywords?siteId=' . $site_id;
-		$response = wp_remote_get( $endpoint );
-		$keywords = json_decode( $response['body'] );
 		include_once( SEOGENIE_PATH . 'admin/views/tabs/page.php' );
 	}
 }

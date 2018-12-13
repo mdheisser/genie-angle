@@ -1,0 +1,37 @@
+get:
+  tags:
+    - Violation
+  description: Returns all violations
+  operationId: getAllViolations
+  summary: Get all violations
+  produces:
+    - application/json
+  responses:
+    '200':
+      description: A list of Page Violation.
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/Violation'
+post:
+  tags:
+    - Violation
+  description: Add new Violation to the System
+  operationId: createViolation
+  summary: Add new Violation to the System
+  parameters:
+    - in: body
+      name: Violation
+      description: Violation Data
+      required: true
+      schema:
+        $ref: '#/definitions/Violation'
+  responses:
+    '200':
+      description: Successfully added new Violation
+      schema:
+        $ref: '#/definitions/Response'
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/Error'

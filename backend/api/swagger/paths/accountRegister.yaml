@@ -1,0 +1,22 @@
+post:
+  tags:
+    - Auth
+  description: Register new account to the System
+  summary: Register new account to SEOgenie System
+  operationId: registerUser
+  parameters:
+    - in: body
+      name: credential
+      description: Register Data
+      required: true
+      schema:
+        $ref: '#/definitions/credential'
+  responses:
+    '200':
+      description: Signup Successfull
+      schema:
+        $ref: '#/definitions/loginResponse'
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/Error'

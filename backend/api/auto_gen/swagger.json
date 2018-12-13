@@ -1214,7 +1214,7 @@
         "userID"
       ],
       "properties": {
-        "URL": {
+        "url": {
           "type": "string"
         },
         "name": {

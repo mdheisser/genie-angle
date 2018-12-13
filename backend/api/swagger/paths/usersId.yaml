@@ -1,0 +1,26 @@
+get:
+  tags:
+    - Users
+  description: Returns User basic info
+  operationId: getUserInfoById
+  produces:
+    - application/json
+  parameters:
+    - name: id
+      in: path
+      description: User id to return
+      required: true
+      type: string
+  responses:
+    '200':
+      description: Succesffully retrieved User info
+      schema:
+        $ref: '#/definitions/User'
+    '400':
+      description: Invalid User Id supplied
+    '404':
+      description: No User with provided Id was found.
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/Error'

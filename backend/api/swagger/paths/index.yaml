@@ -1,32 +1,32 @@
 /account/login:
-  $ref: ./accountLogin\index.yaml
+  $ref: ./accountLogin.yaml
 /account/register:
-  $ref: ./accountRegister\index.yaml
+  $ref: ./accountRegister.yaml
 /account/confirm:
-  $ref: ./accountConfirm\index.yaml
+  $ref: ./accountConfirm.yaml
 /account/forgotPassword:
-  $ref: ./accountForgotPassword\index.yaml
+  $ref: ./accountForgotPassword.yaml
 /account/confirmPassword:
-  $ref: ./accountConfirmPassword\index.yaml
+  $ref: ./accountConfirmPassword.yaml
 /sites:
-  $ref: ./sites\index.yaml
+  $ref: ./sites.yaml
 /sites/checkSite:
-  $ref: ./sitesCheckSite\index.yaml
+  $ref: ./sitesCheckSite.yaml
 /keywords:
-  $ref: ./keywords\index.yaml
+  $ref: ./keywords.yaml
 '/keywords/{id}':
-  $ref: ./keywordsId\index.yaml
+  $ref: ./keywordsId.yaml
 /KeywordCategory:
-  $ref: ./keywordCategory\index.yaml
+  $ref: ./keywordCategory.yaml
 /pages:
-  $ref: ./pages\index.yaml
+  $ref: ./pages.yaml
 '/pages/{pageId}':
-  $ref: ./pagesPageId\index.yaml
+  $ref: ./pagesPageId.yaml
 /violations:
-  $ref: ./violations\index.yaml
+  $ref: ./violations.yaml
 '/violations/{id}':
-  $ref: ./violationsId\index.yaml
+  $ref: ./violationsId.yaml
 /users:
-  $ref: ./users\index.yaml
+  $ref: ./users.yaml
 '/users/{id}':
-  $ref: ./usersId\index.yaml
+  $ref: ./usersId.yaml

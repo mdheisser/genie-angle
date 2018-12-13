@@ -1,0 +1,20 @@
+type: object
+properties:
+  status:
+    type: number
+  category:
+    type: string
+  description:
+    type: string
+  action:
+    type: string
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time
+  _id:
+    type: string
+  __v:
+    type: number

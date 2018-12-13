@@ -1,0 +1,20 @@
+get:
+  tags:
+    - Sites
+  description: Verify Site availability
+  operationId: checkSite
+  produces:
+    - application/json
+  responses:
+    '200':
+      description: Site or Page exist & returns proper response
+      schema:
+        $ref: '#/definitions/Response'
+    '400':
+      description: No sites found.
+    '404':
+      description: No Sites Found.
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/Error'

@@ -3,6 +3,6 @@ title: SEOgenie Swagger
 description: SEOgenie REST Specification
 termsOfService: 'http://swagger.io/terms/'
 contact:
-  $ref: ./contact\index.yaml
+  $ref: ./contact.yaml
 license:
-  $ref: ./license\index.yaml
+  $ref: ./license.yaml

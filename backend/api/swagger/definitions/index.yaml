@@ -1,44 +1,44 @@
 Error:
-  $ref: ./error\index.yaml
+  $ref: ./error.yaml
 Response:
-  $ref: ./response\index.yaml
+  $ref: ./response.yaml
 URL:
-  $ref: ./url\index.yaml
+  $ref: ./url.yaml
 credential:
-  $ref: ./credential\index.yaml
+  $ref: ./credential.yaml
 loginResponse:
-  $ref: ./loginResponse\index.yaml
+  $ref: ./loginResponse.yaml
 confirmEmailData:
-  $ref: ./confirmEmailData\index.yaml
+  $ref: ./confirmEmailData.yaml
 forgotPasswordData:
-  $ref: ./forgotPasswordData\index.yaml
+  $ref: ./forgotPasswordData.yaml
 confirmPasswordData:
-  $ref: ./confirmPasswordData\index.yaml
+  $ref: ./confirmPasswordData.yaml
 User:
-  $ref: ./user\index.yaml
+  $ref: ./user.yaml
 Category:
-  $ref: ./category\index.yaml
+  $ref: ./category.yaml
 Country:
-  $ref: ./country\index.yaml
+  $ref: ./country.yaml
 Keyword:
-  $ref: ./keyword\index.yaml
+  $ref: ./keyword.yaml
 KeywordCategory:
-  $ref: ./keywordCategory\index.yaml
+  $ref: ./keywordCategory.yaml
 Language:
-  $ref: ./language\index.yaml
+  $ref: ./language.yaml
 Page:
-  $ref: ./page\index.yaml
+  $ref: ./page.yaml
 Site:
-  $ref: ./site\index.yaml
+  $ref: ./site.yaml
 SitesEnginesBing:
-  $ref: ./sitesEnginesBing\index.yaml
+  $ref: ./sitesEnginesBing.yaml
 SitesEnginesGoogle:
-  $ref: ./sitesEnginesGoogle\index.yaml
+  $ref: ./sitesEnginesGoogle.yaml
 SitesEnginesYahoo:
-  $ref: ./sitesEnginesYahoo\index.yaml
+  $ref: ./sitesEnginesYahoo.yaml
 SitesEnginesYandex:
-  $ref: ./sitesEnginesYandex\index.yaml
+  $ref: ./sitesEnginesYandex.yaml
 StatsPosition:
-  $ref: ./statsPosition\index.yaml
+  $ref: ./statsPosition.yaml
 Violation:
-  $ref: ./violation\index.yaml
+  $ref: ./violation.yaml

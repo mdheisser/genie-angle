@@ -1,8 +1,0 @@
-type: object
-required:
-  - id
-  - email
-  - firstName
-  - lastName
-properties:
-  $ref: ./properties.yaml

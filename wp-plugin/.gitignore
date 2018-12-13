@@ -25,6 +25,7 @@ Desktop.ini
 *.iml
 
 node_modules
+bower_components
 package-lock.json
 
 # Debug log from npm

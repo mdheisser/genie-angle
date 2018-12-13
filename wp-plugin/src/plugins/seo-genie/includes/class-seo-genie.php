@@ -150,6 +150,13 @@ class Seo_Genie {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-remote-request.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/ajax.php';
 
+		/**
+		 * The class responsible for services.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/services/class-service.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/services/class-keyword-service.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/services/class-page-service.php';
+
 		$this->loader = new Seo_Genie_Loader();
 
 	}

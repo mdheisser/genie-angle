@@ -7,16 +7,25 @@ module.exports.main = (event, context, callback) => {
 
   connectToDatabase()
     .then(() => {
-        if (event.queryStringParameters) {
-            console.log('Get Pages of user own site');
-            Page.find({ "siteID" : event.queryStringParameters.siteId })
-                .then(pages => response.ok(pages, callback))
-                .catch(err => response.fail(err, callback))
-        } else {
-            console.log('Get All Pages');
-            Page.find()
-                .then(pages => response.ok(pages, callback))
-                .catch(err => response.fail(err, callback))
+      if (event.queryStringParameters) {
+        var query = {};
+
+        if (event.queryStringParameters.siteId) {
+          query['siteID'] = event.queryStringParameters.siteId
         }
+
+        if (event.queryStringParameters.pageUrl) {
+          query['pageUrl'] = event.queryStringParameters.pageUrl
+        }
+
+        Page.find(query)
+          .then(pages => response.ok(pages, callback))
+          .catch(err => response.fail(err, callback))
+      } else {
+        console.log('Get All Pages');
+        Page.find()
+          .then(pages => response.ok(pages, callback))
+          .catch(err => response.fail(err, callback))
+      }
     });
 };

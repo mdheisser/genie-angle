@@ -1,0 +1,9 @@
+type: object
+required:
+  - username
+  - code
+properties:
+  username:
+    type: string
+  code:
+    type: string

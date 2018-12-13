@@ -1,6 +1,0 @@
-type: object
-required:
-  - username
-  - code
-properties:
-  $ref: ./properties.yaml

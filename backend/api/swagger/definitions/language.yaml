@@ -1,0 +1,15 @@
+type: object
+properties:
+  name:
+    type: string
+  languageCode:
+    type: string
+  isGlobal:
+    type: boolean
+  dateCreated:
+    type: string
+    format: date-time
+  _id:
+    type: string
+  __v:
+    type: number
